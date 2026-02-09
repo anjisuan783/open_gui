@@ -90,6 +90,7 @@ Thumbs.db
 nul
 *.tmp
 *.temp
+touch
 
 # Test outputs
 *_output.log
@@ -105,6 +106,9 @@ logs_*.txt
 # Python files (temporary scripts)
 *.py
 __pycache__/
+
+# Temporary Java backup files
+temp_java/
 
 # Ignore app assets (large binary files)
 app/src/main/assets/whisper/ggml-tiny.en.bin
