@@ -21,20 +21,48 @@ public class WhisperCpuConfig {
             Log.d(TAG, "CPU configuration - Total cores: " + totalCores + 
                   ", High-performance cores: " + highPerfCores);
             
-            // Strategy: Use all cores for maximum throughput
-            // Whisper benefits from parallelization, especially on older devices
-            int recommendedThreads = totalCores;
-            
-            // Cap at 8 threads to avoid diminishing returns
-            if (recommendedThreads > 8) {
-                recommendedThreads = 8;
+            // 检测是否为骁龙 8+ Gen 1 (taro 平台)
+            boolean isSnapdragon8Gen1 = false;
+            try {
+                Class<?> systemPropertiesClass = Class.forName("android.os.SystemProperties");
+                java.lang.reflect.Method getMethod = systemPropertiesClass.getMethod("get", String.class);
+                String boardPlatform = (String) getMethod.invoke(null, "ro.board.platform");
+                String productBoard = (String) getMethod.invoke(null, "ro.product.board");
+                
+                isSnapdragon8Gen1 = (boardPlatform != null && boardPlatform.contains("taro")) ||
+                                   (productBoard != null && productBoard.contains("taro"));
+                
+                if (isSnapdragon8Gen1) {
+                    Log.d(TAG, "检测到骁龙 8+ Gen 1 (taro) 平台，应用异构架构优化");
+                }
+            } catch (Exception e) {
+                Log.d(TAG, "系统属性检测失败，使用通用策略", e);
             }
             
-            // Ensure at least 2 threads
-            recommendedThreads = Math.max(recommendedThreads, 2);
+            int recommendedThreads;
             
-            Log.d(TAG, "Recommended thread count: " + recommendedThreads);
-            Log.d(TAG, "Returning thread count: " + recommendedThreads);
+            if (isSnapdragon8Gen1) {
+                // 骁龙 8+ Gen 1 专用优化: 1×X2 + 3×A710 + 4×A510
+                // 策略: 使用所有核心 (8线程)，优先大核负载
+                // whisper.cpp 内部会进行负载均衡
+                recommendedThreads = 8; // 全部8个核心
+                Log.d(TAG, "骁龙 8+ Gen 1 优化: 使用 " + recommendedThreads + " 线程 (全部核心)");
+            } else {
+                // 通用策略: 使用所有核心，但上限为8
+                recommendedThreads = totalCores;
+                
+                // Cap at 8 threads to avoid diminishing returns
+                if (recommendedThreads > 8) {
+                    recommendedThreads = 8;
+                }
+                
+                // Ensure at least 2 threads
+                recommendedThreads = Math.max(recommendedThreads, 2);
+                
+                Log.d(TAG, "通用策略: 推荐线程数: " + recommendedThreads);
+            }
+            
+            Log.d(TAG, "最终线程数: " + recommendedThreads);
             return recommendedThreads;
             
         } catch (Exception e) {
