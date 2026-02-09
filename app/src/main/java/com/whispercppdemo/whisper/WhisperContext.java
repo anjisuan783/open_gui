@@ -14,6 +14,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
+import com.opencode.voiceassist.model.TranscriptionResult;
+
 public class WhisperContext {
 
     private static final String LOG_TAG = "LibWhisper";
@@ -25,30 +27,40 @@ public class WhisperContext {
         this.executorService = Executors.newSingleThreadExecutor();
     }
 
-    public String transcribeData(float[] data) throws ExecutionException, InterruptedException {
+    public TranscriptionResult transcribeData(float[] data) throws ExecutionException, InterruptedException {
         try {
-            return executorService.submit(new Callable<String>() {
+            return executorService.submit(new Callable<TranscriptionResult>() {
                 @RequiresApi(api = Build.VERSION_CODES.O)
                 @Override
-                public String call() throws Exception {
+                public TranscriptionResult call() throws Exception {
                     if (ptr == 0L) {
                         throw new IllegalStateException();
                     }
-                    // Force 2 threads for debugging on Huawei Mate9
-                    int numThreads = 2; // WhisperCpuConfig.getPreferredThreadCount();
-                    Log.d(LOG_TAG, "Selecting " + numThreads + " threads (forced for debugging)");
+                    // Use optimal thread count based on device CPU configuration
+                    int numThreads = WhisperCpuConfig.getPreferredThreadCount();
+                    Log.d(LOG_TAG, "Selecting " + numThreads + " threads (optimal for device)");
+                    double audioSeconds = data.length / 16000.0;
                     Log.d(LOG_TAG, "Audio data length: " + data.length + " samples (" + 
-                          (data.length / 16000.0) + " seconds)");
+                          audioSeconds + " seconds)");
+                    
+                    long startTime = System.currentTimeMillis();
                     WhisperLib.fullTranscribe(ptr, numThreads, data);
+                    long endTime = System.currentTimeMillis();
+                    
                     int textCount = WhisperLib.getTextSegmentCount(ptr);
+                    long transcriptionTime = endTime - startTime;
+                    double realtimeFactor = transcriptionTime / (audioSeconds * 1000.0);
                     Log.d(LOG_TAG, "Transcription complete, segments: " + textCount);
+                    Log.d(LOG_TAG, "Transcription time: " + transcriptionTime + " ms (" + 
+                          (transcriptionTime / 1000.0) + " seconds)");
+                    Log.d(LOG_TAG, "Realtime factor: " + String.format("%.1f", realtimeFactor) + "x (lower is faster)");
                     StringBuilder result = new StringBuilder();
                     for (int i = 0; i < textCount; i++) {
                         String segment = WhisperLib.getTextSegment(ptr, i);
                         result.append(segment);
                         Log.d(LOG_TAG, "Segment " + i + ": " + segment);
                     }
-                    return result.toString();
+                    return new TranscriptionResult(result.toString(), audioSeconds, transcriptionTime, realtimeFactor);
                 }
             }).get(300, TimeUnit.SECONDS); // 300 second (5 minute) timeout for very slow devices
         } catch (TimeoutException e) {

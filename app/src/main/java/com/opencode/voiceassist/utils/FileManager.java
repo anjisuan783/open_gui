@@ -22,22 +22,38 @@ public class FileManager {
     /**
      * Get the model file path
      * Supports manual placement method 2: /Android/data/package/files/whisper/
+     * Uses the specified model filename
+     */
+    public File getModelFile(String modelFilename) {
+        return new File(whisperDir, modelFilename);
+    }
+    
+    /**
+     * Get the model file path using default model (backward compatibility)
      */
     public File getModelFile() {
-        return new File(whisperDir, Constants.WHISPER_MODEL_FILENAME);
+        return getModelFile(Constants.DEFAULT_WHISPER_MODEL);
     }
     
     /**
      * Check if model file exists and is valid
+     * @param modelFilename the model filename to check
      */
-    public boolean isModelValid() {
-        File modelFile = getModelFile();
+    public boolean isModelValid(String modelFilename) {
+        File modelFile = getModelFile(modelFilename);
         if (!modelFile.exists()) {
             return false;
         }
         // Basic size check (tiny.en ~75MB)
-        long minSize = 50 * 1024 * 1024;
+        long minSize = 30 * 1024 * 1024; // Reduced for smaller quantized models
         return modelFile.length() >= minSize;
+    }
+    
+    /**
+     * Check if default model file exists and is valid (backward compatibility)
+     */
+    public boolean isModelValid() {
+        return isModelValid(Constants.DEFAULT_WHISPER_MODEL);
     }
     
     /**
@@ -65,8 +81,16 @@ public class FileManager {
     
     /**
      * Get the full path for manual placement (for display purposes)
+     * @param modelFilename the model filename
+     */
+    public String getModelPathForManualPlacement(String modelFilename) {
+        return whisperDir.getAbsolutePath() + "/" + modelFilename;
+    }
+    
+    /**
+     * Get the full path for manual placement using default model (backward compatibility)
      */
     public String getModelPathForManualPlacement() {
-        return whisperDir.getAbsolutePath() + "/" + Constants.WHISPER_MODEL_FILENAME;
+        return getModelPathForManualPlacement(Constants.DEFAULT_WHISPER_MODEL);
     }
 }

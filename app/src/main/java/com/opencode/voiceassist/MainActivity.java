@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,6 +29,7 @@ import com.opencode.voiceassist.manager.AudioRecorder;
 import com.opencode.voiceassist.manager.OpenCodeManager;
 import com.opencode.voiceassist.manager.WhisperManager;
 import com.opencode.voiceassist.model.Message;
+import com.opencode.voiceassist.model.TranscriptionResult;
 import com.opencode.voiceassist.ui.MessageAdapter;
 import com.opencode.voiceassist.utils.Constants;
 
@@ -106,7 +109,9 @@ public class MainActivity extends AppCompatActivity {
         audioRecorder = new AudioRecorder();
         
         // Initialize Whisper model (will skip download if fails)
-        new Thread(() -> whisperManager.initialize()).start();
+        String modelFilename = getSharedPreferences("settings", MODE_PRIVATE)
+                .getString("whisper_model", Constants.DEFAULT_WHISPER_MODEL);
+        new Thread(() -> whisperManager.initialize(modelFilename)).start();
         
         // Initialize OpenCode session (temporarily disabled)
         // new Thread(() -> openCodeManager.initializeSession()).start();
@@ -118,10 +123,10 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, "模型部署成功，录音功能已启用", Toast.LENGTH_SHORT).show();
                 updateButtonState(ButtonState.DEFAULT);
                 
-                // DISABLED: Automatic transcription test - wait for user input
-                // mainHandler.postDelayed(() -> {
-                //     runTranscriptionTest();
-                // }, 3000); // Wait 3 seconds for everything to settle
+                // Automatic transcription test to verify performance
+                mainHandler.postDelayed(() -> {
+                    runTranscriptionTest();
+                }, 3000); // Wait 3 seconds for everything to settle
             } else {
                 // Model initialization failed/skipped - disable recording
                 updateButtonState(ButtonState.DISABLED);
@@ -285,14 +290,17 @@ public class MainActivity extends AppCompatActivity {
         // Transcribe in background
         new Thread(() -> {
             android.util.Log.d("MainActivity", "Transcription thread started");
-            String text = whisperManager.transcribe(wavFile);
+            TranscriptionResult result = whisperManager.transcribe(wavFile);
             fileManager.deleteTempWavFile();
             
-            android.util.Log.d("MainActivity", "Transcription result: " + (text != null ? text : "null"));
+            android.util.Log.d("MainActivity", "Transcription result: " + (result != null ? result.getText() : "null"));
             
-            if (text != null && !text.trim().isEmpty()) {
+            if (result != null && result.getText() != null && !result.getText().trim().isEmpty()) {
                 android.util.Log.d("MainActivity", "Transcription successful, processing text...");
-                mainHandler.post(() -> processTranscribedText(text));
+                android.util.Log.d("MainActivity", "Performance data: audio=" + String.format("%.2f", result.getAudioLengthSeconds()) + "s, " +
+                      "processing=" + result.getProcessingTimeMs() + "ms, " +
+                      "realtime factor=" + String.format("%.1f", result.getRealtimeFactor()) + "x");
+                mainHandler.post(() -> processTranscribedText(result));
             } else {
                 android.util.Log.e("MainActivity", "Transcription returned null or empty");
                 mainHandler.post(() -> {
@@ -303,11 +311,15 @@ public class MainActivity extends AppCompatActivity {
         }).start();
     }
     
-    private void processTranscribedText(String text) {
+    private void processTranscribedText(TranscriptionResult result) {
+        String text = result.getText();
         android.util.Log.d("MainActivity", "Processing transcribed text: " + text);
         
-        // Add user message
-        addMessage(new Message(text, Message.TYPE_USER));
+        // Create user message with performance data
+        String userMessageContent = text + "\n\n[语音长度: " + String.format("%.2f", result.getAudioLengthSeconds()) + "秒, " +
+                                   "处理耗时: " + result.getProcessingTimeMs() + "毫秒, " +
+                                   "实时因子: " + String.format("%.1f", result.getRealtimeFactor()) + "x]";
+        addMessage(new Message(userMessageContent, Message.TYPE_USER));
         
         // TODO: Temporarily disabled OpenCode integration
         // Directly show assistant response instead of calling OpenCode
@@ -403,32 +415,91 @@ public class MainActivity extends AppCompatActivity {
         
         EditText etIp = view.findViewById(R.id.et_ip);
         EditText etPort = view.findViewById(R.id.et_port);
+        RadioGroup rgModel = view.findViewById(R.id.rg_model);
+        RadioButton rbModelOriginal = view.findViewById(R.id.rb_model_original);
+        RadioButton rbModelInt8 = view.findViewById(R.id.rb_model_int8);
+        RadioButton rbModelQ5_1 = view.findViewById(R.id.rb_model_q5_1);
         
         // Load saved settings
         String savedIp = getSharedPreferences("settings", MODE_PRIVATE).getString("opencode_ip", Constants.DEFAULT_OPENCODE_IP);
         int savedPort = getSharedPreferences("settings", MODE_PRIVATE).getInt("opencode_port", Constants.DEFAULT_OPENCODE_PORT);
+        String savedModel = getSharedPreferences("settings", MODE_PRIVATE).getString("whisper_model", Constants.DEFAULT_WHISPER_MODEL);
         
         etIp.setText(savedIp);
         etPort.setText(String.valueOf(savedPort));
         
+        // Set selected model radio button
+        if (savedModel.equals("ggml-tiny.en.bin")) {
+            rbModelOriginal.setChecked(true);
+        } else if (savedModel.equals("ggml-tiny.en-q8_0.bin")) {
+            rbModelInt8.setChecked(true);
+        } else if (savedModel.equals("ggml-tiny.en-q5_1.bin")) {
+            rbModelQ5_1.setChecked(true);
+        } else {
+            // Default to Q5_1 if unknown
+            rbModelQ5_1.setChecked(true);
+        }
+        
         builder.setView(view)
-            .setTitle("OpenCode配置")
+            .setTitle("配置设置")
             .setPositiveButton("保存", (dialog, which) -> {
                 String ip = etIp.getText().toString().trim();
                 int port = Integer.parseInt(etPort.getText().toString().trim());
                 
+                // Determine selected model
+                String selectedModel;
+                if (rbModelOriginal.isChecked()) {
+                    selectedModel = "ggml-tiny.en.bin";
+                } else if (rbModelInt8.isChecked()) {
+                    selectedModel = "ggml-tiny.en-q8_0.bin";
+                } else {
+                    selectedModel = "ggml-tiny.en-q5_1.bin";
+                }
+                
+                // Get previous model to check if it changed
+                String previousModel = getSharedPreferences("settings", MODE_PRIVATE).getString("whisper_model", Constants.DEFAULT_WHISPER_MODEL);
+                boolean modelChanged = !selectedModel.equals(previousModel);
+                
+                // Save all settings
                 getSharedPreferences("settings", MODE_PRIVATE)
                     .edit()
                     .putString("opencode_ip", ip)
                     .putInt("opencode_port", port)
+                    .putString("whisper_model", selectedModel)
                     .apply();
                 
                 // Reinitialize OpenCode with new settings (temporarily disabled)
                 if (openCodeManager != null) {
                     openCodeManager.updateSettings(ip, port);
-                    Toast.makeText(this, "配置已保存", Toast.LENGTH_SHORT).show();
+                }
+                
+                // Notify user about model change and reinitialize if needed
+                if (modelChanged) {
+                    Toast.makeText(this, 
+                        "模型已更改为: " + selectedModel + "\n正在重新初始化...", 
+                        Toast.LENGTH_LONG).show();
+                    
+                    // Disable recording while reinitializing
+                    updateButtonState(ButtonState.DISABLED);
+                    
+                    // Reset transcription test flag so new model will be tested
+                    transcriptionTested = false;
+                    
+                    // Reinitialize Whisper with new model in background thread
+                    new Thread(() -> {
+                        try {
+                            whisperManager.reinitialize(selectedModel);
+                        } catch (Exception e) {
+                            android.util.Log.e("MainActivity", "Failed to reinitialize model", e);
+                            mainHandler.post(() -> {
+                                Toast.makeText(this, 
+                                    "模型重新初始化失败，请重启应用", 
+                                    Toast.LENGTH_LONG).show();
+                            });
+                        }
+                    }).start();
                 } else {
-                    Toast.makeText(this, "配置已保存 (OpenCode功能已临时禁用)", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "配置已保存", Toast.LENGTH_SHORT).show();
                 }
             })
             .setNegativeButton("取消", null)
@@ -477,16 +548,22 @@ public class MainActivity extends AppCompatActivity {
                 Thread.sleep(1000);
                 
                 // Run transcription
-                String result = whisperManager.transcribe(tempFile);
+                TranscriptionResult result = whisperManager.transcribe(tempFile);
                 
-                if (result != null && !result.trim().isEmpty()) {
+                if (result != null && result.getText() != null && !result.getText().trim().isEmpty()) {
                     android.util.Log.d("MainActivity", "✓ Transcription test PASSED!");
-                    android.util.Log.d("MainActivity", "Test transcription result: " + result);
+                    android.util.Log.d("MainActivity", "Test transcription result: " + result.getText());
+                    android.util.Log.d("MainActivity", "Performance: audio=" + String.format("%.2f", result.getAudioLengthSeconds()) + "s, " +
+                          "processing=" + result.getProcessingTimeMs() + "ms, " +
+                          "realtime factor=" + String.format("%.1f", result.getRealtimeFactor()) + "x");
                     
                     // Show a brief toast (optional)
                     mainHandler.post(() -> {
-                        Toast.makeText(this, "语音识别测试通过: " + result.substring(0, Math.min(30, result.length())) + "...", 
-                            Toast.LENGTH_LONG).show();
+                        String toastText = "测试通过: " + result.getText().substring(0, Math.min(30, result.getText().length())) + "...\n" +
+                                         "音频: " + String.format("%.2f", result.getAudioLengthSeconds()) + "s, " +
+                                         "处理: " + result.getProcessingTimeMs() + "ms, " +
+                                         "RTF: " + String.format("%.1f", result.getRealtimeFactor()) + "x";
+                        Toast.makeText(this, toastText, Toast.LENGTH_LONG).show();
                     });
                 } else {
                     android.util.Log.e("MainActivity", "✗ Transcription test FAILED: null or empty result");

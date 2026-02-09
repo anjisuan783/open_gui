@@ -35,6 +35,48 @@
         android:layout_height="wrap_content"
         android:hint="端口号"
         android:inputType="number"
-        android:maxLength="5" />
+        android:maxLength="5"
+        android:layout_marginBottom="24dp" />
+
+    <!-- Separator -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        android:layout_marginBottom="16dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Whisper语音识别模型"
+        android:textSize="14sp"
+        android:textColor="@android:color/black"
+        android:layout_marginBottom="8dp" />
+
+    <RadioGroup
+        android:id="@+id/rg_model"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/rb_model_original"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="原始模型 (77MB, 精度最高)" />
+
+        <RadioButton
+            android:id="@+id/rb_model_int8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="INT8量化模型 (42MB, 速度较快)" />
+
+        <RadioButton
+            android:id="@+id/rb_model_q5_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Q5_1量化模型 (31MB, 速度最快)" />
+
+    </RadioGroup>
 
 </LinearLayout>

@@ -116,20 +116,21 @@ public class WaveEncoder {
         
         // Read audio data
         if (bytesPerSample == 2) {
-            // 16-bit samples
-            short[] shortArray = new short[sampleCount];
-            for (int i = 0; i < sampleCount; i++) {
-                shortArray[i] = byteBuffer.getShort();
-            }
-            
-            // Convert to float array with normalization
+            // 16-bit samples - optimized direct conversion to float
             float[] output = new float[sampleCount / channel];
             
-            for (int index = 0; index < output.length; index++) {
-                if (channel == 1) {
-                    output[index] = Math.max(-1f, Math.min(1f, shortArray[index] / 32767.0f));
-                } else {
-                    output[index] = Math.max(-1f, Math.min(1f, (shortArray[2 * index] + shortArray[2 * index + 1]) / 32767.0f / 2.0f));
+            if (channel == 1) {
+                // Mono: direct conversion
+                for (int i = 0; i < output.length; i++) {
+                    short sample = byteBuffer.getShort();
+                    output[i] = Math.max(-1f, Math.min(1f, sample / 32767.0f));
+                }
+            } else {
+                // Stereo: average channels
+                for (int i = 0; i < output.length; i++) {
+                    short left = byteBuffer.getShort();
+                    short right = byteBuffer.getShort();
+                    output[i] = Math.max(-1f, Math.min(1f, (left + right) / 32767.0f / 2.0f));
                 }
             }
             
