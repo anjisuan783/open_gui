@@ -26,6 +26,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.opencode.voiceassist.manager.AudioRecorder;
+import com.opencode.voiceassist.manager.CloudAsrManager;
+import com.opencode.voiceassist.manager.FunAsrWebSocketManager;
 import com.opencode.voiceassist.manager.OpenCodeManager;
 import com.opencode.voiceassist.manager.WhisperManager;
 import com.opencode.voiceassist.model.Message;
@@ -38,7 +40,6 @@ import java.io.InputStream;
 import java.io.FileOutputStream;
 import com.opencode.voiceassist.utils.FileManager;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,6 +60,8 @@ public class MainActivity extends AppCompatActivity {
     private OpenCodeManager openCodeManager;
     private AudioRecorder audioRecorder;
     private FileManager fileManager;
+    private CloudAsrManager cloudAsrManager;
+    private FunAsrWebSocketManager funAsrManager;
     
     private Handler mainHandler = new Handler(Looper.getMainLooper());
     private boolean transcriptionTested = true; // Default to skip test on first launch
@@ -104,6 +107,58 @@ public class MainActivity extends AppCompatActivity {
         setupRecordButton();
     }
     
+    /**
+     * Parse server URL string into host and port
+     * Supports formats: "http://host:port", "https://host:port", "host:port", "host"
+     * Returns array where [0] = host, [1] = port string
+     */
+    private static String[] parseServerUrl(String url) {
+        String host = "localhost";
+        String port = "4096";
+        
+        if (url == null || url.trim().isEmpty()) {
+            return new String[]{host, port};
+        }
+        
+        String trimmed = url.trim();
+        
+        // Remove http:// or https:// prefix
+        if (trimmed.startsWith("http://")) {
+            trimmed = trimmed.substring(7);
+        } else if (trimmed.startsWith("https://")) {
+            trimmed = trimmed.substring(8);
+        }
+        
+        // Split host and port
+        int colonIndex = trimmed.indexOf(':');
+        if (colonIndex > 0) {
+            host = trimmed.substring(0, colonIndex);
+            String portStr = trimmed.substring(colonIndex + 1);
+            // Remove path part if any
+            int slashIndex = portStr.indexOf('/');
+            if (slashIndex > 0) {
+                portStr = portStr.substring(0, slashIndex);
+            }
+            port = portStr;
+        } else {
+            host = trimmed;
+        }
+        
+        // Use defaults if host is empty
+        if (host.isEmpty()) {
+            host = "localhost";
+        }
+        
+        return new String[]{host, port};
+    }
+    
+    /**
+     * Format host and port into display URL string
+     */
+    private static String formatServerUrl(String host, int port) {
+        return "http://" + host + ":" + port;
+    }
+    
     private void initManagers() {
         fileManager = new FileManager(this);
         whisperManager = new WhisperManager(this, fileManager, this::onWhisperInitialized);
@@ -112,6 +167,22 @@ public class MainActivity extends AppCompatActivity {
         // openCodeManager.setInitializationCallback(this::onOpenCodeInitialized);
         openCodeManager = null; // Set to null to avoid NPE
         audioRecorder = new AudioRecorder();
+        
+        // Initialize Cloud ASR manager
+        String cloudAsrIp = getSharedPreferences("settings", MODE_PRIVATE)
+                .getString("cloud_asr_ip", Constants.DEFAULT_CLOUD_ASR_IP);
+        int cloudAsrPort = getSharedPreferences("settings", MODE_PRIVATE)
+                .getInt("cloud_asr_port", Constants.DEFAULT_CLOUD_ASR_PORT);
+        cloudAsrManager = new CloudAsrManager(this, cloudAsrIp, cloudAsrPort);
+        
+        // Initialize FunASR WebSocket manager
+        String funAsrHost = getSharedPreferences("settings", MODE_PRIVATE)
+                .getString("funasr_host", Constants.DEFAULT_FUNASR_HOST);
+        int funAsrPort = getSharedPreferences("settings", MODE_PRIVATE)
+                .getInt("funasr_port", Constants.DEFAULT_FUNASR_PORT);
+        String funAsrMode = getSharedPreferences("settings", MODE_PRIVATE)
+                .getString("funasr_mode", Constants.DEFAULT_FUNASR_MODE);
+        funAsrManager = new FunAsrWebSocketManager(this, funAsrHost, funAsrPort, funAsrMode);
         
         // Initialize Whisper model (will skip download if fails)
         String modelFilename = getSharedPreferences("settings", MODE_PRIVATE)
@@ -125,11 +196,26 @@ public class MainActivity extends AppCompatActivity {
     private void onWhisperInitialized(boolean success, String message) {
         mainHandler.post(() -> {
             if (success) {
-                // Check if auto test is enabled
+                // Check settings
                 boolean autoTestEnabled = getSharedPreferences("settings", MODE_PRIVATE)
                         .getBoolean("auto_test_on_model_change", true);
+                String asrBackend = getSharedPreferences("settings", MODE_PRIVATE)
+                        .getString("asr_backend", Constants.DEFAULT_ASR_BACKEND);
+                
+                String asrMode;
+                switch (asrBackend) {
+                    case Constants.ASR_BACKEND_CLOUD_HTTP:
+                        asrMode = "【云端ASR】";
+                        break;
+                    case Constants.ASR_BACKEND_FUNASR_WS:
+                        asrMode = "【FunASR】";
+                        break;
+                    default:
+                        asrMode = "【本地Whisper】";
+                        break;
+                }
                 String testInfo = autoTestEnabled ? "（将自动测试）" : "（已跳过测试）";
-                Toast.makeText(this, "模型部署成功，录音功能已启用" + testInfo, Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, asrMode + "录音功能已启用" + testInfo, Toast.LENGTH_SHORT).show();
                 updateButtonState(ButtonState.DEFAULT);
 
                 // Automatic transcription test to verify performance
@@ -296,28 +382,79 @@ public class MainActivity extends AppCompatActivity {
         
         android.util.Log.d("MainActivity", "WAV file looks good, starting transcription...");
         
-        // Transcribe in background
-        new Thread(() -> {
-            android.util.Log.d("MainActivity", "Transcription thread started");
-            TranscriptionResult result = whisperManager.transcribe(wavFile);
-            fileManager.deleteTempWavFile();
-            
-            android.util.Log.d("MainActivity", "Transcription result: " + (result != null ? result.getText() : "null"));
-            
-            if (result != null && result.getText() != null && !result.getText().trim().isEmpty()) {
-                android.util.Log.d("MainActivity", "Transcription successful, processing text...");
-                android.util.Log.d("MainActivity", "Performance data: audio=" + String.format("%.2f", result.getAudioLengthSeconds()) + "s, " +
-                      "processing=" + result.getProcessingTimeMs() + "ms, " +
-                      "realtime factor=" + String.format("%.1f", result.getRealtimeFactor()) + "x");
-                mainHandler.post(() -> processTranscribedText(result));
-            } else {
-                android.util.Log.e("MainActivity", "Transcription returned null or empty");
-                mainHandler.post(() -> {
-                    Toast.makeText(this, "语音识别失败，请重试", Toast.LENGTH_SHORT).show();
-                    updateButtonState(ButtonState.DEFAULT);
-                });
-            }
-        }).start();
+        // Get ASR backend setting
+        String asrBackend = getSharedPreferences("settings", MODE_PRIVATE)
+                .getString("asr_backend", Constants.DEFAULT_ASR_BACKEND);
+        
+        android.util.Log.d("MainActivity", "Using ASR backend: " + asrBackend);
+        
+        if (asrBackend.equals(Constants.ASR_BACKEND_CLOUD_HTTP)) {
+            // Use cloud ASR HTTP
+            android.util.Log.d("MainActivity", "Using cloud HTTP ASR for transcription");
+            cloudAsrManager.transcribe(wavFile, new CloudAsrManager.TranscriptionCallback() {
+                @Override
+                public void onSuccess(TranscriptionResult result) {
+                    fileManager.deleteTempWavFile();
+                    android.util.Log.d("MainActivity", "Cloud ASR result: " + result.getText());
+                    mainHandler.post(() -> processTranscribedText(result));
+                }
+                
+                @Override
+                public void onError(String error) {
+                    fileManager.deleteTempWavFile();
+                    android.util.Log.e("MainActivity", "Cloud ASR error: " + error);
+                    mainHandler.post(() -> {
+                        Toast.makeText(MainActivity.this, "云端ASR失败: " + error, Toast.LENGTH_SHORT).show();
+                        updateButtonState(ButtonState.DEFAULT);
+                    });
+                }
+            });
+        } else if (asrBackend.equals(Constants.ASR_BACKEND_FUNASR_WS)) {
+            // Use FunASR WebSocket
+            android.util.Log.d("MainActivity", "Using FunASR WebSocket for transcription");
+            funAsrManager.transcribe(wavFile, new FunAsrWebSocketManager.TranscriptionCallback() {
+                @Override
+                public void onSuccess(TranscriptionResult result) {
+                    fileManager.deleteTempWavFile();
+                    android.util.Log.d("MainActivity", "FunASR result: " + result.getText());
+                    mainHandler.post(() -> processTranscribedText(result));
+                }
+                
+                @Override
+                public void onError(String error) {
+                    fileManager.deleteTempWavFile();
+                    android.util.Log.e("MainActivity", "FunASR error: " + error);
+                    mainHandler.post(() -> {
+                        Toast.makeText(MainActivity.this, "FunASR失败: " + error, Toast.LENGTH_SHORT).show();
+                        updateButtonState(ButtonState.DEFAULT);
+                    });
+                }
+            });
+        } else {
+            // Use local Whisper ASR (default)
+            android.util.Log.d("MainActivity", "Using local Whisper ASR for transcription");
+            new Thread(() -> {
+                android.util.Log.d("MainActivity", "Transcription thread started");
+                TranscriptionResult result = whisperManager.transcribe(wavFile);
+                fileManager.deleteTempWavFile();
+                
+                android.util.Log.d("MainActivity", "Transcription result: " + (result != null ? result.getText() : "null"));
+                
+                if (result != null && result.getText() != null && !result.getText().trim().isEmpty()) {
+                    android.util.Log.d("MainActivity", "Transcription successful, processing text...");
+                    android.util.Log.d("MainActivity", "Performance data: audio=" + String.format("%.2f", result.getAudioLengthSeconds()) + "s, " +
+                          "processing=" + result.getProcessingTimeMs() + "ms, " +
+                          "realtime factor=" + String.format("%.1f", result.getRealtimeFactor()) + "x");
+                    mainHandler.post(() -> processTranscribedText(result));
+                } else {
+                    android.util.Log.e("MainActivity", "Transcription returned null or empty");
+                    mainHandler.post(() -> {
+                        Toast.makeText(MainActivity.this, "语音识别失败，请重试", Toast.LENGTH_SHORT).show();
+                        updateButtonState(ButtonState.DEFAULT);
+                    });
+                }
+            }).start();
+        }
     }
     
     private void processTranscribedText(TranscriptionResult result) {
@@ -423,12 +560,35 @@ public class MainActivity extends AppCompatActivity {
         View view = getLayoutInflater().inflate(R.layout.dialog_settings, null);
         
         EditText etIp = view.findViewById(R.id.et_ip);
-        EditText etPort = view.findViewById(R.id.et_port);
         RadioGroup rgModel = view.findViewById(R.id.rg_model);
         RadioButton rbModelOriginal = view.findViewById(R.id.rb_model_original);
         RadioButton rbModelInt8 = view.findViewById(R.id.rb_model_int8);
         RadioButton rbModelQ5_1 = view.findViewById(R.id.rb_model_q5_1);
         android.widget.CheckBox cbAutoTest = view.findViewById(R.id.cb_auto_test);
+        
+        // ASR Backend controls
+        RadioGroup rgAsrBackend = view.findViewById(R.id.rg_asr_backend);
+        RadioButton rbAsrLocal = view.findViewById(R.id.rb_asr_local);
+        RadioButton rbAsrCloudHttp = view.findViewById(R.id.rb_asr_cloud_http);
+        RadioButton rbAsrFunasrWs = view.findViewById(R.id.rb_asr_funasr_ws);
+        
+        // Cloud HTTP ASR configuration
+        TextView tvCloudAsrConfigLabel = view.findViewById(R.id.tv_cloud_asr_config_label);
+        TextView tvCloudAsrIpLabel = view.findViewById(R.id.tv_cloud_asr_ip_label);
+        EditText etCloudAsrIp = view.findViewById(R.id.et_cloud_asr_ip);
+        TextView tvCloudAsrPortLabel = view.findViewById(R.id.tv_cloud_asr_port_label);
+        EditText etCloudAsrPort = view.findViewById(R.id.et_cloud_asr_port);
+        
+        // FunASR WebSocket configuration
+        TextView tvFunasrConfigLabel = view.findViewById(R.id.tv_funasr_config_label);
+        TextView tvFunasrHostLabel = view.findViewById(R.id.tv_funasr_host_label);
+        EditText etFunasrHost = view.findViewById(R.id.et_funasr_host);
+        TextView tvFunasrPortLabel = view.findViewById(R.id.tv_funasr_port_label);
+        EditText etFunasrPort = view.findViewById(R.id.et_funasr_port);
+        TextView tvFunasrModeLabel = view.findViewById(R.id.tv_funasr_mode_label);
+        RadioGroup rgFunasrMode = view.findViewById(R.id.rg_funasr_mode);
+        RadioButton rbFunasrModeOffline = view.findViewById(R.id.rb_funasr_mode_offline);
+        RadioButton rbFunasrMode2pass = view.findViewById(R.id.rb_funasr_mode_2pass);
 
         // Load saved settings
         String savedIp = getSharedPreferences("settings", MODE_PRIVATE).getString("opencode_ip", Constants.DEFAULT_OPENCODE_IP);
@@ -436,29 +596,102 @@ public class MainActivity extends AppCompatActivity {
         String savedModel = getSharedPreferences("settings", MODE_PRIVATE).getString("whisper_model", Constants.DEFAULT_WHISPER_MODEL);
         boolean autoTestEnabled = getSharedPreferences("settings", MODE_PRIVATE).getBoolean("auto_test_on_model_change", true);
         
-        etIp.setText(savedIp);
-        etPort.setText(String.valueOf(savedPort));
+        // Load ASR backend settings
+        String asrBackend = getSharedPreferences("settings", MODE_PRIVATE).getString("asr_backend", Constants.DEFAULT_ASR_BACKEND);
+        String cloudAsrIp = getSharedPreferences("settings", MODE_PRIVATE).getString("cloud_asr_ip", Constants.DEFAULT_CLOUD_ASR_IP);
+        int cloudAsrPort = getSharedPreferences("settings", MODE_PRIVATE).getInt("cloud_asr_port", Constants.DEFAULT_CLOUD_ASR_PORT);
+        String funAsrHost = getSharedPreferences("settings", MODE_PRIVATE).getString("funasr_host", Constants.DEFAULT_FUNASR_HOST);
+        int funAsrPort = getSharedPreferences("settings", MODE_PRIVATE).getInt("funasr_port", Constants.DEFAULT_FUNASR_PORT);
+        String funAsrMode = getSharedPreferences("settings", MODE_PRIVATE).getString("funasr_mode", Constants.DEFAULT_FUNASR_MODE);
         
-        // Set selected model radio button
-        if (savedModel.equals("ggml-tiny.en.bin")) {
-            rbModelOriginal.setChecked(true);
-        } else if (savedModel.equals("ggml-tiny.en-q8_0.bin")) {
-            rbModelInt8.setChecked(true);
-        } else if (savedModel.equals("ggml-tiny.en-q5_1.bin")) {
-            rbModelQ5_1.setChecked(true);
-        } else {
-            // Default to Q5_1 if unknown
-            rbModelQ5_1.setChecked(true);
+        // Clean host string: remove port if included (for backward compatibility)
+        if (funAsrHost.contains(":")) {
+            funAsrHost = funAsrHost.split(":")[0];
         }
-
-        // Set auto test checkbox state
-        cbAutoTest.setChecked(autoTestEnabled);
-
+        
+        etIp.setText(formatServerUrl(savedIp, savedPort));
+        
+        // Set ASR backend radio button
+        if (asrBackend.equals(Constants.ASR_BACKEND_CLOUD_HTTP)) {
+            rbAsrCloudHttp.setChecked(true);
+        } else if (asrBackend.equals(Constants.ASR_BACKEND_FUNASR_WS)) {
+            rbAsrFunasrWs.setChecked(true);
+        } else {
+            rbAsrLocal.setChecked(true);
+        }
+        
+        // Set Cloud ASR settings
+        etCloudAsrIp.setText(cloudAsrIp);
+        etCloudAsrPort.setText(String.valueOf(cloudAsrPort));
+        
+        // Set FunASR settings
+        etFunasrHost.setText(funAsrHost);
+        etFunasrPort.setText(String.valueOf(funAsrPort));
+        if (funAsrMode.equals("2pass")) {
+            rbFunasrMode2pass.setChecked(true);
+        } else {
+            rbFunasrModeOffline.setChecked(true);
+        }
+        
+        // Function to update UI visibility based on ASR backend selection
+        java.util.function.Consumer<String> updateBackendUI = (backend) -> {
+            boolean isLocal = backend.equals(Constants.ASR_BACKEND_LOCAL);
+            boolean isCloudHttp = backend.equals(Constants.ASR_BACKEND_CLOUD_HTTP);
+            boolean isFunasrWs = backend.equals(Constants.ASR_BACKEND_FUNASR_WS);
+            
+            // Update local model options visibility and state
+            rbModelOriginal.setEnabled(isLocal);
+            rbModelInt8.setEnabled(isLocal);
+            rbModelQ5_1.setEnabled(isLocal);
+            rgModel.setAlpha(isLocal ? 1.0f : 0.5f);
+            cbAutoTest.setEnabled(isLocal);
+            cbAutoTest.setAlpha(isLocal ? 1.0f : 0.5f);
+            
+            // Update Cloud ASR config visibility
+            int cloudVisibility = isCloudHttp ? View.VISIBLE : View.GONE;
+            tvCloudAsrConfigLabel.setVisibility(cloudVisibility);
+            tvCloudAsrIpLabel.setVisibility(cloudVisibility);
+            etCloudAsrIp.setVisibility(cloudVisibility);
+            tvCloudAsrPortLabel.setVisibility(cloudVisibility);
+            etCloudAsrPort.setVisibility(cloudVisibility);
+            
+            // Update FunASR config visibility
+            int funasrVisibility = isFunasrWs ? View.VISIBLE : View.GONE;
+            tvFunasrConfigLabel.setVisibility(funasrVisibility);
+            tvFunasrHostLabel.setVisibility(funasrVisibility);
+            etFunasrHost.setVisibility(funasrVisibility);
+            tvFunasrPortLabel.setVisibility(funasrVisibility);
+            etFunasrPort.setVisibility(funasrVisibility);
+            tvFunasrModeLabel.setVisibility(funasrVisibility);
+            rgFunasrMode.setVisibility(funasrVisibility);
+        };
+        
+        // Apply initial state
+        updateBackendUI.accept(asrBackend);
+        
+        // Listen for ASR backend changes
+        rgAsrBackend.setOnCheckedChangeListener((group, checkedId) -> {
+            String backend = Constants.ASR_BACKEND_LOCAL;
+            if (checkedId == R.id.rb_asr_cloud_http) {
+                backend = Constants.ASR_BACKEND_CLOUD_HTTP;
+            } else if (checkedId == R.id.rb_asr_funasr_ws) {
+                backend = Constants.ASR_BACKEND_FUNASR_WS;
+            }
+            updateBackendUI.accept(backend);
+        });
+        
         builder.setView(view)
             .setTitle("配置设置")
             .setPositiveButton("保存", (dialog, which) -> {
-                String ip = etIp.getText().toString().trim();
-                int port = Integer.parseInt(etPort.getText().toString().trim());
+                 String url = etIp.getText().toString().trim();
+                 String[] serverParts = parseServerUrl(url);
+                 String ip = serverParts[0];
+                 int port;
+                 try {
+                     port = Integer.parseInt(serverParts[1]);
+                 } catch (NumberFormatException e) {
+                     port = Constants.DEFAULT_OPENCODE_PORT;
+                 }
                 
                 // Determine selected model
                 String selectedModel;
@@ -474,6 +707,27 @@ public class MainActivity extends AppCompatActivity {
                 String previousModel = getSharedPreferences("settings", MODE_PRIVATE).getString("whisper_model", Constants.DEFAULT_WHISPER_MODEL);
                 boolean modelChanged = !selectedModel.equals(previousModel);
                 boolean autoTestOnChange = cbAutoTest.isChecked();
+                
+                // Determine selected ASR backend
+                String newAsrBackend = Constants.ASR_BACKEND_LOCAL;
+                if (rbAsrCloudHttp.isChecked()) {
+                    newAsrBackend = Constants.ASR_BACKEND_CLOUD_HTTP;
+                } else if (rbAsrFunasrWs.isChecked()) {
+                    newAsrBackend = Constants.ASR_BACKEND_FUNASR_WS;
+                }
+                
+                // Update cloud ASR settings from current values
+                String newCloudAsrIp = etCloudAsrIp.getText().toString().trim();
+                int newCloudAsrPort = Integer.parseInt(etCloudAsrPort.getText().toString().trim());
+                
+                // Update FunASR settings from current values
+                String newFunAsrHost = etFunasrHost.getText().toString().trim();
+                // Clean host string: remove port if included
+                if (newFunAsrHost.contains(":")) {
+                    newFunAsrHost = newFunAsrHost.split(":")[0];
+                }
+                int newFunAsrPort = Integer.parseInt(etFunasrPort.getText().toString().trim());
+                String newFunAsrMode = rbFunasrMode2pass.isChecked() ? "2pass" : "offline";
 
                 // Save all settings
                 getSharedPreferences("settings", MODE_PRIVATE)
@@ -482,7 +736,17 @@ public class MainActivity extends AppCompatActivity {
                     .putInt("opencode_port", port)
                     .putString("whisper_model", selectedModel)
                     .putBoolean("auto_test_on_model_change", autoTestOnChange)
+                    .putString("asr_backend", newAsrBackend)
+                    .putString("cloud_asr_ip", newCloudAsrIp)
+                    .putInt("cloud_asr_port", newCloudAsrPort)
+                    .putString("funasr_host", newFunAsrHost)
+                    .putInt("funasr_port", newFunAsrPort)
+                    .putString("funasr_mode", newFunAsrMode)
                     .apply();
+                
+                // Update managers with new settings
+                cloudAsrManager.updateSettings(newCloudAsrIp, newCloudAsrPort);
+                funAsrManager.updateSettings(newFunAsrHost, newFunAsrPort, newFunAsrMode);
                 
                 // Reinitialize OpenCode with new settings (temporarily disabled)
                 if (openCodeManager != null) {

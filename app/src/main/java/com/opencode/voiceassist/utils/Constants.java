@@ -38,8 +38,8 @@ public class Constants {
     
     // OpenCode Default Configuration
     // Note: Change this to your computer's IP address on the same network
-    public static final String DEFAULT_OPENCODE_IP = "192.168.1.100";
-    public static final int DEFAULT_OPENCODE_PORT = 3000;
+    public static final String DEFAULT_OPENCODE_IP = "localhost";
+    public static final int DEFAULT_OPENCODE_PORT = 4096;
     
     // Audio Recording Configuration
     public static final int AUDIO_SAMPLE_RATE = 16000;
@@ -48,4 +48,19 @@ public class Constants {
     // UI Constants
     public static final long TOAST_DURATION_SHORT = 2000;
     public static final long TOAST_DURATION_LONG = 3000;
+
+    // Cloud ASR Configuration
+    public static final String DEFAULT_CLOUD_ASR_IP = "192.168.1.100";
+    public static final int DEFAULT_CLOUD_ASR_PORT = 8080;
+    
+    // FunASR WebSocket Configuration
+    public static final String DEFAULT_FUNASR_HOST = "67.0.0.5";
+    public static final int DEFAULT_FUNASR_PORT = 10095;
+    public static final String DEFAULT_FUNASR_MODE = "2pass"; // "offline" or "2pass"
+    
+    // ASR Backend Types
+    public static final String ASR_BACKEND_LOCAL = "local";
+    public static final String ASR_BACKEND_CLOUD_HTTP = "cloud_http";
+    public static final String ASR_BACKEND_FUNASR_WS = "funasr_ws";
+    public static final String DEFAULT_ASR_BACKEND = ASR_BACKEND_LOCAL;
 }

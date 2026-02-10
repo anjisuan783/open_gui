@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:fillViewport="true"
+    android:padding="8dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="12dp">
 
     <TextView
         android:layout_width="wrap_content"
@@ -17,33 +23,16 @@
         android:id="@+id/et_ip"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="IP地址"
-        android:inputType="text"
-        android:layout_marginBottom="16dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="端口号"
-        android:textSize="14sp"
-        android:textColor="@android:color/black"
-        android:layout_marginBottom="8dp" />
-
-    <EditText
-        android:id="@+id/et_port"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="端口号"
-        android:inputType="number"
-        android:maxLength="5"
-        android:layout_marginBottom="24dp" />
+        android:hint="http://localhost:4096"
+        android:inputType="textUri"
+        android:layout_marginBottom="12dp" />
 
     <!-- Separator -->
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@android:color/darker_gray"
-        android:layout_marginBottom="16dp" />
+        android:layout_marginBottom="12dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -84,8 +73,8 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@android:color/darker_gray"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp" />
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp" />
 
     <CheckBox
         android:id="@+id/cb_auto_test"
@@ -103,4 +92,180 @@
         android:layout_marginLeft="32dp"
         android:layout_marginTop="4dp" />
 
-</LinearLayout>
+    <!-- Separator -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="语音识别后端"
+        android:textSize="14sp"
+        android:textColor="@android:color/black"
+        android:layout_marginBottom="8dp" />
+
+    <RadioGroup
+        android:id="@+id/rg_asr_backend"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="12dp">
+
+        <RadioButton
+            android:id="@+id/rb_asr_local"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="本地Whisper (推荐⭐ 设备端加速，无需网络)" />
+
+        <RadioButton
+            android:id="@+id/rb_asr_cloud_http"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="云端ASR HTTP (HTTP API，兼容性好)" />
+
+        <RadioButton
+            android:id="@+id/rb_asr_funasr_ws"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="FunASR WebSocket (实时流式，准确率高)" />
+
+    </RadioGroup>
+
+    <!-- Cloud HTTP ASR Configuration -->
+    <TextView
+        android:id="@+id/tv_cloud_asr_config_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="云端ASR HTTP配置"
+        android:textSize="14sp"
+        android:textColor="@android:color/darker_gray"
+        android:layout_marginBottom="8dp"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/tv_cloud_asr_ip_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="服务器地址"
+        android:textSize="14sp"
+        android:textColor="@android:color/darker_gray"
+        android:layout_marginBottom="8dp"
+        android:visibility="gone" />
+
+    <EditText
+        android:id="@+id/et_cloud_asr_ip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="IP地址"
+        android:inputType="text"
+        android:layout_marginBottom="12dp"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/tv_cloud_asr_port_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="端口号"
+        android:textSize="14sp"
+        android:textColor="@android:color/darker_gray"
+        android:layout_marginBottom="8dp"
+        android:visibility="gone" />
+
+    <EditText
+        android:id="@+id/et_cloud_asr_port"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="端口号"
+        android:inputType="number"
+        android:maxLength="5"
+        android:layout_marginBottom="12dp"
+        android:visibility="gone" />
+
+    <!-- FunASR WebSocket Configuration -->
+    <TextView
+        android:id="@+id/tv_funasr_config_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="FunASR WebSocket配置"
+        android:textSize="14sp"
+        android:textColor="@android:color/darker_gray"
+        android:layout_marginBottom="8dp"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/tv_funasr_host_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="服务器地址"
+        android:textSize="14sp"
+        android:textColor="@android:color/darker_gray"
+        android:layout_marginBottom="8dp"
+        android:visibility="gone" />
+
+    <EditText
+        android:id="@+id/et_funasr_host"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="主机名或IP地址 (例如: 67.0.0.5)"
+        android:inputType="text"
+        android:layout_marginBottom="12dp"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/tv_funasr_port_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="端口号"
+        android:textSize="14sp"
+        android:textColor="@android:color/darker_gray"
+        android:layout_marginBottom="8dp"
+        android:visibility="gone" />
+
+    <EditText
+        android:id="@+id/et_funasr_port"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="端口号 (默认: 10095)"
+        android:inputType="number"
+        android:maxLength="5"
+        android:layout_marginBottom="12dp"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/tv_funasr_mode_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="识别模式"
+        android:textSize="14sp"
+        android:textColor="@android:color/darker_gray"
+        android:layout_marginBottom="8dp"
+        android:visibility="gone" />
+
+    <RadioGroup
+        android:id="@+id/rg_funasr_mode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="16dp"
+        android:visibility="gone">
+
+        <RadioButton
+            android:id="@+id/rb_funasr_mode_offline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="离线模式 (一句话识别，非流式)" />
+
+        <RadioButton
+            android:id="@+id/rb_funasr_mode_2pass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2pass模式 (实时流式，句尾离线修正)" />
+
+    </RadioGroup>
+
+    </LinearLayout>
+</ScrollView>
