@@ -1,0 +1,15 @@
+--------- beginning of system
+--------- beginning of main
+02-09 16:44:27.240 D/WhisperManager( 1474): Native library dir: /data/app/com.opencode.voiceassist-GBmciHFGBp3LxbTdIfhURw==/lib/arm64
+02-09 16:44:27.240 D/WhisperManager( 1474): Native lib files: [libwhisper.so, libwhisper_v8fp16_va.so]
+02-09 16:44:27.240 D/WhisperManager( 1474): Copying model from assets: whisper/ggml-tiny.en-q8_0.bin
+02-09 16:44:27.241 E/WhisperManager( 1474): Failed to copy model from assets
+02-09 16:44:27.241 E/WhisperManager( 1474): java.io.FileNotFoundException: whisper/ggml-tiny.en-q8_0.bin
+02-09 16:44:27.241 E/WhisperManager( 1474): 	at android.content.res.AssetManager.nativeOpenAsset(Native Method)
+02-09 16:44:27.241 E/WhisperManager( 1474): 	at android.content.res.AssetManager.open(AssetManager.java:865)
+02-09 16:44:27.241 E/WhisperManager( 1474): 	at android.content.res.AssetManager.open(AssetManager.java:842)
+02-09 16:44:27.241 E/WhisperManager( 1474): 	at com.opencode.voiceassist.manager.WhisperManager.copyModelFromAssets(WhisperManager.java:143)
+02-09 16:44:27.241 E/WhisperManager( 1474): 	at com.opencode.voiceassist.manager.WhisperManager.initialize(WhisperManager.java:117)
+02-09 16:44:27.241 E/WhisperManager( 1474): 	at com.opencode.voiceassist.MainActivity.lambda$initManagers$1$com-opencode-voiceassist-MainActivity(MainActivity.java:110)
+02-09 16:44:27.241 E/WhisperManager( 1474): 	at com.opencode.voiceassist.MainActivity$$ExternalSyntheticLambda14.run(Unknown Source:2)
+02-09 16:44:27.241 E/WhisperManager( 1474): 	at java.lang.Thread.run(Thread.java:784)

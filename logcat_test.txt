@@ -1,0 +1,8 @@
+﻿--------- beginning of main
+--------- beginning of system
+02-09 09:52:51.000 D/WhisperManager( 7180): Native library dir: /data/app/com.opencode.voiceassist-KckB4OrgunIv00Eyw9tdUA==/lib/arm64
+02-09 09:52:51.000 D/WhisperManager( 7180): Native lib files: [libwhisper.so, libwhisper_v8fp16_va.so]
+02-09 09:52:51.001 D/WhisperManager( 7180): Loading model from: /data/user/0/com.opencode.voiceassist/files/whisper/ggml-tiny.en.bin
+02-09 09:52:51.002 D/WhisperManager( 7180): Model file exists: true, size: 77704715
+02-09 09:52:51.024 D/WhisperManager( 7180): Creating Whisper instance, GPU: true
+02-09 09:52:58.410 D/WhisperManager( 7180): Model loaded successfully

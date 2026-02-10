@@ -1,0 +1,452 @@
+﻿
+02-08 16:35:38.692  1575  3107 I NetworkStats: openSessionForUsageStats, pid = 17254, pkg = com.tencent.mm
+02-08 16:35:38.701  1575  3120 I NetworkStats: openSessionForUsageStats, pid = 17254, pkg = com.tencent.mm
+02-08 16:35:41.619  1575  2378 I ActivityManager: START u0 {flg=0x10000000 hwFlg=0x10 
+cmp=com.opencode.voiceassist/.MainActivity} from uid 2000
+02-08 16:35:41.624  1575  2378 E ActivityManager: START {flg=0x10000000 hwFlg=0x10 
+cmp=com.opencode.voiceassist/.MainActivity} result: -92
+02-08 16:36:18.125  1575  2381 I NetworkStats: openSessionForUsageStats, pid = 2101, pkg = com.huawei.hiview
+02-08 16:36:18.126  1575  2381 I NetworkStats: openSessionInternal,pid = 2101
+02-08 16:36:18.147  1575  2381 I NetworkStats: openSessionForUsageStats, pid = 2101, pkg = com.huawei.hiview
+02-08 16:36:18.147  1575  2381 I NetworkStats: openSessionInternal,pid = 2101
+02-08 16:36:19.146 12894 13140 I HiDecision: RuleEngineSession: fire cost time = 45
+02-08 16:36:22.254  1575  1585 I NetworkStats: openSessionForUsageStats, pid = 25775, pkg = com.tencent.mm
+02-08 16:36:22.254  1575  1585 I NetworkStats: openSessionInternal,pid = 25775
+02-08 16:36:22.331  1575  2381 I NetworkStats: openSessionForUsageStats, pid = 25775, pkg = com.tencent.mm
+02-08 16:36:28.408 16909 16909 I Finsky  : [1] com.google.android.finsky.verifier.impl.fc.c(173): Verification 
+complete: id=25, package_name=com.opencode.voiceassist
+02-08 16:36:28.417  1575  1626 D PackageManager: installPackageLI-> install derivePackageAbi case, pkg=Package{22c6bb5 
+com.opencode.voiceassist}, primaryCpuAbi=arm64-v8a
+02-08 16:36:28.422  1575  1626 I PackageManager: top pkgName: com.huawei.appmarket, update pkgName: 
+com.opencode.voiceassist
+02-08 16:36:28.422  1575  1626 D PackageManager: mFrozenPackages add package:com.opencode.voiceassist
+02-08 16:36:28.655   883 29587 E cutils  : Go to create: /data/data/com.opencode.voiceassist
+02-08 16:36:28.656   883 29587 W cutils  : Expected path /data/data/com.opencode.voiceassist with owner 10167 mode 700 
+but found 784362736 2610,to be fixed...
+02-08 16:36:28.656   883 29587 W cutils  : path /data/data/com.opencode.voiceassist fix completed
+02-08 16:36:28.661   883 29587 E cutils  : Go to create: /data/user_de/0/com.opencode.voiceassist
+02-08 16:36:28.661   883 29587 W cutils  : Expected path /data/user_de/0/com.opencode.voiceassist with owner 10167 
+mode 700 but found 784362720 6107,to be fixed...
+02-08 16:36:28.661   883 29587 W cutils  : path /data/user_de/0/com.opencode.voiceassist fix completed
+02-08 16:36:28.663  1575  1626 D PackageManager: mFrozenPackages remove package:com.opencode.voiceassist
+02-08 16:36:28.663   883 29587 I installd:  prepareAppProfile packageName is com.opencode.voiceassist codePath is 
+/data/app/com.opencode.voiceassist-a2Moeh2dH3HEoRRmH7-1-Q==/base.apk start! 
+02-08 16:36:28.665   883 29587 I installd:  prepareAppProfile packageName is com.opencode.voiceassist codePath is 
+/data/app/com.opencode.voiceassist-a2Moeh2dH3HEoRRmH7-1-Q==/base.apk aidl_return is 1 took time is 199 ms 
+02-08 16:36:28.671  1575  1626 I HwPackageManagerServiceEx: insertAppInfo pkgName:com.opencode.voiceassist 
+time:368497490
+02-08 16:36:28.672  1575  1626 V BackupManagerService: restoreAtInstall pkg=com.opencode.voiceassist token=1a 
+restoreSet=0
+02-08 16:36:28.675  1575  1626 I HwPackageManagerServiceEx: addGrantedInstalledPkg not granted: 
+com.opencode.voiceassist
+02-08 16:36:28.727  1575  1626 W HwAppAuthManager: Cannot find pacakge : com.opencode.voiceassist
+02-08 16:36:28.727  1575  1626 W HwAppAuthManager: Cannot find pacakge : com.opencode.voiceassist
+02-08 16:36:28.745  1575  1626 V HwPackageManagerServiceEx: POST_INSTALL:  pkgName = com.opencode.voiceassist, pkgUri 
+= /data/app/vmdl1153600032.tmp;, pkgInstalledPath = /data/app/vmdl1153600032.tmp, pkgInstallerPackageName = , 
+pkgVerName = 1.0, pkgVerCode = 1, resultCode = 1, pkgUpdate = false
+02-08 16:36:28.747  1575  1626 I HwPackageManagerServiceUtils: upload install bigdata for PMS install third partyapp: 
+com.opencode.voiceassist
+02-08 16:36:28.748  1575  1626 I HwPackageManagerServiceUtils: { PACKAGENAME:com.opencode.voiceassist, 
+PACKAGEVERSION:1.0, PACKAGESIGNATRUE:8013ab8, CALLPACKAGENAME:unknown, INITIATINGPACKAGENAME_UID:2000, 
+ORIGINATINGPACKAGENAME:unknown, INSTALLERPACKAGENAME:unknown, ISUPDATE:false, DEVELOPERCERT:OpenSSLRSAPublicKey{modulus
+=c8ad843e763cfff373b69168a815d873ffa5439abf9132586932f372e32af91ea8309a73bbfc083d445643cca9e60f1ffa42c2a03a29e5940ea770
+fb39644ed964d7d08fac23ee8fb6e1eb0e293ad5614a5b367bb080366276a1f8bb5620edd8b361a5021f50521540b2648a9438b86a8ac8a9c275068
+e90ba35e0d9ed1715610d30b9373fa9eff9eea7c130e6c98ecc25ab57b26b5d4a6624783587a79b2d4d2fbb0d14946f040d473d1de0b904788c63db
+d3b13a42122d681c5ebfda9cca8d099802d0a2827ffe9ad6490359fa81fb9b86948cb1723719f3584959dc068ced2a04ea027069df4c3c60a3e826d
+0defe2c812def0803f984fee98002382e9855,publicExponent=10001}_cert1, PACKAGEHASH:unknown, PACKAGELABELNAME:OpenCode 
+Voice Assist…}
+02-08 16:36:28.836  6437  6437 I PushLogSys: sys push system receiver get action is 
+android.intent.action.PACKAGE_ADDED. pkgName is com.opencode.voiceassist
+02-08 16:36:28.841  4982  4982 I Search-16.0.8.305-HiSearch: [SystemBehaviorReceiver]:onReceive intent: Intent { 
+act=android.intent.action.PACKAGE_ADDED dat=package:com.opencode.voiceassist flg=0x4000010 (has extras) }
+02-08 16:36:28.849  1575  1575 D SecurityProfileService: updatePackageInformation,packageName:com.opencode.voiceassist
+02-08 16:36:28.850 24276 24317 W HiApp.PM/DealTheTaskWhenInstalled: pool-9-thread-1{3512}  gtask is null, pkg: 
+com.opencode.voiceassist
+02-08 16:36:28.851 12894 12894 I HiDecision: PackageRecevier: PackageReceiver: action is: 
+android.intent.action.PACKAGE_ADDED, pkg：com.opencode.voiceassist
+02-08 16:36:28.858  2059  2059 D DEF_PackageChangedBroadcastReceiver: onReceive com.opencode.voiceassist 
+android.intent.action.PACKAGE_ADDED replacing: false
+02-08 16:36:28.859  2059  2059 D SmartDualCardConfig: onPackageInstallStateUpdate 
+uid=10167,appName=com.opencode.voiceassist,packageAddFlag=1
+02-08 16:36:28.869 24276 24276 I PackageReceiver: not daemon app or action is null : com.opencode.voiceassist, action 
+: android.intent.action.PACKAGE_ADDED
+02-08 16:36:28.879   880  1696 D dubaid  : [SystemHandler.cpp] onPackageAddedMessage# Add uid: 10167, package: 
+com.opencode.voiceassist, version: 1.0
+02-08 16:36:28.896 16039 16039 I Linker-11.1.30.300-gammaHuaweiMarket-12.22 17:24: [AdPackageCache]onReceiveMsg, 
+action: android.intent.action.PACKAGE_ADDED, packageName: com.opencode.voiceassist
+02-08 16:36:28.897   895 17979 D AwareLog: processMsg_fn msg 601,fd 39,package name com.opencode.voiceassist
+02-08 16:36:28.897   895 17979 D         : gmr: processGameMsg fd 39,com.opencode.voiceassist,27
+02-08 16:36:28.897   895 17979 D         : gmr: getPackagePath Successfully 
+path,com.opencode.voiceassist-a2Moeh2dH3HEoRRmH7-1-Q==
+02-08 16:36:28.916  4721  4762 W HSM_BG  : getSignaturesCode:package com.opencode.voiceassist has no signatures.
+02-08 16:36:28.933  4721  4761 W HSM_BG  : getSignaturesCode:package com.opencode.voiceassist has no signatures.
+02-08 16:36:28.942  1575  1575 W SecurityProfileService: Policy block not found:No APK Signature Scheme v2 block in 
+APK Signing Block,apkPath:/data/app/com.opencode.voiceassist-a2Moeh2dH3HEoRRmH7-1-Q==/base.apk
+02-08 16:36:28.943  1575  1575 I SecurityProfileService: update PackageSigned Info Action:put, 
+packageName:com.opencode.voiceassist,hasValidPolicy:false
+02-08 16:36:28.966  2117 20983 I ChannelListenerEntry: binderDied:myPid=25602 myPkgName=com.huawei.pengine 
+myBusName=com.huawei.pengine-session
+02-08 16:36:28.969  2117 20983 I ChannelListenerEntry: unlinkToDeath:com.huawei.pengine-session
+02-08 16:36:28.969  2117 20983 I ChannelListenerManager: removeEntry myPkgName=com.huawei.pengine 
+myBusName=com.huawei.pengine-session
+02-08 16:36:28.980  2213  2213 D ImsResolver: maybeAddedImsService, packageName: com.opencode.voiceassist
+02-08 16:36:29.035 19078 18005 I ChromeSync: [Sync,SyncIntentOperation] Handling the intent: Intent { 
+act=android.intent.action.PACKAGE_ADDED dat=package:com.opencode.voiceassist flg=0x4000010 
+cmp=com.google.android.gms/.chimera.GmsIntentOperationService (has extras) }.
+02-08 16:36:29.037 19078 18000 I FontsPackageChangeOp: Package com.opencode.voiceassist has no metadata
+02-08 16:36:29.050  2717 18002 W GCM     : Unexpected forwarded intent: Intent { 
+act=android.intent.action.PACKAGE_ADDED dat=package:com.opencode.voiceassist flg=0x4000010 
+cmp=com.google.android.gms/.chimera.PersistentIntentOperationService (has extras) }
+02-08 16:36:29.063  2717 17992 W GCM     : Unexpected forwarded intent: Intent { 
+act=android.intent.action.PACKAGE_ADDED dat=package:com.opencode.voiceassist flg=0x4000010 
+cmp=com.google.android.gms/.chimera.PersistentIntentOperationService (has extras) }
+02-08 16:36:29.079  4721 18013 D HwSignedInfo: com.opencode.voiceassist,installer:
+02-08 16:36:29.087  1575  3114 D SecurityProfileService: removeLabel:com.opencode.voiceassist
+02-08 16:36:29.088 19078 28333 D WorkSource: i1=1 i2=0 N1=1: insert 10145 com.opencode.voiceassist
+02-08 16:36:29.088 19078 28333 D WorkSource: Insert in WorkSource{10126 com.google.android.gms} @ 1 uid 10145 name 
+com.opencode.voiceassist
+02-08 16:36:29.184   895 18038 D AwareLog: processMsg_fn msg 601,fd 39,package name com.opencode.voiceassist
+02-08 16:36:29.184   895 18038 D         : gmr: processGameMsg fd 39,com.opencode.voiceassist,27
+02-08 16:36:29.184   895 18038 D         : gmr: getPackagePath Successfully 
+path,com.opencode.voiceassist-a2Moeh2dH3HEoRRmH7-1-Q==
+02-08 16:36:29.202  1575  1591 I UKeyManagerService: app is added. The packageName is : com.opencode.voiceassistuid = 
+10167
+02-08 16:36:29.202  2230  2230 I HwLauncher: Model onPackageAdded packageName = com.opencode.voiceassist user = 
+UserHandle{0}
+02-08 16:36:29.210  2230  2230 I HwLauncher: Model findCloudAppInfoInDB : found 0 shortcutInfo for 
+package[com.opencode.voiceassist] in db
+02-08 16:36:29.210  2230  2230 I HwLauncher: PowerSaveLauncherModel onPackageAdded packageName = 
+com.opencode.voiceassist user = UserHandle{0}
+02-08 16:36:29.210  2230  2230 I HwLauncher: StreetModeLauncherModel onPackageAdded packageName = 
+com.opencode.voiceassist user = UserHandle{0}
+02-08 16:36:29.293  2230  2362 I HwLauncher: AllIdleAppsList addPackage: add new shortcut is {ShortcutInfo: title: 
+OpenCode Voice Assistant, component: ComponentInfo{com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}}
+02-08 16:36:29.356  1575  2219 I NetworkStats: openSessionForUsageStats, pid = 25775, pkg = com.tencent.mm
+02-08 16:36:29.359  1575  3114 I NetworkStats: openSessionForUsageStats, pid = 25775, pkg = com.tencent.mm
+02-08 16:36:29.388 16909 16909 I Finsky  : [1] com.google.android.finsky.externalreferrer.b.run(6): Package state data 
+is missing for com.opencode.voiceassist
+02-08 16:36:29.447  2717 18003 W GCM     : Unexpected forwarded intent: Intent { 
+act=android.intent.action.PACKAGE_ADDED dat=package:com.opencode.voiceassist flg=0x4000010 
+cmp=com.google.android.gms/.chimera.PersistentIntentOperationService (has extras) }
+02-08 16:36:29.448  2717 18010 W GCM     : Unexpected forwarded intent: Intent { 
+act=android.intent.action.PACKAGE_ADDED dat=package:com.opencode.voiceassist flg=0x4000010 
+cmp=com.google.android.gms/.chimera.PersistentIntentOperationService (has extras) }
+02-08 16:36:29.537 18046 18046 I HwGameAssistant-11.4.2.302-InstallPackageIntentReceiver: 
+packagename=com.opencode.voiceassist
+02-08 16:36:29.579  4721  5462 E HSM_SEC_BG: PermissionDBAdapter:getInitialConfig,pkgName = com.opencode.voiceassist 
+preCursor.getLong(codeIndex) = 0 preCursor.getLong(cfgIndex) = 0
+02-08 16:36:29.671 18046 18073 I HMSSDK_HmsClient: post msg api_name:hwid.silentSignIn, app_id:100170393|, 
+pkg_name:com.huawei.gameassistant, sdk_version:50004301, session_id:*, 
+transaction_id:100170393SignIn20260208163629660656401, kitSdkVersion:50000300, apiLevel:1
+02-08 16:36:29.700 28861 30872 I HmsClient: [baseinner HuaweiApi.java:2] post msg api_name:hwid.Request, 
+app_id:10132067|, pkg_name:com.huawei.hwid, sdk_version:61500300, session_id:*, 
+transaction_id:48dd54aa-78cd-4ab9-bc3b-6a9a3b626b4e, kitSdkVersion:61100303, apiLevel:14
+02-08 16:36:29.736 28861 18096 I HmsClient: [baseinner HmsClient.java:1] receive msg status_code:0, error_code0, 
+api_name:hwid.Request, app_id:10132067|, pkg_name:com.huawei.hwid, session_id:*, 
+transaction_id:48dd54aa-78cd-4ab9-bc3b-6a9a3b626b4e, resolution:null
+02-08 16:36:29.765 16039 16039 I Linker-11.1.30.300-gammaHuaweiMarket-12.22 17:24: 
+[AdPackageCache]updatePackageInstallStatus, pkgName: com.opencode.voiceassist, isInstall: true
+02-08 16:36:29.794 18046 18046 I HMSSDK_HmsClient: receive msg status_code:0, error_code0, 
+api_name:hwidjos.silentSignIn, app_id:100170393|, pkg_name:com.huawei.gameassistant, session_id:*, 
+transaction_id:100170393SignIn20260208163629660656401, resolution:null
+02-08 16:36:29.890 12894 13140 I HiDecision: RuleEngineSession: fire cost time = 0
+02-08 16:36:29.899 18046 18073 I HMSSDK_HmsClient: post msg api_name:core.getNoticeIntent, app_id:100170393|, 
+pkg_name:com.huawei.gameassistant, sdk_version:50004301, session_id:*, 
+transaction_id:100170393Intent20260208163629808634324, kitSdkVersion:0, apiLevel:1
+02-08 16:36:29.942 18046 18046 I HMSSDK_HmsClient: receive msg status_code:0, error_code8001, 
+api_name:core.getNoticeIntent, app_id:100170393|, pkg_name:com.huawei.gameassistant, session_id:*, 
+transaction_id:100170393Intent20260208163629808634324, resolution:null
+02-08 16:36:30.295 17491 18148 I AveScanner: scan file: 
+/data/app/com.opencode.voiceassist-a2Moeh2dH3HEoRRmH7-1-Q==/base.apk h: 511065624576
+02-08 16:36:32.224 24276 24317 W HiApp.UpM/AppKeySetsManager: ApkObtainTask-0{3514} com.opencode.voiceassist Apply 
+Undefined KeySets
+02-08 16:36:34.446  1575  3107 I NetworkStats: openSessionForUsageStats, pid = 12874, pkg = com.tencent.mm
+02-08 16:36:34.449  1575  2378 I NetworkStats: openSessionForUsageStats, pid = 12874, pkg = com.tencent.mm
+02-08 16:36:34.455  1575  1733 I ActivityManager: START u0 {flg=0x10000000 hwFlg=0x10 
+cmp=com.opencode.voiceassist/.MainActivity} from uid 2000
+02-08 16:36:34.458  1575  1733 I ActivityManager: ActivityRecord info: ActivityInfo{5327965 
+com.opencode.voiceassist.MainActivity}
+02-08 16:36:34.458  1575  1733 I ActivityManager: isNeedToStartExSplash  callingPackage: null packageName: 
+com.opencode.voiceassist
+02-08 16:36:34.458  1575  1733 I HwActivityManagerServiceEx: 
+packageName:com.opencode.voiceassist,requestCode:0,isIntercepted:false,userId:0
+02-08 16:36:34.462   895   925 D AwareLog: iawared: WorkingsetProcessCommand subCmd = 354, userId=10167, pid=0, 
+com.opencode.voiceassist
+02-08 16:36:34.463   895   925 D AwareLog: iawared: WorkingsetSendPrereadMsg com.opencode.voiceassist
+02-08 16:36:34.463   895   925 D AwareLog: iawared: WorkingsetStart com.opencode.voiceassist in monitor0
+02-08 16:36:34.474  1575  1733 V WindowManager: addAppToken: AppWindowToken{94482c7 token=Token{c5aec06 
+ActivityRecord{75646e1 u0 com.opencode.voiceassist/.MainActivity t164}}} controller={TaskWindowContainerController 
+taskId=164} at 2147483647
+02-08 16:36:34.483  1575  3107 V ActivityManager: startProcess: name=com.opencode.voiceassist app=null 
+knownToBeDead=true thread=null pid=-1 preloadStatus=-1
+02-08 16:36:34.485  1575  3107 V ActivityManager: startProcess: name=com.opencode.voiceassist 
+app=ProcessRecord{eee80f4 0:com.opencode.voiceassist/u0a167} knownToBeDead=true thread=null pid=0 preloadStatus=0
+02-08 16:36:34.492   895   925 D AwareLog: iawared: WorkingsetProcessCommand subCmd = 354, userId=10167, pid=0, 
+com.opencode.voiceassist
+02-08 16:36:34.492   895   925 D AwareLog: iawared: WorkingsetStart com.opencode.voiceassist in monitor0
+02-08 16:36:34.493  1575  1726 V WindowManager: addWindow: Window{df41cdb u0 Splash Screen com.opencode.voiceassist}
+02-08 16:36:34.502  1575  1597 I ActivityManager: Start proc 18175:com.opencode.voiceassist/u0a167 for activity 
+com.opencode.voiceassist/.MainActivity
+02-08 16:36:34.503   895   925 D AwareLog: iawared: WorkingsetProcessCommand subCmd = 350, userId=10167, pid=18175, 
+com.opencode.voiceassist
+02-08 16:36:34.504   895   925 D AwareLog: iawared: WorkingsetStart com.opencode.voiceassist in monitor0
+02-08 16:36:34.568  1575  3107 W HwActivityManagerServiceEx: appSwitch from: com.huawei.android.launcher to: 
+com.opencode.voiceassist
+02-08 16:36:34.569  1575  1607 D HwGameAssistantController: UPDATE: mCurFgPkg=com.opencode.voiceassist, 
+mCurFgPid=18175, mCurIsGame=false
+02-08 16:36:34.576  1575  1726 V WindowManager: Check opening app=AppWindowToken{94482c7 token=Token{c5aec06 
+ActivityRecord{75646e1 u0 com.opencode.voiceassist/.MainActivity t164}}}: allDrawn=false startingDisplayed=true 
+startingMoved=false isRelaunching()=false startingWindow=Window{df41cdb u0 Splash Screen com.opencode.voiceassist}
+02-08 16:36:34.578   874  5312 D iTouchService: itouch currentPackageName=com.opencode.voiceassist
+02-08 16:36:34.579   874  5312 D iTouchService: itouch getCurrentParmID tempPkg=com.opencode.xxx
+02-08 16:36:34.579   874  5312 D iTouchService: itouch:app com.opencode.voiceassist is  not game app
+02-08 16:36:34.586  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{df41cdb u0 Splash Screen 
+com.opencode.voiceassist}
+02-08 16:36:34.590 18175 18191 I HwApiCacheMangerEx: apicache path=/storage/emulated/0 state=mounted 
+key=com.opencode.voiceassist#10167#256
+02-08 16:36:34.590  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{df41cdb u0 Splash Screen 
+com.opencode.voiceassist}
+02-08 16:36:34.591 18175 18191 I HwApiCacheMangerEx: apicache path=/storage/emulated/0 state=mounted 
+key=com.opencode.voiceassist#10167#0
+02-08 16:36:34.592  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{df41cdb u0 Splash Screen 
+com.opencode.voiceassist}
+02-08 16:36:34.878  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{df41cdb u0 Splash Screen 
+com.opencode.voiceassist}
+02-08 16:36:34.881  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{df41cdb u0 Splash Screen 
+com.opencode.voiceassist}
+02-08 16:36:34.893  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{df41cdb u0 Splash Screen 
+com.opencode.voiceassist}
+02-08 16:36:34.895  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{df41cdb u0 Splash Screen 
+com.opencode.voiceassist}
+02-08 16:36:34.910  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{df41cdb u0 Splash Screen 
+com.opencode.voiceassist}
+02-08 16:36:34.986 18175 18175 I ode.voiceassis: QarthPatchMonintor::CheckAndWatchPatch: 
+/data/hotpatch/fwkhotpatch/com.opencode.voiceassist
+02-08 16:36:34.991 18175 18191 I AwareBitmapCacher: init processName:com.opencode.voiceassist pid=18175 uid=10167
+02-08 16:36:35.235 18175 18175 D HwSplineOverScrollerExImpl: initSplineOverScrollerImpl paras: 
+android.widget.OverScroller$SplineOverScroller@e969b19,com.opencode.voiceassist.MainActivity@173a283
+02-08 16:36:35.236 18175 18175 D HwSplineOverScrollerExImpl: initSplineOverScrollerImpl paras: 
+android.widget.OverScroller$SplineOverScroller@5eccfd5,com.opencode.voiceassist.MainActivity@173a283
+02-08 16:36:35.356 18175 18175 W ode.voiceassis: Accessing hidden method 
+Lcom/android/org/conscrypt/OpenSSLSocketImpl;->setUseSessionTickets(Z)V (light greylist, reflection)
+02-08 16:36:35.368 18175 18203 D WhisperManager: Native library dir: 
+/data/app/com.opencode.voiceassist-a2Moeh2dH3HEoRRmH7-1-Q==/lib/arm64
+02-08 16:36:35.368 18175 18203 D WhisperManager: Target model file: 
+/data/user/0/com.opencode.voiceassist/files/whisper/ggml-tiny.en.bin
+02-08 16:36:35.379  1575  2378 D HwActivityStarterEx: isNeedInterceptStart true, interceptionState:BACKGROUND, 
+callerPkg:com.opencode.voiceassist, uid:10167
+02-08 16:36:35.379  1575  2378 D ActivityManager: real mask = 6160 real binary mask = 1100000010000 isNeedIntercept = 
+true callingUid = 10167 callingPid = 18175 realCallingUid = 10167 realCallingPid = 18175 callingPackage = 
+com.opencode.voiceassist
+02-08 16:36:35.379  1575  2378 D ActivityManager: Background activity start for com.opencode.voiceassist allowed 
+because isSystem and signedWithPlatformKey, callingPid = 18175 callingUid = 10167
+02-08 16:36:35.379  1575  2378 D HwActivityStarterEx: reportResult :  packageName = com.opencode.voiceassist uid = 
+10167 activityOriginalStartResult = 127 hwInterceptionMask = 0 validLen = 8 result = 0
+02-08 16:36:35.379  1575  2378 I ActivityManager: isNeedToStartExSplash  callingPackage: com.opencode.voiceassist 
+packageName: com.android.packageinstaller
+02-08 16:36:35.383  1575 18205 I PackageManager: add normal request permission, package name:com.opencode.voiceassist 
+permission:com.huawei.permission.POPUP_BACKGROUND_WINDOW calling uid:1000 calling pid process:system_server
+02-08 16:36:35.383  1575 18205 I PackageManager: setRequestPermBySystem hwFlag: truefor pkg: com.opencode.voiceassist
+02-08 16:36:35.385  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{df41cdb u0 Splash Screen 
+com.opencode.voiceassist}
+02-08 16:36:35.390   895   925 D AwareLog: iawared: WorkingsetProcessCommand subCmd = 352, userId=10167, pid=18175, 
+com.opencode.voiceassist
+02-08 16:36:35.390   895   925 D AwareLog: iawared: WorkingsetStop com.opencode.voiceassist
+02-08 16:36:35.398 18175 18175 D ActivityThread: add activity client record, r= ActivityRecord{4aa4887 
+token=android.os.BinderProxy@72e0ef {com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}} token= 
+android.os.BinderProxy@72e0ef
+02-08 16:36:35.495  1575  2378 V WindowManager: addWindow: Window{825f1f2 u0 
+com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}
+02-08 16:36:35.497  4038 11340 I CAWARENESS_AppUsageManager: onEvent, packageName=com.opencode.voiceassist, 
+activityName=com.opencode.voiceassist.MainActivity
+02-08 16:36:35.501  2059 13841 I HidataAppQoeP: foregroundUidAdd uid: 10167 name: com.opencode.voiceassist activity 
+state: true
+02-08 16:36:35.513  2059  2059 D SmartDualCardConfig: getAppType,pkgName=com.opencode.voiceassist,appType=-1
+02-08 16:36:35.513  2059  2059 D SmartDualCardSM: 
+onUidStateUpdate,uid=10167,appName=com.opencode.voiceassist,state=FOREGROUND
+02-08 16:36:35.514  4038 17931 I CAWARENESS_RecentAppChangeFence: lastReportPackage is com.huawei.appmarket, 
+packageName is com.opencode.voiceassist
+02-08 16:36:35.514  2059  2059 D SmartDualCardConfig: getAppType,pkgName=com.opencode.voiceassist,appType=-1
+02-08 16:36:35.519  1575  3114 W HwActivityManagerServiceEx: appSwitch from: com.opencode.voiceassist to: 
+com.android.packageinstaller
+02-08 16:36:35.538  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{df41cdb u0 Splash Screen 
+com.opencode.voiceassist}
+02-08 16:36:35.547 18175 18225 D HiTouch_PressGestureDetector: onAttached, package=com.opencode.voiceassist, 
+windowType=1, mHiTouchRestricted=false
+02-08 16:36:35.563  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{df41cdb u0 Splash Screen 
+com.opencode.voiceassist}
+02-08 16:36:35.572 12894 17830 W HiDecision: TriggerEventNotifyAction: fail::notify event = RecentAppChange, package = 
+com.huawei.ohos.suggestion, service = 
+com.huawei.ohos.suggestion.xiaoyirecommender.particleability.EventReceiverAbility, message = {"events":[{"header":{"nam
+e":"RecentAppChange","namespace":"Event"},"payload":{"packageName":"com.opencode.voiceassist"}}],"session":{"messageNam
+e":"triggerEvent","receiver":"HiSuggestionHm","sender":"NativeIntentionAnalysis","sessionId":"4fc691cea48443428c37233ae
+ff4f333","version":"1.0.0"}}
+02-08 16:36:35.583 18175 18211 I iGraphics: [0020080c] pn: com.opencode.voiceassist, p: 18175
+02-08 16:36:35.583 18175 18211 I iGraphics: [0030080c] no spt app: com.opencode.voiceassist
+02-08 16:36:35.604  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{df41cdb u0 Splash Screen 
+com.opencode.voiceassist}
+02-08 16:36:35.731  1575  1726 V WindowManager_visibility: updateAllDrawn Add AppWindowToken{94482c7 
+token=Token{c5aec06 ActivityRecord{75646e1 u0 com.opencode.voiceassist/.MainActivity t164}}}
+02-08 16:36:35.732  1575  1726 V WindowManager_visibility: updateAllDrawn allDrawn=false interesting=1 drawn=1 
+relaunchCount=0 for AppWindowToken{94482c7 token=Token{c5aec06 ActivityRecord{75646e1 u0 
+com.opencode.voiceassist/.MainActivity t164}}}
+02-08 16:36:35.738  1575  1726 V WindowManager: removeIfPossible: Window{df41cdb u0 Splash Screen 
+com.opencode.voiceassist}
+02-08 16:36:35.740  1575  1726 V WindowManager: Not removing Window{df41cdb u0 Splash Screen com.opencode.voiceassist 
+EXITING} due to exit animation 
+02-08 16:36:35.849  1575  1726 V WindowManager: Exit animation finished in Window{df41cdb u0 Splash Screen 
+com.opencode.voiceassist EXITING}: remove=true
+02-08 16:36:35.849  1575  1726 E WindowManager: win=Window{df41cdb u0 Splash Screen com.opencode.voiceassist EXITING} 
+destroySurfaces: appStopped=false win.mWindowRemovalAllowed=true win.mRemoveOnExit=true
+02-08 16:36:35.849  1575  1726 V WindowManager: postWindowRemoveCleanupLocked: Window{df41cdb u0 Splash Screen 
+com.opencode.voiceassist}
+02-08 16:36:35.849  1575  1726 V WindowManager: Removing Window{df41cdb u0 Splash Screen com.opencode.voiceassist} 
+from AppWindowToken{94482c7 token=Token{c5aec06 ActivityRecord{75646e1 u0 com.opencode.voiceassist/.MainActivity 
+t164}}}
+02-08 16:36:36.173 18175 18252 D WhisperManager: Loading model from: 
+/data/user/0/com.opencode.voiceassist/files/whisper/ggml-tiny.en.bin
+02-08 16:36:36.597  3822  4048 I ContentSensor_PackageUtil: pkgName : com.opencode.voiceassist
+02-08 16:36:38.179  1575  2377 W HwActivityManagerServiceEx: appSwitch from: com.android.packageinstaller to: 
+com.opencode.voiceassist
+02-08 16:36:38.180  1575  2377 V HwPhoneWindowManager: updateSystemUiColorLw window=Window{825f1f2 u0 com.opencode.voic
+eassist/com.opencode.voiceassist.MainActivity},EmuiStyle=0,StatusBarColor=0xff1976d2,NavigationBarColor=0xff000000, 
+mForceNotchStatusBar=false
+02-08 16:36:38.181  1575  1607 D HwGameAssistantController: UPDATE: mCurFgPkg=com.opencode.voiceassist, 
+mCurFgPid=18175, mCurIsGame=false
+02-08 16:36:38.185  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{825f1f2 u0 
+com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}
+02-08 16:36:38.199  1575  2377 V WindowManager: notifyAppResumed: wasStopped=false AppWindowToken{94482c7 
+token=Token{c5aec06 ActivityRecord{75646e1 u0 com.opencode.voiceassist/.MainActivity t164}}}
+02-08 16:36:38.203  1575  2377 V WindowManager: Check opening app=AppWindowToken{94482c7 token=Token{c5aec06 
+ActivityRecord{75646e1 u0 com.opencode.voiceassist/.MainActivity t164}}}: allDrawn=true startingDisplayed=false 
+startingMoved=false isRelaunching()=false startingWindow=null
+02-08 16:36:38.225  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{825f1f2 u0 
+com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}
+02-08 16:36:38.225  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{825f1f2 u0 
+com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}
+02-08 16:36:38.234  2059  2994 D Hicom_SysEnvMonitor: onForegroundAppChanged, pkgName: com.opencode.voiceassist
+02-08 16:36:38.234  2059  2994 D XEngineMpipControl: onForegroundAppChanged, pkgName:com.opencode.voiceassist
+02-08 16:36:38.234  2059  2994 D SmartcareProc: onForegroundAppChanged, pkgName:com.opencode.voiceassist
+02-08 16:36:38.234  2059  2994 W FIControl: Failed to find configuration for com.opencode.voiceassist
+02-08 16:36:38.241  2059 13841 D DollieActivityManagerAdapter: [Resumed] pid:18175 uid:10167 
+ComponentInfo{com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}
+02-08 16:36:38.241  2059 13841 E DollieAdapterService: notifyActivityState 
+pkg:com.opencode.voiceassist/com.opencode.voiceassist.MainActivity state:2 fg:true mUid:10167
+02-08 16:36:38.251 17450 17450 E sug_info: checkMatch:com.opencode.voiceassist_0_0_null
+02-08 16:36:38.280 19078 18005 E ChromeSync: [Sync,SyncIntentOperation] Error handling the intent: Intent { 
+act=android.intent.action.PACKAGE_ADDED dat=package:com.opencode.voiceassist flg=0x4000010 
+cmp=com.google.android.gms/.chimera.GmsIntentOperationService (has extras) }.
+02-08 16:36:38.284 19078 18266 I ChromeSync: [Sync,SyncIntentOperation] Handling the intent: Intent { 
+act=android.intent.action.PACKAGE_ADDED dat=package:com.opencode.voiceassist flg=0x4000010 
+cmp=com.google.android.gms/.chimera.GmsIntentOperationService (has extras) }.
+02-08 16:36:38.285 19078 18268 I FontsPackageChangeOp: Package com.opencode.voiceassist has no metadata
+02-08 16:36:38.302  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{825f1f2 u0 
+com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}
+02-08 16:36:38.305  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{825f1f2 u0 
+com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}
+02-08 16:36:38.311 19078 28333 D WorkSource: i1=1 i2=0 N1=1: insert 10145 com.opencode.voiceassist
+02-08 16:36:38.311 19078 28333 D WorkSource: Insert in WorkSource{10126 com.google.android.gms} @ 1 uid 10145 name 
+com.opencode.voiceassist
+02-08 16:36:38.406  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{825f1f2 u0 
+com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}
+02-08 16:36:38.407  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{825f1f2 u0 
+com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}
+02-08 16:36:38.471  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{825f1f2 u0 
+com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}
+02-08 16:36:38.488  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{825f1f2 u0 
+com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}
+02-08 16:36:39.236  3822  4048 I ContentSensor_PackageUtil: pkgName : com.opencode.voiceassist
+02-08 16:36:39.244  3822  4048 I ContentSensor_PackageUtil: pkgName : com.opencode.voiceassist
+02-08 16:36:43.314 18175 18252 I Whisper : Whisper model loaded: 
+/data/user/0/com.opencode.voiceassist/files/whisper/ggml-tiny.en.bin, GPU: true
+02-08 16:36:43.413  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{825f1f2 u0 
+com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}
+02-08 16:36:43.603  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{825f1f2 u0 
+com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}
+02-08 16:36:43.606  1575  1726 I DebugKeepScreenOn: setHoldScreenLocked newHoldScreen:Session{6aaf0a7 18175:u0a10167} 
+currentHoldScreen:null wakeLockState:false
+02-08 16:36:43.620  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{825f1f2 u0 
+com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}
+02-08 16:36:44.372 17079 18292 D AdBlock_AbsAdRequest: getPostRequestParam param: apps=%5B%7B%22pkgName%22%3A%22com.ope
+ncode.voiceassist%22%2C%22versionCode%22%3A1%2C%22version%22%3A%221.0%22%7D%5D&buildNumber=MHA-AL00+2.0.0.262%28C00E260
+R1P3%29&clientPackage=com.huawei.systemmanager&emuiVer=EmotionUI_9.1.0&firmwareVersion=9&locale=zh_CN&method=store.getC
+ontrolStrategy&phoneType=MHA-AL00&resolution=1080x1920&sysBits=2&ts=1770539804341&version=9.1.1.700
+02-08 16:36:45.364  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{825f1f2 u0 
+com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}
+02-08 16:36:45.377  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{825f1f2 u0 
+com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}
+02-08 16:36:45.381  1575  3122 W NotificationService: Toast already killed. pkg=com.opencode.voiceassist 
+callback=android.app.ITransientNotification$Stub$Proxy@1ed8c99
+02-08 16:36:45.502  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{825f1f2 u0 
+com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}
+02-08 16:36:45.515  1575  1726 I DebugKeepScreenOn: setHoldScreenLocked newHoldScreen:null 
+currentHoldScreen:Session{6aaf0a7 18175:u0a10167} wakeLockState:true
+02-08 16:36:45.515  1575  1726 I DebugKeepScreenOn: Releasing screen wakelock, obscured by Window{825f1f2 u0 
+com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}
+02-08 16:36:45.520  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{825f1f2 u0 
+com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}
+02-08 16:36:46.329   654  1932 I APM_AudioPolicyManager: getInputForAttr() source 1, sampling rate 16000, format 0x1, 
+channel mask 0x10,session 481, flags 0  attr.flags 0
+02-08 16:36:46.573 19078 18266 E ChromeSync: [Sync,SyncIntentOperation] Error handling the intent: Intent { 
+act=android.intent.action.PACKAGE_ADDED dat=package:com.opencode.voiceassist flg=0x4000010 
+cmp=com.google.android.gms/.chimera.GmsIntentOperationService (has extras) }.
+02-08 16:36:46.623  1575  2385 I ctaifs  : <OpenCode Voice Assist…>[OpenCode Voice 
+Assist…][com.opencode.voiceassist][onTransact] 本地录音
+02-08 16:36:46.636  2186  2353 I PGAudioState: AUDIO_CREATAE_TRACK, audioInfo : [trackId : 84, sessionId : 481, type : 
+audio_in, threadType : RECORD, streamType : DEFAULT, pid : 18175, uid : 10167, createState : new, playState : stop, 
+audioTrackVolume: 1.0, finalVolume : 0.0, loop : false, stopByZeroTime : 0]
+02-08 16:36:46.637   654  1932 I APM_AudioPolicyManager: AudioPolicyManager::startInput(input:46, session:481, 
+silenced:0, concurrency:0)
+02-08 16:36:46.655  1575  3122 V AudioService.RecordingActivityMonitor: event: 1 uid: 10167 session: 481 source: 1
+02-08 16:36:46.655  1575  3122 I BackgroundPermManager: pkgName: com.opencode.voiceassist,pid: 0 ,uidOf3RdApk: 10167 
+,permType: 1 ,permCfg: 1
+02-08 16:36:46.659  1575  3122 V AudioService.RecordingActivityMonitor: uid = 10167 packageName = 
+com.opencode.voiceassist
+02-08 16:36:46.664  1575  3122 I AudioService.RecordingActivityMonitor: HuaweiProcess, app com.opencode.voiceassist 
+not in Record White Lise
+02-08 16:36:46.685  1575  1575 D HiDATA_HiStream: --->Intent received, 
+action=huawei.media.AUDIO_RECORD_STATE_CHANGED_ACTION, packageName com.opencode.voiceassist,state3
+02-08 16:36:46.893  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{825f1f2 u0 
+com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}
+02-08 16:36:48.500   654 13010 I APM_AudioPolicyManager: stopInput() input 46 session 481
+02-08 16:36:48.502  1575  3122 V AudioService.RecordingActivityMonitor: event: 0 uid: 10167 session: 481 source: 1
+02-08 16:36:48.502  1575  3122 I BackgroundPermManager: pkgName: com.opencode.voiceassist,pid: 0 ,uidOf3RdApk: 10167 
+,permType: 1 ,permCfg: 0
+02-08 16:36:48.508  1575  1575 D HiDATA_HiStream: --->Intent received, 
+action=huawei.media.AUDIO_RECORD_STATE_CHANGED_ACTION, packageName com.opencode.voiceassist,state1
+02-08 16:36:48.531  1575  1575 D HiDATA_HiStream: --->Intent received, 
+action=huawei.media.AUDIO_RECORD_STATE_CHANGED_ACTION, packageName com.opencode.voiceassist,state1
+02-08 16:36:52.208  1575  1787 D hw_netstat: total/9670/1886,android.uid.system:1000/5552/1384,unknown:0/3993/0,com.and
+roid.vending/0/240,com.huawei.appmarket/0/142,unknown:1051/125/0,com.opencode.voiceassist/0/120
+02-08 16:37:02.224  1575  1787 D hw_netstat: 
+total/2662/360,unknown:0/2662/0,com.android.vending/0/300,com.opencode.voiceassist/0/60
+02-08 16:37:05.449 18175 18207 E OpenCodeManager: Failed to create session: failed to connect to /192.168.1.100 (port 
+3000) from /192.168.50.36 (port 55230) after 30000ms
+02-08 16:37:05.564  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{825f1f2 u0 
+com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}
+02-08 16:37:05.753  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{825f1f2 u0 
+com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}
+02-08 16:37:05.756  1575  1726 I DebugKeepScreenOn: setHoldScreenLocked newHoldScreen:Session{6aaf0a7 18175:u0a10167} 
+currentHoldScreen:null wakeLockState:false
+02-08 16:37:05.773  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{825f1f2 u0 
+com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}
+02-08 16:37:09.005  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{825f1f2 u0 
+com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}
+02-08 16:37:09.014  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{825f1f2 u0 
+com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}
+02-08 16:37:09.021  1575  1733 W NotificationService: Toast already killed. pkg=com.opencode.voiceassist 
+callback=android.app.ITransientNotification$Stub$Proxy@a6b8040
+02-08 16:37:09.024  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{825f1f2 u0 
+com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}
+02-08 16:37:09.027  1575  1606 I DebugKeepScreenOn: setHoldScreenLocked newHoldScreen:null 
+currentHoldScreen:Session{6aaf0a7 18175:u0a10167} wakeLockState:true
+02-08 16:37:09.027  1575  1606 I DebugKeepScreenOn: Releasing screen wakelock, obscured by Window{825f1f2 u0 
+com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}
+02-08 16:37:09.031  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{825f1f2 u0 
+com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}
+02-08 16:37:09.155  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{825f1f2 u0 
+com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}
+02-08 16:37:09.165  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{825f1f2 u0 
+com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}
+
+

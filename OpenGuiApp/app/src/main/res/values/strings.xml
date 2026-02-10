@@ -1,0 +1,102 @@
+<resources>
+    <string name="app_name">错题整理练习卷</string>
+    <string name="title_activity_main">小学英语练习</string>
+    
+    <!-- 大标题 -->
+    <string name="main_title">错题整理练习卷（完整版・最终定稿）</string>
+    <string name="subtitle">（全选复制到 Word，直接打印作答）</string>
+    
+    <!-- 一、连线题 -->
+    <string name="section1_title">一、你问我答大 PK 连线题</string>
+    <string name="section1_desc">将下列句子与对应的答语连线</string>
+    <string name="q1_1">Am I a good friend?</string>
+    <string name="q1_2">What do friends do?</string>
+    <string name="q1_3">Oh no! My books!</string>
+    <string name="q1_4">Hey, Nannan! We can share.</string>
+    <string name="q1_5">Hello! My name is Nannan.</string>
+    <string name="a1_a">A. Thank you, Liangliang.</string>
+    <string name="a1_b">B. Hi! I am Liangliang.</string>
+    <string name="a1_c">C. Yes, you are.</string>
+    <string name="a1_d">D. Friends help each other.</string>
+    <string name="a1_e">E. It\'s OK. I can help you.</string>
+    
+    <!-- 二、绘本任务 -->
+    <string name="section2_title">二、绘本任务二</string>
+    <string name="section2_background">绘本背景</string>
+    <string name="section2_story">Long long ago, there were no stores. People exchanged things with each other. It may be the reason to make friends.\nWe can: Play together; Share; Listen; Help others; Use kind words; Smile.</string>
+    <string name="section2_question">判断对错（对打√，错打 ×）</string>
+    <string name="q2_1">1. Friends should help each other.（）</string>
+    
+    <!-- 三、农场短文题 -->
+    <string name="section3_title">三、农场短文题</string>
+    <string name="section3_reading">阅读短文</string>
+    <string name="section3_passage">Hello! My name is Tim. I go to a farm. I can see many fruit trees. I see red apples, green apples, yellow bananas and purple grapes. I can see many plants. I see green trees, green grass and purple flowers. I can see many animals. I see yellow ducks, brown dogs and orange cats. I am very happy.</string>
+    <string name="section3_question">判断正误（对打√，错打 ×）</string>
+    <string name="q3_1">1. Tim can see red apples and green apples there.（）</string>
+    
+    <!-- 四、交友用语选择题 -->
+    <string name="section4_title">四、交友用语选择题</string>
+    <string name="section4_desc">（配图：Ben 相关场景图）</string>
+    <string name="q4_1">1. I\'m Ben. Am I a good friend in the picture?（）</string>
+    <string name="q4_a">A. Yes, I am.</string>
+    <string name="q4_b">B. OK!</string>
+    <string name="q4_c">C. No, I\'m not.</string>
+    
+    <!-- 五、Linda 短文题 -->
+    <string name="section5_title">五、Linda 短文题</string>
+    <string name="section5_reading">阅读短文</string>
+    <string name="section5_passage">Hello! My name is Linda. I want a new friend. Friends smile. Friends help and share. I have many books. I can share my books to you. Friends play together. We can go out and play on the weekend.</string>
+    <string name="section5_question">判断正误（对打√，错打 ×）</string>
+    <string name="q5_1">1. Linda can share her toys to her friend.（）</string>
+    
+    <!-- 六、字母书写题 -->
+    <string name="section6_title">六、字母书写题</string>
+    <string name="section6_desc">按字母表顺序，在四线三格中书写字母 N、M、L、O、P 的大小写</string>
+    
+    <!-- 七、选择题 -->
+    <string name="section7_title">七、选择题</string>
+    <string name="q7_1">Hi! ______ Wu Binbin.（）</string>
+    <string name="q7_a">A. I</string>
+    <string name="q7_b">B. I\'m</string>
+    <string name="q7_c">C. My name</string>
+    
+    <!-- 八、字母辨识题 -->
+    <string name="section8_title">八、字母辨识题</string>
+    <string name="section8_desc">圈出正确字母，再将字母写在横线处</string>
+    <string name="q8_1">1.（配图：鱼的图片）可选字母：f h</string>
+    <string name="q8_2">2.（配图：女孩的图片）可选字母：b g</string>
+    <string name="q8_3">3.（配图：鸡蛋的图片）可选字母：e a</string>
+    <string name="q8_4">4.（配图：女孩晒太阳的图片）可选字母：g h</string>
+    
+    <!-- 九、语言知识运用题 -->
+    <string name="section9_title">九、语言知识运用题</string>
+    <string name="q9_1">—Chen Jie. This is my sister, Xiaoyou. —______（）</string>
+    <string name="q9_a">A. Nice to meet you too.</string>
+    <string name="q9_b">B. Nice to meet you, Xiaoyou.</string>
+    <string name="q9_c">C. It\'s my sister, Xiaoyou.</string>
+    
+    <!-- 十、字母书写题 -->
+    <string name="section10_title">十、字母书写题</string>
+    <string name="section10_desc">在四线三格中书写正确的字母：E、H、f、g、F、G</string>
+    
+    <!-- 十一、字母书写题 -->
+    <string name="section11_title">十一、字母书写题</string>
+    <string name="section11_desc">在四线三格中，按字母顺序书写下列内容：</string>
+    <string name="q11_1">大写：C C T V</string>
+    <string name="q11_2">大写：EXIT</string>
+    <string name="q11_3">小写：g 3a9w</string>
+    <string name="q11_4">车牌号：B・9F7E6</string>
+    
+    <!-- 十二、单词书写题 -->
+    <string name="section12_title">十二、单词书写题</string>
+    <string name="section12_desc">写出叔叔、阿姨对应的英文单词</string>
+    
+    <!-- 十三、单词书写题 -->
+    <string name="section13_title">十三、单词书写题</string>
+    <string name="section13_desc">在四线三格中书写以下单词：</string>
+    <string name="q13_1">girl</string>
+    <string name="q13_2">cup</string>
+    <string name="q13_3">run</string>
+    <string name="q13_4">box</string>
+    <string name="q13_5">can</string>
+</resources>

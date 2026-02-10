@@ -1,0 +1,1331 @@
+--------- beginning of main
+02-09 16:02:01.150 E/WifiHAL (  652): enter wifi_get_link_stats
+02-09 16:02:01.162 E/WificondControl( 1575): Noise: -94, Snr: 0, Chload: -1
+02-09 16:02:01.165 D/WifiScoreReport( 1575): Score = 60, wifiConnectivityManagerEnabled = false, lowScoreCount = 0
+02-09 16:02:01.400 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:02:01.501 I/Net.6782NetworkSpeedMan( 1924): mIsStop = false
+02-09 16:02:01.502 I/Net.6783NetworkSpeedMan( 1924):  runInThread getTetherStats
+02-09 16:02:01.505 I/Net.6783NetworkSpeedMan( 1924):  runInUI refreshSpeed
+02-09 16:02:01.505 I/Net.6783NetworkSpeedMan( 1924): value=395.33334speed = 395B/smIsShowLastSpeedValuefalse
+02-09 16:02:01.505 I/NetworkSpeedView( 1924): /update(), speed=395B/s
+02-09 16:02:01.506 I/chatty  ( 1924): uid=10037(com.huawei.HwMultiScreenShot) com.android.systemui identical 2 lines
+02-09 16:02:01.506 I/NetworkSpeedView( 1924): /update(), speed=395B/s
+02-09 16:02:01.586 I/TrafficMonitor( 1575): expired arrive. level:-1
+02-09 16:02:01.586 I/TrafficMonitor( 1575): during_ms:2002,period_ms:2000
+02-09 16:02:01.586 I/TrafficMonitor( 1575): count:614,rx_sum:7,tx_sum:1,rxBytes:1075,during_ms:2002,rx_speed:536.963036963037,tx_speed:19.980019980019982,rto:7.0
+02-09 16:02:01.952 I/Whisper (27167): Whisper model loaded: /data/user/0/com.opencode.voiceassist/files/whisper/ggml-tiny.en.bin, GPU: true
+02-09 16:02:01.952 D/WhisperManager(27167): Model loaded successfully with GPU=true
+02-09 16:02:01.996 I/PG_ash  ( 2186): view add pid:27167 uid:10167
+02-09 16:02:02.002 D/OpenGLRenderer(27167):   HWUI Binary is  enabled
+02-09 16:02:02.002 D/OpenGLRenderer(27167): disableOutlineDraw is true
+--------- beginning of system
+02-09 16:02:02.006 E/WindowManager( 1575): App trying to use insecure INPUT_FEATURE_NO_INPUT_CHANNEL flag. Ignoring
+02-09 16:02:02.011 V/WindowManager( 1575): addWindow: Window{8d9fcea u0 Toast}
+02-09 16:02:02.032 I/StatusBarDisable( 1575): setFlags what=0 which=1 pkg=Window{8d3a939 u0 com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}
+02-09 16:02:02.057 E/BufferQueueProducer(  656): [] mConsumerName == NULL!!!!!!
+02-09 16:02:02.058 I/GRALLOC (  617): getCallingPid=656, shrFd=32,fmt=0x1,intFmt=0x1,btStrd=2816,size=294912,pid=617 
+02-09 16:02:02.058 I/GRALLOC (  617): 	 yuv=2,w=642,h=101,Stride u=0 v=0,offset u=0 v=0 
+02-09 16:02:02.058 I/GRALLOC (  617): 	 iova_size=294912,conUsg=0x900,proUsg=0x900,	 strd=704,[afbc]HdrStrd=0 PyldStrd=0 Scrmbl=0,ionhnd = 1 
+02-09 16:02:02.060 I/GRALLOC (  617): getCallingPid=656, shrFd=34,fmt=0x1,intFmt=0x1,btStrd=2816,size=294912,pid=617 
+02-09 16:02:02.060 I/GRALLOC (  617): 	 yuv=2,w=642,h=101,Stride u=0 v=0,offset u=0 v=0 
+02-09 16:02:02.060 I/GRALLOC (  617): 	 iova_size=294912,conUsg=0x900,proUsg=0x900,	 strd=704,[afbc]HdrStrd=0 PyldStrd=0 Scrmbl=0,ionhnd = 2 
+02-09 16:02:02.061 I/GRALLOC (  617): getCallingPid=656, shrFd=34,fmt=0x1,intFmt=0x1,btStrd=2816,size=294912,pid=617 
+02-09 16:02:02.061 I/GRALLOC (  617): 	 yuv=2,w=642,h=101,Stride u=0 v=0,offset u=0 v=0 
+02-09 16:02:02.061 I/GRALLOC (  617): 	 iova_size=294912,conUsg=0x900,proUsg=0x900,	 strd=704,[afbc]HdrStrd=0 PyldStrd=0 Scrmbl=0,ionhnd = 2 
+02-09 16:02:02.063 D/mali_winsys(27167): EGLint new_window_surface(egl_winsys_display *, void *, EGLSurface, EGLConfig, egl_winsys_surface **, EGLBoolean) returns 0x3000
+02-09 16:02:02.063 D/OpenGLRenderer(27167):   HWUI Binary is  enabled
+02-09 16:02:02.063 D/OpenGLRenderer(27167): disableOutlineDraw is true
+02-09 16:02:02.085 I/GRALLOC (  617): getCallingPid=656, shrFd=32,fmt=0x1,intFmt=0x1,btStrd=2816,size=294912,pid=617 
+02-09 16:02:02.085 I/GRALLOC (  617): 	 yuv=2,w=642,h=101,Stride u=0 v=0,offset u=0 v=0 
+02-09 16:02:02.085 I/GRALLOC (  617): 	 iova_size=294912,conUsg=0xb00,proUsg=0xb00,	 strd=704,[afbc]HdrStrd=0 PyldStrd=0 Scrmbl=0,ionhnd = 1 
+02-09 16:02:02.139 D/        (  656): doWinFrameOptStatusRecog begin to recog Layer result=2
+02-09 16:02:02.269 I/StatusBarDisable( 1575): setFlags what=0 which=1 pkg=Window{8d3a939 u0 com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}
+02-09 16:02:02.274 I/DebugKeepScreenOn( 1575): setHoldScreenLocked newHoldScreen:Session{52bce32 27167:u0a10167} currentHoldScreen:null wakeLockState:false
+02-09 16:02:02.275 I/DebugKeepScreenOn( 1575): Acquiring screen wakelock due to Window{8d9fcea u0 Toast}
+02-09 16:02:02.275 D/PowerMS ( 1575): acquire:L=223195808,F=0x2000000a,T="WindowManager",N=android,WS=WorkSource{10167},U=1000,P=1575
+02-09 16:02:02.287 I/StatusBarDisable( 1575): setFlags what=0 which=1 pkg=Window{8d3a939 u0 com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}
+02-09 16:02:02.439 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:02:02.530 E/Thermal-daemon(  891): [pa_0] temp_new :29  temp_old :28
+02-09 16:02:02.533 E/Thermal-daemon(  891): Report temperature: [pa_0] temp :29  report_threshold:1
+02-09 16:02:02.533 E/Thermal-daemon(  891): [ap] temp_new :38  temp_old :37
+02-09 16:02:02.534 E/Thermal-daemon(  891): Report temperature: [ap] temp :38  report_threshold:1
+02-09 16:02:02.534 D/HwThermalStateManager( 2186): Thermal type: 0 cur_temperature:38
+02-09 16:02:02.592 I/TrafficMonitor( 1575): update:rxPkts:5,txPkts:0,rxBytes:495,txBytes:0
+02-09 16:02:02.592 I/TrafficMonitor( 1575): start expired. level:-1
+02-09 16:02:02.592 I/TrafficMonitor( 1575): gettimer:interval=2000
+02-09 16:02:02.648 E/WificondControl( 1575): Noise: -94, Snr: 0, Chload: -1
+02-09 16:02:02.654 D/WiFi_PRO( 1575): MSG_RETURN_AP_CURRY_RSSI rssi = -40
+02-09 16:02:02.654 I/HwUidTcpMonitor( 1575): TcpStatisticsRun run
+02-09 16:02:02.654 I/QosMonitor( 1575): queryRtt: rtt_type = 3
+02-09 16:02:02.655 D/HwUidTcpMonitor( 1575): parseWlanUidTcpStatistics lastUidTcpStatInfo = [ mUid = 1051 mPacketName = com.opencode.voiceassist mSendSegs = 650 mResendSegs = 0 mRcvSegs = 0 ]
+02-09 16:02:02.655 D/HwUidTcpMonitor( 1575): parseWlanUidTcpStatistics lastUidTcpStatInfo = [ mUid = 10068 mPacketName = com.opencode.voiceassist mSendSegs = 215 mResendSegs = 0 mRcvSegs = 243 ]
+02-09 16:02:02.655 I/QosMonitor( 1575): postEventFromNative: msg=100,arg1=4,arg2=10
+02-09 16:02:02.656 I/QosMonitor( 1575): resetRtt: rtt_type = 3
+02-09 16:02:02.656 I/HuaweiWifiWatchdogStateMachine( 1575): POta txb txg rxg:0, 15, 0. Lr =0% Totpkt=15
+02-09 16:02:02.656 I/QosMonitor( 1575): postEventFromNative: msg=100,arg1=0,arg2=10
+02-09 16:02:02.656 I/MQoS    ( 1575): rtt=356,tcp_tx_pkts=3861464,tcp_rx_pkts=7268721
+02-09 16:02:02.661 I/MQoS    ( 1575): QOS_level:0(0),wifi-link;SIM error;use level-0
+02-09 16:02:02.661 I/HuaweiWifiWatchdogStateMachine( 1575): PTcp RTT:356, rtt pkt=13, tcp_rx=9, tcp_tx=12, tcp_reTran=0, rtRate=0
+02-09 16:02:03.027 D/AwareLog(  895): iawared: WorkingsetProcessCommand subCmd = 352, userId=10167, pid=27167, com.opencode.voiceassist
+02-09 16:02:03.027 D/AwareLog(  895): iawared: WorkingsetStop com.opencode.voiceassist
+02-09 16:02:03.463 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:02:03.727 D/hw_netstat( 1575): total/9019/1311,android.uid.system:1000/5480/1271,unknown:0/3363/0,unknown:1051/136/0,com.baidu.input_huawei/40/40
+02-09 16:02:03.998 I/PG_ash  ( 2186): view remove pid:27167 uid:10167
+02-09 16:02:04.003 W/libEGL  (27167): EGLNativeWindowType 0x7703eab010 disconnect failed
+02-09 16:02:04.009 I/StatusBarDisable( 1575): setFlags what=0 which=1 pkg=Window{8d3a939 u0 com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}
+02-09 16:02:04.019 V/WindowManager( 1575): removeIfPossible: Window{8d9fcea u0 Toast}
+02-09 16:02:04.019 V/WindowManager( 1575): Not removing Window{8d9fcea u0 Toast EXITING} due to exit animation 
+02-09 16:02:04.025 I/StatusBarDisable( 1575): setFlags what=0 which=1 pkg=Window{8d3a939 u0 com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}
+02-09 16:02:04.035 W/NotificationService( 1575): Toast already killed. pkg=com.opencode.voiceassist callback=android.app.ITransientNotification$Stub$Proxy@7f8bc90
+02-09 16:02:04.112 V/WindowManager( 1575): Exit animation finished in Window{8d9fcea u0 Toast EXITING}: remove=true
+02-09 16:02:04.138 I/StatusBarDisable( 1575): setFlags what=0 which=1 pkg=Window{8d3a939 u0 com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}
+02-09 16:02:04.145 I/DebugKeepScreenOn( 1575): setHoldScreenLocked newHoldScreen:null currentHoldScreen:Session{52bce32 27167:u0a10167} wakeLockState:true
+02-09 16:02:04.145 I/DebugKeepScreenOn( 1575): Releasing screen wakelock, obscured by Window{8d3a939 u0 com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}
+02-09 16:02:04.146 D/PowerMS ( 1575): release:L=223195808,F=0x0,T="WindowManager",N=android",WS=WorkSource{10167},U=1000,P=1575
+02-09 16:02:04.150 V/WindowManager( 1575): postWindowRemoveCleanupLocked: Window{8d9fcea u0 Toast}
+02-09 16:02:04.151 V/WindowManager( 1575): Removing Window{8d9fcea u0 Toast} from WindowToken{7e52d8c android.os.Binder@cde22bf}
+02-09 16:02:04.159 I/StatusBarDisable( 1575): setFlags what=0 which=1 pkg=Window{8d3a939 u0 com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}
+02-09 16:02:04.168 E/WifiHAL (  652): enter wifi_get_link_stats
+02-09 16:02:04.184 E/WificondControl( 1575): Noise: -94, Snr: 0, Chload: -1
+02-09 16:02:04.189 D/WifiScoreReport( 1575): Score = 60, wifiConnectivityManagerEnabled = false, lowScoreCount = 0
+02-09 16:02:04.502 I/Net.6783NetworkSpeedMan( 1924): mIsStop = false
+02-09 16:02:04.502 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:02:04.502 I/Net.6784NetworkSpeedMan( 1924):  runInThread getTetherStats
+02-09 16:02:04.506 I/Net.6784NetworkSpeedMan( 1924):  runInUI refreshSpeed
+02-09 16:02:04.507 I/Net.6784NetworkSpeedMan( 1924): value=222.0speed = 222B/smIsShowLastSpeedValuefalse
+02-09 16:02:04.507 I/NetworkSpeedView( 1924): /update(), speed=222B/s
+02-09 16:02:04.508 I/chatty  ( 1924): uid=10037(com.huawei.HwMultiScreenShot) com.android.systemui identical 2 lines
+02-09 16:02:04.508 I/NetworkSpeedView( 1924): /update(), speed=222B/s
+02-09 16:02:04.596 I/TrafficMonitor( 1575): update:rxPkts:4,txPkts:0,rxBytes:435,txBytes:0
+02-09 16:02:04.596 I/TrafficMonitor( 1575): start expired. level:-1
+02-09 16:02:04.596 I/TrafficMonitor( 1575): gettimer:interval=2000
+02-09 16:02:05.516 W/WindowManager( 1575): Unable to start animation, surface is null or no children.
+02-09 16:02:05.524 I/StatusBarDisable( 1575): setFlags what=0 which=1 pkg=Window{8d3a939 u0 com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}
+02-09 16:02:05.542 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:02:06.119 I/ImsResolver( 2213): getMmTelFeatureAndListen - slot: 2 callback: com.android.ims.MmTelFeatureConnection$1@d3c687a
+02-09 16:02:06.571 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:02:06.600 I/TrafficMonitor( 1575): update:rxPkts:4,txPkts:0,rxBytes:435,txBytes:0
+02-09 16:02:06.600 I/TrafficMonitor( 1575): start expired. level:-1
+02-09 16:02:06.600 I/TrafficMonitor( 1575): gettimer:interval=2000
+02-09 16:02:07.194 E/WifiHAL (  652): enter wifi_get_link_stats
+02-09 16:02:07.211 E/WificondControl( 1575): Noise: -94, Snr: 0, Chload: -1
+02-09 16:02:07.217 D/WifiScoreReport( 1575): Score = 60, wifiConnectivityManagerEnabled = false, lowScoreCount = 0
+02-09 16:02:07.504 I/Net.6784NetworkSpeedMan( 1924): mIsStop = false
+02-09 16:02:07.505 I/Net.6785NetworkSpeedMan( 1924):  runInThread getTetherStats
+02-09 16:02:07.510 I/Net.6785NetworkSpeedMan( 1924):  runInUI refreshSpeed
+02-09 16:02:07.512 I/Net.6785NetworkSpeedMan( 1924): value=209.33333speed = 209B/smIsShowLastSpeedValuefalse
+02-09 16:02:07.512 I/NetworkSpeedView( 1924): /update(), speed=209B/s
+02-09 16:02:07.513 I/chatty  ( 1924): uid=10037(com.huawei.HwMultiScreenShot) com.android.systemui identical 2 lines
+02-09 16:02:07.514 I/NetworkSpeedView( 1924): /update(), speed=209B/s
+02-09 16:02:07.538 E/Thermal-daemon(  891): [ap] temp_new :34  temp_old :38
+02-09 16:02:07.540 E/Thermal-daemon(  891): Report temperature: [ap] temp :34  report_threshold:1
+02-09 16:02:07.594 I/TrafficMonitor( 1575): expired arrive. level:-1
+02-09 16:02:07.595 I/TrafficMonitor( 1575): during_ms:2004,period_ms:2000
+02-09 16:02:07.595 I/TrafficMonitor( 1575): count:617,rx_sum:4,tx_sum:0,rxBytes:435,during_ms:2004,rx_speed:217.06586826347305,tx_speed:0.0,rto:0.0
+02-09 16:02:07.612 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:02:08.607 I/TrafficMonitor( 1575): update:rxPkts:3,txPkts:0,rxBytes:314,txBytes:0
+02-09 16:02:08.607 I/TrafficMonitor( 1575): start expired. level:-1
+02-09 16:02:08.607 I/TrafficMonitor( 1575): gettimer:interval=2000
+02-09 16:02:08.630 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:02:09.118 I/HiAdKit.ExSplashManager.main(14266):  do not request exsplash config
+02-09 16:02:09.670 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:02:10.222 E/WifiHAL (  652): enter wifi_get_link_stats
+02-09 16:02:10.237 E/WificondControl( 1575): Noise: -94, Snr: 0, Chload: -1
+02-09 16:02:10.243 D/WifiScoreReport( 1575): Score = 60, wifiConnectivityManagerEnabled = false, lowScoreCount = 0
+02-09 16:02:10.391 I/CAWARENESS_ServiceMonitor( 4038): memory(kB) static totalPss=12851, dalvikPss=1160, nativePss=2261
+02-09 16:02:10.506 I/Net.6785NetworkSpeedMan( 1924): mIsStop = false
+02-09 16:02:10.507 I/Net.6786NetworkSpeedMan( 1924):  runInThread getTetherStats
+02-09 16:02:10.513 I/Net.6786NetworkSpeedMan( 1924):  runInUI refreshSpeed
+02-09 16:02:10.515 I/Net.6786NetworkSpeedMan( 1924): value=270.0speed = 270B/smIsShowLastSpeedValuefalse
+02-09 16:02:10.515 I/NetworkSpeedView( 1924): /update(), speed=270B/s
+02-09 16:02:10.516 I/chatty  ( 1924): uid=10037(com.huawei.HwMultiScreenShot) com.android.systemui identical 2 lines
+02-09 16:02:10.516 I/NetworkSpeedView( 1924): /update(), speed=270B/s
+02-09 16:02:10.611 I/TrafficMonitor( 1575): update:rxPkts:5,txPkts:0,rxBytes:496,txBytes:0
+02-09 16:02:10.612 I/TrafficMonitor( 1575): start expired. level:-1
+02-09 16:02:10.612 I/TrafficMonitor( 1575): gettimer:interval=2000
+02-09 16:02:10.648 E/WificondControl( 1575): Noise: -94, Snr: 0, Chload: -1
+02-09 16:02:10.659 I/HuaweiWifiWatchdogStateMachine( 1575): POta txb txg rxg:0, 1, 0. Lr =0% Totpkt=1
+02-09 16:02:10.659 I/HwUidTcpMonitor( 1575): TcpStatisticsRun run
+02-09 16:02:10.660 D/WiFi_PRO( 1575): MSG_RETURN_AP_CURRY_RSSI rssi = -40
+02-09 16:02:10.660 I/QosMonitor( 1575): queryRtt: rtt_type = 3
+02-09 16:02:10.663 I/QosMonitor( 1575): postEventFromNative: msg=100,arg1=4,arg2=10
+02-09 16:02:10.664 I/QosMonitor( 1575): postEventFromNative: msg=100,arg1=0,arg2=10
+02-09 16:02:10.665 I/MQoS    ( 1575): rtt=356,tcp_tx_pkts=3861464,tcp_rx_pkts=7268721
+02-09 16:02:10.667 I/HuaweiWifiWatchdogStateMachine( 1575): PTcp RTT:0, rtt pkt=0, tcp_rx=0, tcp_tx=0, tcp_reTran=0, rtRate=0
+02-09 16:02:10.675 I/MQoS    ( 1575): QOS_level:0(0),wifi-link;SIM error;use level-0
+02-09 16:02:10.711 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:02:11.521 D/GpsFreezeProc( 1575): refreshPackageWhitelist pkgs-count:0 , type = 1
+02-09 16:02:11.523 I/GpsFreezeProc( 1575): updateBackgroundThrottleToPackageWhiteList:com.huawei.hwid
+02-09 16:02:11.523 D/LocationManagerService( 1575): Provider name = local_database shouldbeEnabled = true
+02-09 16:02:11.523 D/LocationManagerService( 1575): Provider name = fused shouldbeEnabled = true
+02-09 16:02:11.523 D/GpsFreezeProc( 1575): refreshPackageWhitelist pkgs-count:0 , type = 4
+02-09 16:02:11.523 D/LocationManagerService( 1575): Provider name = network shouldbeEnabled = true
+02-09 16:02:11.524 D/LocationManagerService( 1575): Provider name = gps shouldbeEnabled = true
+02-09 16:02:11.524 D/LocationManagerService( 1575): Provider name = passive shouldbeEnabled = true
+02-09 16:02:11.524 D/HwQuickTTFFMonitor-V2018.8.27( 1575): DisableList 0
+02-09 16:02:11.524 I/APwSendOutList( 2186): no wifi sleep list
+02-09 16:02:11.524 I/PGConfigUpdateManager( 2186): clear wifi_apps_whitelist
+02-09 16:02:11.524 I/PGConfigUpdateManager( 2186): clear wifi_sleep_list
+02-09 16:02:11.524 D/HwQuickTTFFMonitor-V2018.8.27( 1575):  QuickttffDisableList []
+02-09 16:02:11.744 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:02:12.544 E/Thermal-daemon(  891): [ap] temp_new :32  temp_old :34
+02-09 16:02:12.545 E/Thermal-daemon(  891): Report temperature: [ap] temp :32  report_threshold:1
+02-09 16:02:12.616 I/TrafficMonitor( 1575): update:rxPkts:6,txPkts:0,rxBytes:626,txBytes:0
+02-09 16:02:12.616 I/TrafficMonitor( 1575): start expired. level:-1
+02-09 16:02:12.616 I/TrafficMonitor( 1575): gettimer:interval=2000
+02-09 16:02:12.781 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:02:13.246 E/WifiHAL (  652): enter wifi_get_link_stats
+02-09 16:02:13.261 E/WificondControl( 1575): Noise: -94, Snr: 0, Chload: -1
+02-09 16:02:13.266 D/WifiScoreReport( 1575): Score = 60, wifiConnectivityManagerEnabled = false, lowScoreCount = 0
+02-09 16:02:13.510 I/Net.6786NetworkSpeedMan( 1924): mIsStop = false
+02-09 16:02:13.511 I/Net.6787NetworkSpeedMan( 1924):  runInThread getTetherStats
+02-09 16:02:13.517 I/Net.6787NetworkSpeedMan( 1924):  runInUI refreshSpeed
+02-09 16:02:13.518 I/Net.6787NetworkSpeedMan( 1924): value=208.66667speed = 209B/smIsShowLastSpeedValuefalse
+02-09 16:02:13.519 I/NetworkSpeedView( 1924): /update(), speed=209B/s
+02-09 16:02:13.520 I/chatty  ( 1924): uid=10037(com.huawei.HwMultiScreenShot) com.android.systemui identical 2 lines
+02-09 16:02:13.520 I/NetworkSpeedView( 1924): /update(), speed=209B/s
+02-09 16:02:13.609 I/TrafficMonitor( 1575): expired arrive. level:-1
+02-09 16:02:13.609 I/TrafficMonitor( 1575): during_ms:2004,period_ms:2000
+02-09 16:02:13.609 I/TrafficMonitor( 1575): count:620,rx_sum:6,tx_sum:0,rxBytes:626,during_ms:2004,rx_speed:312.375249500998,tx_speed:0.0,rto:0.0
+02-09 16:02:13.742 D/hw_netstat( 1575): total/2377/0,unknown:0/2377/0
+02-09 16:02:13.789 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:02:14.619 I/TrafficMonitor( 1575): update:rxPkts:4,txPkts:0,rxBytes:404,txBytes:0
+02-09 16:02:14.619 I/TrafficMonitor( 1575): start expired. level:-1
+02-09 16:02:14.619 I/TrafficMonitor( 1575): gettimer:interval=2000
+02-09 16:02:14.824 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:02:15.021 W/WindowManager( 1575): removeWindowToken: Attempted to remove non-existing token: android.os.Binder@cde22bf
+02-09 16:02:15.340 I/HwNaturalBase( 2140): [CommonHandler]: 21130Kb ram is used.
+02-09 16:02:15.865 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:02:16.135 D/HwSelfCureEngine( 1575): periodicArpDetection signalLevel = 4, isScreenOn = true , mArpDetectionFailedCnt = 0
+02-09 16:02:16.136 D/wifiserviceimpl( 1575): netmask =16711679
+02-09 16:02:16.151 E/JankService(27246): child Thread receive to stop
+02-09 16:02:16.178 D/HwArpUtils( 1575): getGateWayArpResult:Pair{true 11}
+02-09 16:02:16.181 D/HwWifiCHRStateManager( 2101): handleMessage : 1121
+02-09 16:02:16.181 E/HwCHRWifiRSSIGroupSummery( 2101): updatArpSummery mRSSI:-1  HwCHRWifiRSSIGroup [rssi_index=4, rtt_tcp_packets=0, rtt_tcp_duration=0, rtt_lan_duration=8924, rtt_lan_failures=0, rtt_lan_succ=739, rtt_lan_max=443, rtt_lan_min=2,same_area_frequency=0,adjacent_area_frequency=2]
+02-09 16:02:16.254 E/JankService(  907): all data read ok
+02-09 16:02:16.271 E/WifiHAL (  652): enter wifi_get_link_stats
+02-09 16:02:16.284 E/WificondControl( 1575): Noise: -95, Snr: 0, Chload: -1
+02-09 16:02:16.289 D/WifiScoreReport( 1575): Score = 60, wifiConnectivityManagerEnabled = false, lowScoreCount = 0
+02-09 16:02:16.502 D/DeviceMonitorPowerKit( 2117): run, sCountNum is 1
+02-09 16:02:16.503 D/DeviceMonitorPowerKit( 2117): interval is 139971, ElapsedRealtime is 452705350, isNeedRepeat: false
+02-09 16:02:16.503 E/DeviceMonitorPowerKit( 2117): not Satify ApplyResource
+02-09 16:02:16.512 I/Net.6787NetworkSpeedMan( 1924): mIsStop = false
+02-09 16:02:16.512 I/Net.6788NetworkSpeedMan( 1924):  runInThread getTetherStats
+02-09 16:02:16.520 I/Net.6788NetworkSpeedMan( 1924):  runInUI refreshSpeed
+02-09 16:02:16.522 I/Net.6788NetworkSpeedMan( 1924): value=302.66666speed = 303B/smIsShowLastSpeedValuefalse
+02-09 16:02:16.522 I/NetworkSpeedView( 1924): /update(), speed=303B/s
+02-09 16:02:16.524 I/chatty  ( 1924): uid=10037(com.huawei.HwMultiScreenShot) com.android.systemui identical 2 lines
+02-09 16:02:16.524 I/NetworkSpeedView( 1924): /update(), speed=303B/s
+02-09 16:02:16.624 I/TrafficMonitor( 1575): update:rxPkts:5,txPkts:1,rxBytes:464,txBytes:40
+02-09 16:02:16.624 I/TrafficMonitor( 1575): start expired. level:-1
+02-09 16:02:16.624 I/TrafficMonitor( 1575): gettimer:interval=2000
+02-09 16:02:16.902 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:02:17.910 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:02:18.631 I/TrafficMonitor( 1575): update:rxPkts:4,txPkts:0,rxBytes:484,txBytes:0
+02-09 16:02:18.631 I/TrafficMonitor( 1575): start expired. level:-1
+02-09 16:02:18.631 I/TrafficMonitor( 1575): gettimer:interval=2000
+02-09 16:02:18.660 E/WificondControl( 1575): Noise: -95, Snr: 0, Chload: -1
+02-09 16:02:18.670 D/WiFi_PRO( 1575): MSG_RETURN_AP_CURRY_RSSI rssi = -41
+02-09 16:02:18.671 I/HuaweiWifiWatchdogStateMachine( 1575): POta txb txg rxg:0, 7, 0. Lr =0% Totpkt=7
+02-09 16:02:18.671 I/QosMonitor( 1575): queryRtt: rtt_type = 3
+02-09 16:02:18.671 I/HwUidTcpMonitor( 1575): TcpStatisticsRun run
+02-09 16:02:18.672 I/QosMonitor( 1575): postEventFromNative: msg=100,arg1=4,arg2=10
+02-09 16:02:18.672 I/QosMonitor( 1575): postEventFromNative: msg=100,arg1=0,arg2=10
+02-09 16:02:18.674 I/HuaweiWifiWatchdogStateMachine( 1575): PTcp RTT:0, rtt pkt=0, tcp_rx=1, tcp_tx=1, tcp_reTran=0, rtRate=0
+02-09 16:02:18.674 I/MQoS    ( 1575): rtt=356,tcp_tx_pkts=3861465,tcp_rx_pkts=7268722
+02-09 16:02:18.675 D/HwUidTcpMonitor( 1575): parseWlanUidTcpStatistics lastUidTcpStatInfo = [ mUid = 10068 mPacketName = com.opencode.voiceassist mSendSegs = 216 mResendSegs = 0 mRcvSegs = 244 ]
+02-09 16:02:18.678 D/HuaweiWifiWatchdogStateMachine( 1575): EVENT_STORE_HISTORY_QUALITY triggered!
+02-09 16:02:18.678 D/HuaweiWifiWatchdogStateMachine( 1575): save bssid:9c:2b:**:**:86:5f history record, mEntriesSize = 46
+02-09 16:02:18.679 D/WifiProHistoryDBManager( 1575): addOrUpdateApQualityRcd enter.
+02-09 16:02:18.683 I/MQoS    ( 1575): QOS_level:0(0),wifi-link;SIM error;use level-0
+02-09 16:02:18.684 D/WifiProHistoryDBManager( 1575): checkHistoryRecordExist read from:WifiProApQualityTable, get record: 1
+02-09 16:02:18.691 D/WifiProHistoryDBManager( 1575): updateApQualityRcd update succ, rowChg=1
+02-09 16:02:18.691 I/WifiProHistoryRecordManager( 1575): saveApQualityRecord succ.
+02-09 16:02:18.918 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:02:19.051 I/HwNaturalBase( 2140): [Timer-0]: MultiUserManagerService:  getNotActiveUser start
+02-09 16:02:19.290 E/WifiHAL (  652): enter wifi_get_link_stats
+02-09 16:02:19.308 E/WificondControl( 1575): Noise: -95, Snr: 0, Chload: -1
+02-09 16:02:19.314 D/WifiScoreReport( 1575): Score = 60, wifiConnectivityManagerEnabled = false, lowScoreCount = 0
+02-09 16:02:19.514 I/Net.6788NetworkSpeedMan( 1924): mIsStop = false
+02-09 16:02:19.514 I/Net.6789NetworkSpeedMan( 1924):  runInThread getTetherStats
+02-09 16:02:19.521 I/Net.6789NetworkSpeedMan( 1924):  runInUI refreshSpeed
+02-09 16:02:19.522 I/Net.6789NetworkSpeedMan( 1924): value=185.0speed = 185B/smIsShowLastSpeedValuefalse
+02-09 16:02:19.522 I/NetworkSpeedView( 1924): /update(), speed=185B/s
+02-09 16:02:19.614 W/Watchdog( 1575): hungtask: writing kick
+02-09 16:02:19.524 I/chatty  ( 1924): uid=10037(com.huawei.HwMultiScreenShot) com.android.systemui identical 2 lines
+02-09 16:02:19.524 I/NetworkSpeedView( 1924): /update(), speed=185B/s
+02-09 16:02:19.616 I/EventHub( 1575): EventHub monitor: no key events in the past 20508s, no motion events in the past 536s
+02-09 16:02:19.621 I/TrafficMonitor( 1575): expired arrive. level:-1
+02-09 16:02:19.621 I/TrafficMonitor( 1575): during_ms:2007,period_ms:2000
+02-09 16:02:19.621 I/TrafficMonitor( 1575): count:623,rx_sum:4,tx_sum:0,rxBytes:484,during_ms:2007,rx_speed:241.15595416043845,tx_speed:0.0,rto:0.0
+02-09 16:02:19.958 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:02:20.085 E/HwWifiStatStore( 2101): getTemperatureCtrlParam Enter
+02-09 16:02:20.088 E/HwWifiStatStore( 2101): temStatLines size 6
+02-09 16:02:20.089 D/HwWifiStatStore( 2101): writeWifiStatToDataBase
+02-09 16:02:20.091 D/HwWifiStatStore( 2101): updateDFT2StabilityParam mSSIDStatList size is .1
+02-09 16:02:20.093 D/NcWifiDFTManager( 2101): handled event 1000
+02-09 16:02:20.093 D/NcWifiDFTManager( 2101): HwWifiDFTEventConst.EID_STABILITYSTAT2
+02-09 16:02:20.094 D/WifiDftDataBaseManager( 2101): addOrUpdateStatisticsRecord enter
+02-09 16:02:20.094 D/WifiDftDataBaseManager( 2101): checkIfStatisticsRecordExist enter
+02-09 16:02:20.100 D/WifiDftDataBaseManager( 2101): checkIfStatisticsRecordExist read from:WifiStatistics, get record: 1
+02-09 16:02:20.100 D/WifiDftDataBaseManager( 2101): updateStatisticsRecord enter
+02-09 16:02:20.108 D/WifiDftDataBaseManager( 2101): updateStatisticsRecord update succ, rowChg=1
+02-09 16:02:20.108 D/HwWifiStatStore( 2101): clearStatInfo enter
+02-09 16:02:20.108 D/NcWifiDFTManager( 2101): handled event 1000
+02-09 16:02:20.108 D/HwWifiStatStore( 2101): setAPSSID: "ETSME-RD"
+02-09 16:02:20.108 D/HwWifiStatStore( 2101): setAPKActionName mCurAPKAction is null: com.huawei.lbs
+02-09 16:02:20.108 D/WifiDftDataBaseManager( 2101): addOrUpdateSSIDStatisticsRecord enter
+02-09 16:02:20.108 D/WifiDftDataBaseManager( 2101): checkIfSSIDStatisticsRcdExist enter
+02-09 16:02:20.109 I/NetworkStats( 1575): openSessionForUsageStats, pid = 2101, pkg = com.huawei.hiview
+02-09 16:02:20.110 I/NetworkStats( 1575): openSessionInternal,pid = 2101
+02-09 16:02:20.112 I/NetworkStats( 1575): performPollLocked, pid = 1575
+02-09 16:02:20.112 D/WifiDftDataBaseManager( 2101): checkIfSSIDStatisticsRcdExist read from:WifiSSIDStatistics, get record: 1
+02-09 16:02:20.112 D/WifiDftDataBaseManager( 2101): updateSSIDStatisticsRecord enter
+02-09 16:02:20.119 D/WifiDftDataBaseManager( 2101): updateSSIDStatisticsRecord update succ, rowChg=1
+02-09 16:02:20.119 D/NcWifiDFTManager( 2101):  HwWifiDFTEventConst.EID_STABILITYSSIDSTAT2
+02-09 16:02:20.119 D/NcWifiDFTManager( 2101): handled event 1000
+02-09 16:02:20.119 D/NcWifiDFTManager( 2101):  HwWifiDFTEventConst.EID_WIFIAPK_ACION
+02-09 16:02:20.119 E/NcWifiDFTManager( 2101): WifiDftAPKActionRcd's , mApkName :com.huawei.lbs mDSCPCnt[i] = 0
+02-09 16:02:20.119 I/chatty  ( 2101): uid=1000(system) NcWifiDFTManage identical 2 lines
+02-09 16:02:20.119 E/NcWifiDFTManager( 2101): WifiDftAPKActionRcd's , mApkName :com.huawei.lbs mDSCPCnt[i] = 0
+02-09 16:02:20.119 D/WifiDftDataBaseManager( 2101): addOrUpdateAPKActionRecord enter
+02-09 16:02:20.119 D/WifiDftDataBaseManager( 2101): checkIfAPKActionRcdExist enter
+02-09 16:02:20.121 D/WifiDftDataBaseManager( 2101): checkIfSSIDStatisticsRcdExist read from:StatusChangedByAPK, get record: 1
+02-09 16:02:20.121 D/WifiDftDataBaseManager( 2101): updateAPKActionRecord enter
+02-09 16:02:20.125 D/WifiDftDataBaseManager( 2101): updateAPKActionRecord update succ, rowChg=1
+02-09 16:02:20.125 D/NcWifiDFTManager( 2101): handled event 1000
+02-09 16:02:20.125 D/WifiDftDataBaseManager( 2101): addOrUpdateSunsetRecord enter
+02-09 16:02:20.125 D/WifiDftDataBaseManager( 2101): checkIfSunsetRecordExist enter
+02-09 16:02:20.127 D/WifiDftDataBaseManager( 2101): checkIfSunsetRecordExist read from:WifiSunset, get record: 1
+02-09 16:02:20.129 D/WifiDftDataBaseManager( 2101): updateSunsetRecord update succ, rowChg=1
+02-09 16:02:20.144 W/NetworkStatsFactory( 1575): mStatsXtProcUid: /proc/net/comm/stats does not exist!
+02-09 16:02:20.145 D/HwNetworkStatsService( 1575): hwRecordUidAndProcSnapshotLocked currentTime = 1770624137492
+02-09 16:02:20.161 I/NetworkStatsFactory( 1575): javaReadNetworkStatsUidAndProcDetail. cost time = 15
+02-09 16:02:20.168 D/HwNetworkStatsService( 1575): hwMaybeUidAndProcPersistLocked currentTime = 1770624137492
+02-09 16:02:20.188 I/NetworkStats( 1575): openSessionForUsageStats, pid = 2101, pkg = com.huawei.hiview
+02-09 16:02:20.189 I/NetworkStats( 1575): openSessionInternal,pid = 2101
+02-09 16:02:20.190 I/NetworkStats( 1575): performPollLocked, pid = 1575
+02-09 16:02:20.217 W/NetworkStatsFactory( 1575): mStatsXtProcUid: /proc/net/comm/stats does not exist!
+02-09 16:02:20.217 D/HwNetworkStatsService( 1575): hwRecordUidAndProcSnapshotLocked currentTime = 1770624137571
+02-09 16:02:20.228 E/HSM_BG  ( 4721): NormalTrafficAnalysis:alert byte = 0, so return
+02-09 16:02:20.234 I/NetworkStatsFactory( 1575): javaReadNetworkStatsUidAndProcDetail. cost time = 17
+02-09 16:02:20.239 D/HwNetworkStatsService( 1575): hwMaybeUidAndProcPersistLocked currentTime = 1770624137571
+02-09 16:02:20.255 D/UsbSettingsService(26152): handleMessage, msg.what = 4
+02-09 16:02:20.255 D/UsbSettingsService(26152): receive message to check monkey running.
+02-09 16:02:20.286 E/HSM_BG  ( 4721): NormalTrafficAnalysis:alert byte = 0, so return
+02-09 16:02:20.634 I/TrafficMonitor( 1575): update:rxPkts:5,txPkts:0,rxBytes:883,txBytes:0
+02-09 16:02:20.634 I/TrafficMonitor( 1575): start expired. level:-1
+02-09 16:02:20.634 I/TrafficMonitor( 1575): gettimer:interval=2000
+02-09 16:02:20.999 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:02:22.185 I/HwBatteryService( 1575): quick charge status : 0
+02-09 16:02:22.185 D/HwBatteryService( 1575): onUEvent fcpStatus = 0
+02-09 16:02:22.186 D/HwBatteryService( 1575): onUEvent scpStatus = 0 ,ovpStatus = 0
+02-09 16:02:22.186 I/HwBatteryService( 1575): handleWirelessTxStatus
+02-09 16:02:22.186 I/HwBatteryService( 1575): switch not open, return, mWirelessTxFlag : 0
+02-09 16:02:22.187 I/UsbDeviceManager( 1575): water_intrused state= 0
+02-09 16:02:22.317 E/WifiHAL (  652): enter wifi_get_link_stats
+02-09 16:02:22.333 E/WificondControl( 1575): Noise: -95, Snr: 0, Chload: -1
+02-09 16:02:22.339 D/WifiScoreReport( 1575): Score = 60, wifiConnectivityManagerEnabled = false, lowScoreCount = 0
+02-09 16:02:22.517 I/Net.6789NetworkSpeedMan( 1924): mIsStop = false
+02-09 16:02:22.518 I/Net.6790NetworkSpeedMan( 1924):  runInThread getTetherStats
+02-09 16:02:22.526 I/Net.6790NetworkSpeedMan( 1924):  runInUI refreshSpeed
+02-09 16:02:22.527 I/Net.6790NetworkSpeedMan( 1924): value=351.33334speed = 351B/smIsShowLastSpeedValuefalse
+02-09 16:02:22.528 I/NetworkSpeedView( 1924): /update(), speed=351B/s
+02-09 16:02:22.529 I/chatty  ( 1924): uid=10037(com.huawei.HwMultiScreenShot) com.android.systemui identical 2 lines
+02-09 16:02:22.529 I/NetworkSpeedView( 1924): /update(), speed=351B/s
+02-09 16:02:22.552 E/Thermal-daemon(  891): [ap] temp_new :31  temp_old :32
+02-09 16:02:22.558 E/Thermal-daemon(  891): Report temperature: [ap] temp :31  report_threshold:1
+02-09 16:02:22.638 I/TrafficMonitor( 1575): update:rxPkts:3,txPkts:0,rxBytes:363,txBytes:0
+02-09 16:02:22.638 I/TrafficMonitor( 1575): start expired. level:-1
+02-09 16:02:22.638 I/TrafficMonitor( 1575): gettimer:interval=2000
+02-09 16:02:23.079 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:02:23.757 D/hw_netstat( 1575): total/2406/40,unknown:0/2366/0,com.baidu.input_huawei/40/40
+02-09 16:02:24.096 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:02:24.642 I/TrafficMonitor( 1575): update:rxPkts:3,txPkts:0,rxBytes:363,txBytes:0
+02-09 16:02:24.642 I/TrafficMonitor( 1575): start expired. level:-1
+02-09 16:02:24.642 I/TrafficMonitor( 1575): gettimer:interval=2000
+02-09 16:02:25.110 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:02:25.343 E/WifiHAL (  652): enter wifi_get_link_stats
+02-09 16:02:25.357 E/WificondControl( 1575): Noise: -95, Snr: 0, Chload: -1
+02-09 16:02:25.363 D/WifiScoreReport( 1575): Score = 60, wifiConnectivityManagerEnabled = false, lowScoreCount = 0
+02-09 16:02:25.518 I/Net.6790NetworkSpeedMan( 1924): mIsStop = false
+02-09 16:02:25.519 I/Net.6791NetworkSpeedMan( 1924):  runInThread getTetherStats
+02-09 16:02:25.525 I/Net.6791NetworkSpeedMan( 1924):  runInUI refreshSpeed
+02-09 16:02:25.526 I/Net.6791NetworkSpeedMan( 1924): value=161.33333speed = 161B/smIsShowLastSpeedValuefalse
+02-09 16:02:25.527 I/NetworkSpeedView( 1924): /update(), speed=161B/s
+02-09 16:02:25.528 I/chatty  ( 1924): uid=10037(com.huawei.HwMultiScreenShot) com.android.systemui identical 2 lines
+02-09 16:02:25.528 I/NetworkSpeedView( 1924): /update(), speed=161B/s
+02-09 16:02:25.636 I/TrafficMonitor( 1575): expired arrive. level:-1
+02-09 16:02:25.637 I/TrafficMonitor( 1575): during_ms:2004,period_ms:2000
+02-09 16:02:25.637 I/TrafficMonitor( 1575): count:626,rx_sum:3,tx_sum:0,rxBytes:363,during_ms:2004,rx_speed:181.1377245508982,tx_speed:0.0,rto:0.0
+02-09 16:02:26.147 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:02:26.645 I/TrafficMonitor( 1575): update:rxPkts:2,txPkts:0,rxBytes:242,txBytes:0
+02-09 16:02:26.645 I/TrafficMonitor( 1575): start expired. level:-1
+02-09 16:02:26.645 I/TrafficMonitor( 1575): gettimer:interval=2000
+02-09 16:02:26.668 E/WificondControl( 1575): Noise: -95, Snr: 0, Chload: -1
+02-09 16:02:26.679 D/WiFi_PRO( 1575): MSG_RETURN_AP_CURRY_RSSI rssi = -40
+02-09 16:02:26.679 I/QosMonitor( 1575): queryRtt: rtt_type = 3
+02-09 16:02:26.680 D/HuaweiWifiWatchdogStateMachine( 1575): high data flow: protection_counter = 0,  not_detect_counter = 689
+02-09 16:02:26.680 D/HuaweiWifiWatchdogStateMachine( 1575): high data flow scenario: 0 --> 0 rx bytes =13KB
+02-09 16:02:26.680 I/HuaweiWifiWatchdogStateMachine( 1575): POta txb txg rxg:0, 7, 0. Lr =0% Totpkt=7
+02-09 16:02:26.680 I/HwUidTcpMonitor( 1575): TcpStatisticsRun run
+02-09 16:02:26.681 I/QosMonitor( 1575): postEventFromNative: msg=100,arg1=4,arg2=10
+02-09 16:02:26.681 I/QosMonitor( 1575): postEventFromNative: msg=100,arg1=0,arg2=10
+02-09 16:02:26.681 I/MQoS    ( 1575): rtt=356,tcp_tx_pkts=3861465,tcp_rx_pkts=7268722
+02-09 16:02:26.683 I/HuaweiWifiWatchdogStateMachine( 1575): PTcp RTT:0, rtt pkt=0, tcp_rx=0, tcp_tx=0, tcp_reTran=0, rtRate=0
+02-09 16:02:26.687 I/MQoS    ( 1575): QOS_level:0(0),wifi-link;SIM error;use level-0
+02-09 16:02:27.169 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:02:27.560 E/Thermal-daemon(  891): [charger_ic] temp_new :29  temp_old :30
+02-09 16:02:27.563 E/Thermal-daemon(  891): Report temperature: [charger_ic] temp :29  report_threshold:1
+02-09 16:02:27.877 E/HiDATA_HiNetwork( 1575): send message, messageType is :9
+02-09 16:02:28.181 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:02:28.367 E/WifiHAL (  652): enter wifi_get_link_stats
+02-09 16:02:28.383 E/WificondControl( 1575): Noise: -95, Snr: 0, Chload: -1
+02-09 16:02:28.388 D/WifiScoreReport( 1575): Score = 60, wifiConnectivityManagerEnabled = false, lowScoreCount = 0
+02-09 16:02:28.520 I/Net.6791NetworkSpeedMan( 1924): mIsStop = false
+02-09 16:02:28.520 I/Net.6792NetworkSpeedMan( 1924):  runInThread getTetherStats
+02-09 16:02:28.526 I/Net.6792NetworkSpeedMan( 1924):  runInUI refreshSpeed
+02-09 16:02:28.528 I/Net.6792NetworkSpeedMan( 1924): value=215.66667speed = 216B/smIsShowLastSpeedValuefalse
+02-09 16:02:28.528 I/NetworkSpeedView( 1924): /update(), speed=216B/s
+02-09 16:02:28.529 I/chatty  ( 1924): uid=10037(com.huawei.HwMultiScreenShot) com.android.systemui identical 2 lines
+02-09 16:02:28.529 I/NetworkSpeedView( 1924): /update(), speed=216B/s
+02-09 16:02:28.649 I/TrafficMonitor( 1575): update:rxPkts:5,txPkts:0,rxBytes:647,txBytes:0
+02-09 16:02:28.649 I/TrafficMonitor( 1575): start expired. level:-1
+02-09 16:02:28.649 I/TrafficMonitor( 1575): gettimer:interval=2000
+02-09 16:02:28.925 I/SmartChgBase/Arb_HidlParam( 4721): Apply Skipped: IsApplyExcept return true. [moduleName:ASW, param:dc_vterm_dec, detailsWithValue:source=trigger;event=heartbeat;chargestatus=start;value=0;]
+02-09 16:02:28.926 I/SmartChgBase/Arb_HidlParam( 4721): Apply Skipped: IsApplyExcept return true. [moduleName:ASW, param:nondc_vterm_dec, detailsWithValue:source=trigger;event=heartbeat;chargestatus=start;value=0;]
+02-09 16:02:28.926 I/SmartChgBase/Arb_HidlParam( 4721): Apply Skipped: IsApplyExcept return true. [moduleName:ASW, param:soc_control, detailsWithValue:source=trigger;event=heartbeat;chargestatus=start;value=1 95 100 1 1;]
+02-09 16:02:29.206 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:02:30.218 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:02:30.653 I/TrafficMonitor( 1575): update:rxPkts:4,txPkts:1,rxBytes:282,txBytes:40
+02-09 16:02:30.653 I/TrafficMonitor( 1575): start expired. level:-1
+02-09 16:02:30.653 I/TrafficMonitor( 1575): gettimer:interval=2000
+02-09 16:02:31.254 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:02:31.393 E/WifiHAL (  652): enter wifi_get_link_stats
+02-09 16:02:31.412 E/WificondControl( 1575): Noise: -95, Snr: 0, Chload: -1
+02-09 16:02:31.418 D/WifiScoreReport( 1575): Score = 60, wifiConnectivityManagerEnabled = false, lowScoreCount = 0
+02-09 16:02:31.521 I/Net.6792NetworkSpeedMan( 1924): mIsStop = false
+02-09 16:02:31.522 I/Net.6793NetworkSpeedMan( 1924):  runInThread getTetherStats
+02-09 16:02:31.527 I/Net.6793NetworkSpeedMan( 1924):  runInUI refreshSpeed
+02-09 16:02:31.529 I/Net.6793NetworkSpeedMan( 1924): value=258.66666speed = 259B/smIsShowLastSpeedValuefalse
+02-09 16:02:31.529 I/NetworkSpeedView( 1924): /update(), speed=259B/s
+02-09 16:02:31.530 I/chatty  ( 1924): uid=10037(com.huawei.HwMultiScreenShot) com.android.systemui identical 2 lines
+02-09 16:02:31.531 I/NetworkSpeedView( 1924): /update(), speed=259B/s
+02-09 16:02:31.646 I/TrafficMonitor( 1575): expired arrive. level:-1
+02-09 16:02:31.647 I/TrafficMonitor( 1575): during_ms:2004,period_ms:2000
+02-09 16:02:31.647 I/TrafficMonitor( 1575): count:629,rx_sum:4,tx_sum:1,rxBytes:282,during_ms:2004,rx_speed:140.7185628742515,tx_speed:19.960079840319363,rto:4.0
+02-09 16:02:32.295 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:02:32.657 I/TrafficMonitor( 1575): update:rxPkts:5,txPkts:0,rxBytes:636,txBytes:0
+02-09 16:02:32.657 I/TrafficMonitor( 1575): start expired. level:-1
+02-09 16:02:32.657 I/TrafficMonitor( 1575): gettimer:interval=2000
+02-09 16:02:32.915 W/AlarmManager( 1575): mIsScreenOn is: true, WAKEUP alarm trigger action = com.huawei.push.alarm.HEARTBEAT package name is: android tag: *walarm*:com.huawei.push.alarm.HEARTBEAT window:0 originWhen:452861733 when:452861733 maxWhen:452861733
+02-09 16:02:32.926 I/PushLog110000403( 6437): [main-1]action is com.huawei.push.alarm.HEARTBEAT
+02-09 16:02:32.933 I/PushLog110000403( 6437): [main-1]dispatchIntent over
+02-09 16:02:32.935 V/BroadcastQueue( 1575): Finished with ordered broadcast BroadcastRecord{ed511bc u0 com.huawei.push.alarm.HEARTBEAT}
+02-09 16:02:32.936 I/PushLog110000403( 6437): [ReceiverDispatcher-297]com.huawei.push.alarm.HEARTBEAT alarm trigger, expectTriggerTime:1770624152914, current trigger time:1770624152936
+02-09 16:02:32.936 I/PushLog110000403( 6437): [ReceiverDispatcher-297]heartbeatArrive
+02-09 16:02:32.937 I/PushLog110000403( 6437): [ReceiverDispatcher-297]heartbeatArrive, send heart beat
+02-09 16:02:32.937 I/PushLog110000403( 6437): [ReceiverDispatcher-297]enter AlarmTools:setExactAlarm(intent:Intent { act=com.huawei.android.push.intent.HEARTBEAT_RSP_TIMEOUT pkg=android } interval:10000ms
+02-09 16:02:32.942 I/PushLog110000403( 6437): [ReceiverDispatcher-297]setExactAlarm expectTriggerTime:1770624162942
+02-09 16:02:32.953 I/PushLog110000403( 6437): [ReceiverDispatcher-297] get charging true
+02-09 16:02:32.953 I/PushLog110000403( 6437): [ReceiverDispatcher-297]next Heartbeat timeout for push server is: 5 min , curHeartBeatInterval: 300000
+02-09 16:02:32.953 I/PushLog110000403( 6437): [ReceiverDispatcher-297]process cmdid to send to pushSrv:46, subCmdId:FF
+02-09 16:02:32.958 I/PushLog110000403( 6437): [ReceiverDispatcher-297]send msg to remote srv success
+02-09 16:02:33.005 I/PushLog110000403( 6437): [SocketRead_09:32:19-313]enter cancelAlarm(Action=com.huawei.android.push.intent.RESPONSE_FAIL
+02-09 16:02:33.008 I/PushLog110000403( 6437): [SocketRead_09:32:19-313]process cmdid to receive from pushSrv:47, subCmdId:FF
+02-09 16:02:33.009 I/PushLog110000403( 6437): [SocketRead_09:32:19-313]enter cancelAlarm(Action=com.huawei.android.push.intent.HEARTBEAT_RSP_TIMEOUT
+02-09 16:02:33.011 I/AlarmManager( 1575): remove alarm:Alarm{57bc1cb type 0 when 1770624162942 PendingIntent{f880545: PendingIntentRecord{4be095d android broadcastIntent}}android procName null} according to operation:8bf8da8
+02-09 16:02:33.019 I/PushLog110000403( 6437): [SocketRead_09:32:19-313]enter adjustHeartBeat:(findHeartBeat:true,RspTimeOut:false,beatInterval:300000,bestHBSuccessCount:0,range:[180000,300000])
+02-09 16:02:33.019 I/PushLog110000403( 6437): [SocketRead_09:32:19-313]judgeFindBestHB and isBestHBTimeOut: false, isOffset: false
+02-09 16:02:33.020 I/PushLog110000403( 6437): [SocketRead_09:32:19-313] get charging true
+02-09 16:02:33.020 I/PushLog110000403( 6437): [SocketRead_09:32:19-313]after delayHeartBeatReq, is charging, nextHeartBeatTime will be 180000ms later
+02-09 16:02:33.020 I/PushLog110000403( 6437): [SocketRead_09:32:19-313]enter AlarmTools:setExactAlarm(intent:Intent { act=com.huawei.push.alarm.HEARTBEAT pkg=android } interval:180000ms
+02-09 16:02:33.021 I/PushLog110000403( 6437): [SocketRead_09:32:19-313]setExactAlarm expectTriggerTime:1770624333021
+02-09 16:02:33.031 I/PushLog110000403( 6437): [SocketRead_09:32:19-313]dispatchIntent over
+02-09 16:02:33.032 I/PushLog110000403( 6437): [ReceiverDispatcher-297]process push message cmdid from pushSrv:47, subCmdId:FF
+02-09 16:02:33.033 I/PushLog110000403( 6437): [ReceiverDispatcher-297]enter AlarmTools:setInexactAlarm(intent:Intent { act=com.huawei.action.push.intent.CHECK_CHANNEL_CYCLE pkg=android } interval:1200000ms
+02-09 16:02:33.037 I/AlarmManager( 1575): remove alarm:Alarm{9f44066 type 1 when 1770625172926 PendingIntent{c6e1010: PendingIntentRecord{cfc4753 android broadcastIntent}}android procName null} according to operation:d82afa7
+02-09 16:02:33.325 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:02:33.776 D/hw_netstat( 1575): total/2505/153,unknown:0/2393/0,android.uid.system:1000/72/113,com.baidu.input_huawei/40/40
+02-09 16:02:34.366 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:02:34.423 E/WifiHAL (  652): enter wifi_get_link_stats
+02-09 16:02:34.438 E/WificondControl( 1575): Noise: -95, Snr: 0, Chload: -1
+02-09 16:02:34.444 D/WifiScoreReport( 1575): Score = 60, wifiConnectivityManagerEnabled = false, lowScoreCount = 0
+02-09 16:02:34.523 I/Net.6793NetworkSpeedMan( 1924): mIsStop = false
+02-09 16:02:34.523 I/Net.6794NetworkSpeedMan( 1924):  runInThread getTetherStats
+02-09 16:02:34.530 I/Net.6794NetworkSpeedMan( 1924):  runInUI refreshSpeed
+02-09 16:02:34.532 I/Net.6794NetworkSpeedMan( 1924): value=354.66666speed = 355B/smIsShowLastSpeedValuefalse
+02-09 16:02:34.532 I/NetworkSpeedView( 1924): /update(), speed=355B/s
+02-09 16:02:34.533 I/chatty  ( 1924): uid=10037(com.huawei.HwMultiScreenShot) com.android.systemui identical 2 lines
+02-09 16:02:34.533 I/NetworkSpeedView( 1924): /update(), speed=355B/s
+02-09 16:02:34.659 I/TrafficMonitor( 1575): update:rxPkts:6,txPkts:2,rxBytes:527,txBytes:113
+02-09 16:02:34.659 I/TrafficMonitor( 1575): start expired. level:-1
+02-09 16:02:34.659 I/TrafficMonitor( 1575): gettimer:interval=2000
+02-09 16:02:34.674 E/WificondControl( 1575): Noise: -95, Snr: 0, Chload: -1
+02-09 16:02:34.683 I/HuaweiWifiWatchdogStateMachine( 1575): POta txb txg rxg:0, 15, 0. Lr =0% Totpkt=15
+02-09 16:02:34.683 D/WiFi_PRO( 1575): MSG_RETURN_AP_CURRY_RSSI rssi = -40
+02-09 16:02:34.684 I/QosMonitor( 1575): queryRtt: rtt_type = 3
+02-09 16:02:34.684 I/HwUidTcpMonitor( 1575): TcpStatisticsRun run
+02-09 16:02:34.685 I/QosMonitor( 1575): postEventFromNative: msg=100,arg1=4,arg2=10
+02-09 16:02:34.686 I/QosMonitor( 1575): postEventFromNative: msg=100,arg1=0,arg2=10
+02-09 16:02:34.688 D/HwUidTcpMonitor( 1575): parseWlanUidTcpStatistics lastUidTcpStatInfo = [ mUid = 10068 mPacketName = com.opencode.voiceassist mSendSegs = 217 mResendSegs = 0 mRcvSegs = 245 ]
+02-09 16:02:34.688 I/HuaweiWifiWatchdogStateMachine( 1575): PTcp RTT:0, rtt pkt=0, tcp_rx=2, tcp_tx=3, tcp_reTran=0, rtRate=0
+02-09 16:02:34.688 I/MQoS    ( 1575): rtt=352,tcp_tx_pkts=3861468,tcp_rx_pkts=7268724
+02-09 16:02:34.688 I/QosMonitor( 1575): resetRtt: rtt_type = 3
+02-09 16:02:34.692 I/MQoS    ( 1575): QOS_level:0(0),wifi-link;SIM error;use level-0
+02-09 16:02:35.400 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:02:36.409 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:02:36.502 D/DeviceMonitorPowerKit( 2117): run, sCountNum is 1
+02-09 16:02:36.502 D/DeviceMonitorPowerKit( 2117): interval is 159971, ElapsedRealtime is 452705350, isNeedRepeat: false
+02-09 16:02:36.502 E/DeviceMonitorPowerKit( 2117): not Satify ApplyResource
+02-09 16:02:36.663 I/TrafficMonitor( 1575): update:rxPkts:5,txPkts:0,rxBytes:555,txBytes:0
+02-09 16:02:36.663 I/TrafficMonitor( 1575): start expired. level:-1
+02-09 16:02:36.663 I/TrafficMonitor( 1575): gettimer:interval=2000
+02-09 16:02:36.735 I/Finsky  (25188): [195] com.google.android.finsky.bp.ab.run(5): Stats for Executor: BlockingExecutor com.google.android.finsky.bp.ac@14edbc1[Running, pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0]
+02-09 16:02:36.736 I/Finsky  (25188): [195] com.google.android.finsky.bp.ab.run(5): Stats for Executor: LightweightExecutor com.google.android.finsky.bp.ac@dce8f66[Running, pool size = 1, active threads = 0, queued tasks = 0, completed tasks = 1]
+02-09 16:02:37.410 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:02:37.449 E/WifiHAL (  652): enter wifi_get_link_stats
+02-09 16:02:37.468 E/WificondControl( 1575): Noise: -95, Snr: 0, Chload: -1
+02-09 16:02:37.474 D/WifiScoreReport( 1575): Score = 60, wifiConnectivityManagerEnabled = false, lowScoreCount = 0
+02-09 16:02:37.524 I/Net.6794NetworkSpeedMan( 1924): mIsStop = false
+02-09 16:02:37.525 I/Net.6795NetworkSpeedMan( 1924):  runInThread getTetherStats
+02-09 16:02:37.531 I/Net.6795NetworkSpeedMan( 1924):  runInUI refreshSpeed
+02-09 16:02:37.533 I/Net.6795NetworkSpeedMan( 1924): value=185.0speed = 185B/smIsShowLastSpeedValuefalse
+02-09 16:02:37.533 I/NetworkSpeedView( 1924): /update(), speed=185B/s
+02-09 16:02:37.534 I/chatty  ( 1924): uid=10037(com.huawei.HwMultiScreenShot) com.android.systemui identical 2 lines
+02-09 16:02:37.534 I/NetworkSpeedView( 1924): /update(), speed=185B/s
+02-09 16:02:37.559 D/ThermalTrace( 2186): saveRepeatData, app:com.opencode.voiceassist, shell:0,abient:-100
+02-09 16:02:37.658 I/TrafficMonitor( 1575): expired arrive. level:-1
+02-09 16:02:37.658 I/TrafficMonitor( 1575): during_ms:2004,period_ms:2000
+02-09 16:02:37.658 I/TrafficMonitor( 1575): count:632,rx_sum:5,tx_sum:0,rxBytes:555,during_ms:2004,rx_speed:276.94610778443115,tx_speed:0.0,rto:0.0
+02-09 16:02:38.451 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:02:38.667 I/TrafficMonitor( 1575): update:rxPkts:3,txPkts:0,rxBytes:313,txBytes:0
+02-09 16:02:38.668 I/TrafficMonitor( 1575): start expired. level:-1
+02-09 16:02:38.668 I/TrafficMonitor( 1575): gettimer:interval=2000
+02-09 16:02:39.482 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:02:40.479 E/WifiHAL (  652): enter wifi_get_link_stats
+02-09 16:02:40.498 E/WificondControl( 1575): Noise: -95, Snr: 0, Chload: -1
+02-09 16:02:40.504 D/WifiScoreReport( 1575): Score = 60, wifiConnectivityManagerEnabled = false, lowScoreCount = 0
+02-09 16:02:40.522 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:02:40.528 I/Net.6795NetworkSpeedMan( 1924): mIsStop = false
+02-09 16:02:40.529 I/Net.6796NetworkSpeedMan( 1924):  runInThread getTetherStats
+02-09 16:02:40.535 I/Net.6796NetworkSpeedMan( 1924):  runInUI refreshSpeed
+02-09 16:02:40.537 I/Net.6796NetworkSpeedMan( 1924): value=405.66666speed = 406B/smIsShowLastSpeedValuefalse
+02-09 16:02:40.537 I/NetworkSpeedView( 1924): /update(), speed=406B/s
+02-09 16:02:40.538 I/chatty  ( 1924): uid=10037(com.huawei.HwMultiScreenShot) com.android.systemui identical 2 lines
+02-09 16:02:40.538 I/NetworkSpeedView( 1924): /update(), speed=406B/s
+02-09 16:02:40.671 I/TrafficMonitor( 1575): update:rxPkts:6,txPkts:0,rxBytes:1025,txBytes:0
+02-09 16:02:40.672 I/TrafficMonitor( 1575): start expired. level:-1
+02-09 16:02:40.672 I/TrafficMonitor( 1575): gettimer:interval=2000
+02-09 16:02:40.865 I/PreDnsController(  595): canPreDnsQuery,persist.sys.predns is false!
+02-09 16:02:41.373 E/JankService(27253): child Thread receive to stop
+02-09 16:02:41.503 E/JankService(  907): all data read ok
+02-09 16:02:41.547 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:02:41.756 I/BinderAdapter(28861): [baseinner ActivityThread.java:7779] The serviceConnection has been bind for 60s, need to unbind.
+02-09 16:02:41.758 I/BinderAdapter(28861): [baseinner Looper.java:216] Trying to unbind service from com.huawei.hms.common.internal.BinderAdapter@901d66b
+02-09 16:02:42.091 I/FwKamsCompat(28861): wait for ams time out for 60000 ms
+02-09 16:02:42.512 I/storaged(  890): storaged_t::event: storage_info refreshed.
+02-09 16:02:42.588 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:02:42.675 I/TrafficMonitor( 1575): update:rxPkts:11,txPkts:9,rxBytes:1435,txBytes:934
+02-09 16:02:42.676 I/TrafficMonitor( 1575): start expired. level:-1
+02-09 16:02:42.676 I/TrafficMonitor( 1575): gettimer:interval=2000
+02-09 16:02:42.680 E/WificondControl( 1575): Noise: -95, Snr: 0, Chload: -1
+02-09 16:02:42.691 D/WiFi_PRO( 1575): MSG_RETURN_AP_CURRY_RSSI rssi = -40
+02-09 16:02:42.691 I/HuaweiWifiWatchdogStateMachine( 1575): POta txb txg rxg:0, 14, 0. Lr =0% Totpkt=14
+02-09 16:02:42.691 I/QosMonitor( 1575): queryRtt: rtt_type = 3
+02-09 16:02:42.692 I/HwUidTcpMonitor( 1575): TcpStatisticsRun run
+02-09 16:02:42.693 I/QosMonitor( 1575): postEventFromNative: msg=100,arg1=4,arg2=10
+02-09 16:02:42.694 I/QosMonitor( 1575): postEventFromNative: msg=100,arg1=0,arg2=10
+02-09 16:02:42.694 I/MQoS    ( 1575): rtt=200,tcp_tx_pkts=3861477,tcp_rx_pkts=7268731
+02-09 16:02:42.695 I/QosMonitor( 1575): resetRtt: rtt_type = 3
+02-09 16:02:42.696 D/HwUidTcpMonitor( 1575): parseWlanUidTcpStatistics lastUidTcpStatInfo = [ mUid = 1051 mPacketName = com.opencode.voiceassist mSendSegs = 651 mResendSegs = 0 mRcvSegs = 0 ]
+02-09 16:02:42.697 I/HuaweiWifiWatchdogStateMachine( 1575): PTcp RTT:200, rtt pkt=3, tcp_rx=7, tcp_tx=9, tcp_reTran=0, rtRate=0
+02-09 16:02:42.697 I/HuaweiWifiWatchdogStateMachine( 1575): judge good link######, goodLinkLevel=3
+02-09 16:02:42.697 I/HuaweiWifiWatchdogStateMachine( 1575): sendResultMsgToQM bssid:9c:2b:**:**:86:5f, qoslevel=3
+02-09 16:02:42.697 I/HuaweiWifiWatchdogStateMachine( 1575): link good reported, good base rssi:-39
+02-09 16:02:42.698 D/WiFi_PRO_WifiProStateMachine( 1575): onNetworkQosChange, currentWifiLevel == 3, wifiNoInternet = false, updateUiOnly = true
+02-09 16:02:42.701 I/MQoS    ( 1575): QOS_level:0(0),wifi-link;SIM error;use level-0
+02-09 16:02:42.806 I/FwKamsCompat(28861): wait for ams time out for 60000 ms
+02-09 16:02:43.507 E/WifiHAL (  652): enter wifi_get_link_stats
+02-09 16:02:43.522 E/WificondControl( 1575): Noise: -95, Snr: 0, Chload: -1
+02-09 16:02:43.528 D/WifiScoreReport( 1575): Score = 60, wifiConnectivityManagerEnabled = false, lowScoreCount = 0
+02-09 16:02:43.531 I/Net.6796NetworkSpeedMan( 1924): mIsStop = false
+02-09 16:02:43.532 I/Net.6797NetworkSpeedMan( 1924):  runInThread getTetherStats
+02-09 16:02:43.540 I/Net.6797NetworkSpeedMan( 1924):  runInUI refreshSpeed
+02-09 16:02:43.542 I/Net.6797NetworkSpeedMan( 1924): value=830.0speed = 830B/smIsShowLastSpeedValuefalse
+02-09 16:02:43.542 I/NetworkSpeedView( 1924): /update(), speed=830B/s
+02-09 16:02:43.543 I/chatty  ( 1924): uid=10037(com.huawei.HwMultiScreenShot) com.android.systemui identical 2 lines
+02-09 16:02:43.543 I/NetworkSpeedView( 1924): /update(), speed=830B/s
+02-09 16:02:43.617 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:02:43.670 I/TrafficMonitor( 1575): expired arrive. level:-1
+02-09 16:02:43.670 I/TrafficMonitor( 1575): during_ms:2004,period_ms:2000
+02-09 16:02:43.670 I/TrafficMonitor( 1575): count:635,rx_sum:11,tx_sum:9,rxBytes:1435,during_ms:2004,rx_speed:716.0678642714571,tx_speed:466.0678642714571,rto:1.2222222222222223
+02-09 16:02:43.792 D/hw_netstat( 1575): total/3641/873,unknown:0/2569/0,android.uid.system:1000/711/873,unknown:1051/361/0
+02-09 16:02:44.653 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:02:44.679 I/TrafficMonitor( 1575): update:rxPkts:3,txPkts:0,rxBytes:333,txBytes:0
+02-09 16:02:44.680 I/TrafficMonitor( 1575): start expired. level:-1
+02-09 16:02:44.680 I/TrafficMonitor( 1575): gettimer:interval=2000
+02-09 16:02:45.682 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:02:46.045 D/PGGoogleServicePolicy( 1575): check isGoogleConnect start
+02-09 16:02:46.048 D/PGGoogleServicePolicy( 1575): gmsUid = 10126
+02-09 16:02:46.054 I/PreDnsController(  595): canPreDnsQuery,persist.sys.predns is false!
+02-09 16:02:46.533 E/WifiHAL (  652): enter wifi_get_link_stats
+02-09 16:02:46.534 I/Net.6797NetworkSpeedMan( 1924): mIsStop = false
+02-09 16:02:46.534 I/Net.6798NetworkSpeedMan( 1924):  runInThread getTetherStats
+02-09 16:02:46.536 D/bastetd (  897): [BastetDevice   ] CheckBufferLen# not check msg msg:7
+02-09 16:02:46.543 I/Net.6798NetworkSpeedMan( 1924):  runInUI refreshSpeed
+02-09 16:02:46.545 I/Net.6798NetworkSpeedMan( 1924): value=464.33334speed = 464B/smIsShowLastSpeedValuefalse
+02-09 16:02:46.546 I/NetworkSpeedView( 1924): /update(), speed=464B/s
+02-09 16:02:46.548 I/chatty  ( 1924): uid=10037(com.huawei.HwMultiScreenShot) com.android.systemui identical 2 lines
+02-09 16:02:46.548 I/NetworkSpeedView( 1924): /update(), speed=464B/s
+02-09 16:02:46.551 E/WificondControl( 1575): Noise: -95, Snr: 0, Chload: -1
+02-09 16:02:46.557 D/WifiScoreReport( 1575): Score = 60, wifiConnectivityManagerEnabled = false, lowScoreCount = 0
+02-09 16:02:46.684 I/TrafficMonitor( 1575): update:rxPkts:10,txPkts:5,rxBytes:731,txBytes:329
+02-09 16:02:46.684 I/TrafficMonitor( 1575): start expired. level:-1
+02-09 16:02:46.684 I/TrafficMonitor( 1575): gettimer:interval=2000
+02-09 16:02:46.712 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:02:47.689 I/NetworkStatsManager( 9119): querySummary callingPid = 9119
+02-09 16:02:47.690 I/NetworkStats( 1575): openSessionForUsageStats, pid = 9119, pkg = com.tencent.mm
+02-09 16:02:47.690 I/NetworkStats( 1575): openSessionInternal,pid = 9119
+02-09 16:02:47.691 I/NetworkStats( 1575): performPollLocked, pid = 1575
+02-09 16:02:47.736 W/NetworkStatsFactory( 1575): mStatsXtProcUid: /proc/net/comm/stats does not exist!
+02-09 16:02:47.737 D/HwNetworkStatsService( 1575): hwRecordUidAndProcSnapshotLocked currentTime = 1770624165071
+02-09 16:02:47.750 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:02:47.755 I/NetworkStatsFactory( 1575): javaReadNetworkStatsUidAndProcDetail. cost time = 17
+02-09 16:02:47.763 D/HwNetworkStatsService( 1575): hwMaybeUidAndProcPersistLocked currentTime = 1770624165071
+02-09 16:02:47.783 I/NetworkStatsManager( 9119): querySummary callingPid = 9119
+02-09 16:02:47.784 I/NetworkStats( 1575): openSessionForUsageStats, pid = 9119, pkg = com.tencent.mm
+02-09 16:02:47.800 V/AudioManager( 9119): isMusicActive...
+02-09 16:02:47.834 E/HSM_BG  ( 4721): NormalTrafficAnalysis:alert byte = 0, so return
+02-09 16:02:48.076 D/PGGoogleServicePolicy( 1575): failed to connect google.
+02-09 16:02:48.077 D/PGGoogleServicePolicy( 1575): connect google failed, PreventWake change to valid
+02-09 16:02:48.079 I/GoogleAppCtrlManager( 2186): Google server connect isConnectOK:false
+02-09 16:02:48.080 W/AppInfoMgr( 2186): not found owner uid for pkg:com.google.android.apps.maps
+02-09 16:02:48.081 I/GoogleAppCtrlManager( 2186): the same state restrict net: true
+02-09 16:02:48.081 I/GoogleAppCtrlManager( 2186): the same state : true
+02-09 16:02:48.113 I/system_server( 1575): Background concurrent copying GC freed 518891(21MB) AllocSpace objects, 50(1512KB) LOS objects, 35% free, 43MB/67MB, paused 1.304ms total 400.615ms
+02-09 16:02:48.126 W/System  ( 1575): A resource failed to call release. 
+02-09 16:02:48.140 W/System  ( 1575): A resource failed to call release. 
+02-09 16:02:48.141 D/SurfaceComposerClient( 1575): destroySurface mStatus != NO_ERROR
+02-09 16:02:48.690 I/TrafficMonitor( 1575): update:rxPkts:5,txPkts:3,rxBytes:681,txBytes:164
+02-09 16:02:48.690 I/TrafficMonitor( 1575): start expired. level:-1
+02-09 16:02:48.690 I/TrafficMonitor( 1575): gettimer:interval=2000
+02-09 16:02:48.789 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:02:49.535 I/Net.6798NetworkSpeedMan( 1924): mIsStop = false
+02-09 16:02:49.536 I/Net.6799NetworkSpeedMan( 1924):  runInThread getTetherStats
+02-09 16:02:49.543 I/Net.6799NetworkSpeedMan( 1924):  runInUI refreshSpeed
+02-09 16:02:49.545 I/Net.6799NetworkSpeedMan( 1924): value=362.33334speed = 362B/smIsShowLastSpeedValuefalse
+02-09 16:02:49.545 I/NetworkSpeedView( 1924): /update(), speed=362B/s
+02-09 16:02:49.546 I/chatty  ( 1924): uid=10037(com.huawei.HwMultiScreenShot) com.android.systemui identical 2 lines
+02-09 16:02:49.546 I/NetworkSpeedView( 1924): /update(), speed=362B/s
+02-09 16:02:49.559 E/WifiHAL (  652): enter wifi_get_link_stats
+02-09 16:02:49.577 E/WificondControl( 1575): Noise: -95, Snr: 0, Chload: -1
+02-09 16:02:49.583 D/WifiScoreReport( 1575): Score = 60, wifiConnectivityManagerEnabled = false, lowScoreCount = 0
+02-09 16:02:49.617 W/Watchdog( 1575): hungtask: writing kick
+02-09 16:02:49.619 I/EventHub( 1575): EventHub monitor: no key events in the past 20538s, no motion events in the past 566s
+02-09 16:02:49.681 I/TrafficMonitor( 1575): expired arrive. level:-1
+02-09 16:02:49.681 I/TrafficMonitor( 1575): during_ms:2006,period_ms:2000
+02-09 16:02:49.681 I/TrafficMonitor( 1575): count:638,rx_sum:5,tx_sum:3,rxBytes:681,during_ms:2006,rx_speed:339.481555333998,tx_speed:81.75473579262214,rto:1.6666666666666667
+02-09 16:02:49.809 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:02:50.686 E/WificondControl( 1575): Noise: -95, Snr: 0, Chload: -1
+02-09 16:02:50.694 I/HuaweiWifiWatchdogStateMachine( 1575): POta txb txg rxg:0, 18, 0. Lr =0% Totpkt=18
+02-09 16:02:50.694 I/TrafficMonitor( 1575): update:rxPkts:5,txPkts:0,rxBytes:574,txBytes:0
+02-09 16:02:50.694 I/TrafficMonitor( 1575): start expired. level:-1
+02-09 16:02:50.694 I/TrafficMonitor( 1575): gettimer:interval=2000
+02-09 16:02:50.694 D/WiFi_PRO( 1575): MSG_RETURN_AP_CURRY_RSSI rssi = -40
+02-09 16:02:50.695 I/QosMonitor( 1575): queryRtt: rtt_type = 3
+02-09 16:02:50.695 I/HwUidTcpMonitor( 1575): TcpStatisticsRun run
+02-09 16:02:50.696 I/QosMonitor( 1575): postEventFromNative: msg=100,arg1=4,arg2=10
+02-09 16:02:50.697 D/HwUidTcpMonitor( 1575): parseWlanUidTcpStatistics lastUidTcpStatInfo = [ mUid = 10068 mPacketName = com.opencode.voiceassist mSendSegs = 217 mResendSegs = 0 mRcvSegs = 247 ]
+02-09 16:02:50.697 I/QosMonitor( 1575): postEventFromNative: msg=100,arg1=0,arg2=10
+02-09 16:02:50.697 D/HwUidTcpMonitor( 1575): parseWlanUidTcpStatistics lastUidTcpStatInfo = [ mUid = 1051 mPacketName = com.opencode.voiceassist mSendSegs = 652 mResendSegs = 0 mRcvSegs = 0 ]
+02-09 16:02:50.697 D/HwUidTcpMonitor( 1575): parseWlanUidTcpStatistics lastUidTcpStatInfo = [ mUid = 10076 mPacketName = com.opencode.voiceassist mSendSegs = 1168 mResendSegs = 12 mRcvSegs = 999 ]
+02-09 16:02:50.697 I/MQoS    ( 1575): rtt=200,tcp_tx_pkts=3861485,tcp_rx_pkts=7268737
+02-09 16:02:50.697 I/QosMonitor( 1575): resetRtt: rtt_type = 3
+02-09 16:02:50.699 I/HuaweiWifiWatchdogStateMachine( 1575): PTcp RTT:0, rtt pkt=0, tcp_rx=6, tcp_tx=8, tcp_reTran=0, rtRate=0
+02-09 16:02:50.703 I/MQoS    ( 1575): QOS_level:0(0),wifi-link;SIM error;use level-0
+02-09 16:02:50.814 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:02:51.854 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:02:52.537 I/Net.6799NetworkSpeedMan( 1924): mIsStop = false
+02-09 16:02:52.538 I/Net.6800NetworkSpeedMan( 1924):  runInThread getTetherStats
+02-09 16:02:52.544 I/Net.6800NetworkSpeedMan( 1924):  runInUI refreshSpeed
+02-09 16:02:52.546 I/Net.6800NetworkSpeedMan( 1924): value=191.33333speed = 191B/smIsShowLastSpeedValuefalse
+02-09 16:02:52.546 I/NetworkSpeedView( 1924): /update(), speed=191B/s
+02-09 16:02:52.547 I/chatty  ( 1924): uid=10037(com.huawei.HwMultiScreenShot) com.android.systemui identical 2 lines
+02-09 16:02:52.547 I/NetworkSpeedView( 1924): /update(), speed=191B/s
+02-09 16:02:52.586 E/WifiHAL (  652): enter wifi_get_link_stats
+02-09 16:02:52.601 E/WificondControl( 1575): Noise: -95, Snr: 0, Chload: -1
+02-09 16:02:52.608 D/WifiScoreReport( 1575): Score = 60, wifiConnectivityManagerEnabled = false, lowScoreCount = 0
+02-09 16:02:52.697 I/TrafficMonitor( 1575): update:rxPkts:2,txPkts:0,rxBytes:242,txBytes:0
+02-09 16:02:52.698 I/TrafficMonitor( 1575): start expired. level:-1
+02-09 16:02:52.698 I/TrafficMonitor( 1575): gettimer:interval=2000
+02-09 16:02:52.894 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:02:52.905 I/HwBatteryService( 1575): quick charge status : 0
+02-09 16:02:52.905 D/HwBatteryService( 1575): onUEvent fcpStatus = 0
+02-09 16:02:52.905 D/HwBatteryService( 1575): onUEvent scpStatus = 0 ,ovpStatus = 0
+02-09 16:02:52.905 I/HwBatteryService( 1575): handleWirelessTxStatus
+02-09 16:02:52.906 I/HwBatteryService( 1575): switch not open, return, mWirelessTxFlag : 0
+02-09 16:02:52.906 I/UsbDeviceManager( 1575): water_intrused state= 0
+02-09 16:02:53.813 D/hw_netstat( 1575): total/2561/433,unknown:0/2183/0,com.baidu.input_huawei/191/209,com.huawei.hwid/111/104,android.uid.system:1000/0/120,unknown:1051/76/0
+02-09 16:02:53.934 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:02:54.702 I/TrafficMonitor( 1575): update:rxPkts:3,txPkts:0,rxBytes:313,txBytes:0
+02-09 16:02:54.702 I/TrafficMonitor( 1575): start expired. level:-1
+02-09 16:02:54.702 I/TrafficMonitor( 1575): gettimer:interval=2000
+02-09 16:02:54.943 D/SmartDualCardSM( 2059): IdleState:got msg.what=EVENT_HARD_SWITCH_CONDITION_CHECK
+02-09 16:02:54.970 E/SmartDualCardTraffic( 2059): getMealTrafficImpl fail,invalid imsi
+02-09 16:02:54.970 D/SmartDualCardSM( 2059): boosterDump:prop=true SdcSwitchOn=false DataSwitchOn=true WifiConnect=true AirplaneOn=true ScreenOn=true VSimEnabled=false CallOn=false AppState=GENERAL_FOREGROUND HidataAppState=GENERAL_BACKGROUND defaultDataSub=0 default4GSlot=0 DataOn=false M_MmsUtPdp=false userType=2
+02-09 16:02:54.975 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:02:54.990 E/SmartDualCardTraffic( 2059): getMealTrafficImpl fail,invalid imsi
+02-09 16:02:54.990 D/SmartDualCardSM( 2059): boosterDump:SlaveActive=false SameOperator=false M_NetworkBad=false S_NetworkBad=false M_DLSpeedLimit=1048576 S_DLSpeedLimit=1048576 M_DataRoam=false S_DataRoam=false VPNMode=false TetherOn=false AppQoeSlow=false HidataAppQoeSlow=false GameExpBad=false DsdsState=1 S_TrafficEnough=true
+02-09 16:02:55.094 I/NetworkStatsManager( 9359): querySummary callingPid = 9359
+02-09 16:02:55.095 I/NetworkStats( 1575): openSessionForUsageStats, pid = 9359, pkg = com.tencent.mm
+02-09 16:02:55.101 I/NetworkStatsManager( 9359): querySummary callingPid = 9359
+02-09 16:02:55.541 I/Net.6800NetworkSpeedMan( 1924): mIsStop = false
+02-09 16:02:55.542 I/Net.6801NetworkSpeedMan( 1924):  runInThread getTetherStats
+02-09 16:02:55.553 I/Net.6801NetworkSpeedMan( 1924):  runInUI refreshSpeed
+02-09 16:02:55.554 I/Net.6801NetworkSpeedMan( 1924): value=208.66667speed = 209B/smIsShowLastSpeedValuefalse
+02-09 16:02:55.554 I/NetworkSpeedView( 1924): /update(), speed=209B/s
+02-09 16:02:55.556 I/chatty  ( 1924): uid=10037(com.huawei.HwMultiScreenShot) com.android.systemui identical 2 lines
+02-09 16:02:55.556 I/NetworkSpeedView( 1924): /update(), speed=209B/s
+02-09 16:02:55.611 E/WifiHAL (  652): enter wifi_get_link_stats
+02-09 16:02:55.622 E/WificondControl( 1575): Noise: -95, Snr: 0, Chload: -1
+02-09 16:02:55.627 D/WifiScoreReport( 1575): Score = 60, wifiConnectivityManagerEnabled = false, lowScoreCount = 0
+02-09 16:02:55.696 I/TrafficMonitor( 1575): expired arrive. level:-1
+02-09 16:02:55.696 I/TrafficMonitor( 1575): during_ms:2005,period_ms:2000
+02-09 16:02:55.696 I/TrafficMonitor( 1575): count:641,rx_sum:3,tx_sum:0,rxBytes:313,during_ms:2005,rx_speed:156.10972568578555,tx_speed:0.0,rto:0.0
+02-09 16:02:56.014 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:02:56.502 D/DeviceMonitorPowerKit( 2117): run, sCountNum is 1
+02-09 16:02:56.502 D/DeviceMonitorPowerKit( 2117): interval is 179971, ElapsedRealtime is 452705350, isNeedRepeat: false
+02-09 16:02:56.502 E/DeviceMonitorPowerKit( 2117): not Satify ApplyResource
+02-09 16:02:56.706 I/TrafficMonitor( 1575): update:rxPkts:6,txPkts:0,rxBytes:626,txBytes:0
+02-09 16:02:56.706 I/TrafficMonitor( 1575): start expired. level:-1
+02-09 16:02:56.706 I/TrafficMonitor( 1575): gettimer:interval=2000
+02-09 16:02:57.051 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:02:57.586 E/Thermal-daemon(  891): [pa_0] temp_new :28  temp_old :29
+02-09 16:02:57.587 E/Thermal-daemon(  891): Report temperature: [pa_0] temp :28  report_threshold:1
+02-09 16:02:57.588 E/Thermal-daemon(  891): [ap] temp_new :30  temp_old :31
+02-09 16:02:57.590 E/Thermal-daemon(  891): Report temperature: [ap] temp :30  report_threshold:1
+02-09 16:02:58.067 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:02:58.545 I/Net.6801NetworkSpeedMan( 1924): mIsStop = false
+02-09 16:02:58.545 I/Net.6802NetworkSpeedMan( 1924):  runInThread getTetherStats
+02-09 16:02:58.552 I/Net.6802NetworkSpeedMan( 1924):  runInUI refreshSpeed
+02-09 16:02:58.553 I/Net.6802NetworkSpeedMan( 1924): value=344.0speed = 344B/smIsShowLastSpeedValuefalse
+02-09 16:02:58.554 I/NetworkSpeedView( 1924): /update(), speed=344B/s
+02-09 16:02:58.555 I/chatty  ( 1924): uid=10037(com.huawei.HwMultiScreenShot) com.android.systemui identical 2 lines
+02-09 16:02:58.555 I/NetworkSpeedView( 1924): /update(), speed=344B/s
+02-09 16:02:58.632 E/WifiHAL (  652): enter wifi_get_link_stats
+02-09 16:02:58.647 E/WificondControl( 1575): Noise: -95, Snr: 0, Chload: -1
+02-09 16:02:58.653 D/WifiScoreReport( 1575): Score = 60, wifiConnectivityManagerEnabled = false, lowScoreCount = 0
+02-09 16:02:58.695 E/WificondControl( 1575): Noise: -95, Snr: 0, Chload: -1
+02-09 16:02:58.708 I/HwUidTcpMonitor( 1575): TcpStatisticsRun run
+02-09 16:02:58.708 D/HuaweiWifiWatchdogStateMachine( 1575): high data flow: protection_counter = 0,  not_detect_counter = 690
+02-09 16:02:58.708 D/HuaweiWifiWatchdogStateMachine( 1575): high data flow scenario: 0 --> 0 rx bytes =9KB
+02-09 16:02:58.708 I/HuaweiWifiWatchdogStateMachine( 1575): POta txb txg rxg:0, 3, 0. Lr =0% Totpkt=3
+02-09 16:02:58.711 I/TrafficMonitor( 1575): update:rxPkts:8,txPkts:2,rxBytes:627,txBytes:92
+02-09 16:02:58.711 I/TrafficMonitor( 1575): start expired. level:-1
+02-09 16:02:58.712 I/TrafficMonitor( 1575): gettimer:interval=2000
+02-09 16:02:58.712 D/WiFi_PRO( 1575): MSG_RETURN_AP_CURRY_RSSI rssi = -42
+02-09 16:02:58.713 I/QosMonitor( 1575): queryRtt: rtt_type = 3
+02-09 16:02:58.716 I/QosMonitor( 1575): postEventFromNative: msg=100,arg1=4,arg2=10
+02-09 16:02:58.717 I/QosMonitor( 1575): postEventFromNative: msg=100,arg1=0,arg2=10
+02-09 16:02:58.718 I/MQoS    ( 1575): rtt=200,tcp_tx_pkts=3861487,tcp_rx_pkts=7268740
+02-09 16:02:58.718 I/HuaweiWifiWatchdogStateMachine( 1575): PTcp RTT:0, rtt pkt=0, tcp_rx=3, tcp_tx=2, tcp_reTran=0, rtRate=0
+02-09 16:02:58.725 I/MQoS    ( 1575): QOS_level:0(0),wifi-link;SIM error;use level-0
+02-09 16:02:59.108 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:03:00.007 V/AlarmManager( 1575): Received TIME_TICK alarm; rescheduling
+02-09 16:03:00.008 I/HwAlarmManagerService( 1575): hwSetAlarm listenerTag: time_tick
+02-09 16:03:00.030 E/DateView( 1924): DateView,mCurrentTime: 1770624180030
+02-09 16:03:00.034 I/EventCenter( 1924): EventCenter Get :android.intent.action.TIME_TICK
+02-09 16:03:00.035 W/ClockView1( 1924):  action android.intent.action.TIME_TICK
+02-09 16:03:00.035 I/chatty  ( 1924): uid=10037(com.huawei.HwMultiScreenShot) com.android.systemui identical 1 line
+02-09 16:03:00.035 W/ClockView1( 1924):  action android.intent.action.TIME_TICK
+02-09 16:03:00.058 E/ndroid.systemu( 1924): No package ID ff found for ID 0xffffffff.
+02-09 16:03:00.059 I/LocalCalendar( 1924): CalendarId: 0001LocalCalender On
+02-09 16:03:00.060 E/ndroid.systemu( 1924): No package ID ff found for ID 0xffffffff.
+02-09 16:03:00.061 I/LocalCalendar( 1924): CalendarId: 0001LocalCalender On
+02-09 16:03:00.065 E/ndroid.systemu( 1924): No package ID ff found for ID 0xffffffff.
+02-09 16:03:00.066 I/LocalCalendar( 1924): CalendarId: 0001LocalCalender On
+02-09 16:03:00.071 I/KeyguardStatusView( 1924): Runnable for refresh
+02-09 16:03:00.077 I/HwLauncher( 2230): Model  onReceive intent=Intent { act=android.intent.action.TIME_TICK flg=0x50200014 hwFlg=0x900 (has extras) }
+02-09 16:03:00.077 I/HwLauncher( 2230): Model  onReceive user=UserHandle{0}
+02-09 16:03:00.107 V/BroadcastQueue( 1575): Finished with ordered broadcast BroadcastRecord{1f3fcf2 u-1 android.intent.action.TIME_TICK}
+02-09 16:03:00.145 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:03:00.147 D/DateTimeView( 1924): Change to single clock mode!
+02-09 16:03:00.148 I/ColorPickUitls( 1924): type = 2
+02-09 16:03:00.149 D/HwKeyguardBottomArea( 1924): RemoveDateTimeTopArea type:2
+02-09 16:03:00.149 D/HwKeyguardBottomArea( 1924): loadDateTimeArea type
+02-09 16:03:00.149 D/HwKeyguardBottomArea( 1924): removeLiftSensorView, threadname = main
+02-09 16:03:00.149 D/DateTimeView( 1924): Change to single clock mode!
+02-09 16:03:00.150 I/ColorPickUitls( 1924): type = 2
+02-09 16:03:00.150 D/HwKeyguardBottomArea( 1924): RemoveDateTimeTopArea type:2
+02-09 16:03:00.150 D/HwKeyguardBottomArea( 1924): loadDateTimeArea type
+02-09 16:03:00.150 D/HwKeyguardBottomArea( 1924): removeLiftSensorView, threadname = main
+02-09 16:03:00.151 D/DateTimeView( 1924): Change to single clock mode!
+02-09 16:03:00.152 I/ColorPickUitls( 1924): type = 2
+02-09 16:03:00.152 D/HwKeyguardBottomArea( 1924): RemoveDateTimeTopArea type:2
+02-09 16:03:00.152 D/HwKeyguardBottomArea( 1924): loadDateTimeArea type
+02-09 16:03:00.152 D/HwKeyguardBottomArea( 1924): removeLiftSensorView, threadname = main
+02-09 16:03:00.156 E/ndroid.launche( 2230): No package ID ff found for ID 0xffffffff.
+02-09 16:03:00.716 I/TrafficMonitor( 1575): update:rxPkts:3,txPkts:0,rxBytes:722,txBytes:0
+02-09 16:03:00.716 I/TrafficMonitor( 1575): start expired. level:-1
+02-09 16:03:00.716 I/TrafficMonitor( 1575): gettimer:interval=2000
+02-09 16:03:01.154 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:03:01.547 I/Net.6802NetworkSpeedMan( 1924): mIsStop = false
+02-09 16:03:01.547 I/Net.6803NetworkSpeedMan( 1924):  runInThread getTetherStats
+02-09 16:03:01.553 I/Net.6803NetworkSpeedMan( 1924):  runInUI refreshSpeed
+02-09 16:03:01.554 I/Net.6803NetworkSpeedMan( 1924): value=321.33334speed = 321B/smIsShowLastSpeedValuefalse
+02-09 16:03:01.555 I/NetworkSpeedView( 1924): /update(), speed=321B/s
+02-09 16:03:01.556 I/chatty  ( 1924): uid=10037(com.huawei.HwMultiScreenShot) com.android.systemui identical 2 lines
+02-09 16:03:01.556 I/NetworkSpeedView( 1924): /update(), speed=321B/s
+02-09 16:03:01.657 E/WifiHAL (  652): enter wifi_get_link_stats
+02-09 16:03:01.677 E/WificondControl( 1575): Noise: -95, Snr: 0, Chload: -1
+02-09 16:03:01.682 D/WifiScoreReport( 1575): Score = 60, wifiConnectivityManagerEnabled = false, lowScoreCount = 0
+02-09 16:03:01.708 I/TrafficMonitor( 1575): expired arrive. level:-1
+02-09 16:03:01.709 I/TrafficMonitor( 1575): during_ms:2005,period_ms:2000
+02-09 16:03:01.709 I/TrafficMonitor( 1575): count:644,rx_sum:3,tx_sum:0,rxBytes:722,during_ms:2005,rx_speed:360.0997506234414,tx_speed:0.0,rto:0.0
+02-09 16:03:02.174 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:03:02.593 E/Thermal-daemon(  891): [pa_0] temp_new :29  temp_old :28
+02-09 16:03:02.595 E/Thermal-daemon(  891): Report temperature: [pa_0] temp :29  report_threshold:1
+02-09 16:03:02.719 I/TrafficMonitor( 1575): update:rxPkts:6,txPkts:0,rxBytes:666,txBytes:0
+02-09 16:03:02.720 I/TrafficMonitor( 1575): start expired. level:-1
+02-09 16:03:02.720 I/TrafficMonitor( 1575): gettimer:interval=2000
+02-09 16:03:03.207 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:03:03.834 D/hw_netstat( 1575): total/2783/92,unknown:0/2632/0,android.uid.system:1000/151/92
+02-09 16:03:04.226 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:03:04.550 I/Net.6803NetworkSpeedMan( 1924): mIsStop = false
+02-09 16:03:04.551 I/Net.6804NetworkSpeedMan( 1924):  runInThread getTetherStats
+02-09 16:03:04.557 I/Net.6804NetworkSpeedMan( 1924):  runInUI refreshSpeed
+02-09 16:03:04.559 I/Net.6804NetworkSpeedMan( 1924): value=245.66667speed = 246B/smIsShowLastSpeedValuefalse
+02-09 16:03:04.559 I/NetworkSpeedView( 1924): /update(), speed=246B/s
+02-09 16:03:04.560 I/chatty  ( 1924): uid=10037(com.huawei.HwMultiScreenShot) com.android.systemui identical 2 lines
+02-09 16:03:04.560 I/NetworkSpeedView( 1924): /update(), speed=246B/s
+02-09 16:03:04.687 E/WifiHAL (  652): enter wifi_get_link_stats
+02-09 16:03:04.704 E/WificondControl( 1575): Noise: -95, Snr: 0, Chload: -1
+02-09 16:03:04.710 D/WifiScoreReport( 1575): Score = 60, wifiConnectivityManagerEnabled = false, lowScoreCount = 0
+02-09 16:03:04.724 I/TrafficMonitor( 1575): update:rxPkts:3,txPkts:0,rxBytes:313,txBytes:0
+02-09 16:03:04.724 I/TrafficMonitor( 1575): start expired. level:-1
+02-09 16:03:04.725 I/TrafficMonitor( 1575): gettimer:interval=2000
+02-09 16:03:05.228 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:03:06.240 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:03:06.610 E/JankService(27262): child Thread receive to stop
+02-09 16:03:06.710 E/WificondControl( 1575): Noise: -95, Snr: 0, Chload: -1
+02-09 16:03:06.722 D/WiFi_PRO( 1575): MSG_RETURN_AP_CURRY_RSSI rssi = -42
+02-09 16:03:06.722 I/HuaweiWifiWatchdogStateMachine( 1575): POta txb txg rxg:0, 1, 0. Lr =0% Totpkt=1
+02-09 16:03:06.722 I/QosMonitor( 1575): queryRtt: rtt_type = 3
+02-09 16:03:06.722 I/HwUidTcpMonitor( 1575): TcpStatisticsRun run
+02-09 16:03:06.724 I/QosMonitor( 1575): postEventFromNative: msg=100,arg1=4,arg2=10
+02-09 16:03:06.724 I/QosMonitor( 1575): postEventFromNative: msg=100,arg1=0,arg2=10
+02-09 16:03:06.725 I/MQoS    ( 1575): rtt=200,tcp_tx_pkts=3861487,tcp_rx_pkts=7268740
+02-09 16:03:06.728 I/TrafficMonitor( 1575): update:rxPkts:2,txPkts:0,rxBytes:242,txBytes:0
+02-09 16:03:06.728 I/TrafficMonitor( 1575): start expired. level:-1
+02-09 16:03:06.728 I/TrafficMonitor( 1575): gettimer:interval=2000
+02-09 16:03:06.730 I/HuaweiWifiWatchdogStateMachine( 1575): PTcp RTT:0, rtt pkt=0, tcp_rx=0, tcp_tx=0, tcp_reTran=0, rtRate=0
+02-09 16:03:06.734 I/MQoS    ( 1575): QOS_level:0(0),wifi-link;SIM error;use level-0
+02-09 16:03:06.750 E/JankService(  907): all data read ok
+02-09 16:03:07.262 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:03:07.552 I/Net.6804NetworkSpeedMan( 1924): mIsStop = false
+02-09 16:03:07.553 I/Net.6805NetworkSpeedMan( 1924):  runInThread getTetherStats
+02-09 16:03:07.559 I/Net.6805NetworkSpeedMan( 1924):  runInUI refreshSpeed
+02-09 16:03:07.560 I/Net.6805NetworkSpeedMan( 1924): value=161.33333speed = 161B/smIsShowLastSpeedValuefalse
+02-09 16:03:07.560 I/NetworkSpeedView( 1924): /update(), speed=161B/s
+02-09 16:03:07.562 I/chatty  ( 1924): uid=10037(com.huawei.HwMultiScreenShot) com.android.systemui identical 2 lines
+02-09 16:03:07.562 I/NetworkSpeedView( 1924): /update(), speed=161B/s
+02-09 16:03:07.713 E/WifiHAL (  652): enter wifi_get_link_stats
+02-09 16:03:07.721 I/TrafficMonitor( 1575): expired arrive. level:-1
+02-09 16:03:07.721 I/TrafficMonitor( 1575): during_ms:2004,period_ms:2000
+02-09 16:03:07.722 I/TrafficMonitor( 1575): count:647,rx_sum:2,tx_sum:0,rxBytes:242,during_ms:2004,rx_speed:120.75848303393214,tx_speed:0.0,rto:0.0
+02-09 16:03:07.733 E/WificondControl( 1575): Noise: -95, Snr: 0, Chload: -1
+02-09 16:03:07.738 D/WifiScoreReport( 1575): Score = 60, wifiConnectivityManagerEnabled = false, lowScoreCount = 0
+02-09 16:03:08.282 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:03:08.732 I/TrafficMonitor( 1575): update:rxPkts:4,txPkts:0,rxBytes:484,txBytes:0
+02-09 16:03:08.732 I/TrafficMonitor( 1575): start expired. level:-1
+02-09 16:03:08.733 I/TrafficMonitor( 1575): gettimer:interval=2000
+02-09 16:03:09.290 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:03:10.147 I/ImsResolver( 2213): getMmTelFeatureAndListen - slot: 2 callback: com.android.ims.MmTelFeatureConnection$1@2e9d82b
+02-09 16:03:10.318 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:03:10.422 I/CAWARENESS_ServiceMonitor( 4038): memory(kB) static totalPss=12855, dalvikPss=1172, nativePss=2277
+02-09 16:03:10.556 I/Net.6805NetworkSpeedMan( 1924): mIsStop = false
+02-09 16:03:10.557 I/Net.6806NetworkSpeedMan( 1924):  runInThread getTetherStats
+02-09 16:03:10.562 I/Net.6806NetworkSpeedMan( 1924):  runInUI refreshSpeed
+02-09 16:03:10.563 I/Net.6806NetworkSpeedMan( 1924): value=222.0speed = 222B/smIsShowLastSpeedValuefalse
+02-09 16:03:10.563 I/NetworkSpeedView( 1924): /update(), speed=222B/s
+02-09 16:03:10.564 I/chatty  ( 1924): uid=10037(com.huawei.HwMultiScreenShot) com.android.systemui identical 2 lines
+02-09 16:03:10.564 I/NetworkSpeedView( 1924): /update(), speed=222B/s
+02-09 16:03:10.737 I/TrafficMonitor( 1575): update:rxPkts:4,txPkts:0,rxBytes:424,txBytes:0
+02-09 16:03:10.737 I/TrafficMonitor( 1575): start expired. level:-1
+02-09 16:03:10.737 I/TrafficMonitor( 1575): gettimer:interval=2000
+02-09 16:03:10.743 E/WifiHAL (  652): enter wifi_get_link_stats
+02-09 16:03:10.760 E/WificondControl( 1575): Noise: -95, Snr: 0, Chload: -1
+02-09 16:03:10.765 D/WifiScoreReport( 1575): Score = 60, wifiConnectivityManagerEnabled = false, lowScoreCount = 0
+02-09 16:03:11.343 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:03:12.384 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:03:12.602 E/Thermal-daemon(  891): [pa_0] temp_new :28  temp_old :29
+02-09 16:03:12.603 E/Thermal-daemon(  891): Report temperature: [pa_0] temp :28  report_threshold:1
+02-09 16:03:12.740 I/TrafficMonitor( 1575): update:rxPkts:3,txPkts:0,rxBytes:313,txBytes:0
+02-09 16:03:12.741 I/TrafficMonitor( 1575): start expired. level:-1
+02-09 16:03:12.741 I/TrafficMonitor( 1575): gettimer:interval=2000
+02-09 16:03:13.413 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:03:13.558 I/Net.6806NetworkSpeedMan( 1924): mIsStop = false
+02-09 16:03:13.559 I/Net.6807NetworkSpeedMan( 1924):  runInThread getTetherStats
+02-09 16:03:13.563 I/Net.6807NetworkSpeedMan( 1924):  runInUI refreshSpeed
+02-09 16:03:13.565 I/Net.6807NetworkSpeedMan( 1924): value=261.33334speed = 261B/smIsShowLastSpeedValuefalse
+02-09 16:03:13.565 I/NetworkSpeedView( 1924): /update(), speed=261B/s
+02-09 16:03:13.566 I/chatty  ( 1924): uid=10037(com.huawei.HwMultiScreenShot) com.android.systemui identical 2 lines
+02-09 16:03:13.566 I/NetworkSpeedView( 1924): /update(), speed=261B/s
+02-09 16:03:13.734 I/TrafficMonitor( 1575): expired arrive. level:-1
+02-09 16:03:13.734 I/TrafficMonitor( 1575): during_ms:2003,period_ms:2000
+02-09 16:03:13.734 I/TrafficMonitor( 1575): count:650,rx_sum:3,tx_sum:0,rxBytes:313,during_ms:2003,rx_speed:156.2656015976036,tx_speed:0.0,rto:0.0
+02-09 16:03:13.770 E/WifiHAL (  652): enter wifi_get_link_stats
+02-09 16:03:13.787 E/WificondControl( 1575): Noise: -95, Snr: 0, Chload: -1
+02-09 16:03:13.792 D/WifiScoreReport( 1575): Score = 60, wifiConnectivityManagerEnabled = false, lowScoreCount = 0
+02-09 16:03:13.856 D/hw_netstat( 1575): total/2176/0,unknown:0/2176/0
+02-09 16:03:14.439 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:03:14.718 E/WificondControl( 1575): Noise: -95, Snr: 0, Chload: -1
+02-09 16:03:14.731 I/HuaweiWifiWatchdogStateMachine( 1575): POta txb txg rxg:0, 1, 0. Lr =0% Totpkt=1
+02-09 16:03:14.731 D/WiFi_PRO( 1575): MSG_RETURN_AP_CURRY_RSSI rssi = -39
+02-09 16:03:14.732 I/QosMonitor( 1575): queryRtt: rtt_type = 3
+02-09 16:03:14.732 I/HwUidTcpMonitor( 1575): TcpStatisticsRun run
+02-09 16:03:14.733 I/QosMonitor( 1575): postEventFromNative: msg=100,arg1=4,arg2=10
+02-09 16:03:14.734 I/QosMonitor( 1575): postEventFromNative: msg=100,arg1=0,arg2=10
+02-09 16:03:14.735 I/MQoS    ( 1575): rtt=200,tcp_tx_pkts=3861487,tcp_rx_pkts=7268740
+02-09 16:03:14.737 I/HuaweiWifiWatchdogStateMachine( 1575): PTcp RTT:0, rtt pkt=0, tcp_rx=0, tcp_tx=0, tcp_reTran=0, rtRate=0
+02-09 16:03:14.742 I/MQoS    ( 1575): QOS_level:0(0),wifi-link;SIM error;use level-0
+02-09 16:03:14.744 I/TrafficMonitor( 1575): update:rxPkts:6,txPkts:0,rxBytes:804,txBytes:0
+02-09 16:03:14.744 I/TrafficMonitor( 1575): start expired. level:-1
+02-09 16:03:14.744 I/TrafficMonitor( 1575): gettimer:interval=2000
+02-09 16:03:15.478 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:03:15.490 I/HwNaturalBase( 2140): [CommonHandler]: 21118Kb ram is used.
+02-09 16:03:16.183 D/HwSelfCureEngine( 1575): periodicArpDetection signalLevel = 4, isScreenOn = true , mArpDetectionFailedCnt = 0
+02-09 16:03:16.184 D/wifiserviceimpl( 1575): netmask =16711679
+02-09 16:03:16.242 D/HwArpUtils( 1575): getGateWayArpResult:Pair{true 5}
+02-09 16:03:16.244 D/HwWifiCHRStateManager( 2101): handleMessage : 1121
+02-09 16:03:16.245 E/HwCHRWifiRSSIGroupSummery( 2101): updatArpSummery mRSSI:-1  HwCHRWifiRSSIGroup [rssi_index=4, rtt_tcp_packets=0, rtt_tcp_duration=0, rtt_lan_duration=8929, rtt_lan_failures=0, rtt_lan_succ=740, rtt_lan_max=443, rtt_lan_min=2,same_area_frequency=0,adjacent_area_frequency=2]
+02-09 16:03:16.502 D/DeviceMonitorPowerKit( 2117): run, sCountNum is 1
+02-09 16:03:16.502 D/DeviceMonitorPowerKit( 2117): interval is 199971, ElapsedRealtime is 452705350, isNeedRepeat: false
+02-09 16:03:16.502 E/DeviceMonitorPowerKit( 2117): not Satify ApplyResource
+02-09 16:03:16.518 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:03:16.562 I/Net.6807NetworkSpeedMan( 1924): mIsStop = false
+02-09 16:03:16.563 I/Net.6808NetworkSpeedMan( 1924):  runInThread getTetherStats
+02-09 16:03:16.573 I/Net.6808NetworkSpeedMan( 1924):  runInUI refreshSpeed
+02-09 16:03:16.575 I/Net.6808NetworkSpeedMan( 1924): value=252.33333speed = 252B/smIsShowLastSpeedValuefalse
+02-09 16:03:16.575 I/NetworkSpeedView( 1924): /update(), speed=252B/s
+02-09 16:03:16.576 I/chatty  ( 1924): uid=10037(com.huawei.HwMultiScreenShot) com.android.systemui identical 2 lines
+02-09 16:03:16.576 I/NetworkSpeedView( 1924): /update(), speed=252B/s
+02-09 16:03:16.749 I/TrafficMonitor( 1575): update:rxPkts:4,txPkts:0,rxBytes:424,txBytes:0
+02-09 16:03:16.749 I/TrafficMonitor( 1575): start expired. level:-1
+02-09 16:03:16.749 I/TrafficMonitor( 1575): gettimer:interval=2000
+02-09 16:03:16.797 E/WifiHAL (  652): enter wifi_get_link_stats
+02-09 16:03:16.817 E/WificondControl( 1575): Noise: -95, Snr: 0, Chload: -1
+02-09 16:03:16.823 D/WifiScoreReport( 1575): Score = 60, wifiConnectivityManagerEnabled = false, lowScoreCount = 0
+02-09 16:03:17.559 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:03:17.712 W/IptablesRestoreController(  595): iptables-restore process 26869 terminated status=15
+02-09 16:03:17.714 W/IptablesRestoreController(  595): iptables-restore process 26870 terminated status=15
+02-09 16:03:18.572 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:03:18.753 I/TrafficMonitor( 1575): update:rxPkts:4,txPkts:0,rxBytes:384,txBytes:0
+02-09 16:03:18.753 I/TrafficMonitor( 1575): start expired. level:-1
+02-09 16:03:18.753 I/TrafficMonitor( 1575): gettimer:interval=5000
+02-09 16:03:19.051 I/HwNaturalBase( 2140): [Timer-0]: MultiUserManagerService:  getNotActiveUser start
+02-09 16:03:19.565 I/Net.6808NetworkSpeedMan( 1924): mIsStop = false
+02-09 16:03:19.566 I/Net.6809NetworkSpeedMan( 1924):  runInThread getTetherStats
+02-09 16:03:19.571 I/Net.6809NetworkSpeedMan( 1924):  runInUI refreshSpeed
+02-09 16:03:19.572 I/Net.6809NetworkSpeedMan( 1924): value=232.33333speed = 232B/smIsShowLastSpeedValuefalse
+02-09 16:03:19.572 I/NetworkSpeedView( 1924): /update(), speed=232B/s
+02-09 16:03:19.574 I/chatty  ( 1924): uid=10037(com.huawei.HwMultiScreenShot) com.android.systemui identical 2 lines
+02-09 16:03:19.574 I/NetworkSpeedView( 1924): /update(), speed=232B/s
+02-09 16:03:19.590 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:03:19.620 W/Watchdog( 1575): hungtask: writing kick
+02-09 16:03:19.623 I/EventHub( 1575): EventHub monitor: no key events in the past 20568s, no motion events in the past 596s
+02-09 16:03:19.746 I/TrafficMonitor( 1575): expired arrive. level:-1
+02-09 16:03:19.747 I/TrafficMonitor( 1575): during_ms:2004,period_ms:2000
+02-09 16:03:19.747 I/TrafficMonitor( 1575): count:653,rx_sum:4,tx_sum:0,rxBytes:384,during_ms:2004,rx_speed:191.61676646706587,tx_speed:0.0,rto:0.0
+02-09 16:03:19.827 E/WifiHAL (  652): enter wifi_get_link_stats
+02-09 16:03:19.845 E/WificondControl( 1575): Noise: -95, Snr: 0, Chload: -1
+02-09 16:03:19.851 D/WifiScoreReport( 1575): Score = 60, wifiConnectivityManagerEnabled = false, lowScoreCount = 0
+02-09 16:03:20.624 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:03:20.842 D/NetdConnector( 1575): SND -> {9753 firewall set_uid_rule standby 10070 deny}
+02-09 16:03:20.871 E/        (27266): iptables cmd:iptables-restore
+02-09 16:03:20.893 E/        (27267): iptables cmd:ip6tables-restore
+02-09 16:03:20.897 D/NetdConnector( 1575): RCV <- {200 9753 Firewall command succeeded}
+02-09 16:03:20.899 I/NetworkPolicy( 1575): updateRulesForPowerRestrictionsUL(10070), isIdle: true, mRestrictPower: false, mDeviceIdleMode: false, isForeground=false, isWhitelisted=false, oldRule=0 (NONE), newRule=64 (REJECT_ALL), newUidRules=64 (REJECT_ALL), oldUidRules=0 (NONE), mRestrictBackground=false
+02-09 16:03:20.903 D/JobScheduler( 1575): Maybe queuing ready jobs...
+02-09 16:03:21.658 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:03:22.567 I/Net.6809NetworkSpeedMan( 1924): mIsStop = false
+02-09 16:03:22.568 I/Net.6810NetworkSpeedMan( 1924):  runInThread getTetherStats
+02-09 16:03:22.575 I/Net.6810NetworkSpeedMan( 1924):  runInUI refreshSpeed
+02-09 16:03:22.577 I/Net.6810NetworkSpeedMan( 1924): value=351.33334speed = 351B/smIsShowLastSpeedValuefalse
+02-09 16:03:22.577 I/NetworkSpeedView( 1924): /update(), speed=351B/s
+02-09 16:03:22.578 I/chatty  ( 1924): uid=10037(com.huawei.HwMultiScreenShot) com.android.systemui identical 2 lines
+02-09 16:03:22.578 I/NetworkSpeedView( 1924): /update(), speed=351B/s
+02-09 16:03:22.695 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:03:22.727 E/WificondControl( 1575): Noise: -95, Snr: 0, Chload: -1
+02-09 16:03:22.742 D/WiFi_PRO( 1575): MSG_RETURN_AP_CURRY_RSSI rssi = -41
+02-09 16:03:22.742 I/HuaweiWifiWatchdogStateMachine( 1575): POta txb txg rxg:0, 4, 0. Lr =0% Totpkt=4
+02-09 16:03:22.742 I/QosMonitor( 1575): queryRtt: rtt_type = 3
+02-09 16:03:22.743 I/HwUidTcpMonitor( 1575): TcpStatisticsRun run
+02-09 16:03:22.744 I/QosMonitor( 1575): postEventFromNative: msg=100,arg1=4,arg2=10
+02-09 16:03:22.745 I/QosMonitor( 1575): postEventFromNative: msg=100,arg1=0,arg2=10
+02-09 16:03:22.746 I/HuaweiWifiWatchdogStateMachine( 1575): PTcp RTT:0, rtt pkt=0, tcp_rx=0, tcp_tx=0, tcp_reTran=0, rtRate=0
+02-09 16:03:22.746 I/MQoS    ( 1575): rtt=200,tcp_tx_pkts=3861487,tcp_rx_pkts=7268740
+02-09 16:03:22.753 I/MQoS    ( 1575): QOS_level:0(0),wifi-link;SIM error;use level-0
+02-09 16:03:22.853 E/WifiHAL (  652): enter wifi_get_link_stats
+02-09 16:03:22.869 E/WificondControl( 1575): Noise: -95, Snr: 0, Chload: -1
+02-09 16:03:22.875 D/WifiScoreReport( 1575): Score = 60, wifiConnectivityManagerEnabled = false, lowScoreCount = 0
+02-09 16:03:23.632 I/HwBatteryService( 1575): quick charge status : 0
+02-09 16:03:23.632 D/HwBatteryService( 1575): onUEvent fcpStatus = 0
+02-09 16:03:23.632 D/HwBatteryService( 1575): onUEvent scpStatus = 0 ,ovpStatus = 0
+02-09 16:03:23.633 I/HwBatteryService( 1575): handleWirelessTxStatus
+02-09 16:03:23.633 I/HwBatteryService( 1575): switch not open, return, mWirelessTxFlag : 0
+02-09 16:03:23.634 I/UsbDeviceManager( 1575): water_intrused state= 0
+02-09 16:03:23.706 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:03:23.756 I/TrafficMonitor( 1575): update:rxPkts:11,txPkts:0,rxBytes:1609,txBytes:0
+02-09 16:03:23.756 I/TrafficMonitor( 1575): start expired. level:-1
+02-09 16:03:23.756 I/TrafficMonitor( 1575): gettimer:interval=5000
+02-09 16:03:23.872 D/hw_netstat( 1575): total/2750/0,unknown:0/2750/0
+02-09 16:03:24.746 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:03:25.569 I/Net.6810NetworkSpeedMan( 1924): mIsStop = false
+02-09 16:03:25.570 I/Net.6811NetworkSpeedMan( 1924):  runInThread getTetherStats
+02-09 16:03:25.575 I/Net.6811NetworkSpeedMan( 1924):  runInUI refreshSpeed
+02-09 16:03:25.577 I/Net.6811NetworkSpeedMan( 1924): value=161.33333speed = 161B/smIsShowLastSpeedValuefalse
+02-09 16:03:25.577 I/NetworkSpeedView( 1924): /update(), speed=161B/s
+02-09 16:03:25.578 I/chatty  ( 1924): uid=10037(com.huawei.HwMultiScreenShot) com.android.systemui identical 2 lines
+02-09 16:03:25.578 I/NetworkSpeedView( 1924): /update(), speed=161B/s
+02-09 16:03:25.787 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:03:25.880 E/WifiHAL (  652): enter wifi_get_link_stats
+02-09 16:03:25.899 E/WificondControl( 1575): Noise: -95, Snr: 0, Chload: -1
+02-09 16:03:25.905 D/WifiScoreReport( 1575): Score = 60, wifiConnectivityManagerEnabled = false, lowScoreCount = 0
+02-09 16:03:26.294 D/        (  595): Received kernel message payload: chr_event 9
+02-09 16:03:26.295 I/        (  595): netd received web stat infomation,trigger chr report!
+02-09 16:03:26.295 I/        (  595): netd received web stat infomation,trigger chr report!
+02-09 16:03:26.295 I/        (  595): ReportType 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 ReportType 0 2427 2164 27 0 2 29 90 26 0 1 0 0 0 88 1 0 0 1 29 0 0 311 1024 12 0 0 12 15 12 12 0 0 0 0 0 15 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 26 0 0 0 0 0 3 0 0 0 0 0 0 0 3 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 286 5 13 472 16 36 0 0 0 0 0 0 0 0 744 328 29 0 0 0 0 0 0 0
+02-09 16:03:26.295 W/SocketListener(  595): sending broadcast to Pid = 1575, Uid = 1000 
+02-09 16:03:26.300 D/NetdConnector( 1575): RCV <- {661 ReportType 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 ReportType 0 2427 2164 27 0 2 29 90 26 0 1 0 0 0 88 1 0 0 1 29 0 0 311 1024 12 0 0 12 15 12 12 0 0 0 0 0 15 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 26 0 0 0 0 0 3 0 0 0 0 0 0 0 3 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 286 5 13 472 16 36 0 0 0 0 0 0 0 0 744 328 29 0 0 0 0 0 0 0}
+02-09 16:03:26.305 D/NetdConnector( 1575): RCV <- {661 ReportType 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 ReportType 0 2427 2164 27 0 2 29 90 26 0 1 0 0 0 88 1 0 0 1 29 0 0 311 1024 12 0 0 12 15 12 12 0 0 0 0 0 15 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 26 0 0 0 0 0 3 0 0 0 0 0 0 0 3 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 286 5 13 472 16 36 0 0 0 0 0 0 0 0 744 328 29 0 0 0 0 0 0 0}
+02-09 16:03:26.309 D/NetdConnector( 1575): RCV unsolicited event from native daemon, event = 661
+02-09 16:03:26.322 D/HwNetworkManagementService( 1575): onEvent receive Web Stat Report:661 ReportType 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 ReportType 0 2427 2164 27 0 2 29 90 26 0 1 0 0 0 88 1 0 0 1 29 0 0 311 1024 12 0 0 12 15 12 12 0 0 0 0 0 15 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 26 0 0 0 0 0 3 0 0 0 0 0 0 0 3 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 286 5 13 472 16 36 0 0 0 0 0 0 0 0 744 328 29 0 0 0 0 0 0 0
+02-09 16:03:26.324 W/ContextImpl( 1575): Calling a method in the system process without a qualified user: android.app.ContextImpl.sendBroadcast:1183 com.android.server.HwNetworkManagementService.sendWebStatMessage:1150 com.android.server.HwServiceFactoryImpl$HwNetworkManagementServiceImpl.sendWebStatMessage:748 com.android.server.NetworkManagementService$NetdCallbackReceiver.onEvent:1095 com.android.server.NativeDaemonConnector.handleMessage:176 
+02-09 16:03:26.326 W/ActivityManager( 1575): Sending non-protected broadcast com.huawei.chr.wifi.action.web_stat_report from system 1575:system/1000 pkg android
+02-09 16:03:26.327 W/ActivityManager( 1575): Sending non-protected broadcast com.huawei.chr.wifi.action.web_stat_report from system 1575:system/1000 pkg android
+02-09 16:03:26.331 D/HwWifiStatStore( 2101): handleWebStatReport data is: Bundle[{HighestWebDelay=472, LowestWebDelay=16, VideoAvgSpeed=0, data_direct=0, DelayL1=26, DelayL2=0, DelayL3=1, DelayL4=0, DelayL5=0, DelayL6=0, VideoFreezNum=0, VideoTime=0, AccVideoTime=0, TotalNum=29, WebDelay=2164, hmac_delay=0, TcpSuccNum=29, transport_delay=0, ReportType=0, LastTcpRTT=13, AccVideoAvgSpeed=0, SuccNum=27, RTT=2427, TcpTotalNum=90, RTTL1=88, RTTL2=1, RTTL3=0, RTTL4=0, RTTL5=1, tcp_handshake_delay=744, ServerAddr=0, NoAckNum=2, driver_delay=0, exception_cnt=0, HighestTcpRTT=286, LowestTcpRTT=5, FailNum=0, AccVideoFreezNum=0, android_uid=0, RTTAbnServerAddr=0, http_get_delay=328, ip_delay=0, LastWebDelay=36}]
+02-09 16:03:26.806 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:03:27.612 E/Thermal-daemon(  891): [battery] temp_new :27  temp_old :28
+02-09 16:03:27.614 I/ThermalTrace_ThermalRaise( 2186): Battery:-100,28,27
+02-09 16:03:27.615 E/Thermal-daemon(  891): Report temperature: [battery] temp :27  report_threshold:1
+02-09 16:03:27.826 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:03:28.573 I/Net.6811NetworkSpeedMan( 1924): mIsStop = false
+02-09 16:03:28.573 I/Net.6812NetworkSpeedMan( 1924):  runInThread getTetherStats
+02-09 16:03:28.579 I/Net.6812NetworkSpeedMan( 1924):  runInUI refreshSpeed
+02-09 16:03:28.580 I/Net.6812NetworkSpeedMan( 1924): value=239.33333speed = 239B/smIsShowLastSpeedValuefalse
+02-09 16:03:28.580 I/NetworkSpeedView( 1924): /update(), speed=239B/s
+02-09 16:03:28.581 I/chatty  ( 1924): uid=10037(com.huawei.HwMultiScreenShot) com.android.systemui identical 2 lines
+02-09 16:03:28.581 I/NetworkSpeedView( 1924): /update(), speed=239B/s
+02-09 16:03:28.758 I/TrafficMonitor( 1575): expired arrive. level:-1
+02-09 16:03:28.760 I/TrafficMonitor( 1575): update:rxPkts:9,txPkts:0,rxBytes:960,txBytes:0
+02-09 16:03:28.760 I/TrafficMonitor( 1575): start expired. level:-1
+02-09 16:03:28.760 I/TrafficMonitor( 1575): gettimer:interval=5000
+02-09 16:03:28.760 I/TrafficMonitor( 1575): during_ms:5004,period_ms:2000
+02-09 16:03:28.761 I/TrafficMonitor( 1575): count:655,rx_sum:9,tx_sum:0,rxBytes:960,during_ms:5004,rx_speed:191.8465227817746,tx_speed:0.0,rto:0.0
+02-09 16:03:28.867 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:03:28.907 E/WifiHAL (  652): enter wifi_get_link_stats
+02-09 16:03:28.917 E/WificondControl( 1575): Noise: -95, Snr: 0, Chload: -1
+02-09 16:03:28.923 D/WifiScoreReport( 1575): Score = 60, wifiConnectivityManagerEnabled = false, lowScoreCount = 0
+02-09 16:03:29.000 I/SmartChgBase/Arb_HidlParam( 4721): Apply Skipped: IsApplyExcept return true. [moduleName:ASW, param:dc_vterm_dec, detailsWithValue:source=trigger;event=heartbeat;chargestatus=start;value=0;]
+02-09 16:03:29.001 I/SmartChgBase/Arb_HidlParam( 4721): Apply Skipped: IsApplyExcept return true. [moduleName:ASW, param:nondc_vterm_dec, detailsWithValue:source=trigger;event=heartbeat;chargestatus=start;value=0;]
+02-09 16:03:29.001 I/SmartChgBase/Arb_HidlParam( 4721): Apply Skipped: IsApplyExcept return true. [moduleName:ASW, param:soc_control, detailsWithValue:source=trigger;event=heartbeat;chargestatus=start;value=1 95 100 1 1;]
+02-09 16:03:29.661 W/AwareLog( 1575): AwareMem_Reclaim: generateCompressList procsGroups error!
+02-09 16:03:29.907 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:03:30.736 E/WificondControl( 1575): Noise: -95, Snr: 0, Chload: -1
+02-09 16:03:30.747 D/WiFi_PRO( 1575): MSG_RETURN_AP_CURRY_RSSI rssi = -39
+02-09 16:03:30.748 I/QosMonitor( 1575): queryRtt: rtt_type = 3
+02-09 16:03:30.748 D/HuaweiWifiWatchdogStateMachine( 1575): high data flow: protection_counter = 0,  not_detect_counter = 691
+02-09 16:03:30.748 D/HuaweiWifiWatchdogStateMachine( 1575): high data flow scenario: 0 --> 0 rx bytes =7KB
+02-09 16:03:30.748 I/HuaweiWifiWatchdogStateMachine( 1575): POta txb txg rxg:0, 5, 0. Lr =0% Totpkt=5
+02-09 16:03:30.749 I/HwUidTcpMonitor( 1575): TcpStatisticsRun run
+02-09 16:03:30.749 I/QosMonitor( 1575): postEventFromNative: msg=100,arg1=4,arg2=10
+02-09 16:03:30.750 I/QosMonitor( 1575): postEventFromNative: msg=100,arg1=0,arg2=10
+02-09 16:03:30.750 I/MQoS    ( 1575): rtt=200,tcp_tx_pkts=3861487,tcp_rx_pkts=7268740
+02-09 16:03:30.751 I/HuaweiWifiWatchdogStateMachine( 1575): PTcp RTT:0, rtt pkt=0, tcp_rx=0, tcp_tx=0, tcp_reTran=0, rtRate=0
+02-09 16:03:30.756 I/MQoS    ( 1575): QOS_level:0(0),wifi-link;SIM error;use level-0
+02-09 16:03:30.916 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:03:31.578 I/Net.6812NetworkSpeedMan( 1924): mIsStop = false
+02-09 16:03:31.579 I/Net.6813NetworkSpeedMan( 1924):  runInThread getTetherStats
+02-09 16:03:31.584 I/Net.6813NetworkSpeedMan( 1924):  runInUI refreshSpeed
+02-09 16:03:31.586 I/Net.6813NetworkSpeedMan( 1924): value=255.66667speed = 256B/smIsShowLastSpeedValuefalse
+02-09 16:03:31.586 I/NetworkSpeedView( 1924): /update(), speed=256B/s
+02-09 16:03:31.588 I/chatty  ( 1924): uid=10037(com.huawei.HwMultiScreenShot) com.android.systemui identical 2 lines
+02-09 16:03:31.588 I/NetworkSpeedView( 1924): /update(), speed=256B/s
+02-09 16:03:31.887 E/JankService(27271): child Thread receive to stop
+02-09 16:03:31.926 E/WifiHAL (  652): enter wifi_get_link_stats
+02-09 16:03:31.941 E/WificondControl( 1575): Noise: -95, Snr: 0, Chload: -1
+02-09 16:03:31.946 D/WifiScoreReport( 1575): Score = 60, wifiConnectivityManagerEnabled = false, lowScoreCount = 0
+02-09 16:03:31.956 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:03:32.016 E/JankService(  907): all data read ok
+02-09 16:03:32.997 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:03:33.763 I/TrafficMonitor( 1575): expired arrive. level:-1
+02-09 16:03:33.765 I/TrafficMonitor( 1575): update:rxPkts:10,txPkts:0,rxBytes:1191,txBytes:0
+02-09 16:03:33.766 I/TrafficMonitor( 1575): start expired. level:-1
+02-09 16:03:33.766 I/TrafficMonitor( 1575): gettimer:interval=5000
+02-09 16:03:33.766 I/TrafficMonitor( 1575): during_ms:5005,period_ms:2000
+02-09 16:03:33.766 I/TrafficMonitor( 1575): count:656,rx_sum:10,tx_sum:0,rxBytes:1191,during_ms:5005,rx_speed:237.96203796203795,tx_speed:0.0,rto:0.0
+02-09 16:03:33.892 D/hw_netstat( 1575): total/2151/0,unknown:0/2151/0
+02-09 16:03:34.023 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:03:34.579 I/Net.6813NetworkSpeedMan( 1924): mIsStop = false
+02-09 16:03:34.580 I/Net.6814NetworkSpeedMan( 1924):  runInThread getTetherStats
+02-09 16:03:34.587 I/Net.6814NetworkSpeedMan( 1924):  runInUI refreshSpeed
+02-09 16:03:34.588 I/Net.6814NetworkSpeedMan( 1924): value=246.0speed = 246B/smIsShowLastSpeedValuefalse
+02-09 16:03:34.588 I/NetworkSpeedView( 1924): /update(), speed=246B/s
+02-09 16:03:34.590 I/chatty  ( 1924): uid=10037(com.huawei.HwMultiScreenShot) com.android.systemui identical 2 lines
+02-09 16:03:34.590 I/NetworkSpeedView( 1924): /update(), speed=246B/s
+02-09 16:03:34.950 E/WifiHAL (  652): enter wifi_get_link_stats
+02-09 16:03:34.966 E/WificondControl( 1575): Noise: -95, Snr: 0, Chload: -1
+02-09 16:03:34.972 D/WifiScoreReport( 1575): Score = 60, wifiConnectivityManagerEnabled = false, lowScoreCount = 0
+02-09 16:03:35.027 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:03:36.033 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:03:36.502 D/DeviceMonitorPowerKit( 2117): run, sCountNum is 1
+02-09 16:03:36.502 D/DeviceMonitorPowerKit( 2117): interval is 219971, ElapsedRealtime is 452705350, isNeedRepeat: false
+02-09 16:03:36.502 E/DeviceMonitorPowerKit( 2117): not Satify ApplyResource
+02-09 16:03:36.738 I/Finsky  (25188): [195] com.google.android.finsky.bp.ab.run(5): Stats for Executor: BlockingExecutor com.google.android.finsky.bp.ac@14edbc1[Running, pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0]
+02-09 16:03:36.739 I/Finsky  (25188): [195] com.google.android.finsky.bp.ab.run(5): Stats for Executor: LightweightExecutor com.google.android.finsky.bp.ac@dce8f66[Running, pool size = 1, active threads = 0, queued tasks = 0, completed tasks = 1]
+02-09 16:03:37.062 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:03:37.583 I/Net.6814NetworkSpeedMan( 1924): mIsStop = false
+02-09 16:03:37.584 I/Net.6815NetworkSpeedMan( 1924):  runInThread getTetherStats
+02-09 16:03:37.589 I/Net.6815NetworkSpeedMan( 1924):  runInUI refreshSpeed
+02-09 16:03:37.591 I/Net.6815NetworkSpeedMan( 1924): value=185.33333speed = 185B/smIsShowLastSpeedValuefalse
+02-09 16:03:37.591 I/NetworkSpeedView( 1924): /update(), speed=185B/s
+02-09 16:03:37.592 I/chatty  ( 1924): uid=10037(com.huawei.HwMultiScreenShot) com.android.systemui identical 2 lines
+02-09 16:03:37.592 I/NetworkSpeedView( 1924): /update(), speed=185B/s
+02-09 16:03:37.619 D/ThermalTrace( 2186): saveRepeatData, app:com.opencode.voiceassist, shell:0,abient:-100
+02-09 16:03:37.976 E/WifiHAL (  652): enter wifi_get_link_stats
+02-09 16:03:37.994 E/WificondControl( 1575): Noise: -95, Snr: 0, Chload: -1
+02-09 16:03:37.999 D/WifiScoreReport( 1575): Score = 60, wifiConnectivityManagerEnabled = false, lowScoreCount = 0
+02-09 16:03:38.086 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:03:38.740 E/WificondControl( 1575): Noise: -95, Snr: 0, Chload: -1
+02-09 16:03:38.748 D/WiFi_PRO( 1575): MSG_RETURN_AP_CURRY_RSSI rssi = -40
+02-09 16:03:38.749 I/HuaweiWifiWatchdogStateMachine( 1575): POta txb txg rxg:0, 5, 0. Lr =0% Totpkt=5
+02-09 16:03:38.749 I/QosMonitor( 1575): queryRtt: rtt_type = 3
+02-09 16:03:38.749 I/QosMonitor( 1575): postEventFromNative: msg=100,arg1=4,arg2=10
+02-09 16:03:38.750 I/QosMonitor( 1575): postEventFromNative: msg=100,arg1=0,arg2=10
+02-09 16:03:38.751 I/HuaweiWifiWatchdogStateMachine( 1575): PTcp RTT:0, rtt pkt=0, tcp_rx=0, tcp_tx=0, tcp_reTran=0, rtRate=0
+02-09 16:03:38.751 I/MQoS    ( 1575): rtt=200,tcp_tx_pkts=3861487,tcp_rx_pkts=7268740
+02-09 16:03:38.749 I/HwUidTcpMonitor( 1575): TcpStatisticsRun run
+02-09 16:03:38.750 I/QosMonitor( 1575): postEventFromNative: msg=100,arg1=0,arg2=10
+02-09 16:03:38.751 I/HuaweiWifiWatchdogStateMachine( 1575): PTcp RTT:0, rtt pkt=0, tcp_rx=0, tcp_tx=0, tcp_reTran=0, rtRate=0
+02-09 16:03:38.751 I/MQoS    ( 1575): rtt=200,tcp_tx_pkts=3861487,tcp_rx_pkts=7268740
+02-09 16:03:38.760 I/MQoS    ( 1575): QOS_level:0(0),wifi-link;SIM error;use level-0
+02-09 16:03:38.766 I/TrafficMonitor( 1575): expired arrive. level:-1
+02-09 16:03:38.768 I/TrafficMonitor( 1575): update:rxPkts:10,txPkts:0,rxBytes:1112,txBytes:0
+02-09 16:03:38.768 I/TrafficMonitor( 1575): start expired. level:-1
+02-09 16:03:38.768 I/TrafficMonitor( 1575): gettimer:interval=5000
+02-09 16:03:38.768 I/TrafficMonitor( 1575): during_ms:5003,period_ms:2000
+02-09 16:03:38.768 I/TrafficMonitor( 1575): count:657,rx_sum:10,tx_sum:0,rxBytes:1112,during_ms:5003,rx_speed:222.2666400159904,tx_speed:0.0,rto:0.0
+02-09 16:03:39.129 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:03:40.156 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:03:40.586 I/Net.6815NetworkSpeedMan( 1924): mIsStop = false
+02-09 16:03:40.587 I/Net.6816NetworkSpeedMan( 1924):  runInThread getTetherStats
+02-09 16:03:40.595 I/Net.6816NetworkSpeedMan( 1924):  runInUI refreshSpeed
+02-09 16:03:40.596 I/Net.6816NetworkSpeedMan( 1924): value=429.33334speed = 429B/smIsShowLastSpeedValuefalse
+02-09 16:03:40.596 I/NetworkSpeedView( 1924): /update(), speed=429B/s
+02-09 16:03:40.598 I/chatty  ( 1924): uid=10037(com.huawei.HwMultiScreenShot) com.android.systemui identical 2 lines
+02-09 16:03:40.598 I/NetworkSpeedView( 1924): /update(), speed=429B/s
+02-09 16:03:41.003 E/WifiHAL (  652): enter wifi_get_link_stats
+02-09 16:03:41.019 E/WificondControl( 1575): Noise: -95, Snr: 0, Chload: -1
+02-09 16:03:41.025 D/WifiScoreReport( 1575): Score = 60, wifiConnectivityManagerEnabled = false, lowScoreCount = 0
+02-09 16:03:41.196 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:03:42.514 I/storaged(  890): storaged_t::event: storage_info refreshed.
+02-09 16:03:43.234 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:03:43.588 I/Net.6816NetworkSpeedMan( 1924): mIsStop = false
+02-09 16:03:43.589 I/Net.6817NetworkSpeedMan( 1924):  runInThread getTetherStats
+02-09 16:03:43.598 I/Net.6817NetworkSpeedMan( 1924):  runInUI refreshSpeed
+02-09 16:03:43.600 I/Net.6817NetworkSpeedMan( 1924): value=185.0speed = 185B/smIsShowLastSpeedValuefalse
+02-09 16:03:43.600 I/NetworkSpeedView( 1924): /update(), speed=185B/s
+02-09 16:03:43.601 I/chatty  ( 1924): uid=10037(com.huawei.HwMultiScreenShot) com.android.systemui identical 2 lines
+02-09 16:03:43.602 I/NetworkSpeedView( 1924): /update(), speed=185B/s
+02-09 16:03:43.770 I/TrafficMonitor( 1575): expired arrive. level:-1
+02-09 16:03:43.771 I/TrafficMonitor( 1575): update:rxPkts:12,txPkts:0,rxBytes:1601,txBytes:0
+02-09 16:03:43.771 I/TrafficMonitor( 1575): start expired. level:-1
+02-09 16:03:43.771 I/TrafficMonitor( 1575): gettimer:interval=5000
+02-09 16:03:43.772 I/TrafficMonitor( 1575): during_ms:5003,period_ms:2000
+02-09 16:03:43.772 I/TrafficMonitor( 1575): count:658,rx_sum:12,tx_sum:0,rxBytes:1601,during_ms:5003,rx_speed:320.00799520287825,tx_speed:0.0,rto:0.0
+02-09 16:03:43.908 D/hw_netstat( 1575): total/2804/0,unknown:0/2804/0
+02-09 16:03:44.030 E/WifiHAL (  652): enter wifi_get_link_stats
+02-09 16:03:44.051 E/WificondControl( 1575): Noise: -95, Snr: 0, Chload: -1
+02-09 16:03:44.056 D/WifiScoreReport( 1575): Score = 60, wifiConnectivityManagerEnabled = false, lowScoreCount = 0
+02-09 16:03:44.242 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:03:45.283 I/chatty  (  907): uid=0(root) erecovery-event identical 1 line
+02-09 16:03:46.290 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:03:46.591 I/Net.6817NetworkSpeedMan( 1924): mIsStop = false
+02-09 16:03:46.592 I/Net.6818NetworkSpeedMan( 1924):  runInThread getTetherStats
+02-09 16:03:46.598 I/Net.6818NetworkSpeedMan( 1924):  runInUI refreshSpeed
+02-09 16:03:46.599 I/Net.6818NetworkSpeedMan( 1924): value=235.66667speed = 236B/smIsShowLastSpeedValuefalse
+02-09 16:03:46.599 I/NetworkSpeedView( 1924): /update(), speed=236B/s
+02-09 16:03:46.601 I/chatty  ( 1924): uid=10037(com.huawei.HwMultiScreenShot) com.android.systemui identical 2 lines
+02-09 16:03:46.601 I/NetworkSpeedView( 1924): /update(), speed=236B/s
+02-09 16:03:46.756 E/WificondControl( 1575): Noise: -95, Snr: 0, Chload: -1
+02-09 16:03:46.764 I/HuaweiWifiWatchdogStateMachine( 1575): POta txb txg rxg:0, 5, 0. Lr =0% Totpkt=5
+02-09 16:03:46.764 D/WiFi_PRO( 1575): MSG_RETURN_AP_CURRY_RSSI rssi = -41
+02-09 16:03:46.765 I/QosMonitor( 1575): queryRtt: rtt_type = 3
+02-09 16:03:46.765 I/HwUidTcpMonitor( 1575): TcpStatisticsRun run
+02-09 16:03:46.765 I/QosMonitor( 1575): postEventFromNative: msg=100,arg1=4,arg2=10
+02-09 16:03:46.766 I/QosMonitor( 1575): postEventFromNative: msg=100,arg1=0,arg2=10
+02-09 16:03:46.771 I/MQoS    ( 1575): QOS_level:0(0),wifi-link;SIM error;use level-0
+02-09 16:03:46.772 I/MQoS    ( 1575): rtt=200,tcp_tx_pkts=3861487,tcp_rx_pkts=7268740
+02-09 16:03:46.772 I/HuaweiWifiWatchdogStateMachine( 1575): PTcp RTT:0, rtt pkt=0, tcp_rx=0, tcp_tx=0, tcp_reTran=0, rtRate=0
+02-09 16:03:47.058 E/WifiHAL (  652): enter wifi_get_link_stats
+02-09 16:03:47.078 E/WificondControl( 1575): Noise: -95, Snr: 0, Chload: -1
+02-09 16:03:47.084 D/WifiScoreReport( 1575): Score = 60, wifiConnectivityManagerEnabled = false, lowScoreCount = 0
+02-09 16:03:47.298 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:03:47.689 I/NetworkStatsManager( 9119): querySummary callingPid = 9119
+02-09 16:03:47.690 I/NetworkStats( 1575): openSessionForUsageStats, pid = 9119, pkg = com.tencent.mm
+02-09 16:03:47.690 I/NetworkStats( 1575): openSessionInternal,pid = 9119
+02-09 16:03:47.692 I/NetworkStats( 1575): performPollLocked, pid = 1575
+02-09 16:03:47.724 W/NetworkStatsFactory( 1575): mStatsXtProcUid: /proc/net/comm/stats does not exist!
+02-09 16:03:47.725 D/HwNetworkStatsService( 1575): hwRecordUidAndProcSnapshotLocked currentTime = 1770624225072
+02-09 16:03:47.742 I/NetworkStatsFactory( 1575): javaReadNetworkStatsUidAndProcDetail. cost time = 17
+02-09 16:03:47.748 D/HwNetworkStatsService( 1575): hwMaybeUidAndProcPersistLocked currentTime = 1770624225072
+02-09 16:03:47.762 I/NetworkStats( 1575): openSessionForUsageStats, pid = 9119, pkg = com.tencent.mm
+02-09 16:03:47.793 E/HSM_BG  ( 4721): NormalTrafficAnalysis:alert byte = 0, so return
+02-09 16:03:48.340 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:03:48.774 I/TrafficMonitor( 1575): expired arrive. level:-1
+02-09 16:03:48.776 I/TrafficMonitor( 1575): update:rxPkts:10,txPkts:2,rxBytes:1070,txBytes:111
+02-09 16:03:48.776 I/TrafficMonitor( 1575): start expired. level:-1
+02-09 16:03:48.776 I/TrafficMonitor( 1575): gettimer:interval=2000
+02-09 16:03:48.776 I/TrafficMonitor( 1575): during_ms:5005,period_ms:2000
+02-09 16:03:48.776 I/TrafficMonitor( 1575): count:659,rx_sum:10,tx_sum:2,rxBytes:1070,during_ms:5005,rx_speed:213.78621378621378,tx_speed:22.17782217782218,rto:5.0
+02-09 16:03:49.377 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:03:49.593 I/Net.6818NetworkSpeedMan( 1924): mIsStop = false
+02-09 16:03:49.593 I/Net.6819NetworkSpeedMan( 1924):  runInThread getTetherStats
+02-09 16:03:49.599 I/Net.6819NetworkSpeedMan( 1924):  runInUI refreshSpeed
+02-09 16:03:49.601 I/Net.6819NetworkSpeedMan( 1924): value=158.0speed = 158B/smIsShowLastSpeedValuefalse
+02-09 16:03:49.601 I/NetworkSpeedView( 1924): /update(), speed=158B/s
+02-09 16:03:49.624 W/Watchdog( 1575): hungtask: writing kick
+02-09 16:03:49.628 I/EventHub( 1575): EventHub monitor: no key events in the past 20598s, no motion events in the past 626s
+02-09 16:03:50.089 E/WifiHAL (  652): enter wifi_get_link_stats
+02-09 16:03:50.106 E/WificondControl( 1575): Noise: -95, Snr: 0, Chload: -1
+02-09 16:03:50.111 D/WifiScoreReport( 1575): Score = 60, wifiConnectivityManagerEnabled = false, lowScoreCount = 0
+02-09 16:03:50.377 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:03:50.779 I/TrafficMonitor( 1575): update:rxPkts:3,txPkts:0,rxBytes:332,txBytes:0
+02-09 16:03:50.780 I/TrafficMonitor( 1575): start expired. level:-1
+02-09 16:03:50.780 I/TrafficMonitor( 1575): gettimer:interval=2000
+02-09 16:03:51.394 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:03:52.404 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:03:52.596 I/Net.6819NetworkSpeedMan( 1924): mIsStop = false
+02-09 16:03:52.597 I/Net.6820NetworkSpeedMan( 1924):  runInThread getTetherStats
+02-09 16:03:52.604 I/Net.6820NetworkSpeedMan( 1924):  runInUI refreshSpeed
+02-09 16:03:52.606 I/Net.6820NetworkSpeedMan( 1924): value=215.0speed = 215B/smIsShowLastSpeedValuefalse
+02-09 16:03:52.606 I/NetworkSpeedView( 1924): /update(), speed=215B/s
+02-09 16:03:52.608 I/chatty  ( 1924): uid=10037(com.huawei.HwMultiScreenShot) com.android.systemui identical 2 lines
+02-09 16:03:52.608 I/NetworkSpeedView( 1924): /update(), speed=215B/s
+02-09 16:03:52.784 I/TrafficMonitor( 1575): update:rxPkts:3,txPkts:0,rxBytes:313,txBytes:0
+02-09 16:03:52.784 I/TrafficMonitor( 1575): start expired. level:-1
+02-09 16:03:52.784 I/TrafficMonitor( 1575): gettimer:interval=2000
+02-09 16:03:53.117 E/WifiHAL (  652): enter wifi_get_link_stats
+02-09 16:03:53.136 E/WificondControl( 1575): Noise: -95, Snr: 0, Chload: -1
+02-09 16:03:53.142 D/WifiScoreReport( 1575): Score = 60, wifiConnectivityManagerEnabled = false, lowScoreCount = 0
+02-09 16:03:53.441 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:03:53.777 I/TrafficMonitor( 1575): expired arrive. level:-1
+02-09 16:03:53.777 I/TrafficMonitor( 1575): during_ms:2005,period_ms:2000
+02-09 16:03:53.778 I/TrafficMonitor( 1575): count:661,rx_sum:3,tx_sum:0,rxBytes:313,during_ms:2005,rx_speed:156.10972568578555,tx_speed:0.0,rto:0.0
+02-09 16:03:53.930 D/hw_netstat( 1575): total/1866/111,unknown:0/1866/0,com.huawei.hwid/0/111
+02-09 16:03:54.346 I/HwBatteryService( 1575): quick charge status : 0
+02-09 16:03:54.346 D/HwBatteryService( 1575): onUEvent fcpStatus = 0
+02-09 16:03:54.346 D/HwBatteryService( 1575): onUEvent scpStatus = 0 ,ovpStatus = 0
+02-09 16:03:54.347 I/HwBatteryService( 1575): handleWirelessTxStatus
+02-09 16:03:54.347 I/HwBatteryService( 1575): switch not open, return, mWirelessTxFlag : 0
+02-09 16:03:54.348 I/UsbDeviceManager( 1575): water_intrused state= 0
+02-09 16:03:54.481 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:03:54.766 E/WificondControl( 1575): Noise: -95, Snr: 0, Chload: -1
+02-09 16:03:54.777 D/WiFi_PRO( 1575): MSG_RETURN_AP_CURRY_RSSI rssi = -39
+02-09 16:03:54.777 I/HuaweiWifiWatchdogStateMachine( 1575): POta txb txg rxg:0, 12, 0. Lr =0% Totpkt=12
+02-09 16:03:54.777 I/QosMonitor( 1575): queryRtt: rtt_type = 3
+02-09 16:03:54.779 I/QosMonitor( 1575): postEventFromNative: msg=100,arg1=4,arg2=10
+02-09 16:03:54.780 I/QosMonitor( 1575): postEventFromNative: msg=100,arg1=0,arg2=10
+02-09 16:03:54.780 I/HwUidTcpMonitor( 1575): TcpStatisticsRun run
+02-09 16:03:54.780 I/MQoS    ( 1575): rtt=200,tcp_tx_pkts=3861489,tcp_rx_pkts=7268740
+02-09 16:03:54.782 I/HuaweiWifiWatchdogStateMachine( 1575): PTcp RTT:0, rtt pkt=0, tcp_rx=0, tcp_tx=2, tcp_reTran=0, rtRate=0
+02-09 16:03:54.786 I/TrafficMonitor( 1575): update:rxPkts:4,txPkts:0,rxBytes:484,txBytes:0
+02-09 16:03:54.786 I/TrafficMonitor( 1575): start expired. level:-1
+02-09 16:03:54.786 I/TrafficMonitor( 1575): gettimer:interval=2000
+02-09 16:03:54.788 I/MQoS    ( 1575): QOS_level:0(0),wifi-link;SIM error;use level-0
+02-09 16:03:55.006 D/SmartDualCardSM( 2059): IdleState:got msg.what=EVENT_HARD_SWITCH_CONDITION_CHECK
+02-09 16:03:55.028 E/SmartDualCardTraffic( 2059): getMealTrafficImpl fail,invalid imsi
+02-09 16:03:55.028 D/SmartDualCardSM( 2059): boosterDump:prop=true SdcSwitchOn=false DataSwitchOn=true WifiConnect=true AirplaneOn=true ScreenOn=true VSimEnabled=false CallOn=false AppState=GENERAL_FOREGROUND HidataAppState=GENERAL_BACKGROUND defaultDataSub=0 default4GSlot=0 DataOn=false M_MmsUtPdp=false userType=2
+02-09 16:03:55.044 E/SmartDualCardTraffic( 2059): getMealTrafficImpl fail,invalid imsi
+02-09 16:03:55.045 D/SmartDualCardSM( 2059): boosterDump:SlaveActive=false SameOperator=false M_NetworkBad=false S_NetworkBad=false M_DLSpeedLimit=1048576 S_DLSpeedLimit=1048576 M_DataRoam=false S_DataRoam=false VPNMode=false TetherOn=false AppQoeSlow=false HidataAppQoeSlow=false GameExpBad=false DsdsState=1 S_TrafficEnough=true
+02-09 16:03:55.092 I/NetworkStatsManager( 9359): querySummary callingPid = 9359
+02-09 16:03:55.093 I/NetworkStats( 1575): openSessionForUsageStats, pid = 9359, pkg = com.tencent.mm
+02-09 16:03:55.100 I/NetworkStats( 1575): openSessionForUsageStats, pid = 9359, pkg = com.tencent.mm
+02-09 16:03:55.522 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:03:55.601 I/Net.6820NetworkSpeedMan( 1924): mIsStop = false
+02-09 16:03:55.601 I/Net.6821NetworkSpeedMan( 1924):  runInThread getTetherStats
+02-09 16:03:55.608 I/Net.6821NetworkSpeedMan( 1924):  runInUI refreshSpeed
+02-09 16:03:55.609 I/Net.6821NetworkSpeedMan( 1924): value=161.33333speed = 161B/smIsShowLastSpeedValuefalse
+02-09 16:03:55.610 I/NetworkSpeedView( 1924): /update(), speed=161B/s
+02-09 16:03:55.611 I/chatty  ( 1924): uid=10037(com.huawei.HwMultiScreenShot) com.android.systemui identical 2 lines
+02-09 16:03:55.611 I/NetworkSpeedView( 1924): /update(), speed=161B/s
+02-09 16:03:56.145 E/WifiHAL (  652): enter wifi_get_link_stats
+02-09 16:03:56.157 E/WificondControl( 1575): Noise: -95, Snr: 0, Chload: -1
+02-09 16:03:56.163 D/WifiScoreReport( 1575): Score = 60, wifiConnectivityManagerEnabled = false, lowScoreCount = 0
+02-09 16:03:56.502 D/DeviceMonitorPowerKit( 2117): run, sCountNum is 1
+02-09 16:03:56.502 D/DeviceMonitorPowerKit( 2117): interval is 239971, ElapsedRealtime is 452705350, isNeedRepeat: false
+02-09 16:03:56.502 E/DeviceMonitorPowerKit( 2117): not Satify ApplyResource
+02-09 16:03:56.534 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:03:56.791 I/TrafficMonitor( 1575): update:rxPkts:3,txPkts:1,rxBytes:282,txBytes:40
+02-09 16:03:56.791 I/TrafficMonitor( 1575): start expired. level:-1
+02-09 16:03:56.791 I/TrafficMonitor( 1575): gettimer:interval=2000
+02-09 16:03:57.144 E/JankService(27275): child Thread receive to stop
+02-09 16:03:57.254 E/JankService(  907): all data read ok
+02-09 16:03:57.562 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:03:58.585 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:03:58.602 I/Net.6821NetworkSpeedMan( 1924): mIsStop = false
+02-09 16:03:58.603 I/Net.6822NetworkSpeedMan( 1924):  runInThread getTetherStats
+02-09 16:03:58.608 I/Net.6822NetworkSpeedMan( 1924):  runInUI refreshSpeed
+02-09 16:03:58.610 I/Net.6822NetworkSpeedMan( 1924): value=242.33333speed = 242B/smIsShowLastSpeedValuefalse
+02-09 16:03:58.610 I/NetworkSpeedView( 1924): /update(), speed=242B/s
+02-09 16:03:58.612 I/chatty  ( 1924): uid=10037(com.huawei.HwMultiScreenShot) com.android.systemui identical 2 lines
+02-09 16:03:58.612 I/NetworkSpeedView( 1924): /update(), speed=242B/s
+02-09 16:03:58.794 I/TrafficMonitor( 1575): update:rxPkts:4,txPkts:0,rxBytes:405,txBytes:0
+02-09 16:03:58.795 I/TrafficMonitor( 1575): start expired. level:-1
+02-09 16:03:58.795 I/TrafficMonitor( 1575): gettimer:interval=2000
+02-09 16:03:59.165 E/WifiHAL (  652): enter wifi_get_link_stats
+02-09 16:03:59.180 E/WificondControl( 1575): Noise: -95, Snr: 0, Chload: -1
+02-09 16:03:59.186 D/WifiScoreReport( 1575): Score = 60, wifiConnectivityManagerEnabled = false, lowScoreCount = 0
+02-09 16:03:59.626 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:03:59.789 I/TrafficMonitor( 1575): expired arrive. level:-1
+02-09 16:03:59.789 I/TrafficMonitor( 1575): during_ms:2003,period_ms:2000
+02-09 16:03:59.789 I/TrafficMonitor( 1575): count:664,rx_sum:4,tx_sum:0,rxBytes:405,during_ms:2003,rx_speed:202.1967049425861,tx_speed:0.0,rto:0.0
+02-09 16:04:00.005 V/AlarmManager( 1575): Received TIME_TICK alarm; rescheduling
+02-09 16:04:00.007 I/HwAlarmManagerService( 1575): hwSetAlarm listenerTag: time_tick
+02-09 16:04:00.036 E/DateView( 1924): DateView,mCurrentTime: 1770624240036
+02-09 16:04:00.036 I/EventCenter( 1924): EventCenter Get :android.intent.action.TIME_TICK
+02-09 16:04:00.037 W/ClockView1( 1924):  action android.intent.action.TIME_TICK
+02-09 16:04:00.037 I/chatty  ( 1924): uid=10037(com.huawei.HwMultiScreenShot) com.android.systemui identical 1 line
+02-09 16:04:00.037 W/ClockView1( 1924):  action android.intent.action.TIME_TICK
+02-09 16:04:00.042 E/ndroid.systemu( 1924): No package ID ff found for ID 0xffffffff.
+02-09 16:04:00.043 I/LocalCalendar( 1924): CalendarId: 0001LocalCalender On
+02-09 16:04:00.046 E/ndroid.systemu( 1924): No package ID ff found for ID 0xffffffff.
+02-09 16:04:00.046 I/LocalCalendar( 1924): CalendarId: 0001LocalCalender On
+02-09 16:04:00.050 E/ndroid.systemu( 1924): No package ID ff found for ID 0xffffffff.
+02-09 16:04:00.051 I/LocalCalendar( 1924): CalendarId: 0001LocalCalender On
+02-09 16:04:00.056 I/KeyguardStatusView( 1924): Runnable for refresh
+02-09 16:04:00.059 I/HwLauncher( 2230): Model  onReceive intent=Intent { act=android.intent.action.TIME_TICK flg=0x50200014 hwFlg=0x900 (has extras) }
+02-09 16:04:00.059 I/HwLauncher( 2230): Model  onReceive user=UserHandle{0}
+02-09 16:04:00.083 V/BroadcastQueue( 1575): Finished with ordered broadcast BroadcastRecord{871b6f9 u-1 android.intent.action.TIME_TICK}
+02-09 16:04:00.131 E/ndroid.launche( 2230): No package ID ff found for ID 0xffffffff.
+02-09 16:04:00.148 D/DateTimeView( 1924): Change to single clock mode!
+02-09 16:04:00.150 I/ColorPickUitls( 1924): type = 2
+02-09 16:04:00.150 D/HwKeyguardBottomArea( 1924): RemoveDateTimeTopArea type:2
+02-09 16:04:00.150 D/HwKeyguardBottomArea( 1924): loadDateTimeArea type
+02-09 16:04:00.151 D/HwKeyguardBottomArea( 1924): removeLiftSensorView, threadname = main
+02-09 16:04:00.151 D/DateTimeView( 1924): Change to single clock mode!
+02-09 16:04:00.152 I/ColorPickUitls( 1924): type = 2
+02-09 16:04:00.152 D/HwKeyguardBottomArea( 1924): RemoveDateTimeTopArea type:2
+02-09 16:04:00.152 D/HwKeyguardBottomArea( 1924): loadDateTimeArea type
+02-09 16:04:00.152 D/HwKeyguardBottomArea( 1924): removeLiftSensorView, threadname = main
+02-09 16:04:00.152 D/DateTimeView( 1924): Change to single clock mode!
+02-09 16:04:00.154 I/ColorPickUitls( 1924): type = 2
+02-09 16:04:00.154 D/HwKeyguardBottomArea( 1924): RemoveDateTimeTopArea type:2
+02-09 16:04:00.154 D/HwKeyguardBottomArea( 1924): loadDateTimeArea type
+02-09 16:04:00.154 D/HwKeyguardBottomArea( 1924): removeLiftSensorView, threadname = main
+02-09 16:04:00.667 E/LOGSERVER_UTILS(  907): [Erecovery]readEvent: eRecEventManager readEvent 0
+02-09 16:04:00.799 I/TrafficMonitor( 1575): update:rxPkts:3,txPkts:0,rxBytes:722,txBytes:0
+02-09 16:04:00.799 I/TrafficMonitor( 1575): start expired. level:-1
+02-09 16:04:00.799 I/TrafficMonitor( 1575): gettimer:interval=2000

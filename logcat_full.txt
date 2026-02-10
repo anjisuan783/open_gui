@@ -1,0 +1,1572 @@
+﻿--------- beginning of main
+02-08 15:58:45.647  1575 13992 W AwareLog: AwareMem_Reclaim: generateCompressList procsGroups error!
+02-08 15:58:45.649   895   925 I AwareLog: HibSTrategy::HibStrategySwapCandidateProcessAdd packagename com.android.vending
+02-08 15:58:45.687  2186  2222 I PGServer: getTopFrontApp. calling pkg: android
+02-08 15:58:45.688   895   925 I AwareLog: HibSTrategy::HibStrategySwapCandidateProcessAdd packagename com.huawei.hwid
+02-08 15:58:45.712  2186  2222 I PGServer: getTopFrontApp. calling pkg: android
+02-08 15:58:45.713   895   925 I AwareLog: HibSTrategy::HibStrategySwapCandidateProcessAdd packagename com.huawei.hwid
+02-08 15:58:45.713  2186  2222 I PGServer: getTopFrontApp. calling pkg: android
+02-08 15:58:45.942   907  3754 E LOGSERVER_UTILS: [Erecovery]readEvent: eRecEventManager readEvent 0
+02-08 15:58:46.281   652   652 E WifiHAL : enter wifi_get_link_stats
+02-08 15:58:46.295  1575  1786 E WificondControl: Noise: -89, Snr: 0, Chload: -1
+02-08 15:58:46.299  1575  1786 D WifiScoreReport: Score = 60, wifiConnectivityManagerEnabled = false, lowScoreCount = 0
+02-08 15:58:46.455  1575  1785 I TrafficMonitor: update:rxPkts:1,txPkts:1,rxBytes:1331,txBytes:60
+02-08 15:58:46.455  1575  1785 I TrafficMonitor: start expired. level:-1
+02-08 15:58:46.456  1575  1785 I TrafficMonitor: gettimer:interval=2000
+02-08 15:58:46.482  2186  2779 I PG_ash  : view remove pid:14579 uid:10166
+02-08 15:58:46.485 14579 14621 W libEGL  : EGLNativeWindowType 0x770218d010 disconnect failed
+--------- beginning of system
+02-08 15:58:46.493  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{1e544 u0 com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}
+02-08 15:58:46.501  1575  3114 V WindowManager: removeIfPossible: Window{7102810 u0 Toast}
+02-08 15:58:46.502  1575  3114 V WindowManager: Not removing Window{7102810 u0 Toast EXITING} due to exit animation 
+02-08 15:58:46.511  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{1e544 u0 com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}
+02-08 15:58:46.519  1575  3114 W NotificationService: Toast already killed. pkg=com.opencode.voiceassist callback=android.app.ITransientNotification$Stub$Proxy@d25a641
+02-08 15:58:46.520  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{1e544 u0 com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}
+02-08 15:58:46.623  1575  1726 V WindowManager: Exit animation finished in Window{7102810 u0 Toast EXITING}: remove=true
+02-08 15:58:46.645  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{1e544 u0 com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}
+02-08 15:58:46.652  1575  1726 I DebugKeepScreenOn: setHoldScreenLocked newHoldScreen:null currentHoldScreen:Session{bd81bf1 14579:u0a10166} wakeLockState:true
+02-08 15:58:46.652  1575  1726 I DebugKeepScreenOn: Releasing screen wakelock, obscured by Window{1e544 u0 com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}
+02-08 15:58:46.652  1575  1726 D PowerMS : release:L=223195808,F=0x0,T="WindowManager",N=android",WS=WorkSource{10166},U=1000,P=1575
+02-08 15:58:46.656  1575  1726 V WindowManager: postWindowRemoveCleanupLocked: Window{7102810 u0 Toast}
+02-08 15:58:46.657  1575  1726 V WindowManager: Removing Window{7102810 u0 Toast} from WindowToken{6f4dec2 android.os.Binder@9c19f0d}
+02-08 15:58:46.663  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{1e544 u0 com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}
+02-08 15:58:46.983   907  3754 E LOGSERVER_UTILS: [Erecovery]readEvent: eRecEventManager readEvent 0
+02-08 15:58:47.684   897   945 D bastetd : [BastetDevice   ] CheckBufferLen# not check msg msg:7
+02-08 15:58:47.873  1575  1787 D hw_netstat: total/9598/1931,android.uid.system:1000/5480/1271,unknown:0/3993/0,com.opencode.voiceassist/0/360,com.android.vending/0/300,unknown:1051/125/0
+02-08 15:58:47.996  1575  1606 W WindowManager: Unable to start animation, surface is null or no children.
+02-08 15:58:48.005  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{1e544 u0 com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}
+02-08 15:58:48.015   907  3754 E LOGSERVER_UTILS: [Erecovery]readEvent: eRecEventManager readEvent 0
+02-08 15:58:48.459  1575  1785 I TrafficMonitor: update:rxPkts:0,txPkts:1,rxBytes:0,txBytes:60
+02-08 15:58:48.459  1575  1785 I TrafficMonitor: start expired. level:-1
+02-08 15:58:48.459  1575  1785 I TrafficMonitor: gettimer:interval=2000
+02-08 15:58:49.056   907  3754 E LOGSERVER_UTILS: [Erecovery]readEvent: eRecEventManager readEvent 0
+02-08 15:58:49.304   652   652 E WifiHAL : enter wifi_get_link_stats
+02-08 15:58:49.324  1575  1786 E WificondControl: Noise: -89, Snr: 0, Chload: -1
+02-08 15:58:49.324  1575  3114 I ActivityManager: Killing 25589:com.android.gallery3d:search/u0a31 (adj 906): empty #25
+02-08 15:58:49.328  1575  1598 W libprocessgroup: kill(-25589, 9) failed: No such process
+02-08 15:58:49.329  1575  1786 D WifiScoreReport: Score = 60, wifiConnectivityManagerEnabled = false, lowScoreCount = 0
+02-08 15:58:49.360  1575  3114 D ActivityManager: cleanUpApplicationRecord app: ProcessRecord{8cffffd 25589:com.android.gallery3d:search/u0a31}, app.bad: false, restarting: false, allowRestart: true
+02-08 15:58:49.364  1575  1754 W AwareLog: SchedLevelBoost: onProcessDied config not set!
+02-08 15:58:49.365  2059  2075 I BoosterSwitchP: notifyUidState do nothing
+02-08 15:58:49.365  2059  2075 I DeepNoDisturbP: notifyUidState
+02-08 15:58:49.365  2059  2075 I BrowserChrP: notifyUidState
+02-08 15:58:49.367  2059  2073 E HsmCoreServiceImpl: onTransact in code is: 102
+02-08 15:58:49.367  2059  2073 I MediaProcessHandler: processOp opType: 1, uid: 10031, pid: 25589
+02-08 15:58:49.367  2059  2073 W MediaProcessHandler: remove target not exist, maybe the UI process: uid: 10031, pid: 25589
+02-08 15:58:49.367  2059  2073 I MediaProcessHandler: executedCallBack opType: 1 mMediaStatusObservers.size=1
+02-08 15:58:49.370  1575  1598 W libprocessgroup: kill(-25589, 9) failed: No such process
+02-08 15:58:49.383  1575  1598 W libprocessgroup: kill(-25589, 9) failed: No such process
+02-08 15:58:49.383   598   598 I Zygote  : Process 25589 exited due to signal (9)
+02-08 15:58:49.428  1575  1598 W libprocessgroup: kill(-25589, 9) failed: No such process
+02-08 15:58:49.428  1575  1598 I libprocessgroup: Successfully killed process cgroup uid 10031 pid 25589 in 100ms
+02-08 15:58:49.453  1575  1785 I TrafficMonitor: expired arrive. level:-1
+02-08 15:58:49.453  1575  1785 I TrafficMonitor: during_ms:2004,period_ms:2000
+02-08 15:58:49.453  1575  1785 I TrafficMonitor: count:124,rx_sum:0,tx_sum:1,rxBytes:0,during_ms:2004,rx_speed:0.0,tx_speed:29.940119760479043,rto:0.0
+02-08 15:58:49.863   631   631 I audio_hw_primary: usb_ext_get_parameters: check show hires (false)
+02-08 15:58:49.866  1575  1805 I HwAudioServiceEx: check HiRes Icon false
+02-08 15:58:49.869  1575  1805 W ActivityManager: Sending non-protected broadcast huawei.intent.action.hideHiResIcon from system 1575:system/1000 pkg android
+02-08 15:58:49.870  1575  1805 W ActivityManager: Sending non-protected broadcast huawei.intent.action.hideHiResIcon from system 1575:system/1000 pkg android
+02-08 15:58:50.070   907  3754 E LOGSERVER_UTILS: [Erecovery]readEvent: eRecEventManager readEvent 0
+02-08 15:58:50.463  1575  1785 I TrafficMonitor: update:rxPkts:1,txPkts:1,rxBytes:1331,txBytes:60
+02-08 15:58:50.463  1575  1785 I TrafficMonitor: start expired. level:-1
+02-08 15:58:50.464  1575  1785 I TrafficMonitor: gettimer:interval=2000
+02-08 15:58:50.504  1575  2006 W Watchdog: hungtask: writing kick
+02-08 15:58:50.507  1575  1604 I EventHub: EventHub monitor: no key events in the past 258s, no motion events in the past 24s
+02-08 15:58:50.594   891   891 E Thermal-daemon: [ap] temp_new :31  temp_old :35
+02-08 15:58:50.599   891   891 E Thermal-daemon: Report temperature: [ap] temp :31  report_threshold:1
+02-08 15:58:51.111   907  3754 E LOGSERVER_UTILS: [Erecovery]readEvent: eRecEventManager readEvent 0
+02-08 15:58:51.492  2140  2293 I HwNaturalBase: [CommonHandler]: 22154Kb ram is used.
+02-08 15:58:51.705  1575  1786 E WificondControl: Noise: -89, Snr: 0, Chload: -1
+02-08 15:58:51.717  1575  1785 D WiFi_PRO: MSG_RETURN_AP_CURRY_RSSI rssi = -57
+02-08 15:58:51.717  1575  1785 I QosMonitor: queryRtt: rtt_type = 3
+02-08 15:58:51.718  1575  1858 D HuaweiWifiWatchdogStateMachine: high data flow: protection_counter = 0,  not_detect_counter = 1540
+02-08 15:58:51.718  1575  1858 D HuaweiWifiWatchdogStateMachine: high data flow scenario: 0 --> 0 rx bytes =72KB
+02-08 15:58:51.718  1575  1858 I HuaweiWifiWatchdogStateMachine: POta txb txg rxg:0, 9, 0. Lr =0% Totpkt=9
+02-08 15:58:51.719  1575  1785 I QosMonitor: postEventFromNative: msg=100,arg1=4,arg2=10
+02-08 15:58:51.720  1575  1785 I QosMonitor: postEventFromNative: msg=100,arg1=0,arg2=10
+02-08 15:58:51.720  1575 14669 I HwUidTcpMonitor: TcpStatisticsRun run
+02-08 15:58:51.721  1575  1858 I HuaweiWifiWatchdogStateMachine: PTcp RTT:0, rtt pkt=0, tcp_rx=0, tcp_tx=1, tcp_reTran=1, rtRate=1
+02-08 15:58:51.721  1575  1785 I MQoS    : rtt=272,tcp_tx_pkts=3835497,tcp_rx_pkts=7240881
+02-08 15:58:51.721  1575 14669 D HwUidTcpMonitor: parseWlanUidTcpStatistics lastUidTcpStatInfo = [ mUid = 10124 mPacketName = com.huawei.android.launcher mSendSegs = 584 mResendSegs = 519 mRcvSegs = 0 ]
+02-08 15:58:51.728  1575  8854 I MQoS    : QOS_level:0(0),wifi-link;SIM error;use level-0
+02-08 15:58:51.784  1575  1751 W ActivityManager: Sending non-protected broadcast DeviceMonitorService.MonitorStrategy.NormalAlarm from system uid 1000 pkg com.huawei.nearby
+02-08 15:58:51.789  2117  2117 I MonitorStrategy: alarm, action=DeviceMonitorService.MonitorStrategy.NormalAlarm
+02-08 15:58:51.790  2117  2506 I MonitorStrategy: check changed status
+02-08 15:58:51.792  1575 11163 V BroadcastQueue: Finished with ordered broadcast BroadcastRecord{a19e8c3 u0 DeviceMonitorService.MonitorStrategy.NormalAlarm}
+02-08 15:58:51.792  2117  2506 D CommonUtils: Current screen state isOn: true
+02-08 15:58:51.798  2117  2506 I ElectionHeartbeatInfo: reset current master weight=2598
+02-08 15:58:51.800  2117  2506 I P2pInfo : getP2pMac: 16:**:**:**:c2:d2
+02-08 15:58:51.800  2117  2506 I P2pInfo : getGoMac: unknow
+02-08 15:58:51.800  2117  2506 I MonitorStrategy: local DeviceInfo=[udid=695C********BCD9, type=PHONE, uuid=EE10********58C8, brmac=14:**:**:**:B0:6A, accountId=30086000565183853, selfWeight= 2598, group=[256, 512, 1, 257], online={}, softbusver=11.1.0.001, packagever=2.0.0.158, seqNum=-1, ip=192.168.50***, aport=331***, sport=339***, pport=451***, p2p_mac=16:**:**:**:c2:d2, go_mac=unknow, hashcode=56106217, heartbeat=365980869633988]
+02-08 15:58:51.800  2117  2506 I HwIdHandler: getCurUserId: false,cur:30086000***
+02-08 15:58:51.800  2117  2506 I MonitorStrategy: device check lost at heartbeat, bleBackGround false or not screenOne or need more time
+02-08 15:58:51.800  2117  2506 I RoleElectionEngine: hasn't relayed when increment, weightAuto: 2598, seqAuto: 234
+02-08 15:58:51.800  2117  2506 I MonitorStrategy: start alarm isContinueClock=true, isHighPerformance=false, now=366240619, startTime=366540619
+02-08 15:58:51.806  2117  2506 I MonitorStrategy: in switch strategy, seqAuto= 234, seqRelay=0
+02-08 15:58:51.807  2117  2506 I HwIdHandler: getCurUserId: false,cur:30086000***
+02-08 15:58:51.807  2117  2506 I MonitorStrategy: tick wifi
+02-08 15:58:51.807  2117  2506 I HwIdHandler: getCurUserId: false,cur:30086000***
+02-08 15:58:51.807  2117  2506 E DeviceInfo: setHeartbeatTimestamp success: old= 365980869633988, new=366240625955302, diff=259756ms, heartbeatUpdateTime=366240625977177
+02-08 15:58:51.807  2117  2506 I SensorhubApi: isSupportSensorAdvertiseFilter
+02-08 15:58:51.812  2117  2506 E SensorhubApi: isSupportSensorAdvertiseFilter exception java.lang.ClassNotFoundException: android.bluetooth.BluetoothAdvFilterEx
+02-08 15:58:51.814  2117  2506 I MonitorStrategy: has already reported on date = 2026-02-08
+02-08 15:58:51.814  2117  2506 I WifiAuthManager: setHeartbeatInterval 600s
+02-08 15:58:51.815  2117  2506 I MonitorStrategy: first time, do all Wifi discovery
+02-08 15:58:51.815  2117  2506 I HeartbeatMonitor: scheduleAdvertise: type= 6, name=ADVERTISE_MODE_ELECTION_AUTO
+02-08 15:58:51.815  2117  2506 I HeartbeatMonitor: now=366240634204782, tickWakeEndTime=297963450819565, tickEndTime=365990878186071, tockEndTime=297963450819565, notifyEndTime=297963450819565, tickRelayEndTime=297963450819565, tickAutoEndTime=366250634146969, isScreenOn=true
+02-08 15:58:51.828   473   473 E OEMINFO_NVM_SERVER:  OeminfoGetInfo:index(155), oeminfo data not find !!!!
+02-08 15:58:51.829   473   473 E OEMINFO_NVM_SERVER:  OeminfoReturnInfo: oeminfo return info fail.
+02-08 15:58:51.829   473   473 E OEMINFO_NVM_SERVER:  OinvCmdHandler: pid 513, operation oeminfo_getinfo and ret -1 fail.
+02-08 15:58:51.829   513   513 E OEMINFO_NVM_CLIENT: OinvRecvReturn: RET_FAIL return.
+02-08 15:58:51.829   513   513 E OEMINFO_NVM_CLIENT: rmt_oeminfo_get_info: index(155) get data from server fail.
+02-08 15:58:51.829   513   513 E         : read_oeminfo_signed_data: failed to get info oeminfo_idx:155 and total_byte:0
+02-08 15:58:51.829   513   513 E         : init_oeminfo_signed_data_all:fail to read oeminfo oeminfo_idx:155 and oeminfo_sub_idx:-1
+02-08 15:58:51.829   513   513 E         : get_original_data_by_fun_tag_and_sign_type: fail to init signed oeminfo signed all params
+02-08 15:58:51.829   513   513 E         : read_udid_number: failed to get udid
+02-08 15:58:51.829   513   513 E factory_operator: hw_get_device_info: read udid from oeminfo fail
+02-08 15:58:51.830  1575 11163 E DeviceIdentifiers: GetUDIDNative getUDID return null, generated it
+02-08 15:58:51.830  1575 11163 W DeviceIdentifiers: the phone is in udid_model_whitelist, return null!
+02-08 15:58:51.832  1575 11163 I DeviceIdentifiers: udidHarmony has been read success, return!
+02-08 15:58:51.833  1575 11163 I DeviceIdentifiers: udidHarmony has been read success, return!
+02-08 15:58:51.834  2117  2506 I CommonUtils: udid is null, get udid from getHarmonyUDID
+02-08 15:58:51.834  2117  2506 I HwIdHandler: getCurUserId: false,cur:30086000***
+02-08 15:58:51.834  2117  2506 I BleAdvBuilder: cal level=4
+02-08 15:58:51.834  2117  2506 D BleAdvBuilderStack: addBleAdvBuilder: before size=1
+02-08 15:58:51.835  2117  2506 I BleAdvBuilderStack: poll the peek with endTime earlier than now or less than 10ms
+02-08 15:58:51.835  2117  2506 D BleAdvBuilderStack: addBleAdvBuilder: after size=1, isPeekChanged=true
+02-08 15:58:51.835  2117  2506 I HeartbeatMonitor: current peek, nowTime=366240653, endTime=366250652, level=LEVEL5
+02-08 15:58:51.835  2117  2506 I BleApi  : buildHiPlayAdvMsg: 
+02-08 15:58:51.835  2117  2506 I CommonUtils: getCurUserIDHashBytes: 
+02-08 15:58:51.836  2117  2506 V BleAdvBuilder: buildAdvData: 05-05-A8-3A51-000000000002-0E-7CC808DE4CCE0B00-01-0A26-EA, length=24, with HeartbeatMonitor
+02-08 15:58:51.836  2117  2506 I BleApi  : buildHiPlayAdvData: 
+02-08 15:58:51.837  2117  2506 I BleApi  : buildAdvertisingParameters:AdvertisingSetParameters [connectable=true, isLegacy=true, isAnonymous=false, includeTxPower=false, primaryPhy=1, secondaryPhy=1, interval=32, txPowerLevel=-7]
+02-08 15:58:51.839  2117  2506 I BleApi  : startAdvertise
+02-08 15:58:51.840  2117  2506 D BluetoothAdapter: isLeEnabled(): ON
+02-08 15:58:51.849  2117  2506 I HeartbeatMonitor: advertisingSet is null, advertise [user=30086000565183853 , random bits=000000000002, hash=7CC808DE4CCE0B00 wake=false, resp=true, conn=true, compat=true, endTime=366250652], ret=10000
+02-08 15:58:51.859 26277 27310 I bt_stack: [INFO:btm_ble_multi_adv.cc(332)] operator() interval_ms 659323 delta_time 240677
+02-08 15:58:51.880  2117  2506 I HeartbeatMonitor: onAdvertisingSetStarted android.bluetooth.le.AdvertisingSet@13718fa, status=0
+02-08 15:58:52.126   907  3754 E LOGSERVER_UTILS: [Erecovery]readEvent: eRecEventManager readEvent 0
+02-08 15:58:52.331   652   652 E WifiHAL : enter wifi_get_link_stats
+02-08 15:58:52.349  1575  1786 E WificondControl: Noise: -89, Snr: 0, Chload: -1
+02-08 15:58:52.355  1575  1786 D WifiScoreReport: Score = 60, wifiConnectivityManagerEnabled = false, lowScoreCount = 0
+02-08 15:58:52.467  1575  1785 I TrafficMonitor: update:rxPkts:0,txPkts:0,rxBytes:0,txBytes:0
+02-08 15:58:52.467  1575  1785 I TrafficMonitor: start expired. level:-1
+02-08 15:58:52.467  1575  1785 I TrafficMonitor: gettimer:interval=2000
+02-08 15:58:53.014  1575 13992 W AwareLog: AwareMem_Reclaim: generateCompressList procsGroups error!
+02-08 15:58:53.016   895   925 I AwareLog: HibSTrategy::HibStrategySwapCandidateProcessAdd packagename com.huawei.appmarket
+02-08 15:58:53.051  2186 16664 I PGServer: getTopFrontApp. calling pkg: android
+02-08 15:58:53.052   895   925 I AwareLog: HibSTrategy::HibStrategySwapCandidateProcessAdd packagename com.huawei.appmarket
+02-08 15:58:53.054  2186 16664 I PGServer: getTopFrontApp. calling pkg: android
+02-08 15:58:53.167   907  3754 E LOGSERVER_UTILS: [Erecovery]readEvent: eRecEventManager readEvent 0
+02-08 15:58:53.830  2117  2839 D DeviceMonitorPowerKit: run, sCountNum is 1
+02-08 15:58:53.831  2117  2839 D DeviceMonitorPowerKit: interval is 879974, ElapsedRealtime is 365362675, isNeedRepeat: false
+02-08 15:58:53.831  2117  2839 E DeviceMonitorPowerKit: not Satify ApplyResource
+02-08 15:58:53.885  2117  2506 I HeartbeatMonitor: onAdvertisingEnabled android.bluetooth.le.AdvertisingSet@13718fa, isEnabled=false, status=0, and will goto next advertiseNext
+02-08 15:58:53.885  2117  2506 D HeartbeatMonitor: advertise paused android.bluetooth.le.AdvertisingSet@13718fa
+02-08 15:58:53.885  2117  2506 I HeartbeatMonitor: now=366242704450094, tickWakeEndTime=297963450819565, tickEndTime=365990878186071, tockEndTime=297963450819565, notifyEndTime=297963450819565, tickRelayEndTime=297963450819565, tickAutoEndTime=366250634146969, isScreenOn=true
+02-08 15:58:53.897   473   473 E OEMINFO_NVM_SERVER:  OeminfoGetInfo:index(155), oeminfo data not find !!!!
+02-08 15:58:53.898   473   473 E OEMINFO_NVM_SERVER:  OeminfoReturnInfo: oeminfo return info fail.
+02-08 15:58:53.898   473   473 E OEMINFO_NVM_SERVER:  OinvCmdHandler: pid 513, operation oeminfo_getinfo and ret -1 fail.
+02-08 15:58:53.898   513   513 E OEMINFO_NVM_CLIENT: OinvRecvReturn: RET_FAIL return.
+02-08 15:58:53.898   513   513 E OEMINFO_NVM_CLIENT: rmt_oeminfo_get_info: index(155) get data from server fail.
+02-08 15:58:53.898   513   513 E         : read_oeminfo_signed_data: failed to get info oeminfo_idx:155 and total_byte:0
+02-08 15:58:53.899   513   513 E         : init_oeminfo_signed_data_all:fail to read oeminfo oeminfo_idx:155 and oeminfo_sub_idx:-1
+02-08 15:58:53.899   513   513 E         : get_original_data_by_fun_tag_and_sign_type: fail to init signed oeminfo signed all params
+02-08 15:58:53.899   513   513 E         : read_udid_number: failed to get udid
+02-08 15:58:53.899   513   513 E factory_operator: hw_get_device_info: read udid from oeminfo fail
+02-08 15:58:53.899  1575  3123 E DeviceIdentifiers: GetUDIDNative getUDID return null, generated it
+02-08 15:58:53.899  1575  3123 W DeviceIdentifiers: the phone is in udid_model_whitelist, return null!
+02-08 15:58:53.901  1575 11163 I DeviceIdentifiers: udidHarmony has been read success, return!
+02-08 15:58:53.903  1575 11163 I DeviceIdentifiers: udidHarmony has been read success, return!
+02-08 15:58:53.903  2117  2506 I CommonUtils: udid is null, get udid from getHarmonyUDID
+02-08 15:58:53.903  2117  2506 I HwIdHandler: getCurUserId: false,cur:30086000***
+02-08 15:58:53.903  2117  2506 I BleAdvBuilder: cal level=4
+02-08 15:58:53.904  2117  2506 D BleAdvBuilderStack: addBleAdvBuilder: before size=1
+02-08 15:58:53.904  2117  2506 D BleAdvBuilderStack: addBleAdvBuilder: after size=1, isPeekChanged=false
+02-08 15:58:53.904  2117  2506 I HeartbeatMonitor: current peek, nowTime=366242722, endTime=366250652, level=LEVEL5
+02-08 15:58:53.904  2117  2506 I BleApi  : buildHiPlayAdvMsg: 
+02-08 15:58:53.904  2117  2506 I CommonUtils: getCurUserIDHashBytes: 
+02-08 15:58:53.904  2117  2506 V BleAdvBuilder: buildAdvData: 05-05-A8-3A51-000000000002-0E-7CC808DE4CCE0B00-01-0A26-EA, length=24, with HeartbeatMonitor
+02-08 15:58:53.904  2117  2506 I BleApi  : buildHiPlayAdvData: 
+02-08 15:58:53.905  2117  2506 I HeartbeatMonitor: advertisingSet not null, advertise [user=30086000565183853 , random bits=000000000002, hash=7CC808DE4CCE0B00 wake=false, resp=true, conn=true, compat=true, endTime=366250652], set=android.bluetooth.le.AdvertisingSet@13718fa
+02-08 15:58:53.915  2117  2506 I HeartbeatMonitor: onAdvertisingEnabled android.bluetooth.le.AdvertisingSet@13718fa, isEnabled=true, status=0
+02-08 15:58:54.108  1575  1735 I HwBatteryService: quick charge status : 0
+02-08 15:58:54.108  1575  1735 D HwBatteryService: onUEvent fcpStatus = 0
+02-08 15:58:54.109  1575  1735 D HwBatteryService: onUEvent scpStatus = 0 ,ovpStatus = 0
+02-08 15:58:54.109  1575  1735 I HwBatteryService: handleWirelessTxStatus
+02-08 15:58:54.109  1575  1735 I HwBatteryService: switch not open, return, mWirelessTxFlag : 0
+02-08 15:58:54.110  1575  1735 I UsbDeviceManager: water_intrused state= 0
+02-08 15:58:54.120  1575  2386 I BatteryService: normal charge status : 1
+02-08 15:58:54.139  1575  1575 D HwInnerWifiManagerImpl: SupplicantState = COMPLETED
+02-08 15:58:54.139  1575  1575 D HwInnerWifiManagerImpl: isPhoneAP = false
+02-08 15:58:54.139  1924  1924 W KeyguardUpdateMonitor: ACTION_BATTERY_CHANGED AMP: 500000; Volt: 4959000
+02-08 15:58:54.141  1575  1575 D HwInnerWifiManagerImpl: SupplicantState = COMPLETED
+02-08 15:58:54.141  1575  1575 D HwInnerWifiManagerImpl: isPhoneAP = false
+02-08 15:58:54.141  1575  1575 D WifiStateMachine: mBcastReceiver: PluggedType = 2 mIsScanCtrlPluggedin = true
+02-08 15:58:54.141  1575  1575 D HwWifiService: mPluggedType =2
+02-08 15:58:54.143  1575  1575 D HwCustTethering: new plugged:2, current plugged:2
+02-08 15:58:54.148  2059  2059 D AutoUpdateManager: onReceiveBatteryBroadcast isBatteryCharging:true
+02-08 15:58:54.152  4038  4395 I CAWARENESS_AndroidBroadcastAbility: onReceive Intent { act=android.intent.action.BATTERY_CHANGED flg=0x60000010 (has extras) }
+02-08 15:58:54.152  4038  4395 I CAWARENESS_AbilityContext: [1770537534334] publishing {dataId=100000169, mode=0}
+02-08 15:58:54.153  4038  4395 I CAWARENESS_AbilityContext: [1770537534334] subscribe list is empty, ignore this publish
+02-08 15:58:54.153  2059  2059 W Settings: Setting device_provisioned has moved from android.provider.Settings.Secure to android.provider.Settings.Global.
+02-08 15:58:54.155  2059  2059 D AutoUpdateManager: isDeviceIdle() isBatteryCharging:true,isWifiConnected:true,isScreenOff:false, isStartupGuideFinished:true, isUserUnlocked:true
+02-08 15:58:54.163  2186  2186 I MsgReceiver: intent action: android.intent.action.BATTERY_CHANGED
+02-08 15:58:54.164 28861 28861 I HiAdKit.DC.BatteryStatusReceiver:  receive broadcast
+02-08 15:58:54.169 28861 13531 I HiAdKit.DC.BatteryStatusReceiver:  call doOnReceive
+02-08 15:58:54.171  4721  4721 D SmartChargeService: update voltage: 4374
+02-08 15:58:54.180  1924  1924 W MagazineUtils: check active connect, state = 1
+02-08 15:58:54.190  1924  1924 D MagazineUtils: currentTime = 1770537534180, lastAutoCheckTime = 1770515908558
+02-08 15:58:54.190  1924  1924 W MagazineUtils: send connectivity broadcaset : 
+02-08 15:58:54.193  1924  1924 I KgBattery: (last-new)Status: 1 -> 1, chargeState=1 * branch=5
+02-08 15:58:54.193  1575  1594 I ActivityManager: App 10037/com.android.keyguard targets O+, restricted
+02-08 15:58:54.195  1924  1924 V KeyguardUpdateMonitor: RefreshBatteryInfo isBatteryLow: 100
+02-08 15:58:54.195  1924  1924 W KeyguardUpdateMonitor: ChargingSpeed  Wattage: 2479500 ST: 5000000 --> 7500000
+02-08 15:58:54.195  1924  1924 I KgBattery: BatteryInfo updated:  5lPC0
+02-08 15:58:54.195  1924  1924 W AppHandler: sendMessage with obj100
+02-08 15:58:54.195  1924  1924 I ColorPickUitls: type = 2
+02-08 15:58:54.195  1924  1924 I ColorPickUitls: not getLockAreaFontColor for type mismatching
+02-08 15:58:54.195  1924  1924 V KeyguardUpdateMonitor: RefreshBatteryInfo isBatteryLow: 100
+02-08 15:58:54.196  1924  1924 W HwKgdBArea_BTY: updateBatteryInfo : false showBatteryInfo:  true isShowChargingFpDisplay:  false
+02-08 15:58:54.196  1924  1924 W HwLockScreenPanel: refreshBatteryInfo: null
+02-08 15:58:54.196  1924  1924 W HwKgdBArea_BTY: updateBatteryInfo : false showBatteryInfo:  true isShowChargingFpDisplay:  false
+02-08 15:58:54.197  1924  1924 W HwLockScreenPanel: Handle message: 100
+02-08 15:58:54.197  1924  1924 W HwKeyguardBottomArea: refresh Charge status layout when dp changed
+02-08 15:58:54.198  1924  1924 W HwKeyguardBottomArea: refresh Charge status layout when dp changed
+02-08 15:58:54.198  1924  2325 I KeyguardUtils: fpPath=sys/class/hw_power/charger/charge_data/chargerType, value=0
+02-08 15:58:54.199  1924  2325 I chatty  : uid=10037(com.huawei.HwMultiScreenShot) KG_Background_H identical 1 line
+02-08 15:58:54.199  1924  2325 I KeyguardUtils: fpPath=sys/class/hw_power/charger/charge_data/chargerType, value=0
+02-08 15:58:54.199  1924  2325 D KgBattery: BatteryInfo2: false; true; true; false; false; true
+02-08 15:58:54.209   907  3754 E LOGSERVER_UTILS: [Erecovery]readEvent: eRecEventManager readEvent 0
+02-08 15:58:54.216 24209 24209 W Keyguard: StaticBroadcastReceiver warn: receive magazineunlock.SEND_CONNECTIVITY from Keyguard broadcast
+02-08 15:58:54.221  1575  3123 V ActivityManager: Successfully start provider ContentProviderRecord{daa4ad6 u0 com.android.systemui/com.huawei.keyguard.database.MagazineProvider} launchingApp=null caller pid= 24209
+02-08 15:58:54.231  1924  1961 W MagazineProvider: check invalid caller: 10037
+02-08 15:58:54.274  1924  1961 I chatty  : uid=10037(com.huawei.HwMultiScreenShot) Binder:1924_3 identical 1 line
+02-08 15:58:54.305  1924  1961 W MagazineProvider: check invalid caller: 10037
+02-08 15:58:54.313 24209 24209 W Keyguard: UpdateHelper warn: get downloading ids, downloading channel list size is 0
+02-08 15:58:54.321 24209 24209 I DecisionUtil: bind decision service
+02-08 15:58:54.337 24209 24209 D KG_OsUtils: hasRequiredPermissions run true 0
+02-08 15:58:54.340 12894 12894 I HiDecision: Decision: pkgNameDecision com.huawei.recsys
+02-08 15:58:54.344 24209 24209 W Keyguard: DownloadService warn: on start command, action = com.android.keyguard.magazinulock.update.CHECK_CHANNEL
+02-08 15:58:54.345  1575  3123 V BroadcastQueue: Finished with ordered broadcast BroadcastRecord{fe7dc79 u0 com.android.keyguard.magazineunlock.SEND_CONNECTIVITY}
+02-08 15:58:54.352 24209 24209 I DecisionUtil: firstPictureTime 1756286688000 System.currentTimeMillis() 1770537534352
+02-08 15:58:54.355 24209 24253 D HwInnerWifiManagerImpl: SupplicantState = COMPLETED
+02-08 15:58:54.355 24209 24253 D HwInnerWifiManagerImpl: isPhoneAP = false
+02-08 15:58:54.357 12894 13472 I HiDecision: AdapterUtil: businessCalled
+02-08 15:58:54.358 24209 24295 D HwInnerWifiManagerImpl: SupplicantState = COMPLETED
+02-08 15:58:54.358 24209 24295 D HwInnerWifiManagerImpl: isPhoneAP = false
+02-08 15:58:54.358 12894 13472 I HiDecision: Executor: distribute event to channel : com.huawei.decision.integration.RuleEngineEntrance
+02-08 15:58:54.359 12894 13472 I HiDecision: Executor: distribute event to channel : com.huawei.atom.decisionflow.Decisionflow
+02-08 15:58:54.359 12894 13140 I HiDecision: RuleEngineSession: There is no any rule for this category com.huawei.screenlock.intent.action.TIME_OF_FIRST_PICTURE
+02-08 15:58:54.359 24209 24209 I DecisionUtil: unbind decision service
+02-08 15:58:54.360 12894 13711 I HiDecision: DfEventConsumer: Handle business event： com.huawei.screenlock.intent.action.TIME_OF_FIRST_PICTURE
+02-08 15:58:54.360 12894 13711 I HiDecision: p: activate decisionflows
+02-08 15:58:54.360 12894 13711 I HiDecision: p: activate active instance num:0
+02-08 15:58:54.369  1924  1961 W MagazineProvider: check invalid caller: 10037
+02-08 15:58:54.374 12894 13711 W HiDecision: s: requestTemplateId is empty
+02-08 15:58:54.374 12894 13711 I HiDecision: p: activate new instance num:0
+02-08 15:58:54.387 24209 24295 W Keyguard: UpdateHelper warn: get downloading ids, downloading channel list size is 0
+02-08 15:58:54.394 24209 24295 D HwInnerWifiManagerImpl: SupplicantState = COMPLETED
+02-08 15:58:54.394 24209 24295 D HwInnerWifiManagerImpl: isPhoneAP = false
+02-08 15:58:54.396   473   473 E OEMINFO_NVM_SERVER:  OeminfoGetInfo:index(155), oeminfo data not find !!!!
+02-08 15:58:54.396   473   473 E OEMINFO_NVM_SERVER:  OeminfoReturnInfo: oeminfo return info fail.
+02-08 15:58:54.396   473   473 E OEMINFO_NVM_SERVER:  OinvCmdHandler: pid 513, operation oeminfo_getinfo and ret -1 fail.
+02-08 15:58:54.396   513   513 E OEMINFO_NVM_CLIENT: OinvRecvReturn: RET_FAIL return.
+02-08 15:58:54.396   513   513 E OEMINFO_NVM_CLIENT: rmt_oeminfo_get_info: index(155) get data from server fail.
+02-08 15:58:54.397   513   513 E         : read_oeminfo_signed_data: failed to get info oeminfo_idx:155 and total_byte:0
+02-08 15:58:54.397   513   513 E         : init_oeminfo_signed_data_all:fail to read oeminfo oeminfo_idx:155 and oeminfo_sub_idx:-1
+02-08 15:58:54.397   513   513 E         : get_original_data_by_fun_tag_and_sign_type: fail to init signed oeminfo signed all params
+02-08 15:58:54.397   513   513 E         : read_udid_number: failed to get udid
+02-08 15:58:54.397   513   513 E factory_operator: hw_get_device_info: read udid from oeminfo fail
+02-08 15:58:54.397  1575  3114 E DeviceIdentifiers: GetUDIDNative getUDID return null, generated it
+02-08 15:58:54.397  1575  3114 W DeviceIdentifiers: the phone is in udid_model_whitelist, return null!
+02-08 15:58:54.406  1924  1961 W MagazineProvider: check invalid caller: 10037
+02-08 15:58:54.412   595   686 I PreDnsController: canPreDnsQuery,persist.sys.predns is false!
+02-08 15:58:54.418  1924  1961 W MagazineProvider: check invalid caller: 10037
+02-08 15:58:54.430  1924  2466 W MagazineProvider: check invalid caller: 10037
+02-08 15:58:54.431   595   686 I PreDnsController: canPreDnsQuery,persist.sys.predns is false!
+02-08 15:58:54.465 14266 22584 I HiAdKit.SystemUtil.Binder:14266_7:  pkg=android.uid.systemui:10037
+02-08 15:58:54.470  1575  1785 I TrafficMonitor: update:rxPkts:4,txPkts:6,rxBytes:1738,txBytes:534
+02-08 15:58:54.470  1575  1785 I TrafficMonitor: start expired. level:-1
+02-08 15:58:54.470  1575  1785 I TrafficMonitor: gettimer:interval=2000
+02-08 15:58:54.473 14266 22584 I HiAdKit.SystemUtil.Binder:14266_7:  isDeviceProvisioned: true
+02-08 15:58:54.473 14266 13673 I HiAdKit.OpenDeviceIdentifierServiceImpl.Cal:  get oaid from: com.android.keyguard
+02-08 15:58:54.478 14266 22584 I HiAdKit.HiAdTools.Binder:14266_7:  Target provider service's package name is : com.huawei.hwid
+02-08 15:58:54.484 24209 14674 D OpenSSLSocketFactory: enter setEnableSafeCipherSuites
+02-08 15:58:54.484  1575  3114 V ActivityManager: Successfully start provider ContentProviderRecord{55d7ed8 u0 com.huawei.hwid/com.huawei.hms.fwkit.kams.provideragent.StubContentProvider} launchingApp=null caller pid= 14266
+02-08 15:58:54.488   595   686 I PreDnsController: canPreDnsQuery,persist.sys.predns is false!
+02-08 15:58:54.493 28861 15530 I fwkit_AbP: [fwkit AbsContentProvider.java:13] cp:com.huawei.hwid;query;content://com.huawei.hms.runtimekit.kitcontainerservice.KitProcessAgentCoreProvider/com.huawei.hwid.pps.oaid/oaid/query
+02-08 15:58:54.495 28861 15530 I HiAdKit.DC.OaidDataProvider:  query code: 1
+02-08 15:58:54.498 28861 15530 I HiAdKit.DC.OaidDataProvider:  call query from: com.android.keyguard
+02-08 15:58:54.511 28861 15530 I HiAdKit.DC.CommonSystemUtil:  hasPermissions true
+02-08 15:58:54.516 28861 13674 I HiAdKit.DC.AtcPopupChecker:  cloud cfg hms ver:null
+02-08 15:58:54.521 14266 22584 I HiAdKit.OpenDeviceIdentifierServiceImpl.Binder:14266_7:  isOaidTrackLimited
+02-08 15:58:54.522 14266 22584 I HiAdKit.SystemUtil.Binder:14266_7:  pkg=android.uid.systemui:10037
+02-08 15:58:54.525 14266 22584 I HiAdKit.SystemUtil.Binder:14266_7:  isDeviceProvisioned: true
+02-08 15:58:54.527 14266 22584 I HiAdKit.HiAdTools.Binder:14266_7:  Target provider service's package name is : com.huawei.hwid
+02-08 15:58:54.534 28861 15530 I fwkit_AbP: [fwkit AbsContentProvider.java:13] cp:com.huawei.hwid;query;content://com.huawei.hms.runtimekit.kitcontainerservice.KitProcessAgentCoreProvider/com.huawei.hwid.pps.oaid/oaid/query
+02-08 15:58:54.535 28861 15530 I HiAdKit.DC.OaidDataProvider:  query code: 1
+02-08 15:58:54.535 28861 15530 I HiAdKit.DC.OaidDataProvider:  call query from: com.android.keyguard
+02-08 15:58:54.537 28861 15530 I HiAdKit.DC.CommonSystemUtil:  hasPermissions true
+02-08 15:58:54.538 28861 13674 I HiAdKit.DC.AtcPopupChecker:  cloud cfg hms ver:null
+02-08 15:58:54.558   473   473 E OEMINFO_NVM_SERVER:  OeminfoGetInfo:index(155), oeminfo data not find !!!!
+02-08 15:58:54.559   473   473 E OEMINFO_NVM_SERVER:  OeminfoReturnInfo: oeminfo return info fail.
+02-08 15:58:54.559   473   473 E OEMINFO_NVM_SERVER:  OinvCmdHandler: pid 513, operation oeminfo_getinfo and ret -1 fail.
+02-08 15:58:54.559   513   513 E OEMINFO_NVM_CLIENT: OinvRecvReturn: RET_FAIL return.
+02-08 15:58:54.559   513   513 E OEMINFO_NVM_CLIENT: rmt_oeminfo_get_info: index(155) get data from server fail.
+02-08 15:58:54.559   513   513 E         : read_oeminfo_signed_data: failed to get info oeminfo_idx:155 and total_byte:0
+02-08 15:58:54.559   513   513 E         : init_oeminfo_signed_data_all:fail to read oeminfo oeminfo_idx:155 and oeminfo_sub_idx:-1
+02-08 15:58:54.559   513   513 E         : get_original_data_by_fun_tag_and_sign_type: fail to init signed oeminfo signed all params
+02-08 15:58:54.559   513   513 E         : read_udid_number: failed to get udid
+02-08 15:58:54.559   513   513 E factory_operator: hw_get_device_info: read udid from oeminfo fail
+02-08 15:58:54.559  1575  3114 E DeviceIdentifiers: GetUDIDNative getUDID return null, generated it
+02-08 15:58:54.560  1575  3114 W DeviceIdentifiers: the phone is in udid_model_whitelist, return null!
+02-08 15:58:54.595   595   686 I PreDnsController: canPreDnsQuery,persist.sys.predns is false!
+02-08 15:58:54.702   595   686 I PreDnsController: canPreDnsQuery,persist.sys.predns is false!
+02-08 15:58:54.758 24209 14674 D OpenSSLSocketFactory: enter setEnableSafeCipherSuites
+02-08 15:58:54.916 24209 14674 W Keyguard: UpdateChecker warn: get serve updateList'size() = 7
+02-08 15:58:54.918  1924  1961 W MagazineProvider: check invalid caller: 10037
+02-08 15:58:54.932  1924  1961 I chatty  : uid=10037(com.huawei.HwMultiScreenShot) Binder:1924_3 identical 1 line
+02-08 15:58:54.949  1924  1961 W MagazineProvider: check invalid caller: 10037
+02-08 15:58:54.967  1924  1942 W MagazineProvider: check invalid caller: 10037
+02-08 15:58:54.983  1924  1942 W MagazineProvider: check invalid caller: 10037
+02-08 15:58:54.998  1924  1961 W MagazineProvider: check invalid caller: 10037
+02-08 15:58:55.014  1924  1942 W MagazineProvider: check invalid caller: 10037
+02-08 15:58:55.030  1924  1942 W MagazineProvider: check invalid caller: 10037
+02-08 15:58:55.092  1575  3114 D GpsFreezeProc: refreshPackageWhitelist pkgs-count:0 , type = 1
+02-08 15:58:55.093  1575  2023 I GpsFreezeProc: updateBackgroundThrottleToPackageWhiteList:com.huawei.hwid
+02-08 15:58:55.094  1575  2023 D LocationManagerService: Provider name = local_database shouldbeEnabled = true
+02-08 15:58:55.094  1575  2023 D LocationManagerService: Provider name = fused shouldbeEnabled = true
+02-08 15:58:55.094  1575  2023 D LocationManagerService: Provider name = network shouldbeEnabled = true
+02-08 15:58:55.094  1575  2023 D LocationManagerService: Provider name = gps shouldbeEnabled = true
+02-08 15:58:55.094  1575  2023 D LocationManagerService: Provider name = passive shouldbeEnabled = true
+02-08 15:58:55.095  1575  3114 D GpsFreezeProc: refreshPackageWhitelist pkgs-count:0 , type = 4
+02-08 15:58:55.095  1575  2023 D HwQuickTTFFMonitor-V2018.8.27: DisableList 0
+02-08 15:58:55.095  1575  2023 D HwQuickTTFFMonitor-V2018.8.27:  QuickttffDisableList []
+02-08 15:58:55.096  2186  2353 I APwSendOutList: no wifi sleep list
+02-08 15:58:55.096  2186  2353 I PGConfigUpdateManager: clear wifi_apps_whitelist
+02-08 15:58:55.096  2186  2353 I PGConfigUpdateManager: clear wifi_sleep_list
+02-08 15:58:55.227   907  3754 E LOGSERVER_UTILS: [Erecovery]readEvent: eRecEventManager readEvent 0
+02-08 15:58:55.360   652   652 E WifiHAL : enter wifi_get_link_stats
+02-08 15:58:55.371  1575  1786 E WificondControl: Noise: -89, Snr: 0, Chload: -1
+02-08 15:58:55.377  1575  1786 D WifiScoreReport: Score = 60, wifiConnectivityManagerEnabled = false, lowScoreCount = 0
+02-08 15:58:55.465  1575  1785 I TrafficMonitor: expired arrive. level:-1
+02-08 15:58:55.465  1575  1785 I TrafficMonitor: during_ms:2003,period_ms:2000
+02-08 15:58:55.465  1575  1785 I TrafficMonitor: count:127,rx_sum:4,tx_sum:6,rxBytes:1738,during_ms:2003,rx_speed:867.6984523215177,tx_speed:266.60009985022464,rto:0.6666666666666666
+02-08 15:58:55.604   891   891 E Thermal-daemon: [ap] temp_new :30  temp_old :31
+02-08 15:58:55.606   891   891 E Thermal-daemon: Report temperature: [ap] temp :30  report_threshold:1
+02-08 15:58:55.713  2140  3410 I HwNaturalBase: [Timer-0]: MultiUserManagerService:  getNotActiveUser start
+02-08 15:58:55.925  2117  2506 I HeartbeatMonitor: onAdvertisingEnabled android.bluetooth.le.AdvertisingSet@13718fa, isEnabled=false, status=0, and will goto next advertiseNext
+02-08 15:58:55.925  2117  2506 D HeartbeatMonitor: advertise paused android.bluetooth.le.AdvertisingSet@13718fa
+02-08 15:58:55.925  2117  2506 I HeartbeatMonitor: now=366244744196448, tickWakeEndTime=297963450819565, tickEndTime=365990878186071, tockEndTime=297963450819565, notifyEndTime=297963450819565, tickRelayEndTime=297963450819565, tickAutoEndTime=366250634146969, isScreenOn=true
+02-08 15:58:55.938   473   473 E OEMINFO_NVM_SERVER:  OeminfoGetInfo:index(155), oeminfo data not find !!!!
+02-08 15:58:55.938   473   473 E OEMINFO_NVM_SERVER:  OeminfoReturnInfo: oeminfo return info fail.
+02-08 15:58:55.938   473   473 E OEMINFO_NVM_SERVER:  OinvCmdHandler: pid 513, operation oeminfo_getinfo and ret -1 fail.
+02-08 15:58:55.939   513   513 E OEMINFO_NVM_CLIENT: OinvRecvReturn: RET_FAIL return.
+02-08 15:58:55.939   513   513 E OEMINFO_NVM_CLIENT: rmt_oeminfo_get_info: index(155) get data from server fail.
+02-08 15:58:55.939   513   513 E         : read_oeminfo_signed_data: failed to get info oeminfo_idx:155 and total_byte:0
+02-08 15:58:55.939   513   513 E         : init_oeminfo_signed_data_all:fail to read oeminfo oeminfo_idx:155 and oeminfo_sub_idx:-1
+02-08 15:58:55.939   513   513 E         : get_original_data_by_fun_tag_and_sign_type: fail to init signed oeminfo signed all params
+02-08 15:58:55.939   513   513 E         : read_udid_number: failed to get udid
+02-08 15:58:55.939   513   513 E factory_operator: hw_get_device_info: read udid from oeminfo fail
+02-08 15:58:55.940  1575  7355 E DeviceIdentifiers: GetUDIDNative getUDID return null, generated it
+02-08 15:58:55.940  1575  7355 W DeviceIdentifiers: the phone is in udid_model_whitelist, return null!
+02-08 15:58:55.942  1575  3114 I DeviceIdentifiers: udidHarmony has been read success, return!
+02-08 15:58:55.944  1575  3114 I DeviceIdentifiers: udidHarmony has been read success, return!
+02-08 15:58:55.944  2117  2506 I CommonUtils: udid is null, get udid from getHarmonyUDID
+02-08 15:58:55.944  2117  2506 I HwIdHandler: getCurUserId: false,cur:30086000***
+02-08 15:58:55.945  2117  2506 I BleAdvBuilder: cal level=4
+02-08 15:58:55.945  2117  2506 D BleAdvBuilderStack: addBleAdvBuilder: before size=1
+02-08 15:58:55.945  2117  2506 D BleAdvBuilderStack: addBleAdvBuilder: after size=1, isPeekChanged=false
+02-08 15:58:55.945  2117  2506 I HeartbeatMonitor: current peek, nowTime=366244763, endTime=366250652, level=LEVEL5
+02-08 15:58:55.945  2117  2506 I BleApi  : buildHiPlayAdvMsg: 
+02-08 15:58:55.945  2117  2506 I CommonUtils: getCurUserIDHashBytes: 
+02-08 15:58:55.945  2117  2506 V BleAdvBuilder: buildAdvData: 05-05-A8-3A51-000000000002-0E-7CC808DE4CCE0B00-01-0A26-EA, length=24, with HeartbeatMonitor
+02-08 15:58:55.945  2117  2506 I BleApi  : buildHiPlayAdvData: 
+02-08 15:58:55.946  2117  2506 I HeartbeatMonitor: advertisingSet not null, advertise [user=30086000565183853 , random bits=000000000002, hash=7CC808DE4CCE0B00 wake=false, resp=true, conn=true, compat=true, endTime=366250652], set=android.bluetooth.le.AdvertisingSet@13718fa
+02-08 15:58:55.956  2117  2506 I HeartbeatMonitor: onAdvertisingEnabled android.bluetooth.le.AdvertisingSet@13718fa, isEnabled=true, status=0
+02-08 15:58:56.229   907  3754 E LOGSERVER_UTILS: [Erecovery]readEvent: eRecEventManager readEvent 0
+02-08 15:58:56.472  1575  1785 I TrafficMonitor: update:rxPkts:60,txPkts:64,rxBytes:37156,txBytes:9260
+02-08 15:58:56.473  1575  1785 I TrafficMonitor: no expired. level:3
+02-08 15:58:56.473  1575  1785 I TrafficMonitor: gettimer:interval=2000
+02-08 15:58:56.473  1575  1785 I TrafficMonitor: during_ms:2003,period_ms:2000
+02-08 15:58:56.473  1575  1785 I TrafficMonitor: count:128,rx_sum:60,tx_sum:64,rxBytes:37156,during_ms:2003,rx_speed:18550.174737893158,tx_speed:4623.065401897154,rto:0.9375
+02-08 15:58:57.058 14693 14693 E JankService: child Thread receive to stop
+02-08 15:58:57.198   907  1125 E JankService: all data read ok
+02-08 15:58:57.258   907  3754 E LOGSERVER_UTILS: [Erecovery]readEvent: eRecEventManager readEvent 0
+02-08 15:58:57.503  1575  1575 W WindowManager: removeWindowToken: Attempted to remove non-existing token: android.os.Binder@9c19f0d
+02-08 15:58:57.888  1575  1787 D hw_netstat: total/41556/9623,android.uid.systemui:10037/36652/9263,unknown:0/3993/0,unknown:1051/911/0,com.android.vending/0/240,com.opencode.voiceassist/0/120
+02-08 15:58:57.963  2117  2506 I HeartbeatMonitor: onAdvertisingEnabled android.bluetooth.le.AdvertisingSet@13718fa, isEnabled=false, status=0, and will goto next advertiseNext
+02-08 15:58:57.963  2117  2506 D HeartbeatMonitor: advertise paused android.bluetooth.le.AdvertisingSet@13718fa
+02-08 15:58:57.963  2117  2506 I HeartbeatMonitor: now=366246782207906, tickWakeEndTime=297963450819565, tickEndTime=365990878186071, tockEndTime=297963450819565, notifyEndTime=297963450819565, tickRelayEndTime=297963450819565, tickAutoEndTime=366250634146969, isScreenOn=true
+02-08 15:58:57.973   473   473 E OEMINFO_NVM_SERVER:  OeminfoGetInfo:index(155), oeminfo data not find !!!!
+02-08 15:58:57.973   473   473 E OEMINFO_NVM_SERVER:  OeminfoReturnInfo: oeminfo return info fail.
+02-08 15:58:57.973   473   473 E OEMINFO_NVM_SERVER:  OinvCmdHandler: pid 513, operation oeminfo_getinfo and ret -1 fail.
+02-08 15:58:57.974   513   513 E OEMINFO_NVM_CLIENT: OinvRecvReturn: RET_FAIL return.
+02-08 15:58:57.974   513   513 E OEMINFO_NVM_CLIENT: rmt_oeminfo_get_info: index(155) get data from server fail.
+02-08 15:58:57.974   513   513 E         : read_oeminfo_signed_data: failed to get info oeminfo_idx:155 and total_byte:0
+02-08 15:58:57.974   513   513 E         : init_oeminfo_signed_data_all:fail to read oeminfo oeminfo_idx:155 and oeminfo_sub_idx:-1
+02-08 15:58:57.974   513   513 E         : get_original_data_by_fun_tag_and_sign_type: fail to init signed oeminfo signed all params
+02-08 15:58:57.974   513   513 E         : read_udid_number: failed to get udid
+02-08 15:58:57.974   513   513 E factory_operator: hw_get_device_info: read udid from oeminfo fail
+02-08 15:58:57.974  1575  3114 E DeviceIdentifiers: GetUDIDNative getUDID return null, generated it
+02-08 15:58:57.975  1575  3114 W DeviceIdentifiers: the phone is in udid_model_whitelist, return null!
+02-08 15:58:57.976  1575  7355 I DeviceIdentifiers: udidHarmony has been read success, return!
+02-08 15:58:57.977  1575  7355 I DeviceIdentifiers: udidHarmony has been read success, return!
+02-08 15:58:57.977  2117  2506 I CommonUtils: udid is null, get udid from getHarmonyUDID
+02-08 15:58:57.977  2117  2506 I HwIdHandler: getCurUserId: false,cur:30086000***
+02-08 15:58:57.978  2117  2506 I BleAdvBuilder: cal level=4
+02-08 15:58:57.978  2117  2506 D BleAdvBuilderStack: addBleAdvBuilder: before size=1
+02-08 15:58:57.978  2117  2506 D BleAdvBuilderStack: addBleAdvBuilder: after size=1, isPeekChanged=false
+02-08 15:58:57.978  2117  2506 I HeartbeatMonitor: current peek, nowTime=366246797, endTime=366250652, level=LEVEL5
+02-08 15:58:57.978  2117  2506 I BleApi  : buildHiPlayAdvMsg: 
+02-08 15:58:57.978  2117  2506 I CommonUtils: getCurUserIDHashBytes: 
+02-08 15:58:57.979  2117  2506 V BleAdvBuilder: buildAdvData: 05-05-A8-3A51-000000000002-0E-7CC808DE4CCE0B00-01-0A26-EA, length=24, with HeartbeatMonitor
+02-08 15:58:57.979  2117  2506 I BleApi  : buildHiPlayAdvData: 
+02-08 15:58:57.979  2117  2506 I HeartbeatMonitor: advertisingSet not null, advertise [user=30086000565183853 , random bits=000000000002, hash=7CC808DE4CCE0B00 wake=false, resp=true, conn=true, compat=true, endTime=366250652], set=android.bluetooth.le.AdvertisingSet@13718fa
+02-08 15:58:57.989  2117  2506 I HeartbeatMonitor: onAdvertisingEnabled android.bluetooth.le.AdvertisingSet@13718fa, isEnabled=true, status=0
+02-08 15:58:58.299   907  3754 E LOGSERVER_UTILS: [Erecovery]readEvent: eRecEventManager readEvent 0
+02-08 15:58:58.382   652   652 E WifiHAL : enter wifi_get_link_stats
+02-08 15:58:58.394  1575  1786 E WificondControl: Noise: -89, Snr: 0, Chload: -1
+02-08 15:58:58.399  1575  1786 D WifiScoreReport: Score = 60, wifiConnectivityManagerEnabled = false, lowScoreCount = 0
+02-08 15:58:58.476  1575  1785 I TrafficMonitor: update:rxPkts:1,txPkts:3,rxBytes:1331,txBytes:180
+02-08 15:58:58.477  1575  1785 I TrafficMonitor: start expired. level:-1
+02-08 15:58:58.477  1575  1785 I TrafficMonitor: gettimer:interval=2000
+02-08 15:58:59.340   907  3754 E LOGSERVER_UTILS: [Erecovery]readEvent: eRecEventManager readEvent 0
+02-08 15:58:59.710  1575  1786 E WificondControl: Noise: -89, Snr: 0, Chload: -1
+02-08 15:58:59.721  1575  1858 I HuaweiWifiWatchdogStateMachine: POta txb txg rxg:0, 95, 0. Lr =0% Totpkt=95
+02-08 15:58:59.721  1575 14699 I HwUidTcpMonitor: TcpStatisticsRun run
+02-08 15:58:59.724  1575  1785 D WiFi_PRO: MSG_RETURN_AP_CURRY_RSSI rssi = -57
+02-08 15:58:59.724  1575  1785 I QosMonitor: queryRtt: rtt_type = 3
+02-08 15:58:59.725  1575 14699 D HwUidTcpMonitor: parseWlanUidTcpStatistics lastUidTcpStatInfo = [ mUid = 10037 mPacketName = com.huawei.android.launcher mSendSegs = 208 mResendSegs = 0 mRcvSegs = 200 ]
+02-08 15:58:59.725  1575 14699 D HwUidTcpMonitor: parseWlanUidTcpStatistics lastUidTcpStatInfo = [ mUid = 10124 mPacketName = com.huawei.android.launcher mSendSegs = 590 mResendSegs = 524 mRcvSegs = 0 ]
+02-08 15:58:59.726  1575  1785 I QosMonitor: postEventFromNative: msg=100,arg1=4,arg2=10
+02-08 15:58:59.727  1575  1785 I QosMonitor: postEventFromNative: msg=100,arg1=0,arg2=10
+02-08 15:58:59.727  1575  1785 I MQoS    : rtt=304,tcp_tx_pkts=3835565,tcp_rx_pkts=7240939
+02-08 15:58:59.727  1575  1785 I QosMonitor: resetRtt: rtt_type = 3
+02-08 15:58:59.729  1575  1858 I HuaweiWifiWatchdogStateMachine: PTcp RTT:304, rtt pkt=23, tcp_rx=58, tcp_tx=68, tcp_reTran=5, rtRate=0.07
+02-08 15:58:59.734  1575  8854 I MQoS    : QOS_level:0(0),wifi-link;SIM error;use level-0
+02-08 15:58:59.998  2117  2506 I HeartbeatMonitor: onAdvertisingEnabled android.bluetooth.le.AdvertisingSet@13718fa, isEnabled=false, status=0, and will goto next advertiseNext
+02-08 15:58:59.998  2117  2506 D HeartbeatMonitor: advertise paused android.bluetooth.le.AdvertisingSet@13718fa
+02-08 15:58:59.998  2117  2506 I HeartbeatMonitor: now=366248817432905, tickWakeEndTime=297963450819565, tickEndTime=365990878186071, tockEndTime=297963450819565, notifyEndTime=297963450819565, tickRelayEndTime=297963450819565, tickAutoEndTime=366250634146969, isScreenOn=true
+02-08 15:59:00.008  1575  1575 V AlarmManager: Received TIME_TICK alarm; rescheduling
+02-08 15:59:00.010  1575  1575 I HwAlarmManagerService: hwSetAlarm listenerTag: time_tick
+02-08 15:59:00.014   473   473 E OEMINFO_NVM_SERVER:  OeminfoGetInfo:index(155), oeminfo data not find !!!!
+02-08 15:59:00.014   473   473 E OEMINFO_NVM_SERVER:  OeminfoReturnInfo: oeminfo return info fail.
+02-08 15:59:00.014   473   473 E OEMINFO_NVM_SERVER:  OinvCmdHandler: pid 513, operation oeminfo_getinfo and ret -1 fail.
+02-08 15:59:00.015   513   513 E OEMINFO_NVM_CLIENT: OinvRecvReturn: RET_FAIL return.
+02-08 15:59:00.015   513   513 E OEMINFO_NVM_CLIENT: rmt_oeminfo_get_info: index(155) get data from server fail.
+02-08 15:59:00.015   513   513 E         : read_oeminfo_signed_data: failed to get info oeminfo_idx:155 and total_byte:0
+02-08 15:59:00.015   513   513 E         : init_oeminfo_signed_data_all:fail to read oeminfo oeminfo_idx:155 and oeminfo_sub_idx:-1
+02-08 15:59:00.015   513   513 E         : get_original_data_by_fun_tag_and_sign_type: fail to init signed oeminfo signed all params
+02-08 15:59:00.015   513   513 E         : read_udid_number: failed to get udid
+02-08 15:59:00.015   513   513 E factory_operator: hw_get_device_info: read udid from oeminfo fail
+02-08 15:59:00.015  1575  7355 E DeviceIdentifiers: GetUDIDNative getUDID return null, generated it
+02-08 15:59:00.016  1575  7355 W DeviceIdentifiers: the phone is in udid_model_whitelist, return null!
+02-08 15:59:00.017  1575  3123 I DeviceIdentifiers: udidHarmony has been read success, return!
+02-08 15:59:00.019  1575  3123 I DeviceIdentifiers: udidHarmony has been read success, return!
+02-08 15:59:00.019  2117  2506 I CommonUtils: udid is null, get udid from getHarmonyUDID
+02-08 15:59:00.019  2117  2506 I HwIdHandler: getCurUserId: false,cur:30086000***
+02-08 15:59:00.019  2117  2506 I BleAdvBuilder: cal level=4
+02-08 15:59:00.019  2117  2506 D BleAdvBuilderStack: addBleAdvBuilder: before size=1
+02-08 15:59:00.019  2117  2506 D BleAdvBuilderStack: addBleAdvBuilder: after size=1, isPeekChanged=true
+02-08 15:59:00.019  2117  2506 I HeartbeatMonitor: current peek, nowTime=366248838, endTime=366250654, level=LEVEL5
+02-08 15:59:00.019  2117  2506 I BleApi  : buildHiPlayAdvMsg: 
+02-08 15:59:00.019  2117  2506 I CommonUtils: getCurUserIDHashBytes: 
+02-08 15:59:00.020  2117  2506 V BleAdvBuilder: buildAdvData: 05-05-A8-3A51-000000000002-0E-7CC808DE4CCE0B00-01-0A26-EA, length=24, with HeartbeatMonitor
+02-08 15:59:00.020  2117  2506 I BleApi  : buildHiPlayAdvData: 
+02-08 15:59:00.021  2117  2506 I HeartbeatMonitor: advertisingSet not null, advertise [user=30086000565183853 , random bits=000000000002, hash=7CC808DE4CCE0B00 wake=false, resp=true, conn=true, compat=true, endTime=366250654], set=android.bluetooth.le.AdvertisingSet@13718fa
+02-08 15:59:00.030  2117  2506 I HeartbeatMonitor: onAdvertisingEnabled android.bluetooth.le.AdvertisingSet@13718fa, isEnabled=true, status=0
+02-08 15:59:00.035  1924  1924 E DateView: DateView,mCurrentTime: 1770537540035
+02-08 15:59:00.040  1924  1924 I EventCenter: EventCenter Get :android.intent.action.TIME_TICK
+02-08 15:59:00.041  1924  1924 W ClockView1:  action android.intent.action.TIME_TICK
+02-08 15:59:00.041  1924  1924 I chatty  : uid=10037(com.huawei.HwMultiScreenShot) com.android.systemui identical 1 line
+02-08 15:59:00.041  1924  1924 W ClockView1:  action android.intent.action.TIME_TICK
+02-08 15:59:00.051  1924  1924 E ndroid.systemu: No package ID ff found for ID 0xffffffff.
+02-08 15:59:00.052  1924  1924 I LocalCalendar: CalendarId: 0001LocalCalender On
+02-08 15:59:00.055  1924  1924 E ndroid.systemu: No package ID ff found for ID 0xffffffff.
+02-08 15:59:00.056  1924  1924 I LocalCalendar: CalendarId: 0001LocalCalender On
+02-08 15:59:00.059  1924  1924 E ndroid.systemu: No package ID ff found for ID 0xffffffff.
+02-08 15:59:00.060  1924  1924 I LocalCalendar: CalendarId: 0001LocalCalender On
+02-08 15:59:00.066  1924  2325 I KeyguardStatusView: Runnable for refresh
+02-08 15:59:00.069  2230  2230 I HwLauncher: Model  onReceive intent=Intent { act=android.intent.action.TIME_TICK flg=0x50200014 hwFlg=0x900 (has extras) }
+02-08 15:59:00.069  2230  2230 I HwLauncher: Model  onReceive user=UserHandle{0}
+02-08 15:59:00.097  1575  7355 V BroadcastQueue: Finished with ordered broadcast BroadcastRecord{90527ca u-1 android.intent.action.TIME_TICK}
+02-08 15:59:00.140  1924  1924 D DateTimeView: Change to single clock mode!
+02-08 15:59:00.142  1924  1924 I ColorPickUitls: type = 2
+02-08 15:59:00.142  1924  1924 D HwKeyguardBottomArea: RemoveDateTimeTopArea type:2
+02-08 15:59:00.142  1924  1924 D HwKeyguardBottomArea: loadDateTimeArea type
+02-08 15:59:00.142  1924  1924 D HwKeyguardBottomArea: removeLiftSensorView, threadname = main
+02-08 15:59:00.143  1924  1924 D DateTimeView: Change to single clock mode!
+02-08 15:59:00.144  1924  1924 I ColorPickUitls: type = 2
+02-08 15:59:00.144  1924  1924 D HwKeyguardBottomArea: RemoveDateTimeTopArea type:2
+02-08 15:59:00.144  1924  1924 D HwKeyguardBottomArea: loadDateTimeArea type
+02-08 15:59:00.144  1924  1924 D HwKeyguardBottomArea: removeLiftSensorView, threadname = main
+02-08 15:59:00.144  1924  1924 D DateTimeView: Change to single clock mode!
+02-08 15:59:00.145  1924  1924 I ColorPickUitls: type = 2
+02-08 15:59:00.145  1924  1924 D HwKeyguardBottomArea: RemoveDateTimeTopArea type:2
+02-08 15:59:00.145  1924  1924 D HwKeyguardBottomArea: loadDateTimeArea type
+02-08 15:59:00.145  1924  1924 D HwKeyguardBottomArea: removeLiftSensorView, threadname = main
+02-08 15:59:00.147  2230  2230 E ndroid.launche: No package ID ff found for ID 0xffffffff.
+02-08 15:59:00.381   907  3754 E LOGSERVER_UTILS: [Erecovery]readEvent: eRecEventManager readEvent 0
+02-08 15:59:00.481  1575  1785 I TrafficMonitor: update:rxPkts:0,txPkts:2,rxBytes:0,txBytes:120
+02-08 15:59:00.481  1575  1785 I TrafficMonitor: start expired. level:-1
+02-08 15:59:00.481  1575  1785 I TrafficMonitor: gettimer:interval=2000
+02-08 15:59:00.607  1575 13992 W AwareLog: AwareMem_Reclaim: generateCompressList procsGroups error!
+02-08 15:59:00.610   891   891 E Thermal-daemon: [ap] temp_new :29  temp_old :30
+02-08 15:59:00.612   891   891 E Thermal-daemon: Report temperature: [ap] temp :29  report_threshold:1
+02-08 15:59:01.405   652   652 E WifiHAL : enter wifi_get_link_stats
+02-08 15:59:01.406   907  3754 E LOGSERVER_UTILS: [Erecovery]readEvent: eRecEventManager readEvent 0
+02-08 15:59:01.427  1575  1786 E WificondControl: Noise: -89, Snr: 0, Chload: -1
+02-08 15:59:01.432  1575  1786 D WifiScoreReport: Score = 60, wifiConnectivityManagerEnabled = false, lowScoreCount = 0
+02-08 15:59:01.474  1575  1785 I TrafficMonitor: expired arrive. level:-1
+02-08 15:59:01.474  1575  1785 I TrafficMonitor: during_ms:2004,period_ms:2000
+02-08 15:59:01.474  1575  1785 I TrafficMonitor: count:130,rx_sum:0,tx_sum:2,rxBytes:0,during_ms:2004,rx_speed:0.0,tx_speed:59.880239520958085,rto:0.0
+02-08 15:59:02.039  2117  2506 I HeartbeatMonitor: onAdvertisingEnabled android.bluetooth.le.AdvertisingSet@13718fa, isEnabled=false, status=0, and will goto next advertiseNext
+02-08 15:59:02.039  2117  2506 D HeartbeatMonitor: advertise paused android.bluetooth.le.AdvertisingSet@13718fa
+02-08 15:59:02.039  2117  2506 I HeartbeatMonitor: now=366250858205301, tickWakeEndTime=297963450819565, tickEndTime=365990878186071, tockEndTime=297963450819565, notifyEndTime=297963450819565, tickRelayEndTime=297963450819565, tickAutoEndTime=366250634146969, isScreenOn=true
+02-08 15:59:02.039  2117  2506 I AdvertisingTaskAttributes: tickRelayEndTime < tickAutoEndTime <= now, no further advertise demand
+02-08 15:59:02.039  2117  2506 D HeartbeatMonitor: no need advertise
+02-08 15:59:02.039  2117  2506 I BleApi  : stopAdvertise
+02-08 15:59:02.043  2117  2506 D HeartbeatMonitor: resetAdvertiseStatus
+02-08 15:59:02.044  2117  2506 I HeartbeatMonitor: onAdvertisingSetStopped android.bluetooth.le.AdvertisingSet@13718fa
+02-08 15:59:02.044  2117  2506 D HeartbeatMonitor: resetAdvertiseStatus
+02-08 15:59:02.422   907  3754 E LOGSERVER_UTILS: [Erecovery]readEvent: eRecEventManager readEvent 0
+02-08 15:59:02.484  1575  1785 I TrafficMonitor: update:rxPkts:2,txPkts:1,rxBytes:1560,txBytes:60
+02-08 15:59:02.485  1575  1785 I TrafficMonitor: start expired. level:-1
+02-08 15:59:02.485  1575  1785 I TrafficMonitor: gettimer:interval=2000
+02-08 15:59:03.464   907  3754 E LOGSERVER_UTILS: [Erecovery]readEvent: eRecEventManager readEvent 0
+02-08 15:59:04.438   652   652 E WifiHAL : enter wifi_get_link_stats
+02-08 15:59:04.457  1575  1786 E WificondControl: Noise: -89, Snr: 0, Chload: -1
+02-08 15:59:04.463  1575  1786 D WifiScoreReport: Score = 60, wifiConnectivityManagerEnabled = false, lowScoreCount = 0
+02-08 15:59:04.489  1575  1785 I TrafficMonitor: update:rxPkts:0,txPkts:0,rxBytes:0,txBytes:0
+02-08 15:59:04.489  1575  1785 I TrafficMonitor: start expired. level:-1
+02-08 15:59:04.489  1575  1785 I TrafficMonitor: gettimer:interval=2000
+02-08 15:59:04.505   907  3754 E LOGSERVER_UTILS: [Erecovery]readEvent: eRecEventManager readEvent 0
+02-08 15:59:04.847  2117  2506 I HiPlayMonitor: disconnectAllClients from HeartbeatMonitor: 0
+02-08 15:59:05.526   907  3754 E LOGSERVER_UTILS: [Erecovery]readEvent: eRecEventManager readEvent 0
+02-08 15:59:06.492  1575  1785 I TrafficMonitor: update:rxPkts:1,txPkts:0,rxBytes:1331,txBytes:0
+02-08 15:59:06.492  1575  1785 I TrafficMonitor: start expired. level:-1
+02-08 15:59:06.492  1575  1785 I TrafficMonitor: gettimer:interval=2000
+02-08 15:59:06.523  4038 14700 I CAWARENESS_ServiceMonitor: memory(kB) static totalPss=13781, dalvikPss=1168, nativePss=2822
+02-08 15:59:06.530   907  3754 E LOGSERVER_UTILS: [Erecovery]readEvent: eRecEventManager readEvent 0
+02-08 15:59:07.356 14579 14619 E OpenCodeManager: Failed to create session: failed to connect to /192.168.1.100 (port 3000) from /192.168.50.36 (port 54942) after 30000ms
+02-08 15:59:07.412  2186  2779 I PG_ash  : view add pid:14579 uid:10166
+02-08 15:59:07.417 14579 14621 D OpenGLRenderer:   HWUI Binary is  enabled
+02-08 15:59:07.417 14579 14621 D OpenGLRenderer: disableOutlineDraw is true
+02-08 15:59:07.424  1575  3123 E WindowManager: App trying to use insecure INPUT_FEATURE_NO_INPUT_CHANNEL flag. Ignoring
+02-08 15:59:07.437  1575  3123 V WindowManager: addWindow: Window{b1fe217 u0 Toast}
+02-08 15:59:07.467   652   652 E WifiHAL : enter wifi_get_link_stats
+02-08 15:59:07.480  1575  1786 E WificondControl: Noise: -89, Snr: 0, Chload: -1
+02-08 15:59:07.484  1575  1786 D WifiScoreReport: Score = 60, wifiConnectivityManagerEnabled = false, lowScoreCount = 0
+02-08 15:59:07.486  1575  1785 I TrafficMonitor: expired arrive. level:-1
+02-08 15:59:07.487  1575  1785 I TrafficMonitor: during_ms:2004,period_ms:2000
+02-08 15:59:07.487  1575  1785 I TrafficMonitor: count:133,rx_sum:1,tx_sum:0,rxBytes:1331,during_ms:2004,rx_speed:664.1716566866268,tx_speed:0.0,rto:0.0
+02-08 15:59:07.542  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{1e544 u0 com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}
+02-08 15:59:07.542   595   624 W IptablesRestoreController: iptables-restore process 13512 terminated status=15
+02-08 15:59:07.543   595   624 W IptablesRestoreController: iptables-restore process 13513 terminated status=15
+02-08 15:59:07.559 14579 14621 D mali_winsys: EGLint new_window_surface(egl_winsys_display *, void *, EGLSurface, EGLConfig, egl_winsys_surface **, EGLBoolean) returns 0x3000
+02-08 15:59:07.560   617 13142 I GRALLOC : getCallingPid=656, shrFd=32,fmt=0x1,intFmt=0x1,btStrd=3328,size=1134592,pid=617 
+02-08 15:59:07.560   617 13142 I GRALLOC : 	 yuv=2,w=804,h=337,Stride u=0 v=0,offset u=0 v=0 
+02-08 15:59:07.560   617 13142 I GRALLOC : 	 iova_size=1134592,conUsg=0x900,proUsg=0x900,	 strd=832,[afbc]HdrStrd=0 PyldStrd=0 Scrmbl=0,ionhnd = 1 
+02-08 15:59:07.563   617   617 I GRALLOC : getCallingPid=656, shrFd=34,fmt=0x1,intFmt=0x1,btStrd=3328,size=1134592,pid=617 
+02-08 15:59:07.563   617   617 I GRALLOC : 	 yuv=2,w=804,h=337,Stride u=0 v=0,offset u=0 v=0 
+02-08 15:59:07.563   617   617 I GRALLOC : 	 iova_size=1134592,conUsg=0x900,proUsg=0x900,	 strd=832,[afbc]HdrStrd=0 PyldStrd=0 Scrmbl=0,ionhnd = 2 
+02-08 15:59:07.567   617   617 I GRALLOC : getCallingPid=656, shrFd=32,fmt=0x1,intFmt=0x1,btStrd=3328,size=1134592,pid=617 
+02-08 15:59:07.567   617   617 I GRALLOC : 	 yuv=2,w=804,h=337,Stride u=0 v=0,offset u=0 v=0 
+02-08 15:59:07.567   617   617 I GRALLOC : 	 iova_size=1134592,conUsg=0x900,proUsg=0x900,	 strd=832,[afbc]HdrStrd=0 PyldStrd=0 Scrmbl=0,ionhnd = 1 
+02-08 15:59:07.567 14579 14621 D OpenGLRenderer:   HWUI Binary is  enabled
+02-08 15:59:07.567 14579 14621 D OpenGLRenderer: disableOutlineDraw is true
+02-08 15:59:07.570   907  3754 E LOGSERVER_UTILS: [Erecovery]readEvent: eRecEventManager readEvent 0
+02-08 15:59:07.579   617   617 I GRALLOC : getCallingPid=656, shrFd=32,fmt=0x1,intFmt=0x1,btStrd=3328,size=1134592,pid=617 
+02-08 15:59:07.579   617   617 I GRALLOC : 	 yuv=2,w=804,h=337,Stride u=0 v=0,offset u=0 v=0 
+02-08 15:59:07.579   617   617 I GRALLOC : 	 iova_size=1134592,conUsg=0xb00,proUsg=0xb00,	 strd=832,[afbc]HdrStrd=0 PyldStrd=0 Scrmbl=0,ionhnd = 1 
+02-08 15:59:07.594  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{1e544 u0 com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}
+02-08 15:59:07.599   656   982 D         : doWinFrameOptStatusRecog begin to recog Layer result=2
+02-08 15:59:07.612   890   979 I storaged: storaged_t::event: storage_info refreshed.
+02-08 15:59:07.716  1575  1786 E WificondControl: Noise: -89, Snr: 0, Chload: -1
+02-08 15:59:07.721  1575  1785 D WiFi_PRO: MSG_RETURN_AP_CURRY_RSSI rssi = -57
+02-08 15:59:07.722  1575 14701 I HwUidTcpMonitor: TcpStatisticsRun run
+02-08 15:59:07.723  1575  1785 I QosMonitor: queryRtt: rtt_type = 3
+02-08 15:59:07.723  1575  1858 I HuaweiWifiWatchdogStateMachine: POta txb txg rxg:0, 9, 0. Lr =0% Totpkt=9
+02-08 15:59:07.723  1575  1785 I QosMonitor: postEventFromNative: msg=100,arg1=4,arg2=10
+02-08 15:59:07.723  1575  1785 I QosMonitor: postEventFromNative: msg=100,arg1=0,arg2=10
+02-08 15:59:07.723  1575 14701 D HwUidTcpMonitor: parseWlanUidTcpStatistics lastUidTcpStatInfo = [ mUid = 10124 mPacketName = com.huawei.android.launcher mSendSegs = 593 mResendSegs = 527 mRcvSegs = 0 ]
+02-08 15:59:07.723  1575  1785 I MQoS    : rtt=304,tcp_tx_pkts=3835568,tcp_rx_pkts=7240939
+02-08 15:59:07.725  1575  1858 I HuaweiWifiWatchdogStateMachine: PTcp RTT:0, rtt pkt=0, tcp_rx=0, tcp_tx=3, tcp_reTran=3, rtRate=1
+02-08 15:59:07.725  1575  1858 I HuaweiWifiWatchdogStateMachine: after backoff rssi th: -75, next TH:-75
+02-08 15:59:07.726  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{1e544 u0 com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}
+02-08 15:59:07.728  1575  8854 I MQoS    : QOS_level:0(0),wifi-link;SIM error;use level-0
+02-08 15:59:07.728  1575  8854 I MQoS    : skip-low-Level:0(0),wifi-link;SIM error;use level-0
+02-08 15:59:07.729  1575  1726 I DebugKeepScreenOn: setHoldScreenLocked newHoldScreen:Session{bd81bf1 14579:u0a10166} currentHoldScreen:null wakeLockState:false
+02-08 15:59:07.729  1575  1726 I DebugKeepScreenOn: Acquiring screen wakelock due to Window{b1fe217 u0 Toast}
+02-08 15:59:07.730  1575  1726 D PowerMS : acquire:L=223195808,F=0x2000000a,T="WindowManager",N=android,WS=WorkSource{10166},U=1000,P=1575
+02-08 15:59:07.744  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{1e544 u0 com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}
+02-08 15:59:07.904  1575  1787 D hw_netstat: total/2891/300,unknown:0/2891/0,com.android.vending/0/300
+02-08 15:59:08.498  1575  1785 I TrafficMonitor: update:rxPkts:0,txPkts:1,rxBytes:0,txBytes:60
+02-08 15:59:08.498  1575  1785 I TrafficMonitor: start expired. level:-1
+02-08 15:59:08.498  1575  1785 I TrafficMonitor: gettimer:interval=2000
+02-08 15:59:08.576   907  3754 E LOGSERVER_UTILS: [Erecovery]readEvent: eRecEventManager readEvent 0
+02-08 15:59:09.594   907  3754 E LOGSERVER_UTILS: [Erecovery]readEvent: eRecEventManager readEvent 0
+02-08 15:59:10.357  1575 14656 E HiDATA_HiNetwork: send message, messageType is :9
+02-08 15:59:10.488   652   652 E WifiHAL : enter wifi_get_link_stats
+02-08 15:59:10.501  1575  1785 I TrafficMonitor: update:rxPkts:0,txPkts:0,rxBytes:0,txBytes:0
+02-08 15:59:10.502  1575  1785 I TrafficMonitor: start expired. level:-1
+02-08 15:59:10.502  1575  1785 I TrafficMonitor: gettimer:interval=2000
+02-08 15:59:10.505  1575  1786 E WificondControl: Noise: -89, Snr: 0, Chload: -1
+02-08 15:59:10.511  1575  1786 D WifiScoreReport: Score = 60, wifiConnectivityManagerEnabled = false, lowScoreCount = 0
+02-08 15:59:10.635   907  3754 E LOGSERVER_UTILS: [Erecovery]readEvent: eRecEventManager readEvent 0
+02-08 15:59:10.910  2186  2779 I PG_ash  : view remove pid:14579 uid:10166
+02-08 15:59:10.911 14579 14621 W libEGL  : EGLNativeWindowType 0x770218d010 disconnect failed
+02-08 15:59:10.925 12894 12912 I HiDecision: ServiceConnectionToZ: unBindService
+02-08 15:59:10.926  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{1e544 u0 com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}
+02-08 15:59:10.933 12894 12912 E HiDecision: ServiceConnectionToZ: IllegalArgumentException in unBindService
+02-08 15:59:10.937  1575  3123 V WindowManager: removeIfPossible: Window{b1fe217 u0 Toast}
+02-08 15:59:10.937  1575  3123 V WindowManager: Not removing Window{b1fe217 u0 Toast EXITING} due to exit animation 
+02-08 15:59:10.943  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{1e544 u0 com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}
+02-08 15:59:10.951  1575  3123 W NotificationService: Toast already killed. pkg=com.opencode.voiceassist callback=android.app.ITransientNotification$Stub$Proxy@85d426e
+02-08 15:59:10.955  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{1e544 u0 com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}
+02-08 15:59:10.960  1575  1606 I DebugKeepScreenOn: setHoldScreenLocked newHoldScreen:null currentHoldScreen:Session{bd81bf1 14579:u0a10166} wakeLockState:true
+02-08 15:59:10.960  1575  1606 I DebugKeepScreenOn: Releasing screen wakelock, obscured by Window{1e544 u0 com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}
+02-08 15:59:10.960  1575  1606 D PowerMS : release:L=223195808,F=0x0,T="WindowManager",N=android",WS=WorkSource{10166},U=1000,P=1575
+02-08 15:59:11.040  1575  1726 V WindowManager: Exit animation finished in Window{b1fe217 u0 Toast EXITING}: remove=true
+02-08 15:59:11.062  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{1e544 u0 com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}
+02-08 15:59:11.069  1575  1726 V WindowManager: postWindowRemoveCleanupLocked: Window{b1fe217 u0 Toast}
+02-08 15:59:11.070  1575  1726 V WindowManager: Removing Window{b1fe217 u0 Toast} from WindowToken{e83a1b1 android.os.Binder@2bcec58}
+02-08 15:59:11.080  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{1e544 u0 com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}
+02-08 15:59:11.114 13713 13713 I fwkit_DeviceInfo: [fwkit DeviceInfoUtil.java:41] 1. detectHuaweiFeature: -1
+02-08 15:59:11.118 13713 13713 I fwkit_DeviceInfo: [fwkit DeviceInfoUtil.java:71] 2. detectAndroidFeature: -1
+02-08 15:59:11.120 13713 13713 I fwkit_DeviceInfo: [fwkit DeviceInfoUtil.java:111] System property is found: default
+02-08 15:59:11.120 13713 13713 I fwkit_DeviceInfo: [fwkit DeviceInfoUtil.java:98] 3. detectSystemProperty: 0
+02-08 15:59:11.121 13713 13713 I fwkit_DeviceInfo: [fwkit DeviceInfoUtil.java:68] Final DeviceType: 0
+02-08 15:59:11.673   907  3754 E LOGSERVER_UTILS: [Erecovery]readEvent: eRecEventManager readEvent 0
+02-08 15:59:12.505  1575  1785 I TrafficMonitor: update:rxPkts:0,txPkts:0,rxBytes:0,txBytes:0
+02-08 15:59:12.506  1575  1785 I TrafficMonitor: start expired. level:-1
+02-08 15:59:12.506  1575  1785 I TrafficMonitor: gettimer:interval=2000
+02-08 15:59:12.684   907  3754 E LOGSERVER_UTILS: [Erecovery]readEvent: eRecEventManager readEvent 0
+02-08 15:59:13.499  1575  1785 I TrafficMonitor: expired arrive. level:-1
+02-08 15:59:13.500  1575  1785 I TrafficMonitor: during_ms:2004,period_ms:2000
+02-08 15:59:13.500  1575  1785 I TrafficMonitor: count:136,rx_sum:0,tx_sum:0,rxBytes:0,during_ms:2004,rx_speed:0.0,tx_speed:0.0,rto:0.0
+02-08 15:59:13.518   652   652 E WifiHAL : enter wifi_get_link_stats
+02-08 15:59:13.537  1575  1786 E WificondControl: Noise: -89, Snr: 0, Chload: -1
+02-08 15:59:13.542  1575  1786 D WifiScoreReport: Score = 60, wifiConnectivityManagerEnabled = false, lowScoreCount = 0
+02-08 15:59:13.724   907  3754 E LOGSERVER_UTILS: [Erecovery]readEvent: eRecEventManager readEvent 0
+02-08 15:59:13.830  2117  2839 D DeviceMonitorPowerKit: run, sCountNum is 1
+02-08 15:59:13.830  2117  2839 D DeviceMonitorPowerKit: interval is 899974, ElapsedRealtime is 365362675, isNeedRepeat: false
+02-08 15:59:13.831  2117  2839 E DeviceMonitorPowerKit: not Satify ApplyResource
+02-08 15:59:13.898 26152 26152 D UsbSettingsService: handleMessage, msg.what = 4
+02-08 15:59:13.898 26152 26152 D UsbSettingsService: receive message to check monkey running.
+02-08 15:59:13.988  2101  2450 D HwInnerWifiManagerImpl: SupplicantState = COMPLETED
+02-08 15:59:13.988  2101  2450 D HwInnerWifiManagerImpl: isPhoneAP = false
+02-08 15:59:13.996  2101  2450 W DoneDirFilePackUtil: failed to parse the file name to integer, file is: uploading
+02-08 15:59:13.997  2101  2450 W DoneDirFilePackUtil: failed to parse the file name to integer, file is: temp
+02-08 15:59:13.999  2101  2450 W DoneDirFilePackUtil: collectAllFilesInDoneDir NumberFormatException
+02-08 15:59:14.000  2101  2450 W DoneDirFilePackUtil: collectAllFilesInDoneDir NumberFormatException
+02-08 15:59:14.510  1575  1785 I TrafficMonitor: update:rxPkts:4,txPkts:2,rxBytes:1482,txBytes:92
+02-08 15:59:14.510  1575  1785 I TrafficMonitor: start expired. level:-1
+02-08 15:59:14.510  1575  1785 I TrafficMonitor: gettimer:interval=2000
+02-08 15:59:14.765   907  3754 E LOGSERVER_UTILS: [Erecovery]readEvent: eRecEventManager readEvent 0
+02-08 15:59:15.314  1575 13992 W AwareLog: AwareMem_Reclaim: generateCompressList procsGroups error!
+02-08 15:59:15.625   891   891 E Thermal-daemon: [ap] temp_new :28  temp_old :29
+02-08 15:59:15.627   891   891 E Thermal-daemon: Report temperature: [ap] temp :28  report_threshold:1
+02-08 15:59:15.729  1575  1786 E WificondControl: Noise: -89, Snr: 0, Chload: -1
+02-08 15:59:15.740  1575  1785 D WiFi_PRO: MSG_RETURN_AP_CURRY_RSSI rssi = -56
+02-08 15:59:15.740  1575  1858 I HuaweiWifiWatchdogStateMachine: POta txb txg rxg:0, 11, 0. Lr =0% Totpkt=11
+02-08 15:59:15.741  1575  1785 I QosMonitor: queryRtt: rtt_type = 3
+02-08 15:59:15.741  1575 14704 I HwUidTcpMonitor: TcpStatisticsRun run
+02-08 15:59:15.743  1575  1785 I QosMonitor: postEventFromNative: msg=100,arg1=4,arg2=10
+02-08 15:59:15.743  1575  1785 I QosMonitor: postEventFromNative: msg=100,arg1=0,arg2=10
+02-08 15:59:15.744  1575  1785 I MQoS    : rtt=304,tcp_tx_pkts=3835572,tcp_rx_pkts=7240942
+02-08 15:59:15.745  1575 14704 D HwUidTcpMonitor: parseWlanUidTcpStatistics lastUidTcpStatInfo = [ mUid = 10076 mPacketName = com.huawei.android.launcher mSendSegs = 908 mResendSegs = 12 mRcvSegs = 835 ]
+02-08 15:59:15.745  1575  1858 I HuaweiWifiWatchdogStateMachine: PTcp RTT:0, rtt pkt=0, tcp_rx=3, tcp_tx=4, tcp_reTran=1, rtRate=0.25
+02-08 15:59:15.745  1575 14704 D HwUidTcpMonitor: parseWlanUidTcpStatistics lastUidTcpStatInfo = [ mUid = 10124 mPacketName = com.huawei.android.launcher mSendSegs = 595 mResendSegs = 528 mRcvSegs = 0 ]
+02-08 15:59:15.749  1575  8854 I MQoS    : QOS_level:0(0),wifi-link;SIM error;use level-0
+02-08 15:59:15.798   907  3754 E LOGSERVER_UTILS: [Erecovery]readEvent: eRecEventManager readEvent 0
+02-08 15:59:16.513  1575  1785 I TrafficMonitor: update:rxPkts:0,txPkts:3,rxBytes:0,txBytes:180
+02-08 15:59:16.514  1575  1785 I TrafficMonitor: start expired. level:-1
+02-08 15:59:16.514  1575  1785 I TrafficMonitor: gettimer:interval=2000
+02-08 15:59:16.546   652   652 E WifiHAL : enter wifi_get_link_stats
+02-08 15:59:16.560  1575  1786 E WificondControl: Noise: -89, Snr: 0, Chload: -1
+02-08 15:59:16.565  1575  1786 D WifiScoreReport: Score = 60, wifiConnectivityManagerEnabled = false, lowScoreCount = 0
+02-08 15:59:16.830   907  3754 E LOGSERVER_UTILS: [Erecovery]readEvent: eRecEventManager readEvent 0
+02-08 15:59:17.842   907  3754 E LOGSERVER_UTILS: [Erecovery]readEvent: eRecEventManager readEvent 0
+02-08 15:59:17.925  1575  1787 D hw_netstat: total/2813/332,unknown:0/2662/0,com.huawei.hwid/151/92,com.android.vending/0/240
+02-08 15:59:18.518  1575  1785 I TrafficMonitor: update:rxPkts:1,txPkts:2,rxBytes:1331,txBytes:120
+02-08 15:59:18.518  1575  1785 I TrafficMonitor: start expired. level:-1
+02-08 15:59:18.518  1575  1785 I TrafficMonitor: gettimer:interval=2000
+02-08 15:59:18.858   907  3754 E LOGSERVER_UTILS: [Erecovery]readEvent: eRecEventManager readEvent 0
+02-08 15:59:19.511  1575  1785 I TrafficMonitor: expired arrive. level:-1
+02-08 15:59:19.512  1575  1785 I TrafficMonitor: during_ms:2005,period_ms:2000
+02-08 15:59:19.512  1575  1785 I TrafficMonitor: count:139,rx_sum:1,tx_sum:2,rxBytes:1331,during_ms:2005,rx_speed:663.8403990024938,tx_speed:59.85037406483791,rto:0.5
+02-08 15:59:19.569   652   652 E WifiHAL : enter wifi_get_link_stats
+02-08 15:59:19.584  1575  1786 E WificondControl: Noise: -89, Snr: 0, Chload: -1
+02-08 15:59:19.589  1575  1786 D WifiScoreReport: Score = 60, wifiConnectivityManagerEnabled = false, lowScoreCount = 0
+02-08 15:59:19.878   907  3754 E LOGSERVER_UTILS: [Erecovery]readEvent: eRecEventManager readEvent 0
+02-08 15:59:20.507  1575  2006 W Watchdog: hungtask: writing kick
+02-08 15:59:20.510  1575  1604 I EventHub: EventHub monitor: no key events in the past 288s, no motion events in the past 54s
+02-08 15:59:20.521  1575  1785 I TrafficMonitor: update:rxPkts:0,txPkts:2,rxBytes:0,txBytes:120
+02-08 15:59:20.522  1575  1785 I TrafficMonitor: start expired. level:-1
+02-08 15:59:20.522  1575  1785 I TrafficMonitor: gettimer:interval=2000
+02-08 15:59:20.919   907  3754 E LOGSERVER_UTILS: [Erecovery]readEvent: eRecEventManager readEvent 0
+02-08 15:59:21.543 14266 14266 I HiAdKit.ExSplashManager.main:  do not request exsplash config
+02-08 15:59:21.939  1575  1575 W WindowManager: removeWindowToken: Attempted to remove non-existing token: android.os.Binder@2bcec58
+02-08 15:59:21.958   907  3754 E LOGSERVER_UTILS: [Erecovery]readEvent: eRecEventManager readEvent 0
+02-08 15:59:22.253 25775 25820 I NetworkStatsManager: querySummary callingPid = 25775
+02-08 15:59:22.254  1575  7355 I NetworkStats: openSessionForUsageStats, pid = 25775, pkg = com.tencent.mm
+02-08 15:59:22.254  1575  7355 I NetworkStats: openSessionInternal,pid = 25775
+02-08 15:59:22.257  1575  7355 I NetworkStats: performPollLocked, pid = 1575
+02-08 15:59:22.300 14710 14710 E         : iptables cmd:iptables-restore
+02-08 15:59:22.324 14711 14711 E         : iptables cmd:ip6tables-restore
+02-08 15:59:22.329 14709 14709 E JankService: child Thread receive to stop
+02-08 15:59:22.340  1575  7355 W NetworkStatsFactory: mStatsXtProcUid: /proc/net/comm/stats does not exist!
+02-08 15:59:22.340  1575  7355 D HwNetworkStatsService: hwRecordUidAndProcSnapshotLocked currentTime = 1770537560043
+02-08 15:59:22.355  1575  7355 I NetworkStatsFactory: javaReadNetworkStatsUidAndProcDetail. cost time = 14
+02-08 15:59:22.361  1575  7355 D HwNetworkStatsService: hwMaybeUidAndProcPersistLocked currentTime = 1770537560043
+02-08 15:59:22.376 25775 25820 I NetworkStatsManager: querySummary callingPid = 25775
+02-08 15:59:22.376  1575  7355 I NetworkStats: openSessionForUsageStats, pid = 25775, pkg = com.tencent.mm
+02-08 15:59:22.413  4721  4797 E HSM_BG  : NormalTrafficAnalysis:alert byte = 0, so return
+02-08 15:59:22.458   907  1125 E JankService: all data read ok
+02-08 15:59:22.525  1575  1785 I TrafficMonitor: update:rxPkts:1,txPkts:0,rxBytes:1331,txBytes:0
+02-08 15:59:22.525  1575  1785 I TrafficMonitor: start expired. level:-1
+02-08 15:59:22.525  1575  1785 I TrafficMonitor: gettimer:interval=2000
+02-08 15:59:22.595   652   652 E WifiHAL : enter wifi_get_link_stats
+02-08 15:59:22.604  1575  1786 E WificondControl: Noise: -89, Snr: 0, Chload: -1
+02-08 15:59:22.608  1575  1786 D WifiScoreReport: Score = 60, wifiConnectivityManagerEnabled = false, lowScoreCount = 0
+02-08 15:59:22.998   907  3754 E LOGSERVER_UTILS: [Erecovery]readEvent: eRecEventManager readEvent 0
+02-08 15:59:23.640 14092 14109 I Finsky  : [171] com.google.android.finsky.bp.ab.run(5): Stats for Executor: BlockingExecutor com.google.android.finsky.bp.ac@a644354[Running, pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0]
+02-08 15:59:23.642 14092 14109 I Finsky  : [171] com.google.android.finsky.bp.ab.run(5): Stats for Executor: LightweightExecutor com.google.android.finsky.bp.ac@2c72fd[Running, pool size = 1, active threads = 0, queued tasks = 0, completed tasks = 1]
+02-08 15:59:23.738  1575  1786 E WificondControl: Noise: -89, Snr: 0, Chload: -1
+02-08 15:59:23.748  1575  1785 D WiFi_PRO: MSG_RETURN_AP_CURRY_RSSI rssi = -57
+02-08 15:59:23.749  1575  1785 I QosMonitor: queryRtt: rtt_type = 3
+02-08 15:59:23.749  1575 14712 I HwUidTcpMonitor: TcpStatisticsRun run
+02-08 15:59:23.749  1575  1858 D HuaweiWifiWatchdogStateMachine: high data flow: protection_counter = 0,  not_detect_counter = 1541
+02-08 15:59:23.749  1575  1858 D HuaweiWifiWatchdogStateMachine: high data flow scenario: 0 --> 0 rx bytes =46KB
+02-08 15:59:23.749  1575  1858 I HuaweiWifiWatchdogStateMachine: POta txb txg rxg:0, 24, 0. Lr =0% Totpkt=24
+02-08 15:59:23.751  1575  1785 I QosMonitor: postEventFromNative: msg=100,arg1=4,arg2=10
+02-08 15:59:23.751  1575  1785 I QosMonitor: postEventFromNative: msg=100,arg1=0,arg2=10
+02-08 15:59:23.751  1575  1785 I MQoS    : rtt=304,tcp_tx_pkts=3835581,tcp_rx_pkts=7240947
+02-08 15:59:23.752  1575  1858 I HuaweiWifiWatchdogStateMachine: PTcp RTT:0, rtt pkt=0, tcp_rx=5, tcp_tx=9, tcp_reTran=6, rtRate=0.67
+02-08 15:59:23.752  1575  1858 I HuaweiWifiWatchdogStateMachine: after backoff rssi th: -75, next TH:-75
+02-08 15:59:23.753  1575 14712 D HwUidTcpMonitor: parseWlanUidTcpStatistics lastUidTcpStatInfo = [ mUid = 10124 mPacketName = com.huawei.android.launcher mSendSegs = 601 mResendSegs = 534 mRcvSegs = 0 ]
+02-08 15:59:23.753  1575 14712 D HwUidTcpMonitor: parseWlanUidTcpStatistics lastUidTcpStatInfo = [ mUid = 10076 mPacketName = com.huawei.android.launcher mSendSegs = 908 mResendSegs = 12 mRcvSegs = 838 ]
+02-08 15:59:23.757  1575  8854 I MQoS    : QOS_level:0(0),wifi-link;SIM error;use level-0
+02-08 15:59:24.005   907  3754 E LOGSERVER_UTILS: [Erecovery]readEvent: eRecEventManager readEvent 0
+02-08 15:59:24.472  4721  4740 I SmartChgBase/Arb_HidlParam: Apply Skipped: IsApplyExcept return true. [moduleName:ASW, param:dc_vterm_dec, detailsWithValue:source=trigger;event=heartbeat;chargestatus=start;value=0;]
+02-08 15:59:24.473  4721  4740 I SmartChgBase/Arb_HidlParam: Apply Skipped: IsApplyExcept return true. [moduleName:ASW, param:nondc_vterm_dec, detailsWithValue:source=trigger;event=heartbeat;chargestatus=start;value=0;]
+02-08 15:59:24.474  4721  4740 I SmartChgBase/Arb_HidlParam: Apply Skipped: IsApplyExcept return true. [moduleName:ASW, param:soc_control, detailsWithValue:source=trigger;event=heartbeat;chargestatus=start;value=1 95 100 1 1;]
+02-08 15:59:24.529  1575  1785 I TrafficMonitor: update:rxPkts:6,txPkts:4,rxBytes:317,txBytes:223
+02-08 15:59:24.529  1575  1785 I TrafficMonitor: start expired. level:-1
+02-08 15:59:24.529  1575  1785 I TrafficMonitor: gettimer:interval=2000
+02-08 15:59:24.840  1575  1735 I HwBatteryService: quick charge status : 0
+02-08 15:59:24.841  1575  1735 D HwBatteryService: onUEvent fcpStatus = 0
+02-08 15:59:24.841  1575  1735 D HwBatteryService: onUEvent scpStatus = 0 ,ovpStatus = 0
+02-08 15:59:24.841  1575  1735 I HwBatteryService: handleWirelessTxStatus
+02-08 15:59:24.841  1575  1735 I HwBatteryService: switch not open, return, mWirelessTxFlag : 0
+02-08 15:59:24.842  1575  1735 I UsbDeviceManager: water_intrused state= 0
+02-08 15:59:25.036   907  3754 E LOGSERVER_UTILS: [Erecovery]readEvent: eRecEventManager readEvent 0
+02-08 15:59:25.077 24209 24209 D KG_OsUtils: hasRequiredPermissions run true 0
+02-08 15:59:25.084 24209 24209 W Keyguard: DownloadService warn: on start command, action = com.android.keyguard.magazinulock.update.DOWNLOAD_CHANNEL
+02-08 15:59:25.085 24209 24283 W Keyguard: DownloadService warn: DownloadServiceHandler handleMessage 5
+02-08 15:59:25.086 24209 24283 W Keyguard: DownloadService warn: handleStartDownload
+02-08 15:59:25.090  1575  7355 V ActivityManager: Successfully start provider ContentProviderRecord{daa4ad6 u0 com.android.systemui/com.huawei.keyguard.database.MagazineProvider} launchingApp=null caller pid= 24209
+02-08 15:59:25.095  1924  1961 W MagazineProvider: check invalid caller: 10037
+02-08 15:59:25.104 24209 24283 W Keyguard: UpdateHelper warn: get downloading ids, downloading channel list size is 0
+02-08 15:59:25.118 24209 24283 W Keyguard: DownloadService warn: sendDownloadRequst with channel.getChannelId() = 01
+02-08 15:59:25.126  1575  7355 V ActivityManager: Successfully start provider ContentProviderRecord{56ae3c1 u0 com.android.providers.downloads/.DownloadProvider} launchingApp=null caller pid= 24209
+02-08 15:59:25.165 26237  4070 W DownloadManager: Path appears to be invalid: /storage/emulated/0/Huawei/MagazineUpdate/download/01.downloading
+02-08 15:59:25.223 26237  4070 I DownloadManager:  userId = 0 0
+02-08 15:59:25.246  1924  1942 W MagazineProvider: check invalid caller: 10037
+02-08 15:59:25.278 24209 24283 W Keyguard: DownloadService warn: sendDownloadRequst with channel.getChannelId() = 02
+02-08 15:59:25.279  1575  3114 I HwNetworkPolicy: onTransact, code = 6
+02-08 15:59:25.280 26237 14713 D DownloadManager: [300] Starting
+02-08 15:59:25.289 26237 29451 W DownloadManager: Path appears to be invalid: /storage/emulated/0/Huawei/MagazineUpdate/download/02.downloading
+02-08 15:59:25.310 26237 14713 I DownloadManager:   uid = 10037 mIgnoreBlocked = false
+02-08 15:59:25.341 26237 29451 I DownloadManager:  userId = 0 0
+02-08 15:59:25.344 26237 14713 D NetworkSecurityConfig: No Network Security Config specified, using platform default
+02-08 15:59:25.346 26237 14713 D NetworkSecurityConfig: No Network Security Config specified, using platform default
+02-08 15:59:25.347  2186  2353 I AppManager: dependence has been existed:1575 -> 26237
+02-08 15:59:25.348  1924  1942 W MagazineProvider: check invalid caller: 10037
+02-08 15:59:25.348  1575  1575 W ProcBatteryStats: timer is running , not start, name: , uid: 10037, tag: *job*/DownloadManager:com.android.providers.downloads
+02-08 15:59:25.352 26237 14713 W DownloadManager: [300] Stop requested with status BAD_REQUEST: Cleartext traffic not permitted for package com.android.keyguard: http://contentcenter-vali-drcn.dbankcdn.cn/...
+02-08 15:59:25.352 26237 14713 D DownloadManager: [300] Finished with status BAD_REQUEST
+02-08 15:59:25.369  1575  7355 I HwNetworkPolicy: onTransact, code = 6
+02-08 15:59:25.370 26237 14714 D DownloadManager: [301] Starting
+02-08 15:59:25.373 24209 24283 W Keyguard: DownloadService warn: sendDownloadRequst with channel.getChannelId() = 05
+02-08 15:59:25.376 26237 14713 W DownloadDrmHelper: AfterDownload get mimetype is:null
+02-08 15:59:25.377  1575  7355 I HwNetworkPolicy: onTransact, code = 7
+02-08 15:59:25.388 26237 29451 W DownloadManager: Path appears to be invalid: /storage/emulated/0/Huawei/MagazineUpdate/download/05.downloading
+02-08 15:59:25.395 26237 14714 I DownloadManager:   uid = 10037 mIgnoreBlocked = false
+02-08 15:59:25.397 26237 14714 D NetworkSecurityConfig: No Network Security Config specified, using platform default
+02-08 15:59:25.398 26237 14714 D NetworkSecurityConfig: No Network Security Config specified, using platform default
+02-08 15:59:25.399 26237 14714 W DownloadManager: [301] Stop requested with status BAD_REQUEST: Cleartext traffic not permitted for package com.android.keyguard: http://contentcenter-vali-drcn.dbankcdn.cn/...
+02-08 15:59:25.399 26237 14714 D DownloadManager: [301] Finished with status BAD_REQUEST
+02-08 15:59:25.416  1575  1575 D JobScheduler: queuing all ready jobs for execution:
+02-08 15:59:25.436 26237 29451 I DownloadManager:  userId = 0 0
+02-08 15:59:25.436 26237 14714 W DownloadDrmHelper: AfterDownload get mimetype is:null
+02-08 15:59:25.436  1575 11163 I HwNetworkPolicy: onTransact, code = 7
+02-08 15:59:25.439 28861 28861 I BinderAdapter: [baseinner ActivityThread.java:7779] The serviceConnection has been bind for 60s, need to unbind.
+02-08 15:59:25.440 28861 28861 I BinderAdapter: [baseinner Looper.java:216] Trying to unbind service from com.huawei.hms.common.internal.BinderAdapter@901d66b
+02-08 15:59:25.447  2186  2353 I AppManager: dependence has been existed:1575 -> 26237
+02-08 15:59:25.451  1924  1961 W MagazineProvider: check invalid caller: 10037
+02-08 15:59:25.457  1575  1575 D JobScheduler: queuing all ready jobs for execution:
+02-08 15:59:25.471 24209 24283 W Keyguard: DownloadService warn: sendDownloadRequst with channel.getChannelId() = 06
+02-08 15:59:25.485  1575  7355 I HwNetworkPolicy: onTransact, code = 6
+02-08 15:59:25.486 26237 14715 D DownloadManager: [302] Starting
+02-08 15:59:25.492 26237 29451 W DownloadManager: Path appears to be invalid: /storage/emulated/0/Huawei/MagazineUpdate/download/06.downloading
+02-08 15:59:25.495 26237 14715 I DownloadManager:   uid = 10037 mIgnoreBlocked = false
+02-08 15:59:25.500 26237 14715 D NetworkSecurityConfig: No Network Security Config specified, using platform default
+02-08 15:59:25.502 26237 14715 D NetworkSecurityConfig: No Network Security Config specified, using platform default
+02-08 15:59:25.515   595   686 I PreDnsController: canPreDnsQuery,persist.sys.predns is false!
+02-08 15:59:25.523  1575  1785 I TrafficMonitor: expired arrive. level:-1
+02-08 15:59:25.524  1575  1785 I TrafficMonitor: during_ms:2004,period_ms:2000
+02-08 15:59:25.524  1575  1785 I TrafficMonitor: count:142,rx_sum:6,tx_sum:4,rxBytes:317,during_ms:2004,rx_speed:158.18363273453093,tx_speed:111.27744510978044,rto:1.5
+02-08 15:59:25.528 26237 29451 I DownloadManager:  userId = 0 0
+02-08 15:59:25.533  1924  1961 W MagazineProvider: check invalid caller: 10037
+02-08 15:59:25.535  2186  2353 I AppManager: dependence has been existed:1575 -> 26237
+02-08 15:59:25.556  1575  7355 I HwNetworkPolicy: onTransact, code = 6
+02-08 15:59:25.558 26237 14718 D DownloadManager: [303] Starting
+02-08 15:59:25.584 26237 14718 I DownloadManager:   uid = 10037 mIgnoreBlocked = false
+02-08 15:59:25.587 26237 14718 D NetworkSecurityConfig: No Network Security Config specified, using platform default
+02-08 15:59:25.589 26237 14718 D NetworkSecurityConfig: No Network Security Config specified, using platform default
+02-08 15:59:25.590 26237 14718 W DownloadManager: [303] Stop requested with status BAD_REQUEST: Cleartext traffic not permitted for package com.android.keyguard: http://contentcenter-vali-drcn.dbankcdn.cn/...
+02-08 15:59:25.590 26237 14718 D DownloadManager: [303] Finished with status BAD_REQUEST
+02-08 15:59:25.611   652   652 E WifiHAL : enter wifi_get_link_stats
+02-08 15:59:25.618  1575  1786 E WificondControl: Noise: -89, Snr: 0, Chload: -1
+02-08 15:59:25.621 26237 14718 W DownloadDrmHelper: AfterDownload get mimetype is:null
+02-08 15:59:25.622  1575  7355 I HwNetworkPolicy: onTransact, code = 7
+02-08 15:59:25.623  1575  1786 D WifiScoreReport: Score = 60, wifiConnectivityManagerEnabled = false, lowScoreCount = 0
+02-08 15:59:25.632   891   891 E Thermal-daemon: [battery] temp_new :25  temp_old :24
+02-08 15:59:25.633  2186  5574 I ThermalTrace_ThermalRaise: Battery:-100,24,25
+02-08 15:59:25.637  1575  1575 D JobScheduler: queuing all ready jobs for execution:
+02-08 15:59:25.638   891   891 E Thermal-daemon: Report temperature: [battery] temp :25  report_threshold:1
+02-08 15:59:25.741 28861  7321 I FwKamsCompat: wait for ams time out for 60000 ms
+02-08 15:59:25.749 26237 26237 W Thread-11: type=1400 audit(0.0:84703): avc: granted { create } for name="05.downloading" scontext=u:r:mediaprovider:s0:c512,c768 tcontext=u:object_r:sdcardfs:s0:c512,c768 tclass=file
+02-08 15:59:25.815  1575  3114 I PackageManager: getInstalledApplications cost 6 ms, flags: 794624, userId: 0, callingUid: 1000, callingPid: 1575
+02-08 15:59:25.921  1575  1575 D JobScheduler: Maybe queuing ready jobs...
+02-08 15:59:25.943 26237 14715 W StorageManager: fallocate() not supported; falling back to ftruncate()
+02-08 15:59:25.944 26237 14715 I DownloadManager:  file:/storage/emulated/0/Huawei/MagazineUpdate/download/05.downloading is exist, create destFileObserver
+02-08 15:59:25.944 26237 14715 D DownloadManager: enter DestFileChangeObServer begin:
+02-08 15:59:25.988 26237 29506 D DownloadManager: enter DestFileChangeObServer::event(event:8000 mode:0 file:null)
+02-08 15:59:25.993 26237 14715 D DownloadManager: [302] Finished with status SUCCESS
+02-08 15:59:26.016 26237 14715 W DownloadDrmHelper: AfterDownload get mimetype is:application/zip
+02-08 15:59:26.016  1575  7355 I HwNetworkPolicy: onTransact, code = 7
+02-08 15:59:26.043 26237 14719 D MediaScannerService: run MediaScannerService
+02-08 15:59:26.044 26237 14720 D MediaScannerService: run SingleFileScannerService
+02-08 15:59:26.053 26237 26237 D MediaScannerService: onStartCommand startId 1
+02-08 15:59:26.053 26237 26237 D MediaScannerService: singgle file scan, startId :1
+02-08 15:59:26.054 26237 26237 I MediaScannerService: new path startId:1, mScanPaths:0, mStartIds size:1
+02-08 15:59:26.054 26237 14720 D MediaScannerService: handleMessage msg.arg1: 1
+02-08 15:59:26.056 26237 14720 D MediaScannerService: scan single file content values:null
+02-08 15:59:26.070 26237 14720 I HWSERVICES: hwnative_get_component:libstagefright,Scanner
+02-08 15:59:26.074   907  3754 E LOGSERVER_UTILS: [Erecovery]readEvent: eRecEventManager readEvent 0
+02-08 15:59:26.075 26237 14720 I StagefrightMediaScannerEx: StagefrightMediaScanner Constructor
+02-08 15:59:26.077 26237 14720 D MediaScanner: setStorageEjectFlag flag = 0
+02-08 15:59:26.078 26237 14720 D MediaScanner: totalMemoryGb 3, lowRamDevice falsemMaxFileCacheEntrySize = 90000
+02-08 15:59:26.079 26237 14720 D MediaScanner: prescan begin prescanFiles: true
+02-08 15:59:26.116 26237 14720 D MediaScanner: prescan end mFileCache size 0
+02-08 15:59:26.119 26237 14720 D MediaScanner: delete nomedia File when scanSingleFile
+02-08 15:59:26.168 26237 14720 V Mtp     : notify PC that storage info has changed.
+02-08 15:59:26.180 26237 14720 D MediaScannerService: stopSelfIfNecessary startId:1, startIds size:0, mScanPaths size:0, skip:0
+02-08 15:59:26.185 26237 26237 D MediaScannerService: onDestroy
+02-08 15:59:26.191 26237 26237 D MediaScannerService: onDestroy before looper quit
+02-08 15:59:26.200  1575  3114 W ProcBatteryStats: timer is not running , not stop, name: , uid: 10037, tag: *job*/DownloadManager:com.android.providers.downloads
+02-08 15:59:26.207  1575  1575 D JobScheduler: queuing all ready jobs for execution:
+02-08 15:59:26.526 28861  7321 I FwKamsCompat: wait for ams time out for 60000 ms
+02-08 15:59:26.532  1575  1785 I TrafficMonitor: update:rxPkts:363,txPkts:192,rxBytes:508151,txBytes:8520
+02-08 15:59:26.532  1575  1785 I TrafficMonitor: no expired. level:5
+02-08 15:59:26.532  1575  1785 I TrafficMonitor: gettimer:interval=2000
+02-08 15:59:26.533  1575  1785 I TrafficMonitor: during_ms:2004,period_ms:2000
+02-08 15:59:26.533  1575  1785 I TrafficMonitor: count:143,rx_sum:363,tx_sum:192,rxBytes:508151,during_ms:2004,rx_speed:253568.36327345308,tx_speed:4251.497005988024,rto:1.890625
+02-08 15:59:26.567 24209 24283 W Keyguard: DownloadService warn: DownloadServiceHandler handleMessage 2
+02-08 15:59:26.567 24209 24283 W Keyguard: DownloadService warn: handleDownload
+02-08 15:59:26.570  1575  3114 V ActivityManager: Successfully start provider ContentProviderRecord{daa4ad6 u0 com.android.systemui/com.huawei.keyguard.database.MagazineProvider} launchingApp=null caller pid= 24209
+02-08 15:59:26.574  1924  1961 W MagazineProvider: check invalid caller: 10037
+02-08 15:59:26.608  1575  3123 V ActivityManager: Successfully start provider ContentProviderRecord{56ae3c1 u0 com.android.providers.downloads/.DownloadProvider} launchingApp=null caller pid= 24209
+02-08 15:59:26.630  1575  1575 D JobScheduler: Maybe queuing ready jobs...
+02-08 15:59:26.634  1924  1961 I chatty  : uid=10037(com.huawei.HwMultiScreenShot) Binder:1924_3 identical 2 lines
+02-08 15:59:26.665  1924  1961 W MagazineProvider: check invalid caller: 10037
+02-08 15:59:26.686  1924  2325 I EventCenter: ContentChange for slot: 4
+02-08 15:59:26.695  1924  2325 I EventCenter: ContentChange for slot: 4
+02-08 15:59:26.713  1924  1961 W MagazineProvider: check invalid caller: 10037
+02-08 15:59:26.727  1924  2325 I EventCenter: ContentChange for slot: 8
+02-08 15:59:26.733 24209 24209 W Keyguard: DownloadService warn: on start command, action = com.android.keyguard.magazinulock.update.CHECK_APPLY
+02-08 15:59:26.734  1924  1961 W MagazineProvider: check invalid caller: 10037
+02-08 15:59:26.745  1924  1961 W MagazineProvider: check invalid caller: 10037
+02-08 15:59:26.764  1924  1942 W MagazineProvider: check invalid caller: 10037
+02-08 15:59:26.782  1924  1942 I chatty  : uid=10037(com.huawei.HwMultiScreenShot) Binder:1924_2 identical 1 line
+02-08 15:59:26.801  1924  1942 W MagazineProvider: check invalid caller: 10037
+02-08 15:59:26.822 24209 24283 I BD.Reporter: com.huawei.bd.IBDService$Stub$Proxy@b0f56e0
+02-08 15:59:26.835   595   686 I PreDnsController: canPreDnsQuery,persist.sys.predns is false!
+02-08 15:59:26.847   595   686 I PreDnsController: canPreDnsQuery,persist.sys.predns is false!
+02-08 15:59:26.861 24209 24253 D HwInnerWifiManagerImpl: SupplicantState = COMPLETED
+02-08 15:59:26.861 24209 24253 D HwInnerWifiManagerImpl: isPhoneAP = false
+02-08 15:59:26.861 24209 24283 W Keyguard: DownloadService warn: DownloadServiceHandler handleMessage 4
+02-08 15:59:26.875 24209 24283 W Keyguard: DownloadService warn: handleApply
+02-08 15:59:26.881  1924  2325 I EventCenter: ContentChange for slot: 4
+02-08 15:59:26.891  1924  1942 W MagazineProvider: check invalid caller: 10037
+02-08 15:59:26.903 24209 14721 D OpenSSLSocketFactory: enter setEnableSafeCipherSuites
+02-08 15:59:26.916   473   473 E OEMINFO_NVM_SERVER:  OeminfoGetInfo:index(155), oeminfo data not find !!!!
+02-08 15:59:26.917   473   473 E OEMINFO_NVM_SERVER:  OeminfoReturnInfo: oeminfo return info fail.
+02-08 15:59:26.917   473   473 E OEMINFO_NVM_SERVER:  OinvCmdHandler: pid 513, operation oeminfo_getinfo and ret -1 fail.
+02-08 15:59:26.918   513   513 E OEMINFO_NVM_CLIENT: OinvRecvReturn: RET_FAIL return.
+02-08 15:59:26.918   513   513 E OEMINFO_NVM_CLIENT: rmt_oeminfo_get_info: index(155) get data from server fail.
+02-08 15:59:26.918   513   513 E         : read_oeminfo_signed_data: failed to get info oeminfo_idx:155 and total_byte:0
+02-08 15:59:26.918   513   513 E         : init_oeminfo_signed_data_all:fail to read oeminfo oeminfo_idx:155 and oeminfo_sub_idx:-1
+02-08 15:59:26.918   513   513 E         : get_original_data_by_fun_tag_and_sign_type: fail to init signed oeminfo signed all params
+02-08 15:59:26.918   513   513 E         : read_udid_number: failed to get udid
+02-08 15:59:26.918   513   513 E factory_operator: hw_get_device_info: read udid from oeminfo fail
+02-08 15:59:26.918  1575  3123 E DeviceIdentifiers: GetUDIDNative getUDID return null, generated it
+02-08 15:59:26.919  1575  3123 W DeviceIdentifiers: the phone is in udid_model_whitelist, return null!
+02-08 15:59:26.921 24209 24209 W DownloadService: type=1400 audit(0.0:84704): avc: granted { create } for name="icon_20220419162555.png" scontext=u:r:platform_app:s0:c512,c768 tcontext=u:object_r:sdcardfs:s0:c512,c768 tclass=file
+02-08 15:59:26.929 24209 14724 D OpenSSLSocketFactory: enter setEnableSafeCipherSuites
+02-08 15:59:26.933   595   686 I PreDnsController: canPreDnsQuery,persist.sys.predns is false!
+02-08 15:59:26.934 24209 24283 D HwGalleryCacheManagerImpl: mIsEffect:false
+02-08 15:59:26.944  1924  1942 W MagazineProvider: check invalid caller: 10037
+02-08 15:59:27.041 24209 24209 W DownloadService: type=1400 audit(0.0:84705): avc: granted { create } for name="8ED5439048D02398B00B2B345BB5FB05.jpg" scontext=u:r:platform_app:s0:c512,c768 tcontext=u:object_r:sdcardfs:s0:c512,c768 tclass=file
+02-08 15:59:27.066   595   686 I PreDnsController: canPreDnsQuery,persist.sys.predns is false!
+02-08 15:59:27.068   595 14726 D libc    : GetAddrInfoHandler addr: 168.50.1
+02-08 15:59:27.091  1924  1942 W MagazineProvider: check invalid caller: 10037
+02-08 15:59:27.092 26237 26237 D MediaScannerReceiver: action: android.intent.action.MEDIA_SCANNER_SCAN_FILE
+02-08 15:59:27.095 26237 26237 D MediaScannerReceiver: scanFile 
+02-08 15:59:27.104  1575 11163 V BroadcastQueue: Finished with ordered broadcast BroadcastRecord{b33a0cd u0 android.intent.action.MEDIA_SCANNER_SCAN_FILE}
+02-08 15:59:27.107 26237 14727 D MediaScannerService: run MediaScannerService
+02-08 15:59:27.107 26237 26237 D MediaScannerService: onStartCommand startId 1
+02-08 15:59:27.108 26237 14728 D MediaScannerService: run SingleFileScannerService
+02-08 15:59:27.114   907  3754 E LOGSERVER_UTILS: [Erecovery]readEvent: eRecEventManager readEvent 0
+02-08 15:59:27.117 24209 14721 D OpenSSLSocketFactory: enter setEnableSafeCipherSuites
+02-08 15:59:27.119 24209 24283 W Keyguard: ExifData warn: The tag is null error!
+02-08 15:59:27.131  1924  2325 I EventCenter: ContentChange for slot: 4
+02-08 15:59:27.133 24209 24209 W DownloadService: type=1400 audit(0.0:84706): avc: granted { create } for name="DB3FC1D209D435A73B40BB7E8EF9298E.jpg" scontext=u:r:platform_app:s0:c512,c768 tcontext=u:object_r:sdcardfs:s0:c512,c768 tclass=file
+02-08 15:59:27.134 24209 14724 D OpenSSLSocketFactory: enter setEnableSafeCipherSuites
+02-08 15:59:27.176  1924  1942 W MagazineProvider: check invalid caller: 10037
+02-08 15:59:27.191 24209 24283 W Keyguard: ExifData warn: The tag is null error!
+02-08 15:59:27.201  1924  2325 I EventCenter: ContentChange for slot: 4
+02-08 15:59:27.205 24209 24209 W DownloadService: type=1400 audit(0.0:84707): avc: granted { create } for name="48D816309159634A163A3AB68E3B9329.jpg" scontext=u:r:platform_app:s0:c512,c768 tcontext=u:object_r:sdcardfs:s0:c512,c768 tclass=file
+02-08 15:59:27.208 26237 26237 D MediaScannerService: singgle file scan, startId :1
+02-08 15:59:27.208 26237 26237 I MediaScannerService: new path startId:1, mScanPaths:0, mStartIds size:1
+02-08 15:59:27.212 26237 14728 D MediaScannerService: handleMessage msg.arg1: 1
+02-08 15:59:27.212 26237 26237 D MediaScannerReceiver: action: android.intent.action.MEDIA_SCANNER_SCAN_FILE
+02-08 15:59:27.214 26237 26237 D MediaScannerReceiver: scanFile 
+02-08 15:59:27.215 26237 14728 D MediaScannerService: scan single file content values:null
+02-08 15:59:27.216 26237 14728 I HWSERVICES: hwnative_get_component:libstagefright,Scanner
+02-08 15:59:27.217 26237 26237 D MediaScannerService: onStartCommand startId 2
+02-08 15:59:27.217 26237 26237 D MediaScannerService: singgle file scan, startId :2
+02-08 15:59:27.217 26237 26237 I MediaScannerService: new path startId:2, mScanPaths:0, mStartIds size:2
+02-08 15:59:27.218  1575  7355 V BroadcastQueue: Finished with ordered broadcast BroadcastRecord{b464d0 u0 android.intent.action.MEDIA_SCANNER_SCAN_FILE}
+02-08 15:59:27.219 26237 14728 I StagefrightMediaScannerEx: StagefrightMediaScanner Constructor
+02-08 15:59:27.222 26237 14728 D MediaScanner: setStorageEjectFlag flag = 0
+02-08 15:59:27.224 26237 14728 D MediaScanner: totalMemoryGb 3, lowRamDevice falsemMaxFileCacheEntrySize = 90000
+02-08 15:59:27.226 26237 14728 D MediaScanner: prescan begin prescanFiles: true
+02-08 15:59:27.231 24209 14721 W Keyguard: HwHttpConnection warn: IOExcetion Ocurred During sendRequestForPost
+02-08 15:59:27.236  1924  2556 W MagazineProvider: check invalid caller: 10037
+02-08 15:59:27.247  1924  1942 W MagazineProvider: check invalid caller: 10037
+02-08 15:59:27.250 26237 26237 D MediaScannerReceiver: action: android.intent.action.MEDIA_SCANNER_SCAN_FILE
+02-08 15:59:27.252 26237 26237 D MediaScannerReceiver: scanFile 
+02-08 15:59:27.254 26237 26237 D MediaScannerService: onStartCommand startId 3
+02-08 15:59:27.255 26237 26237 D MediaScannerService: singgle file scan, startId :3
+02-08 15:59:27.255 26237 26237 I MediaScannerService: new path startId:3, mScanPaths:0, mStartIds size:3
+02-08 15:59:27.255  1575 11163 V BroadcastQueue: Finished with ordered broadcast BroadcastRecord{c667cc9 u0 android.intent.action.MEDIA_SCANNER_SCAN_FILE}
+02-08 15:59:27.256 24209 24283 W Keyguard: ExifData warn: The tag is null error!
+02-08 15:59:27.265  1924  2325 I EventCenter: ContentChange for slot: 4
+02-08 15:59:27.267 26237 14728 D MediaScanner: prescan end mFileCache size 0
+02-08 15:59:27.269 24209 24209 W DownloadService: type=1400 audit(0.0:84708): avc: granted { create } for name="393E9537503AEBEC952BD22709CC6F67.jpg" scontext=u:r:platform_app:s0:c512,c768 tcontext=u:object_r:sdcardfs:s0:c512,c768 tclass=file
+02-08 15:59:27.269 26237 14728 D MediaScanner: delete nomedia File when scanSingleFile
+02-08 15:59:27.276 24209 14724 W Keyguard: HwHttpConnection warn: IOExcetion Ocurred During sendRequestForPost
+02-08 15:59:27.288 26237 14728 W ExifInterface: Stop reading file since a wrong offset may cause an infinite loop: 0
+02-08 15:59:27.288 26237 14728 W ExifInterface: Stop reading file since a wrong offset may cause an infinite loop: 0
+02-08 15:59:27.313  1924  1942 W MagazineProvider: check invalid caller: 10037
+02-08 15:59:27.313 26237 26245 W System  : A resource failed to call close. 
+02-08 15:59:27.314 26237 26245 I StagefrightMediaScannerEx: StagefrightMediaScanner destructor
+02-08 15:59:27.316 26237 26237 D MediaScannerReceiver: action: android.intent.action.MEDIA_SCANNER_SCAN_FILE
+02-08 15:59:27.319 26237 26237 D MediaScannerReceiver: scanFile 
+02-08 15:59:27.322  1575  7355 V BroadcastQueue: Finished with ordered broadcast BroadcastRecord{e1e8fce u0 android.intent.action.MEDIA_SCANNER_SCAN_FILE}
+02-08 15:59:27.324 24209 24283 W Keyguard: ExifData warn: The tag is null error!
+02-08 15:59:27.325 26237 26237 D MediaScannerService: onStartCommand startId 4
+02-08 15:59:27.325 26237 26237 D MediaScannerService: singgle file scan, startId :4
+02-08 15:59:27.325 26237 26237 I MediaScannerService: new path startId:4, mScanPaths:0, mStartIds size:4
+02-08 15:59:27.331 26237 26262 D FYUSE   : Fyuse is not installed
+02-08 15:59:27.332 26237 14728 D MediaScannerService: stopSelfIfNecessary startId:1, startIds size:3, mScanPaths size:0, skip:0
+02-08 15:59:27.332 26237 14728 D MediaScannerService: handleMessage msg.arg1: 2
+02-08 15:59:27.334  1924  2325 I EventCenter: ContentChange for slot: 4
+02-08 15:59:27.335 26237 14728 D MediaScannerService: scan single file content values:null
+02-08 15:59:27.336 26237 14728 I HWSERVICES: hwnative_get_component:libstagefright,Scanner
+02-08 15:59:27.338 26237 14728 I StagefrightMediaScannerEx: StagefrightMediaScanner Constructor
+02-08 15:59:27.342 26237 14728 D MediaScanner: setStorageEjectFlag flag = 0
+02-08 15:59:27.343 26237 14728 D MediaScanner: totalMemoryGb 3, lowRamDevice falsemMaxFileCacheEntrySize = 90000
+02-08 15:59:27.345  1924  1942 W MagazineProvider: check invalid caller: 10037
+02-08 15:59:27.345 26237 14728 D MediaScanner: prescan begin prescanFiles: true
+02-08 15:59:27.357  1924  2325 I EventCenter: ContentChange for slot: 8
+02-08 15:59:27.360  1924  1961 W MagazineProvider: check invalid caller: 10037
+02-08 15:59:27.374 26237 14728 D MediaScanner: prescan end mFileCache size 0
+02-08 15:59:27.377 26237 14728 D MediaScanner: delete nomedia File when scanSingleFile
+02-08 15:59:27.380  1924  2325 I EventCenter: ContentChange for slot: 4
+02-08 15:59:27.384  1924  1961 W MagazineProvider: check invalid caller: 10037
+02-08 15:59:27.385 24209 24209 V HwWidgetFactory: : successes to get AllImpl object and return....
+02-08 15:59:27.388 26237 14728 W ExifInterface: Stop reading file since a wrong offset may cause an infinite loop: 0
+02-08 15:59:27.388 26237 14728 W ExifInterface: Stop reading file since a wrong offset may cause an infinite loop: 0
+02-08 15:59:27.392 24209 24209 I HwApsImpl: APS: new HwApsImpl created
+02-08 15:59:27.402   639   639 I HW_DISPLAY_EFFECT: hw_get_display_panel_type: panel info is blmax:7992,blmin:55,blmax_nit_actual:660,blmax_nit_standard:550,lcdtype:LCD,
+02-08 15:59:27.402   639   639 I HW_DISPLAY_EFFECT: 
+02-08 15:59:27.402   639   639 I HW_DISPLAY_EFFECT: hw_get_display_panel_type: lcd type is LCD
+02-08 15:59:27.404  1924  1961 W MagazineProvider: check invalid caller: 10037
+02-08 15:59:27.407  1575 11163 I ToastInterrupt: isAllowToShowToast:true, pkg:com.android.keyguard, topActivity:ActivityInfo{f798077 com.opencode.voiceassist.MainActivity}
+02-08 15:59:27.443 26237 26262 D FYUSE   : Fyuse is not installed
+02-08 15:59:27.459 26237 14728 D MediaScannerService: stopSelfIfNecessary startId:2, startIds size:2, mScanPaths size:0, skip:0
+02-08 15:59:27.459 26237 14728 D MediaScannerService: handleMessage msg.arg1: 3
+02-08 15:59:27.459 24209 24209 D OpenGLRenderer: Skia GL Pipeline
+02-08 15:59:27.461 26237 14728 D MediaScannerService: scan single file content values:null
+02-08 15:59:27.462 26237 14728 I HWSERVICES: hwnative_get_component:libstagefright,Scanner
+02-08 15:59:27.462  2186  2779 I PG_ash  : view add pid:24209 uid:10037
+02-08 15:59:27.465 26237 14728 I StagefrightMediaScannerEx: StagefrightMediaScanner Constructor
+02-08 15:59:27.468 26237 14728 D MediaScanner: setStorageEjectFlag flag = 0
+02-08 15:59:27.470 26237 14728 D MediaScanner: totalMemoryGb 3, lowRamDevice falsemMaxFileCacheEntrySize = 90000
+02-08 15:59:27.471 26237 14728 D MediaScanner: prescan begin prescanFiles: true
+02-08 15:59:27.478 24209 24209 D OpenGLRenderer:   HWUI Binary is  enabled
+02-08 15:59:27.478 24209 24209 D OpenGLRenderer: disableOutlineDraw is true
+02-08 15:59:27.497  1575  7355 E WindowManager: App trying to use insecure INPUT_FEATURE_NO_INPUT_CHANNEL flag. Ignoring
+02-08 15:59:27.500 26237 14728 D MediaScanner: prescan end mFileCache size 0
+02-08 15:59:27.502 26237 14728 D MediaScanner: delete nomedia File when scanSingleFile
+02-08 15:59:27.510  1575  7355 V WindowManager: addWindow: Window{d8bfc01 u0 Toast}
+02-08 15:59:27.513 26237 14728 W ExifInterface: Stop reading file since a wrong offset may cause an infinite loop: 0
+02-08 15:59:27.514 26237 14728 W ExifInterface: Stop reading file since a wrong offset may cause an infinite loop: 0
+02-08 15:59:27.529  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{1e544 u0 com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}
+02-08 15:59:27.538 26237 14728 D MediaScannerService: stopSelfIfNecessary startId:3, startIds size:1, mScanPaths size:0, skip:0
+02-08 15:59:27.538 26237 14728 D MediaScannerService: handleMessage msg.arg1: 4
+02-08 15:59:27.538 26237 26262 D FYUSE   : Fyuse is not installed
+02-08 15:59:27.539 26237 14728 D MediaScannerService: scan single file content values:null
+02-08 15:59:27.540 26237 14728 I HWSERVICES: hwnative_get_component:libstagefright,Scanner
+02-08 15:59:27.541 26237 14728 I StagefrightMediaScannerEx: StagefrightMediaScanner Constructor
+02-08 15:59:27.542 26237 14728 D MediaScanner: setStorageEjectFlag flag = 0
+02-08 15:59:27.543 26237 14728 D MediaScanner: totalMemoryGb 3, lowRamDevice falsemMaxFileCacheEntrySize = 90000
+02-08 15:59:27.543 26237 14728 D MediaScanner: prescan begin prescanFiles: true
+02-08 15:59:27.545   656  3430 E BufferQueueProducer: [] mConsumerName == NULL!!!!!!
+02-08 15:59:27.548   617   617 I GRALLOC : getCallingPid=656, shrFd=32,fmt=0x1,intFmt=0x1,btStrd=2048,size=212992,pid=617 
+02-08 15:59:27.548   617   617 I GRALLOC : 	 yuv=2,w=486,h=101,Stride u=0 v=0,offset u=0 v=0 
+02-08 15:59:27.548   617   617 I GRALLOC : 	 iova_size=212992,conUsg=0x900,proUsg=0x900,	 strd=512,[afbc]HdrStrd=0 PyldStrd=0 Scrmbl=0,ionhnd = 1 
+02-08 15:59:27.548   656  3430 E BufferQueueProducer: [] mConsumerName == NULL!!!!!!
+02-08 15:59:27.549   617 13142 I GRALLOC : getCallingPid=656, shrFd=34,fmt=0x1,intFmt=0x1,btStrd=2048,size=212992,pid=617 
+02-08 15:59:27.549   617 13142 I GRALLOC : 	 yuv=2,w=486,h=101,Stride u=0 v=0,offset u=0 v=0 
+02-08 15:59:27.549   617 13142 I GRALLOC : 	 iova_size=212992,conUsg=0x900,proUsg=0x900,	 strd=512,[afbc]HdrStrd=0 PyldStrd=0 Scrmbl=0,ionhnd = 2 
+02-08 15:59:27.549   656  3430 E BufferQueueProducer: [] mConsumerName == NULL!!!!!!
+02-08 15:59:27.550   617 13142 I GRALLOC : getCallingPid=656, shrFd=32,fmt=0x1,intFmt=0x1,btStrd=2048,size=212992,pid=617 
+02-08 15:59:27.550   617 13142 I GRALLOC : 	 yuv=2,w=486,h=101,Stride u=0 v=0,offset u=0 v=0 
+02-08 15:59:27.550   617 13142 I GRALLOC : 	 iova_size=212992,conUsg=0x900,proUsg=0x900,	 strd=512,[afbc]HdrStrd=0 PyldStrd=0 Scrmbl=0,ionhnd = 1 
+02-08 15:59:27.552 26237 14728 D MediaScanner: prescan end mFileCache size 0
+02-08 15:59:27.552 26237 14728 D MediaScanner: delete nomedia File when scanSingleFile
+02-08 15:59:27.553 24209 14729 I ConfigStore: android::hardware::configstore::V1_0::ISurfaceFlingerConfigs::hasWideColorDisplay retrieved: 0
+02-08 15:59:27.553 24209 14729 I ConfigStore: android::hardware::configstore::V1_0::ISurfaceFlingerConfigs::hasHDRDisplay retrieved: 0
+02-08 15:59:27.555 26237 14728 W ExifInterface: Stop reading file since a wrong offset may cause an infinite loop: 0
+02-08 15:59:27.555 26237 14728 W ExifInterface: Stop reading file since a wrong offset may cause an infinite loop: 0
+02-08 15:59:27.555 24209 14729 I iGraphics: [0020080c] pn: com.android.keyguard, p: 24209
+02-08 15:59:27.555 24209 14729 I iGraphics: [0030080c] no spt app: com.android.keyguard
+02-08 15:59:27.555 24209 14729 I OpenGLRenderer: Initialized EGL, version 1.4, mEglDisplay 0x1
+02-08 15:59:27.556 24209 14729 D OpenGLRenderer: Swap behavior 2
+02-08 15:59:27.559 26237 14728 D MediaScannerService: stopSelfIfNecessary startId:4, startIds size:0, mScanPaths size:0, skip:0
+02-08 15:59:27.559 26237 26237 D MediaScannerService: onDestroy
+02-08 15:59:27.560 26237 26237 D MediaScannerService: onDestroy before looper quit
+02-08 15:59:27.561 26237 26262 D FYUSE   : Fyuse is not installed
+02-08 15:59:27.575 24209 14729 D mali_winsys: EGLint new_window_surface(egl_winsys_display *, void *, EGLSurface, EGLConfig, egl_winsys_surface **, EGLBoolean) returns 0x3000
+02-08 15:59:27.577   617 13142 I GRALLOC : getCallingPid=656, shrFd=32,fmt=0x1,intFmt=0x1,btStrd=2048,size=212992,pid=617 
+02-08 15:59:27.577   617 13142 I GRALLOC : 	 yuv=2,w=486,h=101,Stride u=0 v=0,offset u=0 v=0 
+02-08 15:59:27.577   617 13142 I GRALLOC : 	 iova_size=212992,conUsg=0xb00,proUsg=0xb00,	 strd=512,[afbc]HdrStrd=0 PyldStrd=0 Scrmbl=0,ionhnd = 1 
+02-08 15:59:27.644  1575  1595 I chatty  : uid=1000(system) android.ui identical 1 line
+02-08 15:59:27.649   656   982 D         : doWinFrameOptStatusRecog begin to recog Layer result=2
+02-08 15:59:27.776  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{1e544 u0 com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}
+02-08 15:59:27.781  1575  1726 I DebugKeepScreenOn: setHoldScreenLocked newHoldScreen:Session{297dada 24209:u0a10037} currentHoldScreen:null wakeLockState:false
+02-08 15:59:27.781  1575  1726 I DebugKeepScreenOn: Acquiring screen wakelock due to Window{d8bfc01 u0 Toast}
+02-08 15:59:27.782  1575  1726 D PowerMS : acquire:L=223195808,F=0x2000000a,T="WindowManager",N=android,WS=WorkSource{10037},U=1000,P=1575
+02-08 15:59:27.794  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{1e544 u0 com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}
+02-08 15:59:27.860  1924  2372 W MagazineProvider: check invalid caller: 10037
+02-08 15:59:27.880  1924  1924 W KGWpp_Magz: Magazine getWallPaper content changed
+02-08 15:59:27.931  1575  1787 D hw_netstat: total/1047897/25227,android.uid.systemui:10037/1043332/24484,unknown:0/2742/0,unknown:1051/1133/0,com.huawei.hwid/388/203,com.huawei.appmarket/222/160,com.android.vending/0/300,android.uid.system:1000/40/40,android.media:10016/40/40
+02-08 15:59:28.154   907  3754 E LOGSERVER_UTILS: [Erecovery]readEvent: eRecEventManager readEvent 0
+02-08 15:59:28.330 26237 26263 I AutoCache: start immediate decoding.
+02-08 15:59:28.386  1924  2325 W MagazineProvider: check invalid caller: 10037
+02-08 15:59:28.395  1924  2325 W KGWpp_Magz: generate picture user not assined wallpaper
+02-08 15:59:28.395  1924  2325 W KGWpp_Magz: setCurrentIndex by keyId 827 -> index 21
+02-08 15:59:28.395  1924  2325 W KGWpp_Magz: update list size: 40
+02-08 15:59:28.395  1924  2325 W AppHandler: sendMessage 25
+02-08 15:59:28.396  1924  2325 I KGWpp_Magz: checkPictureDescriptions of magazine-unlock-02-2.3.2026012201-3EA6620C4AB4A60EBD4485115EF1B18D.jpg
+02-08 15:59:28.396  1924  1924 D KGWpp   : get for type. 2 from 2
+02-08 15:59:28.401  1924  2325 I ExifParser: mTiffStream skip = 0
+02-08 15:59:28.402  1924  1924 I KGWpp   : no lock pic, assume always matched
+02-08 15:59:28.403  1924  1924 W KGWpp   : update Wallpaper and not change >>> com.huawei.keyguard.view.effect.bokeh.BokehDrawable@3904a
+02-08 15:59:28.403  1924  1924 W HwLockScreenPanel: Handle message: 25
+02-08 15:59:28.407  1924  2325 W ExifData: The tag is null error!
+02-08 15:59:28.408  1924  2325 I KGWpp_Magz: checkPictureDescriptions of magazine-unlock-05-2.3.2026012301-172120A296A01E2499E4873EC7D865B6.jpg
+02-08 15:59:28.410  1924  2325 I ExifParser: mTiffStream skip = 0
+02-08 15:59:28.411  1924  2325 W ExifData: The tag is null error!
+02-08 15:59:28.411  1924  2325 I KGWpp_Magz: checkPictureDescriptions of magazine-unlock-05-2.3.2026012301-B0897BAF6C49043CF948F24CBBFB2C53.jpg
+02-08 15:59:28.413  1924  2325 I ExifParser: mTiffStream skip = 0
+02-08 15:59:28.414  1924  2325 W ExifData: The tag is null error!
+02-08 15:59:28.414  1924  2325 I KGWpp_Magz: checkPictureDescriptions of magazine-unlock-05-2.3.2026012301-3447D955BE2F009D69E615D27E63A1CC.jpg
+02-08 15:59:28.416  1924  2325 I ExifParser: mTiffStream skip = 0
+02-08 15:59:28.417  1924  2325 W ExifData: The tag is null error!
+02-08 15:59:28.417  1924  2325 I KGWpp_Magz: checkPictureDescriptions of magazine-unlock-05-2.3.2026012301-D741807AAE4E1C3C130A9C6CA90A18ED.jpg
+02-08 15:59:28.419  1924  2325 I ExifParser: mTiffStream skip = 0
+02-08 15:59:28.420  1924  2325 W ExifData: The tag is null error!
+02-08 15:59:28.420  1924  2325 I KGWpp_Magz: checkPictureDescriptions of magazine-unlock-06-2.3.2026012301-A88F67246702FF72A9BF9ED546F0F67D.jpg
+02-08 15:59:28.423  1924  2325 I ExifParser: mTiffStream skip = 0
+02-08 15:59:28.424  1924  2325 W ExifData: The tag is null error!
+02-08 15:59:28.424  1924  2325 I KGWpp_Magz: checkPictureDescriptions of magazine-unlock-01-2.3.2026012301-7904E51D1EC88058776D0567D0F996BE.jpg
+02-08 15:59:28.426  1924  2325 I ExifParser: mTiffStream skip = 0
+02-08 15:59:28.427  1924  2325 W ExifData: The tag is null error!
+02-08 15:59:28.428  1924  2325 I KGWpp_Magz: checkPictureDescriptions of magazine-unlock-01-2.3.2026012301-A5EAC30E25B81038B3D681A41A0B20AB.jpg
+02-08 15:59:28.429  1924  2325 I ExifParser: mTiffStream skip = 0
+02-08 15:59:28.430  1924  2325 W ExifData: The tag is null error!
+02-08 15:59:28.431  1924  2325 I KGWpp_Magz: checkPictureDescriptions of magazine-unlock-01-2.3.2026012301-2AE8B55417685BE0A853BD69E4EF7BBA.jpg
+02-08 15:59:28.432  1924  2325 I ExifParser: mTiffStream skip = 0
+02-08 15:59:28.433  1924  2325 W ExifData: The tag is null error!
+02-08 15:59:28.433  1924  2325 I KGWpp_Magz: checkPictureDescriptions of magazine-unlock-01-2.3.2026012301-F2170150E6B28B262D967AF601A22371.jpg
+02-08 15:59:28.435  1924  2325 W ExifData: The ifdData is null error!
+02-08 15:59:28.436  1924  2325 I KGWpp_Magz: checkPictureDescriptions of magazine-unlock-01-2.3.2026012301-870E8F89FDB9E1BE6DEA0684B6A0514A.jpg
+02-08 15:59:28.438  1924  2325 I ExifParser: mTiffStream skip = 0
+02-08 15:59:28.439  1924  2325 W ExifData: The tag is null error!
+02-08 15:59:28.439  1924  2325 I KGWpp_Magz: checkPictureDescriptions of magazine-unlock-06-2.3.2026020201-C348CF0FF9747735FB2FB832FA0B3D3F.jpg
+02-08 15:59:28.441  1924  2325 I ExifParser: mTiffStream skip = 0
+02-08 15:59:28.441  1924  2325 W ExifData: The tag is null error!
+02-08 15:59:28.442  1924  2325 I KGWpp_Magz: checkPictureDescriptions of magazine-unlock-03-2.3.2026020502-ED1A17452EFD2199AA0BEA7C3F59BBDF.jpg
+02-08 15:59:28.443  1924  2325 I ExifParser: mTiffStream skip = 0
+02-08 15:59:28.444  1924  2325 W ExifData: The tag is null error!
+02-08 15:59:28.445  1924  2325 I KGWpp_Magz: checkPictureDescriptions of magazine-unlock-03-2.3.2026020502-2EB666BD77BF52A462F9605831AD9DE2.jpg
+02-08 15:59:28.446  1924  2325 I ExifParser: mTiffStream skip = 0
+02-08 15:59:28.447  1924  2325 W ExifData: The tag is null error!
+02-08 15:59:28.448  1924  2325 I KGWpp_Magz: checkPictureDescriptions of magazine-unlock-03-2.3.2026020502-C4400677760261B3EA2235AF201FB930.jpg
+02-08 15:59:28.449  1924  2325 I ExifParser: mTiffStream skip = 0
+02-08 15:59:28.451  1924  2325 W ExifData: The tag is null error!
+02-08 15:59:28.451  1924  2325 I KGWpp_Magz: checkPictureDescriptions of magazine-unlock-03-2.3.2026020502-DC17259B4F5951BA81FF6E5E95D763BF.jpg
+02-08 15:59:28.453  1924  2325 I ExifParser: mTiffStream skip = 0
+02-08 15:59:28.454  1924  2325 W ExifData: The tag is null error!
+02-08 15:59:28.454  1924  2325 I KGWpp_Magz: checkPictureDescriptions of magazine-unlock-03-2.3.2026020502-9FD8AACBDE5CF1BDBA1534C8E11B29E5.jpg
+02-08 15:59:28.456  1924  2325 I ExifParser: mTiffStream skip = 0
+02-08 15:59:28.457  1924  2325 W ExifData: The tag is null error!
+02-08 15:59:28.459  1924  2325 I KGWpp_Magz: checkPictureDescriptions of magazine-unlock-03-2.3.2026020502-08961F4A0A10045F37D24C1222D315AE.jpg
+02-08 15:59:28.460  1575  7355 V ActivityManager: Successfully start provider ContentProviderRecord{94010b3 u0 com.android.providers.media/.MediaProvider} launchingApp=ProcessRecord{d6d8e22 26237:android.process.media/u0a16} caller pid= 25492
+02-08 15:59:28.462  1924  2325 I ExifParser: mTiffStream skip = 0
+02-08 15:59:28.463  1924  2325 W ExifData: The tag is null error!
+02-08 15:59:28.464  1924  2325 I KGWpp_Magz: checkPictureDescriptions of magazine-unlock-03-2.3.2026020502-68C0A5E268B621B50DEF765A2D835476.jpg
+02-08 15:59:28.465  1924  2325 I ExifParser: mTiffStream skip = 0
+02-08 15:59:28.466  1924  2325 W ExifData: The tag is null error!
+02-08 15:59:28.467  1924  2325 I KGWpp_Magz: checkPictureDescriptions of magazine-unlock-05-2.3.2026020502-4C484D102CD514EC5134C8EB16CAA0B9.jpg
+02-08 15:59:28.469  1924  2325 I ExifParser: mTiffStream skip = 0
+02-08 15:59:28.470  1924  2325 W ExifData: The tag is null error!
+02-08 15:59:28.470  1924  2325 I KGWpp_Magz: checkPictureDescriptions of magazine-unlock-05-2.3.2026020502-93DBD09EDDF53F717A613FE8F82DA12A.jpg
+02-08 15:59:28.472  1924  2325 I ExifParser: mTiffStream skip = 0
+02-08 15:59:28.473  1924  2325 W ExifData: The tag is null error!
+02-08 15:59:28.473  1924  2325 I KGWpp_Magz: checkPictureDescriptions of magazine-unlock-05-2.3.2026020502-4FE38002540ADD15468F3266F848F007.jpg
+02-08 15:59:28.475  1924  2325 I ExifParser: mTiffStream skip = 0
+02-08 15:59:28.476  1924  2325 W ExifData: The tag is null error!
+02-08 15:59:28.476  1924  2325 I KGWpp_Magz: checkPictureDescriptions of magazine-unlock-05-2.3.2026020502-0238C68AC368FDE1D209D5660549667C.jpg
+02-08 15:59:28.477  1924  2325 I ExifParser: mTiffStream skip = 0
+02-08 15:59:28.479  1924  2325 W ExifData: The tag is null error!
+02-08 15:59:28.479  1924  2325 I KGWpp_Magz: checkPictureDescriptions of magazine-unlock-02-2.3.2026020501-19D5B9BB3DF08D65282AEC78E23213FB.jpg
+02-08 15:59:28.481  1924  2325 I ExifParser: mTiffStream skip = 0
+02-08 15:59:28.482  1924  2325 W ExifData: The tag is null error!
+02-08 15:59:28.482  1924  2325 I KGWpp_Magz: checkPictureDescriptions of magazine-unlock-01-2.3.2023120101-C4471657793F10A46D22ADC40625E4FE.jpg
+02-08 15:59:28.485  1924  2325 I ExifParser: mTiffStream skip = 0
+02-08 15:59:28.486  1924  2325 W ExifData: The tag is null error!
+02-08 15:59:28.486  1924  2325 I KGWpp_Magz: checkPictureDescriptions of magazine-unlock-01-2.3.2023120101-A4C6E60F11DF4AAF45DE10AEDB535AD0.jpg
+02-08 15:59:28.487  1924  2325 I ExifParser: mTiffStream skip = 0
+02-08 15:59:28.488  1924  2325 W ExifData: The tag is null error!
+02-08 15:59:28.488  1924  2325 I KGWpp_Magz: checkPictureDescriptions of magazine-unlock-01-2.3.2023120101-7E729EA36B28E39F1322B217DC5BEAB7.jpg
+02-08 15:59:28.488  1924  2325 I ExifParser: mTiffStream skip = 0
+02-08 15:59:28.489  1924  2325 W ExifData: The tag is null error!
+02-08 15:59:28.489  1924  2325 I KGWpp_Magz: checkPictureDescriptions of magazine-unlock-01-2.3.2023120101-DAEB1665D7F5510E4546951B7FDC92E7.jpg
+02-08 15:59:28.489  1924  2325 I ExifParser: mTiffStream skip = 0
+02-08 15:59:28.490  1924  2325 W ExifData: The tag is null error!
+02-08 15:59:28.490  1924  2325 I KGWpp_Magz: checkPictureDescriptions of magazine-unlock-01-2.3.2023120101-436E69E2D17E0C739111BF454006A828.jpg
+02-08 15:59:28.491  1924  2325 I ExifParser: mTiffStream skip = 0
+02-08 15:59:28.491  1924  2325 W ExifData: The tag is null error!
+02-08 15:59:28.491  1924  2325 I KGWpp_Magz: checkPictureDescriptions of magazine-unlock-03-2.3.2026020802-7AF98C858365111003B2F0D65292F256.jpg
+02-08 15:59:28.492  1924  2325 I ExifParser: mTiffStream skip = 0
+02-08 15:59:28.492  1924  2325 W ExifData: The tag is null error!
+02-08 15:59:28.492  1924  2325 I KGWpp_Magz: checkPictureDescriptions of magazine-unlock-03-2.3.2026020802-6B13781CF97AE746D0D3566E2EE44D41.jpg
+02-08 15:59:28.493  1924  2325 I ExifParser: mTiffStream skip = 0
+02-08 15:59:28.493  1924  2325 W ExifData: The tag is null error!
+02-08 15:59:28.493  1924  2325 I KGWpp_Magz: checkPictureDescriptions of magazine-unlock-03-2.3.2026020802-ED7D136675D9453A5758ECA6B89FBDFA.jpg
+02-08 15:59:28.494  1924  2325 I ExifParser: mTiffStream skip = 0
+02-08 15:59:28.494  1924  2325 W ExifData: The tag is null error!
+02-08 15:59:28.494  1924  2325 I KGWpp_Magz: checkPictureDescriptions of magazine-unlock-03-2.3.2026020802-74F8A118D1DD43E8C41DF334435DC16A.jpg
+02-08 15:59:28.495  1924  2325 I ExifParser: mTiffStream skip = 0
+02-08 15:59:28.495  1924  2325 W ExifData: The tag is null error!
+02-08 15:59:28.495  1924  2325 I KGWpp_Magz: checkPictureDescriptions of magazine-unlock-03-2.3.2026020802-597055E715E673AF31B318E9993245F0.jpg
+02-08 15:59:28.496  1924  2325 I ExifParser: mTiffStream skip = 0
+02-08 15:59:28.496  1924  2325 W ExifData: The tag is null error!
+02-08 15:59:28.496  1924  2325 I KGWpp_Magz: checkPictureDescriptions of magazine-unlock-03-2.3.2026020802-18FFDF0AF5CF36CF82066810896F99E7.jpg
+02-08 15:59:28.497  1924  2325 I ExifParser: mTiffStream skip = 0
+02-08 15:59:28.497  1924  2325 W ExifData: The tag is null error!
+02-08 15:59:28.497  1924  2325 I KGWpp_Magz: checkPictureDescriptions of magazine-unlock-03-2.3.2026020802-D6E7A6E1D821251D93F582C1EFBEB56A.jpg
+02-08 15:59:28.498  1924  2325 I ExifParser: mTiffStream skip = 0
+02-08 15:59:28.498  1924  2325 W ExifData: The tag is null error!
+02-08 15:59:28.498  1924  2325 I KGWpp_Magz: checkPictureDescriptions of magazine-unlock-05-2.3.2026020801-8ED5439048D02398B00B2B345BB5FB05.jpg
+02-08 15:59:28.498  1924  2325 I ExifParser: mTiffStream skip = 0
+02-08 15:59:28.499  1924  2325 W ExifData: The tag is null error!
+02-08 15:59:28.499  1924  2325 I KGWpp_Magz: checkPictureDescriptions of magazine-unlock-05-2.3.2026020801-DB3FC1D209D435A73B40BB7E8EF9298E.jpg
+02-08 15:59:28.499  1924  2325 I ExifParser: mTiffStream skip = 0
+02-08 15:59:28.499  1924  2325 W ExifData: The tag is null error!
+02-08 15:59:28.500  1924  2325 I KGWpp_Magz: checkPictureDescriptions of magazine-unlock-05-2.3.2026020801-48D816309159634A163A3AB68E3B9329.jpg
+02-08 15:59:28.500  1924  2325 I ExifParser: mTiffStream skip = 0
+02-08 15:59:28.500  1924  2325 W ExifData: The tag is null error!
+02-08 15:59:28.500  1924  2325 I KGWpp_Magz: checkPictureDescriptions of magazine-unlock-05-2.3.2026020801-393E9537503AEBEC952BD22709CC6F67.jpg
+02-08 15:59:28.501  1924  2325 I ExifParser: mTiffStream skip = 0
+02-08 15:59:28.501  1924  2325 W ExifData: The tag is null error!
+02-08 15:59:28.502  1924  2325 W KGWpp_Magz: force sync pic info
+02-08 15:59:28.502  1924  2325 W KGWpp_Magz: reload wallpaper when: magazine; size: 40
+02-08 15:59:28.502  1924  2325 W ExHandler: KG_Background_Handle_Thread running too long, use 120  { when=-122ms callback=com.huawei.keyguard.support.magazine.MagazineWallpaper$1 target=com.huawei.keyguard.basetype.ExHandler }
+02-08 15:59:28.516 26237 14746 V BitmapFactoryEx: nativeDecodeFileDescriptorEx
+02-08 15:59:28.517 26237 14746 V BitmapFactoryEx: nativeDecodeFileDescriptorEx
+02-08 15:59:28.535  1575  1785 I TrafficMonitor: update:rxPkts:51,txPkts:58,rxBytes:32094,txBytes:8292
+02-08 15:59:28.535  1575  1785 I TrafficMonitor: no expired. level:2
+02-08 15:59:28.535  1575  1785 I TrafficMonitor: gettimer:interval=2000
+02-08 15:59:28.535  1575  1785 I TrafficMonitor: during_ms:2003,period_ms:2000
+02-08 15:59:28.535  1575  1785 I TrafficMonitor: count:144,rx_sum:51,tx_sum:58,rxBytes:32094,during_ms:2003,rx_speed:16022.96555167249,tx_speed:4139.790314528207,rto:0.8793103448275862
+02-08 15:59:28.623 26237 26245 W System  : A resource failed to call close. 
+02-08 15:59:28.623 26237 26245 I StagefrightMediaScannerEx: StagefrightMediaScanner destructor
+02-08 15:59:28.624 26237 26245 W System  : A resource failed to call close. 
+02-08 15:59:28.624 26237 26245 I StagefrightMediaScannerEx: StagefrightMediaScanner destructor
+02-08 15:59:28.624 26237 26245 W System  : A resource failed to call close. 
+02-08 15:59:28.624 26237 26245 I StagefrightMediaScannerEx: StagefrightMediaScanner destructor
+02-08 15:59:28.624 26237 26245 W System  : A resource failed to call close. 
+02-08 15:59:28.624 26237 26245 I StagefrightMediaScannerEx: StagefrightMediaScanner destructor
+02-08 15:59:28.627   652   652 E WifiHAL : enter wifi_get_link_stats
+02-08 15:59:28.639  1575  1786 E WificondControl: Noise: -89, Snr: 0, Chload: -1
+02-08 15:59:28.643  1575  1786 D WifiScoreReport: Score = 60, wifiConnectivityManagerEnabled = false, lowScoreCount = 0
+02-08 15:59:28.655 25492 14747 W ExifInterface: Stop reading file since a wrong offset may cause an infinite loop: 0
+02-08 15:59:28.686 25492 14747 I chatty  : uid=10031(com.android.gallery3d) identical 6 lines
+02-08 15:59:28.686 25492 14747 W ExifInterface: Stop reading file since a wrong offset may cause an infinite loop: 0
+02-08 15:59:28.758 26237 14746 V BitmapFactoryEx: nativeDecodeFileDescriptorEx
+02-08 15:59:28.993 26237 14746 I chatty  : uid=10016(com.android.providers.media) pool-1-thread-7 identical 2 lines
+02-08 15:59:28.994 26237 14746 V BitmapFactoryEx: nativeDecodeFileDescriptorEx
+02-08 15:59:29.195   907  3754 E LOGSERVER_UTILS: [Erecovery]readEvent: eRecEventManager readEvent 0
+02-08 15:59:29.261 26237 14746 V BitmapFactoryEx: nativeDecodeFileDescriptorEx
+02-08 15:59:29.262 26237 14746 V BitmapFactoryEx: nativeDecodeFileDescriptorEx
+02-08 15:59:29.367  2186 28055 I DownloadState: 10037 dl start, speed: 110251bytes/s
+02-08 15:59:29.367  2186 28055 I DownloadState: @@@@@@@@@@@@ uid :10037 download :true
+02-08 15:59:29.367  2186 28055 I PGServer: report state:5 event type:1 pid:0 uid:10037 pkg:null to pid: 1575
+02-08 15:59:29.574 25492 14747 E RecycleClearService: startRecycleClearService   forceStart = false, sClearDone = true
+02-08 15:59:30.236   907  3754 E LOGSERVER_UTILS: [Erecovery]readEvent: eRecEventManager readEvent 0
+02-08 15:59:30.399 26237 26263 I AutoCache: thumbnail cache has been set up successfully.
+02-08 15:59:30.538  1575  1785 I TrafficMonitor: update:rxPkts:1,txPkts:0,rxBytes:1331,txBytes:0
+02-08 15:59:30.538  1575  1785 I TrafficMonitor: start expired. level:-1
+02-08 15:59:30.539  1575  1785 I TrafficMonitor: gettimer:interval=2000
+02-08 15:59:30.645   891   891 E Thermal-daemon: [ap] temp_new :29  temp_old :28
+02-08 15:59:30.647   891   891 E Thermal-daemon: Report temperature: [ap] temp :29  report_threshold:1
+02-08 15:59:30.958 24209 14729 W libEGL  : EGLNativeWindowType 0x7703fd2010 disconnect failed
+02-08 15:59:30.958  2186  2779 I PG_ash  : view remove pid:24209 uid:10037
+02-08 15:59:30.973  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{1e544 u0 com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}
+02-08 15:59:30.981  1575  7355 V WindowManager: removeIfPossible: Window{d8bfc01 u0 Toast}
+02-08 15:59:30.982  1575  7355 V WindowManager: Not removing Window{d8bfc01 u0 Toast EXITING} due to exit animation 
+02-08 15:59:30.992  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{1e544 u0 com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}
+02-08 15:59:31.015  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{1e544 u0 com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}
+02-08 15:59:31.022  1575  1606 I DebugKeepScreenOn: setHoldScreenLocked newHoldScreen:null currentHoldScreen:Session{297dada 24209:u0a10037} wakeLockState:true
+02-08 15:59:31.022  1575  1606 I DebugKeepScreenOn: Releasing screen wakelock, obscured by Window{1e544 u0 com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}
+02-08 15:59:31.022  1575  1606 D PowerMS : release:L=223195808,F=0x0,T="WindowManager",N=android",WS=WorkSource{10037},U=1000,P=1575
+02-08 15:59:31.035  1575 11163 W NotificationService: Toast already killed. pkg=com.android.keyguard callback=android.app.ITransientNotification$Stub$Proxy@b0ae771
+02-08 15:59:31.101  1575  1726 V WindowManager: Exit animation finished in Window{d8bfc01 u0 Toast EXITING}: remove=true
+02-08 15:59:31.126  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{1e544 u0 com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}
+02-08 15:59:31.134  1575  1726 V WindowManager: postWindowRemoveCleanupLocked: Window{d8bfc01 u0 Toast}
+02-08 15:59:31.135  1575  1726 V WindowManager: Removing Window{d8bfc01 u0 Toast} from WindowToken{bd11c85 android.os.Binder@d42fdfc}
+02-08 15:59:31.142  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{1e544 u0 com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}
+02-08 15:59:31.254   907  3754 E LOGSERVER_UTILS: [Erecovery]readEvent: eRecEventManager readEvent 0
+02-08 15:59:31.408  1575 11163 V ActivityManager: Successfully start provider ContentProviderRecord{94010b3 u0 com.android.providers.media/.MediaProvider} launchingApp=ProcessRecord{d6d8e22 26237:android.process.media/u0a16} caller pid= 25492
+02-08 15:59:31.550 25492 14758 W ExifInterface: Stop reading file since a wrong offset may cause an infinite loop: 0
+02-08 15:59:31.555 25492 14758 I chatty  : uid=10031(com.android.gallery3d) identical 6 lines
+02-08 15:59:31.555 25492 14758 W ExifInterface: Stop reading file since a wrong offset may cause an infinite loop: 0
+02-08 15:59:31.647   652   652 E WifiHAL : enter wifi_get_link_stats
+02-08 15:59:31.660  1575  1786 E WificondControl: Noise: -89, Snr: 0, Chload: -1
+02-08 15:59:31.664  1575  1786 D WifiScoreReport: Score = 60, wifiConnectivityManagerEnabled = false, lowScoreCount = 0
+02-08 15:59:31.672 25492 14758 W Gallery2_MediaSync_LocalSyncToken: no more camera exif need sync.
+02-08 15:59:31.739  1575  1786 E WificondControl: Noise: -89, Snr: 0, Chload: -1
+02-08 15:59:31.746  1575  1785 D WiFi_PRO: MSG_RETURN_AP_CURRY_RSSI rssi = -56
+02-08 15:59:31.747  1575 14759 I HwUidTcpMonitor: TcpStatisticsRun run
+02-08 15:59:31.747  1575  1858 I HuaweiWifiWatchdogStateMachine: POta txb txg rxg:0, 188, 0. Lr =0% Totpkt=188
+02-08 15:59:31.747  1575  1785 I QosMonitor: queryRtt: rtt_type = 3
+02-08 15:59:31.748  1575  1785 I QosMonitor: postEventFromNative: msg=100,arg1=4,arg2=10
+02-08 15:59:31.749  1575 14759 D HwUidTcpMonitor: parseWlanUidTcpStatistics newUidTcpStatInfo = [ mUid = 10016 mPacketName = com.opencode.voiceassist mSendSegs = 184 mResendSegs = 0 mRcvSegs = 354 ]
+02-08 15:59:31.749  1575 14759 D HwUidTcpMonitor: parseWlanUidTcpStatistics lastUidTcpStatInfo = [ mUid = 10076 mPacketName = com.huawei.android.launcher mSendSegs = 908 mResendSegs = 12 mRcvSegs = 840 ]
+02-08 15:59:31.749  1575 14759 D HwUidTcpMonitor: parseWlanUidTcpStatistics lastUidTcpStatInfo = [ mUid = 10033 mPacketName = com.huawei.android.launcher mSendSegs = 1186 mResendSegs = 0 mRcvSegs = 979 ]
+02-08 15:59:31.749  1575 14759 D HwUidTcpMonitor: parseWlanUidTcpStatistics lastUidTcpStatInfo = [ mUid = 10124 mPacketName = com.huawei.android.launcher mSendSegs = 602 mResendSegs = 535 mRcvSegs = 0 ]
+02-08 15:59:31.749  1575  1785 I QosMonitor: postEventFromNative: msg=100,arg1=0,arg2=10
+02-08 15:59:31.749  1575 14759 D HwUidTcpMonitor: parseWlanUidTcpStatistics lastUidTcpStatInfo = [ mUid = 10037 mPacketName = com.huawei.android.launcher mSendSegs = 259 mResendSegs = 0 mRcvSegs = 247 ]
+02-08 15:59:31.749  1575  1785 I MQoS    : rtt=276,tcp_tx_pkts=3835828,tcp_rx_pkts=7241356
+02-08 15:59:31.749  1575  1785 I QosMonitor: resetRtt: rtt_type = 3
+02-08 15:59:31.750  1575  1858 I HuaweiWifiWatchdogStateMachine: PTcp RTT:276, rtt pkt=24, tcp_rx=409, tcp_tx=247, tcp_reTran=1, rtRate=0
+02-08 15:59:31.750  1575  1858 I HuaweiWifiWatchdogStateMachine: judge good link######, goodLinkLevel=3
+02-08 15:59:31.750  1575  1858 I HuaweiWifiWatchdogStateMachine: sendResultMsgToQM bssid:3c:7c:**:**:20:74, qoslevel=3
+02-08 15:59:31.750  1575  1858 I HuaweiWifiWatchdogStateMachine: link good reported, good base rssi:-65
+02-08 15:59:31.751  1575  1785 D WiFi_PRO_WifiProStateMachine: onNetworkQosChange, currentWifiLevel == 3, wifiNoInternet = false, updateUiOnly = true
+02-08 15:59:31.754  1575  8854 I MQoS    : QOS_level:0(0),wifi-link;SIM error;use level-0
+02-08 15:59:31.754  1575  8854 I MQoS    : skip-low-Level:0(0),wifi-link;SIM error;use level-0
+02-08 15:59:31.867  1575 11163 I ActivityManager: Killing 12791:com.google.android.partnersetup/u0a120 (adj 906): empty #25
+02-08 15:59:31.870  1575  1598 W libprocessgroup: kill(-12791, 9) failed: No such process
+02-08 15:59:31.882  2186  6334 D ThermalTrace: saveRepeatData, app:com.opencode.voiceassist, shell:0,abient:-100
+02-08 15:59:31.892  1575  3114 D ActivityManager: cleanUpApplicationRecord app: ProcessRecord{ccd18e4 12791:com.google.android.partnersetup/u0a120}, app.bad: false, restarting: false, allowRestart: true
+02-08 15:59:31.896  1575  1754 W AwareLog: SchedLevelBoost: onProcessDied config not set!
+02-08 15:59:31.898  2059 31540 E HsmCoreServiceImpl: onTransact in code is: 102
+02-08 15:59:31.898  2059 31540 I MediaProcessHandler: processOp opType: 1, uid: 10120, pid: 12791
+02-08 15:59:31.898  2059 31540 W MediaProcessHandler: remove target not exist, maybe the UI process: uid: 10120, pid: 12791
+02-08 15:59:31.898  2059 31540 I MediaProcessHandler: executedCallBack opType: 1 mMediaStatusObservers.size=1
+02-08 15:59:31.899  2059  2073 I BoosterSwitchP: notifyUidState do nothing
+02-08 15:59:31.899  2059  2073 I DeepNoDisturbP: notifyUidState
+02-08 15:59:31.899  2059  2073 I BrowserChrP: notifyUidState
+02-08 15:59:31.911   598   598 I Zygote  : Process 12791 exited due to signal (9)
+02-08 15:59:31.916  1575  1598 W libprocessgroup: kill(-12791, 9) failed: No such process
+02-08 15:59:31.916  1575  1598 I libprocessgroup: Successfully killed process cgroup uid 10120 pid 12791 in 46ms
+02-08 15:59:32.043  1575  2023 D HwLocationManagerService: hwLocationHandleMessage :7, sceenoff:false
+02-08 15:59:32.050  1575  2023 I HwLocationManagerService: hwCheckLock finalCheck 0 needCheckAgain false
+02-08 15:59:32.280 25492 14758 E RecycleClearService: startRecycleClearService   forceStart = false, sClearDone = true
+02-08 15:59:32.294   907  3754 E LOGSERVER_UTILS: [Erecovery]readEvent: eRecEventManager readEvent 0
+02-08 15:59:32.392   631   631 I audio_hw_primary: usb_ext_get_parameters: check show hires (false)
+02-08 15:59:32.393  1575  1805 I HwAudioServiceEx: check HiRes Icon false
+02-08 15:59:32.395  1575  1805 W ActivityManager: Sending non-protected broadcast huawei.intent.action.hideHiResIcon from system 1575:system/1000 pkg android
+02-08 15:59:32.395  1575  1805 W ActivityManager: Sending non-protected broadcast huawei.intent.action.hideHiResIcon from system 1575:system/1000 pkg android
+02-08 15:59:32.541  1575  1785 I TrafficMonitor: update:rxPkts:0,txPkts:0,rxBytes:0,txBytes:0
+02-08 15:59:32.541  1575  1785 I TrafficMonitor: start expired. level:-1
+02-08 15:59:32.541  1575  1785 I TrafficMonitor: gettimer:interval=2000
+02-08 15:59:32.570  1575  3123 V ActivityManager: startProcess: name=com.android.gallery3d:search app=null knownToBeDead=true thread=null pid=-1 preloadStatus=-1
+02-08 15:59:32.588   598   598 I Zygote  : say something before unblock SIGCHLD, uid: 10031 pid: 14765, do not delete this log!
+02-08 15:59:32.592  1575  1597 I ActivityManager: Start proc 14765:com.android.gallery3d:search/u0a31 for service com.android.gallery3d/com.huawei.gallery.search.SearchService
+02-08 15:59:32.592  1575  2035 E ProcessInfoCollector: getProcessInfo: failed to find this proc 
+02-08 15:59:32.593 14765 14765 I allery3d:searc: Reinit property: dalvik.vm.checkjni= false
+02-08 15:59:32.595 14765 14765 E allery3d:searc: Not starting debugger since process cannot load the jdwp agent.
+02-08 15:59:32.600 14765 14765 D ZrHung.AppEyeUiProbe: AppEyeUIP created.
+02-08 15:59:32.603 14765 14765 D ActivityThread: Attach thread to application
+02-08 15:59:32.604  1575  1584 I system_server: Background concurrent copying GC freed 564020(23MB) AllocSpace objects, 46(1532KB) LOS objects, 36% free, 42MB/66MB, paused 1.186ms total 419.558ms
+02-08 15:59:32.618 14765 14765 I allery3d:searc: The ClassLoaderContext is a special shared library.
+02-08 15:59:32.622  1575  1582 D SurfaceComposerClient: destroySurface mStatus != NO_ERROR
+02-08 15:59:32.622 14765 14779 I HwApiCacheMangerEx: apicache path=/storage/emulated/0 state=mounted key=com.android.gallery3d#10031#256
+02-08 15:59:32.623 14765 14779 I HwApiCacheMangerEx: apicache path=/storage/emulated/0 state=mounted key=com.android.gallery3d#10031#0
+02-08 15:59:32.624 14765 14779 I HwLogExceptionInner: Log blacklist 
+02-08 15:59:32.643  1575  1582 W System  : A resource failed to call release. 
+02-08 15:59:32.783 14765 14765 I allery3d:searc: QarthPatchMonintor::Init
+02-08 15:59:32.783 14765 14765 I allery3d:searc: 
+02-08 15:59:32.783 14765 14765 I allery3d:searc: QarthPatchMonintor::StartWatch
+02-08 15:59:32.783 14765 14765 I allery3d:searc: 
+02-08 15:59:32.783 14765 14765 I allery3d:searc: QarthPatchMonintor::WatchPackage: /data/hotpatch/fwkhotpatch/
+02-08 15:59:32.783 14765 14765 I allery3d:searc: 
+02-08 15:59:32.783 14765 14765 I allery3d:searc: QarthPatchMonintor::CheckAndWatchPatch: /data/hotpatch/fwkhotpatch/com.android.gallery3d
+02-08 15:59:32.783 14765 14765 I allery3d:searc: 
+02-08 15:59:32.783 14765 14765 I allery3d:searc: QarthPatchMonintor::CheckAndWatchPatch: /data/hotpatch/fwkhotpatch/all
+02-08 15:59:32.783 14765 14765 I allery3d:searc: 
+02-08 15:59:32.784 14765 14765 I allery3d:searc: QarthPatchMonintor::Run
+02-08 15:59:32.784 14765 14765 I allery3d:searc: 
+02-08 15:59:32.790 14765 14782 I allery3d:searc: QarthPatchMonintor::Reading
+02-08 15:59:32.790 14765 14782 I allery3d:searc: 
+02-08 15:59:32.790 14765 14782 I allery3d:searc: QarthPatchMonintor::CheckNotifyEvent
+02-08 15:59:32.790 14765 14782 I allery3d:searc: 
+02-08 15:59:32.790 14765 14782 I allery3d:searc: QarthPatchMonintor::CheckNotifyEvent before read
+02-08 15:59:32.790 14765 14782 I allery3d:searc: 
+02-08 15:59:32.805 14765 14765 W allery3d:search: type=1400 audit(0.0:84709): avc: denied { read } for name="size" dev="proc" ino=4026532263 scontext=u:r:priv_app:s0:c512,c768 tcontext=u:object_r:proc_bootdevice_size:s0 tclass=file permissive=0
+02-08 15:59:32.806 14765 14765 D DeviceInfo: No path exception=java.io.FileNotFoundException: /proc/partitions (Permission denied)
+02-08 15:59:32.807 14765 14779 I AwareBitmapCacher: init processName:com.android.gallery3d:search pid=14765 uid=10031
+02-08 15:59:32.807 14765 14765 D DeviceInfo: No path exception=java.io.FileNotFoundException: /proc/bootdevice/size (Permission denied)
+02-08 15:59:32.809 14765 14765 D DeviceInfo: ramSize =4194304
+02-08 15:59:32.826 14765 14765 I AppFeatureLoader: loadFeature entryClazz:com.huawei.gallery.featurelayer.feature.dynamic.Panorama3DFeatureEntry clazz:com.huawei.gallery.feature.panorama3d.IPanorama3DFeature
+02-08 15:59:32.828 14765 14765 E AppFeatureLoader: loadFeatureEntry Exception
+02-08 15:59:32.828 14765 14765 I AppFeatureLoader: loadFeature fail, iFeature is null
+02-08 15:59:32.831 14765 14779 E MemoryLeakMonitorManager: MemoryLeakMonitor.jar is not exist!
+02-08 15:59:32.832 14765 14765 I HwTypeface: updateFont: scale=1.0
+02-08 15:59:32.833 14765 14765 D Typeface: areFontsVariable: script=Hans
+02-08 15:59:32.842 14765 14786 I HwApiCacheMangerEx: apicache path=/storage/emulated/0 state=mounted key=com.android.gallery3d#10031#512
+02-08 15:59:32.847 14765 14765 I AppFeatureLoader: loadFeature entryClazz:com.huawei.gallery.featurelayer.feature.dynamic.GalleryVisionFeatureEntry clazz:com.huawei.gallery.feature.galleryvision.IGalleryVisionFeature
+02-08 15:59:32.849 14765 14765 W Thread-6: type=1400 audit(0.0:84710): avc: denied { call } for scontext=u:r:priv_app:s0:c512,c768 tcontext=u:r:hal_sensors_default:s0 tclass=binder permissive=0
+02-08 15:59:32.852 14765 14787 W ServiceManagement: getService: unable to call into hwbinder service for vendor.huawei.hardware.sensors@1.0::ISensors/default.
+02-08 15:59:32.858 14765 14786 I AppFeatureLoader: loadFeature entryClazz:com.huawei.gallery.featurelayer.feature.dynamic.PhotoRectifyFeatureEntry clazz:com.huawei.gallery.feature.photorectify.IPhotoRectifyFeature
+02-08 15:59:32.862  1575  3123 V ActivityManager: Successfully start provider ContentProviderRecord{9bbbb99 u0 com.android.providers.settings/.SettingsProvider} launchingApp=null caller pid= 14765
+02-08 15:59:32.867 14765 14786 E FontFamily: Error mapping font file /system/fonts/slim.ttf
+02-08 15:59:32.867 14765 14786 W Gallery2_Common_GalleryUtils: Font not found!
+02-08 15:59:32.895 14765 14786 W HwCust  : CUST VERSION = true, use class = class com.android.gallery3d.util.HwCustBlackList
+02-08 15:59:32.966 14765 14783 D DE I -de: nativeInit:66: Loading algorithms
+02-08 15:59:32.966 14765 14783 D DE I -de: initLogSwitch:23: isProductDebuggable=0, isDebugLogOn=0
+02-08 15:59:32.992 14765 14787 D OpenGLRenderer: Skia GL Pipeline
+02-08 15:59:32.996 14765 14783 I AppFeatureLoader: loadFeature entryClazz:com.huawei.gallery.featurelayer.feature.dynamic.SearchFeatureEntry clazz:com.huawei.gallery.feature.search.ISearchFeature
+02-08 15:59:33.020 14765 14783 E Gallery2_Common_TouchForceManager: NoSuchMethodException com.huawei.android.app.Activity failed
+02-08 15:59:33.051 14765 14783 E libscanner: fox_v1.0.0_20181225_>>>Version:  WB_v363_CC_r<<<
+02-08 15:59:33.198  1575  3123 V ActivityManager: Successfully start provider ContentProviderRecord{c940ad u0 com.android.gallery3d/com.huawei.gallery.provider.GalleryProvider} launchingApp=ProcessRecord{d41f9c4 25492:com.android.gallery3d/u0a31} caller pid= 14765
+02-08 15:59:33.203  2186  6252 I LogPowerAdapter: do thermal temperature:23action:app_ctrl value:0 to PG
+02-08 15:59:33.203  2186  6252 D HwPolicyDispatcher: send ctrl to PG,0
+02-08 15:59:33.205  2186  2779 I TClean  : TClean trigger policy = 0
+02-08 15:59:33.206  2186  2779 I HardwareAdapter: isOnlyChargingType adaptor_detect=1
+02-08 15:59:33.208  2186  2779 I HardwareAdapter: isOnlyChargingType chargerType=0
+02-08 15:59:33.208  2186  2779 I PG_ash  : not only power charing.
+02-08 15:59:33.215  4038  6187 I CAWARENESS_UserWakeupSleepEventHandler: handleMessage msg: 5
+02-08 15:59:33.263 14765 14788 W Gallery2_Search_SearchUtil: cursor1 : android.content.ContentResolver$CursorWrapperInner@b3533c1, cursor2 : android.content.ContentResolver$CursorWrapperInner@3b20766, cursor3 : android.content.ContentResolver$CursorWrapperInner@ff26aa7, cursor4 : android.content.ContentResolver$CursorWrapperInner@ae07b54
+02-08 15:59:33.334   907  3754 E LOGSERVER_UTILS: [Erecovery]readEvent: eRecEventManager readEvent 0
+02-08 15:59:33.537  1575  1785 I TrafficMonitor: expired arrive. level:-1
+02-08 15:59:33.537  1575  1785 I TrafficMonitor: during_ms:2003,period_ms:2000
+02-08 15:59:33.537  1575  1785 I TrafficMonitor: count:146,rx_sum:0,tx_sum:0,rxBytes:0,during_ms:2003,rx_speed:0.0,tx_speed:0.0,rto:0.0
+02-08 15:59:33.831  2117  2839 D DeviceMonitorPowerKit: run, sCountNum is 1
+02-08 15:59:33.831  2117  2839 D DeviceMonitorPowerKit: interval is 919975, ElapsedRealtime is 365362675, isNeedRepeat: false
+02-08 15:59:33.831  2117  2839 D DeviceMonitorPowerKit: Satify ApplyResource, to apply
+02-08 15:59:33.833  2186  2222 I PowerKit_Impl: apply pkg: com.huawei.nearby resource:65535 timeout:1800000 reason:nearby is supporting connectivity
+02-08 15:59:33.834  2186  2222 I AppResManager: Request interaction :{com.huawei.nearby 65535 368082652}
+02-08 15:59:33.835  2186  2779 I AbnormalCtrlPolicy: Request interaction app: com.huawei.nearby
+02-08 15:59:33.836  2186  2763 I PGServer: report state:12 event type:1 pid:-1 uid:0 pkg:com.huawei.nearby#368082652 to pid: 1575
+02-08 15:59:33.844  2186  5574 I PowerKit_Impl: apply pkg: com.huawei.iconnect resource:65535 timeout:1800000 reason:nearby is supporting connectivity
+02-08 15:59:33.844  2186  5574 I AppResManager: Request interaction :{com.huawei.iconnect 65535 368082663}
+02-08 15:59:33.844  2186  2763 I PGServer: report state:12 event type:1 pid:-1 uid:0 pkg:com.huawei.iconnect#368082663 to pid: 1575
+02-08 15:59:33.846  2186  2779 I AbnormalCtrlPolicy: Request interaction app: com.huawei.iconnect
+02-08 15:59:33.853  2186  5574 I PowerKit_Impl: apply pkg: com.huawei.synergy resource:65535 timeout:1800000 reason:nearby is supporting connectivity
+02-08 15:59:33.853  2186  5574 I AppResManager: Request interaction :{com.huawei.synergy 65535 368082672}
+02-08 15:59:33.853  2186  2763 I PGServer: report state:12 event type:1 pid:-1 uid:0 pkg:com.huawei.synergy#368082672 to pid: 1575
+02-08 15:59:33.855  2186  2779 I AbnormalCtrlPolicy: Request interaction app: com.huawei.synergy
+02-08 15:59:33.858  2117  2839 I DeviceMonitorPowerKit: isApplySuccess is true, true, true, sCountNum is 1, isNeedRepeat; false
+02-08 15:59:34.338   907  3754 E LOGSERVER_UTILS: [Erecovery]readEvent: eRecEventManager readEvent 0
+02-08 15:59:34.376  2186 28055 I DownloadState: 10037 stop download, curr: 5345968, base: 5345968, delta: 0
+02-08 15:59:34.376  2186 28055 I DownloadState: @@@@@@@@@@@@ uid :10037 download :false
+02-08 15:59:34.377  2186 28055 I PGServer: report state:5 event type:2 pid:0 uid:10037 pkg:null to pid: 1575
+02-08 15:59:34.447 12874 13051 I NetworkStatsManager: querySummary callingPid = 12874
+02-08 15:59:34.447  1575  2385 I NetworkStats: openSessionForUsageStats, pid = 12874, pkg = com.tencent.mm
+02-08 15:59:34.454 12874 13051 I NetworkStatsManager: querySummary callingPid = 12874
+02-08 15:59:34.455  1575  2385 I NetworkStats: openSessionForUsageStats, pid = 12874, pkg = com.tencent.mm
+02-08 15:59:34.543  1575  1785 I TrafficMonitor: update:rxPkts:1,txPkts:0,rxBytes:1331,txBytes:0
+02-08 15:59:34.544  1575  1785 I TrafficMonitor: start expired. level:-1
+02-08 15:59:34.544  1575  1785 I TrafficMonitor: gettimer:interval=2000
+02-08 15:59:34.666   652   652 E WifiHAL : enter wifi_get_link_stats
+02-08 15:59:34.680  1575  1786 E WificondControl: Noise: -89, Snr: 0, Chload: -1
+02-08 15:59:34.685  1575  1786 D WifiScoreReport: Score = 60, wifiConnectivityManagerEnabled = false, lowScoreCount = 0
+02-08 15:59:35.379   907  3754 E LOGSERVER_UTILS: [Erecovery]readEvent: eRecEventManager readEvent 0
+02-08 15:59:35.843  1575  2385 V ActivityManager: Successfully start provider ContentProviderRecord{c940ad u0 com.android.gallery3d/com.huawei.gallery.provider.GalleryProvider} launchingApp=ProcessRecord{d41f9c4 25492:com.android.gallery3d/u0a31} caller pid= 14765
+02-08 15:59:36.402   907  3754 E LOGSERVER_UTILS: [Erecovery]readEvent: eRecEventManager readEvent 0
+02-08 15:59:36.548  1575  1785 I TrafficMonitor: update:rxPkts:2,txPkts:7,rxBytes:111,txBytes:371
+02-08 15:59:36.548  1575  1785 I TrafficMonitor: start expired. level:-1
+02-08 15:59:36.548  1575  1785 I TrafficMonitor: gettimer:interval=2000
+02-08 15:59:37.395  2059  2059 D SmartDualCardSM: IdleState:got msg.what=EVENT_HARD_SWITCH_CONDITION_CHECK
+02-08 15:59:37.402 12894 12912 I HiDecision: ServiceConnectionToZ: unBindService
+02-08 15:59:37.403 12894 12912 E HiDecision: ServiceConnectionToZ: IllegalArgumentException in unBindService
+02-08 15:59:37.425  2059  2059 E SmartDualCardTraffic: getMealTrafficImpl fail,invalid imsi
+02-08 15:59:37.425  2059  2059 D SmartDualCardSM: boosterDump:prop=true SdcSwitchOn=false DataSwitchOn=true WifiConnect=true AirplaneOn=true ScreenOn=true VSimEnabled=false CallOn=false AppState=GENERAL_FOREGROUND HidataAppState=GENERAL_BACKGROUND defaultDataSub=0 default4GSlot=0 DataOn=false M_MmsUtPdp=false userType=2
+02-08 15:59:37.441  2059  2059 E SmartDualCardTraffic: getMealTrafficImpl fail,invalid imsi
+02-08 15:59:37.441  2059  2059 D SmartDualCardSM: boosterDump:SlaveActive=false SameOperator=false M_NetworkBad=false S_NetworkBad=false M_DLSpeedLimit=1048576 S_DLSpeedLimit=1048576 M_DataRoam=false S_DataRoam=false VPNMode=false TetherOn=false AppQoeSlow=false HidataAppQoeSlow=false GameExpBad=false DsdsState=1 S_TrafficEnough=true
+02-08 15:59:37.442   907  3754 E LOGSERVER_UTILS: [Erecovery]readEvent: eRecEventManager readEvent 0
+02-08 15:59:37.599 26237 26258 V Mtp     : notify PC that storage info has changed.
+02-08 15:59:37.643 14765 14781 I allery3d:searc: Waiting for a blocking GC ProfileSaver
+02-08 15:59:37.690   652   652 E WifiHAL : enter wifi_get_link_stats
+02-08 15:59:37.708  1575  1786 E WificondControl: Noise: -89, Snr: 0, Chload: -1
+02-08 15:59:37.712  1575  1786 D WifiScoreReport: Score = 60, wifiConnectivityManagerEnabled = false, lowScoreCount = 0
+02-08 15:59:37.731 14765 14781 I allery3d:searc: Waiting for a blocking GC ProfileSaver
+02-08 15:59:37.731 14765 14781 I allery3d:searc: WaitForGcToComplete blocked ProfileSaver on HeapTrim for 88.023ms
+02-08 15:59:37.750 14765 14775 I allery3d:searc: WaitForGcToComplete blocked HeapTrim on ProfileSaver for 17.993ms
+02-08 15:59:37.809 14765 14765 D AwareBitmapCacher: handleInit disable com.android.gallery3d:search
+02-08 15:59:37.951  1575  1787 D hw_netstat: total/4104/431,unknown:0/3993/0,com.android.vending/0/240,com.huawei.appmarket/111/80,android.uid.system:1000/0/111
+02-08 15:59:38.482   907  3754 E LOGSERVER_UTILS: [Erecovery]readEvent: eRecEventManager readEvent 0
+02-08 15:59:38.551  1575  1785 I TrafficMonitor: update:rxPkts:1,txPkts:2,rxBytes:1331,txBytes:120
+02-08 15:59:38.552  1575  1785 I TrafficMonitor: start expired. level:-1
+02-08 15:59:38.552  1575  1785 I TrafficMonitor: gettimer:interval=2000
+02-08 15:59:38.877  2213  2213 I ImsResolver: getMmTelFeatureAndListen - slot: 2 callback: com.android.ims.MmTelFeatureConnection$1@4aac240
+02-08 15:59:38.965  1575  3115 V ActivityManager: Successfully start provider ContentProviderRecord{c940ad u0 com.android.gallery3d/com.huawei.gallery.provider.GalleryProvider} launchingApp=ProcessRecord{d41f9c4 25492:com.android.gallery3d/u0a31} caller pid= 14765
+02-08 15:59:39.084 14765 14788 E Gallery2_Search_SearchService: local language doesn't change. no need localize.
+02-08 15:59:39.112 14765 14788 W Gallery2_Search_SearchUtil: cursor1 : android.content.ContentResolver$CursorWrapperInner@9df9e13, cursor2 : android.content.ContentResolver$CursorWrapperInner@c124850, cursor3 : android.content.ContentResolver$CursorWrapperInner@3b15a49, cursor4 : android.content.ContentResolver$CursorWrapperInner@97bdf4e
+02-08 15:59:39.165  1575  3123 I ActivityManager: Killing 12778:com.huawei.hwvoipservice/1001 (adj 906): empty #25
+02-08 15:59:39.167  1575  1598 W libprocessgroup: kill(-12778, 9) failed: No such process
+02-08 15:59:39.206  1575  1598 I chatty  : uid=1000(system) ActivityManager identical 2 lines
+02-08 15:59:39.222  1575  1598 W libprocessgroup: kill(-12778, 9) failed: No such process
+02-08 15:59:39.256  1575 11163 D ConnectivityService: ConnectivityService NetworkRequestInfo binderDied(NetworkRequest [ TRACK_DEFAULT id=780, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED Uid: 1001] ], android.os.BinderProxy@9884dd5)
+02-08 15:59:39.257   598   598 I Zygote  : Process 12778 exited due to signal (9)
+02-08 15:59:39.257  1575 11163 D HwConnectivityServiceEx: cacheCellularrNetworkRequestuid =  1001 cache:2
+02-08 15:59:39.257  1575  1792 D ConnectivityService: releasing NetworkRequest [ TRACK_DEFAULT id=780, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED Uid: 1001] ] (release request)
+02-08 15:59:39.258  1575  1792 D ConnectivityService:  Removing from current network NetworkAgentInfo [WIFI () - 116], leaving 35 requests.
+02-08 15:59:39.258  1575  3114 D ActivityManager: cleanUpApplicationRecord app: ProcessRecord{432299b 12778:com.huawei.hwvoipservice/1001}, app.bad: false, restarting: false, allowRestart: true
+02-08 15:59:39.261  1575  1754 W AwareLog: SchedLevelBoost: onProcessDied config not set!
+02-08 15:59:39.263  2059 31540 I BoosterSwitchP: notifyUidState do nothing
+02-08 15:59:39.263  2059 31540 I DeepNoDisturbP: notifyUidState
+02-08 15:59:39.263  2059 31540 I BrowserChrP: notifyUidState
+02-08 15:59:39.264  2059  2073 E HsmCoreServiceImpl: onTransact in code is: 102
+02-08 15:59:39.265  2059  2073 W MediaProcessHandler: processOp uid 1001 is not concerned!
+02-08 15:59:39.265  2059  2073 I MediaProcessHandler: executedCallBack opType: 1 mMediaStatusObservers.size=1
+02-08 15:59:39.266  1575  1598 W libprocessgroup: kill(-12778, 9) failed: No such process
+02-08 15:59:39.266  1575  1598 I libprocessgroup: Successfully killed process cgroup uid 1001 pid 12778 in 98ms
+02-08 15:59:39.269  2213  2213 V TpProviderHw: insert begin subId = 0, match is 2
+02-08 15:59:39.482   907  3754 E LOGSERVER_UTILS: [Erecovery]readEvent: eRecEventManager readEvent 0
+02-08 15:59:39.546  1575  1785 I TrafficMonitor: expired arrive. level:-1
+02-08 15:59:39.546  1575  1785 I TrafficMonitor: during_ms:2004,period_ms:2000
+02-08 15:59:39.546  1575  1785 I TrafficMonitor: count:149,rx_sum:1,tx_sum:2,rxBytes:1331,during_ms:2004,rx_speed:664.1716566866268,tx_speed:59.880239520958085,rto:0.5
+02-08 15:59:39.749  1575  1786 E WificondControl: Noise: -89, Snr: 0, Chload: -1
+02-08 15:59:39.759  1575  1785 D WiFi_PRO: MSG_RETURN_AP_CURRY_RSSI rssi = -57
+02-08 15:59:39.759  1575  1858 I HuaweiWifiWatchdogStateMachine: POta txb txg rxg:0, 22, 0. Lr =0% Totpkt=22
+02-08 15:59:39.760  1575 14797 I HwUidTcpMonitor: TcpStatisticsRun run
+02-08 15:59:39.760  1575  1785 I QosMonitor: queryRtt: rtt_type = 3
+02-08 15:59:39.761  1575  1785 I QosMonitor: postEventFromNative: msg=100,arg1=4,arg2=10
+02-08 15:59:39.762  1575  1785 I QosMonitor: postEventFromNative: msg=100,arg1=0,arg2=10
+02-08 15:59:39.762   631   631 I audio_hw_primary: usb_ext_get_parameters: check show hires (false)
+02-08 15:59:39.763  1575  1785 I MQoS    : rtt=276,tcp_tx_pkts=3835838,tcp_rx_pkts=7241358
+02-08 15:59:39.764  1575 14797 D HwUidTcpMonitor: parseWlanUidTcpStatistics lastUidTcpStatInfo = [ mUid = 10124 mPacketName = com.huawei.android.launcher mSendSegs = 608 mResendSegs = 540 mRcvSegs = 0 ]
+02-08 15:59:39.764  1575  1858 I HuaweiWifiWatchdogStateMachine: PTcp RTT:0, rtt pkt=0, tcp_rx=2, tcp_tx=10, tcp_reTran=5, rtRate=0.5
+02-08 15:59:39.764  1575 14797 D HwUidTcpMonitor: parseWlanUidTcpStatistics lastUidTcpStatInfo = [ mUid = 10033 mPacketName = com.huawei.android.launcher mSendSegs = 1187 mResendSegs = 0 mRcvSegs = 981 ]
+02-08 15:59:39.764  1575  1858 I HuaweiWifiWatchdogStateMachine: after backoff rssi th: -75, next TH:-75
+02-08 15:59:39.765  1575  1805 I HwAudioServiceEx: check HiRes Icon false
+02-08 15:59:39.767  1575  1805 W ActivityManager: Sending non-protected broadcast huawei.intent.action.hideHiResIcon from system 1575:system/1000 pkg android
+02-08 15:59:39.767  1575  1805 W ActivityManager: Sending non-protected broadcast huawei.intent.action.hideHiResIcon from system 1575:system/1000 pkg android
+02-08 15:59:39.771  1575  8854 I MQoS    : QOS_level:0(0),wifi-link;SIM error;use level-0
+02-08 15:59:40.161  2059  3100 D DaemonClientReceiver: read packet 12 bytes
+02-08 15:59:40.161  2059  3100 D DaemonClientThread: read processResponse  type = 1
+02-08 15:59:40.161  2059  3100 D DaemonClientThread:   processReport commnd   = 516
+02-08 15:59:40.161  2059  3100 D Hicom_EmcomManagerService: sampleWinOpen = false
+02-08 15:59:40.205  2059  6137 D SmartcareProc: InfosHandler: msg.what = 1002
+02-08 15:59:40.205  2059  6137 D SmartcareProc: handleTriggerAllUpload, configTypes: [game, video, email, browser, wechat, accelerator], uploadedTaskList: []
+02-08 15:59:40.502   907  3754 E LOGSERVER_UTILS: [Erecovery]readEvent: eRecEventManager readEvent 0
+02-08 15:59:40.550  1575  1575 D JobScheduler: Maybe queuing ready jobs...
+02-08 15:59:40.555  1575  1785 I TrafficMonitor: update:rxPkts:0,txPkts:1,rxBytes:0,txBytes:60
+02-08 15:59:40.555  1575  1785 I TrafficMonitor: start expired. level:-1
+02-08 15:59:40.555  1575  1785 I TrafficMonitor: gettimer:interval=2000
+02-08 15:59:40.655   891   891 E Thermal-daemon: [ap] temp_new :28  temp_old :29
+02-08 15:59:40.657   891   891 E Thermal-daemon: Report temperature: [ap] temp :28  report_threshold:1
+02-08 15:59:40.714   652   652 E WifiHAL : enter wifi_get_link_stats
+02-08 15:59:40.734  1575  1786 E WificondControl: Noise: -89, Snr: 0, Chload: -1
+02-08 15:59:40.740  1575  1786 D WifiScoreReport: Score = 60, wifiConnectivityManagerEnabled = false, lowScoreCount = 0
+02-08 15:59:41.528   907  3754 E LOGSERVER_UTILS: [Erecovery]readEvent: eRecEventManager readEvent 0
+02-08 15:59:41.982  1575  1575 W WindowManager: removeWindowToken: Attempted to remove non-existing token: android.os.Binder@d42fdfc
+02-08 15:59:42.535   907  3754 E LOGSERVER_UTILS: [Erecovery]readEvent: eRecEventManager readEvent 0
+02-08 15:59:42.550  1575  1840 D HwSelfCureEngine: periodicArpDetection signalLevel = 4, isScreenOn = true , mArpDetectionFailedCnt = 0
+02-08 15:59:42.551  1575  1840 D wifiserviceimpl: netmask =16777215
+02-08 15:59:42.559  1575  1785 I TrafficMonitor: update:rxPkts:4,txPkts:3,rxBytes:1482,txBytes:152
+02-08 15:59:42.559  1575  1785 I TrafficMonitor: start expired. level:-1
+02-08 15:59:42.559  1575  1785 I TrafficMonitor: gettimer:interval=2000
+02-08 15:59:42.614  1575  1840 D HwArpUtils: getGateWayArpResult:Pair{true 8}
+02-08 15:59:42.617  2101  2312 D HwWifiCHRStateManager: handleMessage : 1121
+02-08 15:59:42.617  2101  2312 E HwCHRWifiRSSIGroupSummery: updatArpSummery mRSSI:-1  HwCHRWifiRSSIGroup [rssi_index=4, rtt_tcp_packets=0, rtt_tcp_duration=0, rtt_lan_duration=5560, rtt_lan_failures=0, rtt_lan_succ=353, rtt_lan_max=443, rtt_lan_min=2,same_area_frequency=0,adjacent_area_frequency=2]
+02-08 15:59:43.576   907  3754 E LOGSERVER_UTILS: [Erecovery]readEvent: eRecEventManager readEvent 0
+02-08 15:59:43.745   652   652 E WifiHAL : enter wifi_get_link_stats
+02-08 15:59:43.762  1575  1786 E WificondControl: Noise: -89, Snr: 0, Chload: -1
+02-08 15:59:43.768  1575  1786 D WifiScoreReport: Score = 60, wifiConnectivityManagerEnabled = false, lowScoreCount = 0
+02-08 15:59:44.563  1575  1785 I TrafficMonitor: update:rxPkts:0,txPkts:1,rxBytes:0,txBytes:60
+02-08 15:59:44.563  1575  1785 I TrafficMonitor: start expired. level:-1
+02-08 15:59:44.563  1575  1785 I TrafficMonitor: gettimer:interval=2000
+02-08 15:59:44.615   907  3754 E LOGSERVER_UTILS: [Erecovery]readEvent: eRecEventManager readEvent 0
+02-08 15:59:45.559  1575  1785 I TrafficMonitor: expired arrive. level:-1
+02-08 15:59:45.560  1575  1785 I TrafficMonitor: during_ms:2004,period_ms:2000
+02-08 15:59:45.560  1575  1785 I TrafficMonitor: count:152,rx_sum:0,tx_sum:1,rxBytes:0,during_ms:2004,rx_speed:0.0,tx_speed:29.940119760479043,rto:0.0
+02-08 15:59:45.656   907  3754 E LOGSERVER_UTILS: [Erecovery]readEvent: eRecEventManager readEvent 0
+02-08 15:59:45.658   891   891 E Thermal-daemon: [charger_ic] temp_new :26  temp_old :27
+02-08 15:59:45.660   891   891 E Thermal-daemon: Report temperature: [charger_ic] temp :26  report_threshold:1
+02-08 15:59:46.567  1575  1785 I TrafficMonitor: update:rxPkts:1,txPkts:0,rxBytes:1331,txBytes:0
+02-08 15:59:46.567  1575  1785 I TrafficMonitor: start expired. level:-1
+02-08 15:59:46.567  1575  1785 I TrafficMonitor: gettimer:interval=2000
+02-08 15:59:46.684   907  3754 E LOGSERVER_UTILS: [Erecovery]readEvent: eRecEventManager readEvent 0
+02-08 15:59:46.773   652   652 E WifiHAL : enter wifi_get_link_stats
+02-08 15:59:46.790  1575  1786 E WificondControl: Noise: -89, Snr: 0, Chload: -1
+02-08 15:59:46.795  1575  1786 D WifiScoreReport: Score = 60, wifiConnectivityManagerEnabled = false, lowScoreCount = 0
+02-08 15:59:47.598 14798 14798 E JankService: child Thread receive to stop
+02-08 15:59:47.702   907  3754 E LOGSERVER_UTILS: [Erecovery]readEvent: eRecEventManager readEvent 0
+02-08 15:59:47.715   907  1125 E JankService: all data read ok
+02-08 15:59:47.758  1575  1786 E WificondControl: Noise: -89, Snr: 0, Chload: -1
+02-08 15:59:47.769  1575  1858 I HuaweiWifiWatchdogStateMachine: POta txb txg rxg:0, 15, 0. Lr =0% Totpkt=15
+02-08 15:59:47.769  1575  1785 D WiFi_PRO: MSG_RETURN_AP_CURRY_RSSI rssi = -57
+02-08 15:59:47.769  1575  1785 I QosMonitor: queryRtt: rtt_type = 3
+02-08 15:59:47.771  1575  1785 I QosMonitor: postEventFromNative: msg=100,arg1=4,arg2=10
+02-08 15:59:47.772  1575  1785 I QosMonitor: postEventFromNative: msg=100,arg1=0,arg2=10
+02-08 15:59:47.772  1575 14799 I HwUidTcpMonitor: TcpStatisticsRun run
+02-08 15:59:47.773  1575 14799 D HwUidTcpMonitor: parseWlanUidTcpStatistics lastUidTcpStatInfo = [ mUid = 10124 mPacketName = com.huawei.android.launcher mSendSegs = 611 mResendSegs = 543 mRcvSegs = 0 ]
+02-08 15:59:47.774  1575  1858 I HuaweiWifiWatchdogStateMachine: PTcp RTT:0, rtt pkt=0, tcp_rx=3, tcp_tx=5, tcp_reTran=3, rtRate=0.6
+02-08 15:59:47.774  1575  1858 I HuaweiWifiWatchdogStateMachine: after backoff rssi th: -75, next TH:-75
+02-08 15:59:47.775  1575  1785 I MQoS    : rtt=276,tcp_tx_pkts=3835843,tcp_rx_pkts=7241361
+02-08 15:59:47.778  1575  8854 I MQoS    : QOS_level:0(0),wifi-link;SIM error;use level-0
+02-08 15:59:47.967  1575  1787 D hw_netstat: total/2813/392,unknown:0/2662/0,com.android.vending/0/300,android.uid.system:1000/151/92
+02-08 15:59:48.572  1575  1785 I TrafficMonitor: update:rxPkts:0,txPkts:1,rxBytes:0,txBytes:60
+02-08 15:59:48.573  1575  1785 I TrafficMonitor: start expired. level:-1
+02-08 15:59:48.573  1575  1785 I TrafficMonitor: gettimer:interval=2000
+02-08 15:59:48.745   907  3754 E LOGSERVER_UTILS: [Erecovery]readEvent: eRecEventManager readEvent 0
+02-08 15:59:49.782   907  3754 E LOGSERVER_UTILS: [Erecovery]readEvent: eRecEventManager readEvent 0
+02-08 15:59:49.799   652   652 E WifiHAL : enter wifi_get_link_stats
+02-08 15:59:49.814  1575  1786 E WificondControl: Noise: -89, Snr: 0, Chload: -1
+02-08 15:59:49.822  1575  1786 D WifiScoreReport: Score = 60, wifiConnectivityManagerEnabled = false, lowScoreCount = 0

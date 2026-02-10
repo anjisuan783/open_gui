@@ -1,0 +1,27 @@
+﻿
+02-08 16:36:43.387  1575  3122 V WindowManager: addWindow: Window{216d40a u0 Toast}
+02-08 16:36:43.606  1575  1726 I DebugKeepScreenOn: Acquiring screen wakelock due to Window{216d40a u0 Toast}
+02-08 16:36:45.373  1575  3112 V WindowManager: removeIfPossible: Window{216d40a u0 Toast}
+02-08 16:36:45.374  1575  3112 V WindowManager: Not removing Window{216d40a u0 Toast EXITING} due to exit animation 
+02-08 16:36:45.381  1575  3122 W NotificationService: Toast already killed. pkg=com.opencode.voiceassist 
+callback=android.app.ITransientNotification$Stub$Proxy@1ed8c99
+02-08 16:36:45.481  1575  1726 V WindowManager: Exit animation finished in Window{216d40a u0 Toast EXITING}: 
+remove=true
+02-08 16:36:45.517  1575  1726 V WindowManager: postWindowRemoveCleanupLocked: Window{216d40a u0 Toast}
+02-08 16:36:45.517  1575  1726 V WindowManager: Removing Window{216d40a u0 Toast} from WindowToken{72d27ac 
+android.os.Binder@7ff315f}
+02-08 16:37:05.449 18175 18207 E OpenCodeManager: Failed to create session: failed to connect to /192.168.1.100 (port 
+3000) from /192.168.50.36 (port 55230) after 30000ms
+02-08 16:37:05.506  1575  3122 V WindowManager: addWindow: Window{bbaaae6 u0 Toast}
+02-08 16:37:05.756  1575  1726 I DebugKeepScreenOn: Acquiring screen wakelock due to Window{bbaaae6 u0 Toast}
+02-08 16:37:09.011  1575  3122 V WindowManager: removeIfPossible: Window{bbaaae6 u0 Toast}
+02-08 16:37:09.011  1575  3122 V WindowManager: Not removing Window{bbaaae6 u0 Toast EXITING} due to exit animation 
+02-08 16:37:09.021  1575  1733 W NotificationService: Toast already killed. pkg=com.opencode.voiceassist 
+callback=android.app.ITransientNotification$Stub$Proxy@a6b8040
+02-08 16:37:09.133  1575  1726 V WindowManager: Exit animation finished in Window{bbaaae6 u0 Toast EXITING}: 
+remove=true
+02-08 16:37:09.159  1575  1726 V WindowManager: postWindowRemoveCleanupLocked: Window{bbaaae6 u0 Toast}
+02-08 16:37:09.160  1575  1726 V WindowManager: Removing Window{bbaaae6 u0 Toast} from WindowToken{3ec5428 
+android.os.Binder@add924b}
+
+

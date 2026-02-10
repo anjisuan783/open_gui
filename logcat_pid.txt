@@ -1,0 +1,9 @@
+﻿--------- beginning of main
+02-08 15:58:46.485 14579 14621 W libEGL  : EGLNativeWindowType 0x770218d010 disconnect failed
+02-08 15:59:07.356 14579 14619 E OpenCodeManager: Failed to create session: failed to connect to /192.168.1.100 (port 3000) from /192.168.50.36 (port 54942) after 30000ms
+02-08 15:59:07.417 14579 14621 D OpenGLRenderer:   HWUI Binary is  enabled
+02-08 15:59:07.417 14579 14621 D OpenGLRenderer: disableOutlineDraw is true
+02-08 15:59:07.559 14579 14621 D mali_winsys: EGLint new_window_surface(egl_winsys_display *, void *, EGLSurface, EGLConfig, egl_winsys_surface **, EGLBoolean) returns 0x3000
+02-08 15:59:07.567 14579 14621 D OpenGLRenderer:   HWUI Binary is  enabled
+02-08 15:59:07.567 14579 14621 D OpenGLRenderer: disableOutlineDraw is true
+02-08 15:59:10.911 14579 14621 W libEGL  : EGLNativeWindowType 0x770218d010 disconnect failed

@@ -1,0 +1,214 @@
+﻿
+02-09 09:52:47.795 19078  6158 E ChromeSync: [Sync,SyncIntentOperation] Error handling the intent: Intent { 
+act=android.intent.action.PACKAGE_ADDED dat=package:com.opencode.voiceassist flg=0x4000010 
+cmp=com.google.android.gms/.chimera.GmsIntentOperationService (has extras) }.
+02-09 09:52:47.801 19078  6183 I ChromeSync: [Sync,SyncIntentOperation] Handling the intent: Intent { 
+act=android.intent.action.PACKAGE_ADDED dat=package:com.opencode.voiceassist flg=0x4000010 
+cmp=com.google.android.gms/.chimera.GmsIntentOperationService (has extras) }.
+02-09 09:52:47.957 19078 28333 D WorkSource: i1=1 i2=0 N1=1: insert 10145 com.opencode.voiceassist
+02-09 09:52:47.957 19078 28333 D WorkSource: Insert in WorkSource{10126 com.google.android.gms} @ 1 uid 10145 name 
+com.opencode.voiceassist
+02-09 09:52:47.984 19078 18136 D WorkSource: Insert in WorkSource{10145 com.opencode.voiceassist} @ 0 uid 10126 name 
+com.google.android.gms
+02-09 09:52:49.997  1575  2376 I ActivityManager: START u0 {flg=0x10000000 hwFlg=0x10 
+cmp=com.opencode.voiceassist/.MainActivity} from uid 2000
+02-09 09:52:50.002  1575  2376 I ActivityManager: ActivityRecord info: ActivityInfo{88d49a1 
+com.opencode.voiceassist.MainActivity}
+02-09 09:52:50.002  1575  2376 I ActivityManager: isNeedToStartExSplash  callingPackage: null packageName: 
+com.opencode.voiceassist
+02-09 09:52:50.002  1575  2376 I HwActivityManagerServiceEx: 
+packageName:com.opencode.voiceassist,requestCode:0,isIntercepted:false,userId:0
+02-09 09:52:50.013   895   925 D AwareLog: iawared: WorkingsetProcessCommand subCmd = 354, userId=10167, pid=0, 
+com.opencode.voiceassist
+02-09 09:52:50.013   895   925 D AwareLog: iawared: WorkingsetSendPrereadMsg com.opencode.voiceassist
+02-09 09:52:50.013   895   925 D AwareLog: iawared: WorkingsetStart com.opencode.voiceassist in monitor0
+02-09 09:52:50.018  1575  2376 V WindowManager: addAppToken: AppWindowToken{713dedd token=Token{89872b4 
+ActivityRecord{dfc2387 u0 com.opencode.voiceassist/.MainActivity t166}}} controller={TaskWindowContainerController 
+taskId=166} at 2147483647
+02-09 09:52:50.031  1575  1732 V ActivityManager: startProcess: name=com.opencode.voiceassist app=null 
+knownToBeDead=true thread=null pid=-1 preloadStatus=-1
+02-09 09:52:50.032  1575  1732 V ActivityManager: startProcess: name=com.opencode.voiceassist 
+app=ProcessRecord{c11d99e 0:com.opencode.voiceassist/u0a167} knownToBeDead=true thread=null pid=0 preloadStatus=0
+02-09 09:52:50.058  1575  1726 V WindowManager: addWindow: Window{c4add11 u0 Splash Screen com.opencode.voiceassist}
+02-09 09:52:50.058   895   925 D AwareLog: iawared: WorkingsetProcessCommand subCmd = 354, userId=10167, pid=0, 
+com.opencode.voiceassist
+02-09 09:52:50.059   895   925 D AwareLog: iawared: WorkingsetStart com.opencode.voiceassist in monitor0
+02-09 09:52:50.074  1575  1597 I ActivityManager: Start proc 7180:com.opencode.voiceassist/u0a167 for activity 
+com.opencode.voiceassist/.MainActivity
+02-09 09:52:50.079   895   925 D AwareLog: iawared: WorkingsetProcessCommand subCmd = 350, userId=10167, pid=7180, 
+com.opencode.voiceassist
+02-09 09:52:50.080   895   925 D AwareLog: iawared: WorkingsetStart com.opencode.voiceassist in monitor0
+02-09 09:52:50.145  1575  1732 W HwActivityManagerServiceEx: appSwitch from: com.huawei.android.launcher to: 
+com.opencode.voiceassist
+02-09 09:52:50.145  1575  1607 D HwGameAssistantController: UPDATE: mCurFgPkg=com.opencode.voiceassist, 
+mCurFgPid=7180, mCurIsGame=false
+02-09 09:52:50.151  1575  1726 V WindowManager: Check opening app=AppWindowToken{713dedd token=Token{89872b4 
+ActivityRecord{dfc2387 u0 com.opencode.voiceassist/.MainActivity t166}}}: allDrawn=false startingDisplayed=true 
+startingMoved=false isRelaunching()=false startingWindow=Window{c4add11 u0 Splash Screen com.opencode.voiceassist}
+02-09 09:52:50.152   874  5312 D iTouchService: itouch currentPackageName=com.opencode.voiceassist
+02-09 09:52:50.152   874  5312 D iTouchService: itouch getCurrentParmID tempPkg=com.opencode.xxx
+02-09 09:52:50.152   874  5312 D iTouchService: itouch:app com.opencode.voiceassist is  not game app
+02-09 09:52:50.174  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{c4add11 u0 Splash Screen 
+com.opencode.voiceassist}
+02-09 09:52:50.178  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{c4add11 u0 Splash Screen 
+com.opencode.voiceassist}
+02-09 09:52:50.180  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{c4add11 u0 Splash Screen 
+com.opencode.voiceassist}
+02-09 09:52:50.194  7180  7207 I HwApiCacheMangerEx: apicache path=/storage/emulated/0 state=mounted 
+key=com.opencode.voiceassist#10167#256
+02-09 09:52:50.196  7180  7207 I HwApiCacheMangerEx: apicache path=/storage/emulated/0 state=mounted 
+key=com.opencode.voiceassist#10167#0
+02-09 09:52:50.228  2186  2925 I PGServer: report state:10000 event type:1 pid:0 uid:0 pkg:com.opencode.voiceassist to 
+pid: 1575
+02-09 09:52:50.228  2186  2925 I PGServer: report state:10000 event type:1 pid:0 uid:0 pkg:com.opencode.voiceassist to 
+pid: 2186
+02-09 09:52:50.249  2186  2925 I SceneReceiver: state type: 10000 eventType:1 pid:0 uid:0 pkg:com.opencode.voiceassist
+02-09 09:52:50.249  2186  6252 D HwThermalStateManager: current foreapp pkg : com.opencode.voiceassist
+02-09 09:52:50.451  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{c4add11 u0 Splash Screen 
+com.opencode.voiceassist}
+02-09 09:52:50.459  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{c4add11 u0 Splash Screen 
+com.opencode.voiceassist}
+02-09 09:52:50.467  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{c4add11 u0 Splash Screen 
+com.opencode.voiceassist}
+02-09 09:52:50.470  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{c4add11 u0 Splash Screen 
+com.opencode.voiceassist}
+02-09 09:52:50.486  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{c4add11 u0 Splash Screen 
+com.opencode.voiceassist}
+02-09 09:52:50.614  7180  7180 I ode.voiceassis: QarthPatchMonintor::CheckAndWatchPatch: 
+/data/hotpatch/fwkhotpatch/com.opencode.voiceassist
+02-09 09:52:50.650  7180  7207 I AwareBitmapCacher: init processName:com.opencode.voiceassist pid=7180 uid=10167
+02-09 09:52:50.949  7180  7180 D HwSplineOverScrollerExImpl: initSplineOverScrollerImpl paras: 
+android.widget.OverScroller$SplineOverScroller@e969b19,com.opencode.voiceassist.MainActivity@173a283
+02-09 09:52:50.950  7180  7180 D HwSplineOverScrollerExImpl: initSplineOverScrollerImpl paras: 
+android.widget.OverScroller$SplineOverScroller@5eccfd5,com.opencode.voiceassist.MainActivity@173a283
+02-09 09:52:51.000  7180  7272 D WhisperManager: Native library dir: 
+/data/app/com.opencode.voiceassist-KckB4OrgunIv00Eyw9tdUA==/lib/arm64
+02-09 09:52:51.001  7180  7273 D WhisperManager: Loading model from: 
+/data/user/0/com.opencode.voiceassist/files/whisper/ggml-tiny.en.bin
+02-09 09:52:51.027  7180  7180 D ActivityThread: add activity client record, r= ActivityRecord{fc930c6 
+token=android.os.BinderProxy@3515ec9 {com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}} token= 
+android.os.BinderProxy@3515ec9
+02-09 09:52:51.057  1575  2375 V WindowManager: addWindow: Window{6d0eab9 u0 
+com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}
+02-09 09:52:51.060  4038  8878 I CAWARENESS_AppUsageManager: onEvent, packageName=com.opencode.voiceassist, 
+activityName=com.opencode.voiceassist.MainActivity
+02-09 09:52:51.075  2059 13841 I HidataAppQoeP: foregroundUidAdd uid: 10167 name: com.opencode.voiceassist activity 
+state: true
+02-09 09:52:51.079  4038  7289 I CAWARENESS_RecentAppChangeFence: lastReportPackage is com.huawei.appmarket, 
+packageName is com.opencode.voiceassist
+02-09 09:52:51.079  7180  7280 D HiTouch_PressGestureDetector: onAttached, package=com.opencode.voiceassist, 
+windowType=1, mHiTouchRestricted=false
+02-09 09:52:51.083  2059  2059 D SmartDualCardConfig: getAppType,pkgName=com.opencode.voiceassist,appType=-1
+02-09 09:52:51.083  2059  2059 D SmartDualCardSM: 
+onUidStateUpdate,uid=10167,appName=com.opencode.voiceassist,state=FOREGROUND
+02-09 09:52:51.084  2059  2059 D SmartDualCardConfig: getAppType,pkgName=com.opencode.voiceassist,appType=-1
+02-09 09:52:51.093  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{c4add11 u0 Splash Screen 
+com.opencode.voiceassist}
+02-09 09:52:51.098  1575  2375 V HwPhoneWindowManager: updateSystemUiColorLw window=Window{6d0eab9 u0 com.opencode.voic
+eassist/com.opencode.voiceassist.MainActivity},EmuiStyle=0,StatusBarColor=0xff1976d2,NavigationBarColor=0xff000000, 
+mForceNotchStatusBar=false
+02-09 09:52:51.106  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{6d0eab9 u0 
+com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}
+02-09 09:52:51.107  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{6d0eab9 u0 
+com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}
+02-09 09:52:51.115  7180  7279 I iGraphics: [0020080c] pn: com.opencode.voiceassist, p: 7180
+02-09 09:52:51.115  7180  7279 I iGraphics: [0030080c] no spt app: com.opencode.voiceassist
+02-09 09:52:51.134  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{6d0eab9 u0 
+com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}
+02-09 09:52:51.140  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{6d0eab9 u0 
+com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}
+02-09 09:52:51.152  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{6d0eab9 u0 
+com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}
+02-09 09:52:51.196 12894  5168 W HiDecision: TriggerEventNotifyAction: fail::notify event = RecentAppChange, package = 
+com.huawei.ohos.suggestion, service = 
+com.huawei.ohos.suggestion.xiaoyirecommender.particleability.EventReceiverAbility, message = {"events":[{"header":{"nam
+e":"RecentAppChange","namespace":"Event"},"payload":{"packageName":"com.opencode.voiceassist"}}],"session":{"messageNam
+e":"triggerEvent","receiver":"HiSuggestionHm","sender":"NativeIntentionAnalysis","sessionId":"a3c3463cea0343b9a76a98071
+2b07b26","version":"1.0.0"}}
+02-09 09:52:51.265  1575  1726 V WindowManager_visibility: updateAllDrawn Add AppWindowToken{713dedd 
+token=Token{89872b4 ActivityRecord{dfc2387 u0 com.opencode.voiceassist/.MainActivity t166}}}
+02-09 09:52:51.266  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{6d0eab9 u0 
+com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}
+02-09 09:52:51.266  1575  1726 V WindowManager_visibility: updateAllDrawn allDrawn=false interesting=1 drawn=1 
+relaunchCount=0 for AppWindowToken{713dedd token=Token{89872b4 ActivityRecord{dfc2387 u0 
+com.opencode.voiceassist/.MainActivity t166}}}
+02-09 09:52:51.268  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{6d0eab9 u0 
+com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}
+02-09 09:52:51.271  1575  1606 D ActivityManager: EVENT_APP_ACTIVITY_DISPLAYED_FINISH reportData: 
+com.opencode.voiceassist/.MainActivity 7180 1237
+02-09 09:52:51.272   895   925 D AwareLog: iawared: WorkingsetProcessCommand subCmd = 351, userId=10167, pid=7180, 
+com.opencode.voiceassist
+02-09 09:52:51.272   895   925 D AwareLog: iawared: WorkingsetPause com.opencode.voiceassist
+02-09 09:52:51.272  1575  1726 V WindowManager: removeIfPossible: Window{c4add11 u0 Splash Screen 
+com.opencode.voiceassist}
+02-09 09:52:51.274  1575  1726 V WindowManager: Not removing Window{c4add11 u0 Splash Screen com.opencode.voiceassist 
+EXITING} due to exit animation 
+02-09 09:52:51.279  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{6d0eab9 u0 
+com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}
+02-09 09:52:51.284  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{6d0eab9 u0 
+com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}
+02-09 09:52:51.342 17450 17450 E sug_info: checkMatch:com.opencode.voiceassist_0_0_null
+02-09 09:52:51.388  1575  1726 V WindowManager: Exit animation finished in Window{c4add11 u0 Splash Screen 
+com.opencode.voiceassist EXITING}: remove=true
+02-09 09:52:51.388  1575  1726 E WindowManager: win=Window{c4add11 u0 Splash Screen com.opencode.voiceassist EXITING} 
+destroySurfaces: appStopped=false win.mWindowRemovalAllowed=true win.mRemoveOnExit=true
+02-09 09:52:51.389  1575  1726 V WindowManager: postWindowRemoveCleanupLocked: Window{c4add11 u0 Splash Screen 
+com.opencode.voiceassist}
+02-09 09:52:51.389  1575  1726 V WindowManager: Removing Window{c4add11 u0 Splash Screen com.opencode.voiceassist} 
+from AppWindowToken{713dedd token=Token{89872b4 ActivityRecord{dfc2387 u0 com.opencode.voiceassist/.MainActivity 
+t166}}}
+02-09 09:52:51.391  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{6d0eab9 u0 
+com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}
+02-09 09:52:51.408  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{6d0eab9 u0 
+com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}
+02-09 09:52:52.071  3822  4048 I ContentSensor_PackageUtil: pkgName : com.opencode.voiceassist
+02-09 09:52:53.123 19078  6183 E ChromeSync: [Sync,SyncIntentOperation] Error handling the intent: Intent { 
+act=android.intent.action.PACKAGE_ADDED dat=package:com.opencode.voiceassist flg=0x4000010 
+cmp=com.google.android.gms/.chimera.GmsIntentOperationService (has extras) }.
+02-09 09:52:53.273   895   925 D AwareLog: iawared: WorkingsetProcessCommand subCmd = 357, userId=10167, pid=7180, 
+com.opencode.voiceassist
+02-09 09:52:53.273   895   925 D AwareLog: iawared: WorkingsetPauseCollect com.opencode.voiceassist
+02-09 09:52:56.399  6320  7419 D AdBlock_AbsAdRequest: getPostRequestParam param: apps=%5B%7B%22pkgName%22%3A%22com.ope
+ncode.voiceassist%22%2C%22versionCode%22%3A1%2C%22version%22%3A%221.0%22%7D%5D&buildNumber=MHA-AL00+2.0.0.262%28C00E260
+R1P3%29&clientPackage=com.huawei.systemmanager&emuiVer=EmotionUI_9.1.0&firmwareVersion=9&locale=zh_CN&method=store.getC
+ontrolStrategy&phoneType=MHA-AL00&resolution=1080x1920&sysBits=2&ts=1770601976373&version=9.1.1.700
+02-09 09:52:58.410  7180  7273 I Whisper : Whisper model loaded: 
+/data/user/0/com.opencode.voiceassist/files/whisper/ggml-tiny.en.bin, GPU: true
+02-09 09:52:58.506  1575  3120 V WindowManager: addWindow: Window{4a0c982 u0 Toast}
+02-09 09:52:58.578  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{6d0eab9 u0 
+com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}
+02-09 09:52:58.661  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{6d0eab9 u0 
+com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}
+02-09 09:52:58.826  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{6d0eab9 u0 
+com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}
+02-09 09:52:58.831  1575  1726 I DebugKeepScreenOn: Acquiring screen wakelock due to Window{4a0c982 u0 Toast}
+02-09 09:52:58.840  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{6d0eab9 u0 
+com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}
+02-09 09:52:59.274   895   925 D AwareLog: iawared: WorkingsetProcessCommand subCmd = 352, userId=10167, pid=7180, 
+com.opencode.voiceassist
+02-09 09:52:59.274   895   925 D AwareLog: iawared: WorkingsetStop com.opencode.voiceassist
+02-09 09:53:00.490  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{6d0eab9 u0 
+com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}
+02-09 09:53:00.499  1575  3112 V WindowManager: removeIfPossible: Window{4a0c982 u0 Toast}
+02-09 09:53:00.500  1575  3112 V WindowManager: Not removing Window{4a0c982 u0 Toast EXITING} due to exit animation 
+02-09 09:53:00.506  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{6d0eab9 u0 
+com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}
+02-09 09:53:00.516  1575  2375 W NotificationService: Toast already killed. pkg=com.opencode.voiceassist 
+callback=android.app.ITransientNotification$Stub$Proxy@71e2a2c
+02-09 09:53:00.614  1575  1726 V WindowManager: Exit animation finished in Window{4a0c982 u0 Toast EXITING}: 
+remove=true
+02-09 09:53:00.639  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{6d0eab9 u0 
+com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}
+02-09 09:53:00.645  1575  1726 I DebugKeepScreenOn: Releasing screen wakelock, obscured by Window{6d0eab9 u0 
+com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}
+02-09 09:53:00.649  1575  1726 V WindowManager: postWindowRemoveCleanupLocked: Window{4a0c982 u0 Toast}
+02-09 09:53:00.651  1575  1726 V WindowManager: Removing Window{4a0c982 u0 Toast} from WindowToken{109e891 
+android.os.Binder@ca682b8}
+02-09 09:53:00.657  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{6d0eab9 u0 
+com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}
+02-09 09:53:02.008  1575  1595 I StatusBarDisable: setFlags what=0 which=1 pkg=Window{6d0eab9 u0 
+com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}
+02-09 09:53:10.443  7361  7361 D [KindaLib] JniHelper: map_interface_default_constructor _classname  
+com.tencent.kinda.framework.widget.base.MMToastDialog _interface KToastDialog
+
+
