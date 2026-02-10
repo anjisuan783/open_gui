@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
     private FileManager fileManager;
     
     private Handler mainHandler = new Handler(Looper.getMainLooper());
-    private boolean transcriptionTested = false;
+    private boolean transcriptionTested = true; // Default to skip test on first launch
     
     private boolean isRecording = false;
     private boolean isCancelled = false;
@@ -76,6 +76,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        
+        // Hide ActionBar to maximize screen space
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
         
         initViews();
         initManagers();
@@ -93,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerMessages.setLayoutManager(new LinearLayoutManager(this));
         recyclerMessages.setAdapter(messageAdapter);
         
-        ImageButton btnSettings = findViewById(R.id.btn_settings);
+        TextView btnSettings = findViewById(R.id.btn_settings);
         btnSettings.setOnClickListener(v -> showSettingsDialog());
         
         setupRecordButton();
@@ -120,9 +125,13 @@ public class MainActivity extends AppCompatActivity {
     private void onWhisperInitialized(boolean success, String message) {
         mainHandler.post(() -> {
             if (success) {
-                Toast.makeText(this, "模型部署成功，录音功能已启用", Toast.LENGTH_SHORT).show();
+                // Check if auto test is enabled
+                boolean autoTestEnabled = getSharedPreferences("settings", MODE_PRIVATE)
+                        .getBoolean("auto_test_on_model_change", true);
+                String testInfo = autoTestEnabled ? "（将自动测试）" : "（已跳过测试）";
+                Toast.makeText(this, "模型部署成功，录音功能已启用" + testInfo, Toast.LENGTH_SHORT).show();
                 updateButtonState(ButtonState.DEFAULT);
-                
+
                 // Automatic transcription test to verify performance
                 mainHandler.postDelayed(() -> {
                     runTranscriptionTest();
@@ -419,11 +428,13 @@ public class MainActivity extends AppCompatActivity {
         RadioButton rbModelOriginal = view.findViewById(R.id.rb_model_original);
         RadioButton rbModelInt8 = view.findViewById(R.id.rb_model_int8);
         RadioButton rbModelQ5_1 = view.findViewById(R.id.rb_model_q5_1);
-        
+        android.widget.CheckBox cbAutoTest = view.findViewById(R.id.cb_auto_test);
+
         // Load saved settings
         String savedIp = getSharedPreferences("settings", MODE_PRIVATE).getString("opencode_ip", Constants.DEFAULT_OPENCODE_IP);
         int savedPort = getSharedPreferences("settings", MODE_PRIVATE).getInt("opencode_port", Constants.DEFAULT_OPENCODE_PORT);
         String savedModel = getSharedPreferences("settings", MODE_PRIVATE).getString("whisper_model", Constants.DEFAULT_WHISPER_MODEL);
+        boolean autoTestEnabled = getSharedPreferences("settings", MODE_PRIVATE).getBoolean("auto_test_on_model_change", true);
         
         etIp.setText(savedIp);
         etPort.setText(String.valueOf(savedPort));
@@ -439,7 +450,10 @@ public class MainActivity extends AppCompatActivity {
             // Default to Q5_1 if unknown
             rbModelQ5_1.setChecked(true);
         }
-        
+
+        // Set auto test checkbox state
+        cbAutoTest.setChecked(autoTestEnabled);
+
         builder.setView(view)
             .setTitle("配置设置")
             .setPositiveButton("保存", (dialog, which) -> {
@@ -459,13 +473,15 @@ public class MainActivity extends AppCompatActivity {
                 // Get previous model to check if it changed
                 String previousModel = getSharedPreferences("settings", MODE_PRIVATE).getString("whisper_model", Constants.DEFAULT_WHISPER_MODEL);
                 boolean modelChanged = !selectedModel.equals(previousModel);
-                
+                boolean autoTestOnChange = cbAutoTest.isChecked();
+
                 // Save all settings
                 getSharedPreferences("settings", MODE_PRIVATE)
                     .edit()
                     .putString("opencode_ip", ip)
                     .putInt("opencode_port", port)
                     .putString("whisper_model", selectedModel)
+                    .putBoolean("auto_test_on_model_change", autoTestOnChange)
                     .apply();
                 
                 // Reinitialize OpenCode with new settings (temporarily disabled)
@@ -481,9 +497,11 @@ public class MainActivity extends AppCompatActivity {
                     
                     // Disable recording while reinitializing
                     updateButtonState(ButtonState.DISABLED);
-                    
-                    // Reset transcription test flag so new model will be tested
-                    transcriptionTested = false;
+
+                    // Set transcription test flag based on auto test preference
+                    // If auto test is enabled, reset flag to allow testing
+                    // If auto test is disabled, set flag to skip testing
+                    transcriptionTested = !autoTestOnChange;
                     
                     // Reinitialize Whisper with new model in background thread
                     new Thread(() -> {

@@ -63,20 +63,44 @@
             android:id="@+id/rb_model_original"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="原始模型 (77MB, 精度最高)" />
+            android:text="原始模型 (77MB, 精度最高, RTF~2.5x)" />
 
         <RadioButton
             android:id="@+id/rb_model_int8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="INT8量化模型 (42MB, 速度较快)" />
+            android:text="INT8量化模型 (42MB, 推荐⭐ RTF~1.9x)" />
 
         <RadioButton
             android:id="@+id/rb_model_q5_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Q5_1量化模型 (31MB, 速度最快)" />
+            android:text="Q5_1量化模型 (32MB, RTF~2.2x)" />
 
     </RadioGroup>
+
+    <!-- Separator -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp" />
+
+    <CheckBox
+        android:id="@+id/cb_auto_test"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="更换模型后自动测试"
+        android:checked="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="勾选后，每次更换模型将自动使用JFK测试音频验证性能"
+        android:textSize="12sp"
+        android:textColor="@android:color/darker_gray"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="4dp" />
 
 </LinearLayout>

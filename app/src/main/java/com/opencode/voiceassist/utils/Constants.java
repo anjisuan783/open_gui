@@ -10,13 +10,13 @@ public class Constants {
     };
     
     public static final String[] WHISPER_MODEL_NAMES = {
-        "原始模型 (77MB, 精度最高)",
-        "INT8量化模型 (42MB, 速度较快)",
-        "Q5_1量化模型 (31MB, 速度最快)"
+        "原始模型 (77MB, 精度最高, RTF~2.5x)",
+        "INT8量化模型 (42MB, 推荐⭐ RTF~1.9x)",
+        "Q5_1量化模型 (32MB, RTF~2.2x)"
     };
-    
-    // Default model (Q5_1 for best speed/accuracy balance)
-    public static final String DEFAULT_WHISPER_MODEL = "ggml-tiny.en-q5_1.bin";
+
+    // Default model (Q8_0 for best performance on Snapdragon 8+ Gen 1)
+    public static final String DEFAULT_WHISPER_MODEL = "ggml-tiny.en-q8_0.bin";
     
     // Model Multi-Source Download URLs (No VPN required, prioritized)
     // Priority 1: HuggingFace China mirror (hf-mirror.com) - reliable in China
