@@ -34,15 +34,19 @@ public class WebViewTextInjector {
     }
     
     public void injectText(String text, InjectionCallback callback) {
-        injectWithRetry(text, 0, callback);
+        injectWithRetry(text, true, 0, callback);
     }
     
-    private void injectWithRetry(String text, int attempt, InjectionCallback callback) {
+    public void injectText(String text, boolean setFocus, InjectionCallback callback) {
+        injectWithRetry(text, setFocus, 0, callback);
+    }
+    
+    private void injectWithRetry(String text, boolean setFocus, int attempt, InjectionCallback callback) {
         if (attempt > 0 && callback != null) {
             callback.onRetry(attempt, MAX_RETRIES);
         }
         
-        performInjection(text, success -> {
+        performInjection(text, setFocus, success -> {
             if (success) {
                 Log.i(TAG, "Text injected successfully");
                 if (callback != null) {
@@ -51,7 +55,7 @@ public class WebViewTextInjector {
             } else {
                 if (attempt < MAX_RETRIES) {
                     Log.w(TAG, "Injection failed, retrying... (attempt " + (attempt + 1) + "/" + MAX_RETRIES + ")");
-                    mainHandler.postDelayed(() -> injectWithRetry(text, attempt + 1, callback), RETRY_DELAY_MS);
+                    mainHandler.postDelayed(() -> injectWithRetry(text, setFocus, attempt + 1, callback), RETRY_DELAY_MS);
                 } else {
                     Log.e(TAG, "Injection failed after max retries");
                     if (callback != null) {
@@ -62,7 +66,7 @@ public class WebViewTextInjector {
         });
     }
     
-    private void performInjection(String text, InjectionResultCallback callback) {
+    private void performInjection(String text, boolean setFocus, InjectionResultCallback callback) {
         // 使用 JSON 安全地转义文本
         String jsonText = JSONObject.quote(text);
         
@@ -80,7 +84,7 @@ public class WebViewTextInjector {
             "}" +
             "input.dispatchEvent(new Event('input',{bubbles:true}));" +
             "input.dispatchEvent(new Event('change',{bubbles:true}));" +
-            "input.focus();" +
+            (setFocus ? "input.focus();" : "") +
             "return true;" +
             "}catch(e){" +
             "console.error('Injection error:',e);" +

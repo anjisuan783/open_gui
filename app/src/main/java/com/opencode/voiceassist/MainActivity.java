@@ -17,6 +17,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.webkit.*;
+import android.graphics.Rect;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -55,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView tvRecordHint;
     private View recordButtonContainer;
     private View recordProgress;
+    private View bottomContainer;
     
     private WhisperManager whisperManager;
     private OpenCodeManager openCodeManager;
@@ -65,6 +67,8 @@ public class MainActivity extends AppCompatActivity {
     private WebViewTextInjector webViewInjector;
     
     private Handler mainHandler = new Handler(Looper.getMainLooper());
+    private boolean isKeyboardVisible = false;
+    private View rootView;
     private boolean transcriptionTested = true; // Default to skip test on first launch
     
     private boolean isRecording = false;
@@ -97,6 +101,24 @@ public class MainActivity extends AppCompatActivity {
             // To be implemented when we have a variable to store it
             return "";
         }
+        
+        @android.webkit.JavascriptInterface
+        public void onInputFocus(boolean hasFocus) {
+            android.util.Log.d("MainActivity", "Input focus changed: " + hasFocus);
+            mainHandler.post(() -> {
+                if (bottomContainer != null) {
+                    if (hasFocus) {
+                        // Hide record area when input is focused (keyboard shown)
+                        bottomContainer.setVisibility(View.GONE);
+                        android.util.Log.d("MainActivity", "Record area hidden (input focused)");
+                    } else {
+                        // Show record area when input loses focus (keyboard hidden)
+                        bottomContainer.setVisibility(View.VISIBLE);
+                        android.util.Log.d("MainActivity", "Record area shown (input blurred)");
+                    }
+                }
+            });
+        }
     }
 
     @Override
@@ -120,9 +142,8 @@ public class MainActivity extends AppCompatActivity {
         tvRecordHint = findViewById(R.id.tv_record_hint);
         recordButtonContainer = findViewById(R.id.record_button_container);
         recordProgress = findViewById(R.id.record_progress);
-        
+        bottomContainer = findViewById(R.id.bottom_container);
 
-        
         TextView btnMenu = findViewById(R.id.btn_menu);
         btnMenu.setOnClickListener(v -> showPopupMenu(v));
         
@@ -130,6 +151,10 @@ public class MainActivity extends AppCompatActivity {
         loadOpenCodePage();
         
         setupRecordButton();
+        // Initialize keyboard visibility detection
+        rootView = getWindow().getDecorView().findViewById(android.R.id.content);
+        rootView.getViewTreeObserver().addOnGlobalLayoutListener(this::checkKeyboardVisibility);
+        updateButtonState(ButtonState.DEFAULT);
     }
     
     /**
@@ -267,9 +292,12 @@ public class MainActivity extends AppCompatActivity {
             // Inject helper functions using the new injector
             webViewInjector.injectHelperFunctions();
             
+            // Inject focus/blur listener for input field
+            injectFocusListener();
+            
             // Test if injection is working
             mainHandler.postDelayed(() -> {
-                webViewInjector.injectText("", new WebViewTextInjector.InjectionCallback() {
+                webViewInjector.injectText("", false, new WebViewTextInjector.InjectionCallback() {
                     @Override
                     public void onSuccess(String text) {
                         android.util.Log.d("MainActivity", "WebView injector test passed");
@@ -287,6 +315,40 @@ public class MainActivity extends AppCompatActivity {
                 });
             }, 500);
         }
+    }
+    
+    /**
+     * Inject JavaScript to listen for input focus/blur events
+     */
+    private void injectFocusListener() {
+        String jsCode = "(function(){" +
+            "var input=document.querySelector('[data-component=\"prompt-input\"]');" +
+            "if(!input){" +
+            "  console.log('FocusListener: Input element not found, will retry');" +
+            "  setTimeout(function(){" +
+            "    if(window.injectFocusListener) window.injectFocusListener();" +
+            "  },1000);" +
+            "  return;" +
+            "}" +
+            "if(input._focusListenerInstalled){" +
+            "  console.log('FocusListener: Already installed');" +
+            "  return;" +
+            "}" +
+            "input.addEventListener('focus',function(){" +
+            "  console.log('FocusListener: Input focused');" +
+            "  if(window.AndroidVoiceAssist) window.AndroidVoiceAssist.onInputFocus(true);" +
+            "});" +
+            "input.addEventListener('blur',function(){" +
+            "  console.log('FocusListener: Input blurred');" +
+            "  if(window.AndroidVoiceAssist) window.AndroidVoiceAssist.onInputFocus(false);" +
+            "});" +
+            "input._focusListenerInstalled=true;" +
+            "console.log('FocusListener: Installed successfully');" +
+            "})();";
+        
+        webView.evaluateJavascript(jsCode, result -> {
+            android.util.Log.d("MainActivity", "Focus listener injection result: " + result);
+        });
     }
     
     /**
@@ -310,7 +372,8 @@ public class MainActivity extends AppCompatActivity {
                 .getBoolean(Constants.KEY_AUTO_SEND, Constants.DEFAULT_AUTO_SEND);
         
         // Use the new injector with retry and error handling
-        webViewInjector.injectText(text, new WebViewTextInjector.InjectionCallback() {
+        // If auto-send is enabled, don't set focus to avoid keyboard popup
+        webViewInjector.injectText(text, !autoSend, new WebViewTextInjector.InjectionCallback() {
             @Override
             public void onSuccess(String injectedText) {
                 mainHandler.post(() -> {
@@ -804,8 +867,9 @@ public class MainActivity extends AppCompatActivity {
             case DEFAULT:
                 recordButton.setBackgroundResource(R.drawable.bg_record_default);
                 recordProgress.setVisibility(View.GONE);
-                tvRecordHint.setVisibility(View.GONE);
-                tvRecordHint.setText("");
+                tvRecordHint.setVisibility(View.VISIBLE);
+                tvRecordHint.setText("按住说话");
+                tvRecordHint.setTextColor(getResources().getColor(android.R.color.black));
                 recordButton.setEnabled(true);
                 break;
                 
@@ -842,6 +906,36 @@ public class MainActivity extends AppCompatActivity {
                 tvRecordHint.setTextColor(getResources().getColor(android.R.color.darker_gray));
                 recordButton.setEnabled(false);
                 break;
+        }
+    }
+    
+    /**
+     * Check keyboard visibility and show/hide bottom container accordingly
+     */
+    private void checkKeyboardVisibility() {
+        if (rootView == null) return;
+        
+        Rect r = new Rect();
+        rootView.getWindowVisibleDisplayFrame(r);
+        int screenHeight = rootView.getRootView().getHeight();
+        int keypadHeight = screenHeight - r.height();
+        
+        // Threshold for keyboard visibility (150dp)
+        int threshold = (int) (150 * getResources().getDisplayMetrics().density);
+        
+        boolean keyboardVisible = keypadHeight > threshold;
+        if (keyboardVisible != isKeyboardVisible) {
+            isKeyboardVisible = keyboardVisible;
+            android.util.Log.d("MainActivity", "Keyboard visibility changed: " + keyboardVisible);
+            
+            if (keyboardVisible) {
+                // Keyboard shown - hide bottom container if input is focused
+                // The onInputFocus method will handle this, but we ensure it's hidden
+                bottomContainer.setVisibility(View.GONE);
+            } else {
+                // Keyboard hidden - show bottom container
+                bottomContainer.setVisibility(View.VISIBLE);
+            }
         }
     }
     

@@ -33,36 +33,27 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Bottom Interaction Area -->
+    <!-- Bottom Interaction Area - Horizontal bar -->
     <LinearLayout
         android:id="@+id/bottom_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="56dp"
         android:background="@android:color/white"
         android:elevation="8dp"
-        android:orientation="vertical"
-        android:padding="16dp"
+        android:orientation="horizontal"
+        android:padding="8dp"
         app:layout_constraintBottom_toBottomOf="parent">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="按住说话"
-            android:textSize="12sp"
-            android:textColor="@android:color/darker_gray"
-            android:layout_marginBottom="8dp" />
 
         <FrameLayout
             android:id="@+id/record_button_container"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center">
 
             <View
                 android:id="@+id/btn_record"
-                android:layout_width="72dp"
-                android:layout_height="72dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:background="@drawable/bg_record_default"
                 android:clickable="true"
                 android:focusable="true" />
@@ -75,16 +66,16 @@
                 android:visibility="gone"
                 android:indeterminateTint="@android:color/white" />
 
-        </FrameLayout>
+            <TextView
+                android:id="@+id/tv_record_hint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="按住说话"
+                android:textSize="16sp"
+                android:textColor="@android:color/black" />
 
-        <TextView
-            android:id="@+id/tv_record_hint"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="8dp"
-            android:textSize="12sp"
-            android:visibility="gone" />
+        </FrameLayout>
 
     </LinearLayout>
 
