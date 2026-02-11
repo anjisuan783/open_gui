@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
+<map>
+    <string name="opencode_ip">192.168.1.100</string>
+    <string name="whisper_model">ggml-tiny.en-q5_1.bin</string>
+    <int name="funasr_port" value="10095" />
+    <string name="cloud_asr_ip">192.168.1.100</string>
+    <boolean name="auto_test_on_model_change" value="true" />
+    <string name="asr_backend">funasr_ws</string>
+    <int name="cloud_asr_port" value="8080" />
+    <int name="opencode_port" value="3000" />
+    <string name="funasr_host">67.0.0.5:10095</string>
+    <string name="funasr_mode">2pass</string>
+</map>

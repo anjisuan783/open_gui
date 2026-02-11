@@ -16,6 +16,7 @@ import android.widget.RadioGroup;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.webkit.*;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -47,9 +48,7 @@ public class MainActivity extends AppCompatActivity {
     
     private static final int PERMISSION_REQUEST_CODE = 1001;
     
-    private RecyclerView recyclerMessages;
-    private MessageAdapter messageAdapter;
-    private List<Message> messages = new ArrayList<>();
+    private WebView webView;
     
     private View recordButton;
     private TextView tvRecordHint;
@@ -75,6 +74,29 @@ public class MainActivity extends AppCompatActivity {
         DEFAULT, RECORDING, CANCEL, PROCESSING, DISABLED
     }
     
+    /**
+     * JavaScript interface for communication between WebView and Android
+     */
+    public class JavaScriptInterface {
+        @android.webkit.JavascriptInterface
+        public void showToast(String message) {
+            android.util.Log.d("MainActivity", "JavaScript toast: " + message);
+            Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
+        }
+        
+        @android.webkit.JavascriptInterface
+        public void logToAndroid(String message) {
+            android.util.Log.d("MainActivity", "JavaScript log: " + message);
+        }
+        
+        @android.webkit.JavascriptInterface
+        public String getLastTranscribedText() {
+            // This will return the last transcribed text from speech recognition
+            // To be implemented when we have a variable to store it
+            return "";
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,20 +113,369 @@ public class MainActivity extends AppCompatActivity {
     }
     
     private void initViews() {
-        recyclerMessages = findViewById(R.id.recycler_messages);
+        webView = findViewById(R.id.webview_opencode);
         recordButton = findViewById(R.id.btn_record);
         tvRecordHint = findViewById(R.id.tv_record_hint);
         recordButtonContainer = findViewById(R.id.record_button_container);
         recordProgress = findViewById(R.id.record_progress);
         
-        messageAdapter = new MessageAdapter(messages);
-        recyclerMessages.setLayoutManager(new LinearLayoutManager(this));
-        recyclerMessages.setAdapter(messageAdapter);
+
         
         TextView btnSettings = findViewById(R.id.btn_settings);
         btnSettings.setOnClickListener(v -> showSettingsDialog());
         
+        configureWebView();
+        loadOpenCodePage();
+        
         setupRecordButton();
+    }
+    
+    /**
+     * Configure WebView settings and authentication
+     */
+    private void configureWebView() {
+        android.util.Log.d("MainActivity", "Configuring WebView...");
+        
+        WebSettings settings = webView.getSettings();
+        settings.setJavaScriptEnabled(true);
+        settings.setDomStorageEnabled(true);
+        settings.setDatabaseEnabled(true);
+        settings.setAllowFileAccess(true);
+        settings.setAllowUniversalAccessFromFileURLs(true);
+        settings.setLoadWithOverviewMode(true);
+        settings.setUseWideViewPort(true);
+        settings.setBuiltInZoomControls(true);
+        settings.setDisplayZoomControls(false);
+        settings.setSupportZoom(true);
+        
+        // Configure WebViewClient for authentication
+        webView.setWebViewClient(new WebViewClient() {
+            @Override
+            public void onReceivedHttpAuthRequest(WebView view,
+                    HttpAuthHandler handler, String host, String realm) {
+                android.util.Log.d("MainActivity", "HTTP authentication requested for: " + host + ", realm: " + realm);
+                // Use hardcoded credentials for now
+                handler.proceed("opencode_linaro_dev", "abcd@1234");
+            }
+            
+            @Override
+            public void onPageStarted(WebView view, String url, android.graphics.Bitmap favicon) {
+                android.util.Log.d("MainActivity", "Page started loading: " + url);
+                super.onPageStarted(view, url, favicon);
+            }
+            
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                android.util.Log.d("MainActivity", "Page finished loading: " + url);
+                super.onPageFinished(view, url);
+                // Inject input detection script after page loads
+                injectInputDetectionScript();
+            }
+            
+            @Override
+            public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
+                android.util.Log.e("MainActivity", "WebView error: " + errorCode + " - " + description + " for URL: " + failingUrl);
+                super.onReceivedError(view, errorCode, description, failingUrl);
+                Toast.makeText(MainActivity.this, "页面加载失败: " + description, Toast.LENGTH_SHORT).show();
+            }
+        });
+        
+        // Configure WebChromeClient for console logging
+        webView.setWebChromeClient(new WebChromeClient() {
+            @Override
+            public boolean onConsoleMessage(ConsoleMessage consoleMessage) {
+                android.util.Log.d("MainActivity", "WebView console: " + consoleMessage.message() + 
+                        " at " + consoleMessage.sourceId() + ":" + consoleMessage.lineNumber());
+                return true;
+            }
+        });
+        
+        // Register JavaScript interface for bidirectional communication
+        webView.addJavascriptInterface(new JavaScriptInterface(), "AndroidVoiceAssist");
+        
+        android.util.Log.d("MainActivity", "WebView configuration completed");
+    }
+    
+    /**
+     * Load OpenCode web page using configured server address
+     */
+    private void loadOpenCodePage() {
+        android.util.Log.d("MainActivity", "Loading OpenCode page...");
+        
+        String defaultIp = Constants.DEFAULT_OPENCODE_IP;
+        int defaultPort = Constants.DEFAULT_OPENCODE_PORT;
+        android.util.Log.d("MainActivity", "Constants.DEFAULT_OPENCODE_IP = " + defaultIp);
+        android.util.Log.d("MainActivity", "Constants.DEFAULT_OPENCODE_PORT = " + defaultPort);
+        
+        // Debug: list all settings keys
+        android.content.SharedPreferences prefs = getSharedPreferences("settings", MODE_PRIVATE);
+        java.util.Map<String, ?> allPrefs = prefs.getAll();
+        android.util.Log.d("MainActivity", "All settings keys: " + allPrefs.keySet());
+        for (java.util.Map.Entry<String, ?> entry : allPrefs.entrySet()) {
+            android.util.Log.d("MainActivity", "  " + entry.getKey() + " = " + entry.getValue());
+        }
+        
+        String ip = prefs.getString("opencode_ip", defaultIp);
+        int port = prefs.getInt("opencode_port", defaultPort);
+        
+        android.util.Log.d("MainActivity", "Retrieved IP: " + ip + ", Retrieved port: " + port);
+        String url = "http://" + ip + ":" + port;
+        android.util.Log.d("MainActivity", "Loading URL: " + url);
+        
+        webView.loadUrl(url);
+    }
+    
+    /**
+     * Inject JavaScript to detect input field and provide text injection functions
+     */
+    private void injectInputDetectionScript() {
+        android.util.Log.d("MainActivity", "Injecting input detection script");
+        
+        // Simple test script first
+        String simpleTestJs = 
+            "(function() {" +
+            "   console.log('Android: Simple test script injected');" +
+            "   window.simpleTest = function() {" +
+            "     console.log('Android: simpleTest function called');" +
+            "     return 'test ok';" +
+            "   };" +
+            "   console.log('Android: Test script ready');" +
+            "   if (window.AndroidVoiceAssist) {" +
+            "     AndroidVoiceAssist.logToAndroid('Simple test script ready');" +
+            "   }" +
+            "})();";
+        
+        android.util.Log.d("MainActivity", "First injecting simple test script");
+        webView.evaluateJavascript(simpleTestJs, new ValueCallback<String>() {
+            @Override
+            public void onReceiveValue(String value) {
+                android.util.Log.d("MainActivity", "Simple test script injection result: " + value);
+            }
+        });
+        
+        // Now inject the full input detection script
+        String jsCode = 
+            "(function() {" +
+            "   console.log('Android: Starting full input detection script injection');" +
+            "   // OpenCode-specific input field detection" +
+            "   window.findOpenCodeInput = function() {" +
+            "     console.log('findOpenCodeInput: looking for OpenCode prompt input...');" +
+            "     // Primary selector: data-component=\"prompt-input\"" +
+            "     const primarySelector = '[data-component=\"prompt-input\"]';" +
+            "     let elem = document.querySelector(primarySelector);" +
+            "     if (elem) {" +
+            "       console.log('findOpenCodeInput: Found primary element, tag: ' + elem.tagName + ', id: ' + elem.id + ', class: ' + elem.className);" +
+            "       if (elem.offsetWidth > 0 && elem.offsetHeight > 0) {" +
+            "         console.log('findOpenCodeInput: Valid element (visible), returning');" +
+            "         return elem;" +
+            "       } else {" +
+            "         console.log('findOpenCodeInput: Element found but not visible (width: ' + elem.offsetWidth + ', height: ' + elem.offsetHeight + ')');" +
+            "       }" +
+            "     }" +
+            "     " +
+            "     // Fallback selectors" +
+            "     const fallbackSelectors = [" +
+            "       '[contenteditable=\"true\"]'," +
+            "       'textarea'," +
+            "       'input[type=\"text\"]'," +
+            "       '#input', '#query', '#message', '#prompt'" +
+            "     ];" +
+            "     for (const selector of fallbackSelectors) {" +
+            "       elem = document.querySelector(selector);" +
+            "       if (elem) {" +
+            "         console.log('findOpenCodeInput: Found fallback element with selector: ' + selector + ', tag: ' + elem.tagName);" +
+            "         if (elem.offsetWidth > 0 && elem.offsetHeight > 0) {" +
+            "           console.log('findOpenCodeInput: Valid fallback element, returning');" +
+            "           return elem;" +
+            "         }" +
+            "       }" +
+            "     }" +
+            "     " +
+            "     console.log('findOpenCodeInput: No input field found');" +
+            "     return null;" +
+            "   };" +
+            "   " +
+            "   // Text injection function for OpenCode contenteditable div" +
+            "   window.injectTextToOpenCode = function(text) {" +
+            "     console.log('injectTextToOpenCode called with text: ' + text);" +
+            "     const input = window.findOpenCodeInput();" +
+            "     if (!input) {" +
+            "       console.error('injectTextToOpenCode: Cannot inject text: no input field found');" +
+            "       if (window.AndroidVoiceAssist) {" +
+            "         AndroidVoiceAssist.showToast('未找到输入框');" +
+            "       }" +
+            "       return false;" +
+            "     }" +
+            "     " +
+            "     console.log('injectTextToOpenCode: Input found, tag: ' + input.tagName + ', id: ' + input.id + ', class: ' + input.className);" +
+            "     " +
+            "     // Handle different input types" +
+            "     if (input.tagName === 'DIV' && input.getAttribute('contenteditable') === 'true') {" +
+            "       // OpenCode contenteditable div" +
+            "       input.textContent = text;" +
+            "       // Clear any existing children and set text" +
+            "       input.innerHTML = '';" +
+            "       input.appendChild(document.createTextNode(text));" +
+            "     } else if (input.tagName === 'TEXTAREA' || input.tagName === 'INPUT') {" +
+            "       // Traditional input/textarea" +
+            "       input.value = text;" +
+            "     } else {" +
+            "       // Fallback" +
+            "       input.textContent = text;" +
+            "     }" +
+            "     " +
+            "     // Trigger input event (bubbles: true to match OpenCode event listener)" +
+            "     input.dispatchEvent(new Event('input', {bubbles: true}));" +
+            "     input.dispatchEvent(new Event('change', {bubbles: true}));" +
+            "     " +
+            "     // Focus the input" +
+            "     input.focus();" +
+            "     " +
+            "     console.log('injectTextToOpenCode: Text injected successfully: ' + text.substring(0, 50) + (text.length > 50 ? '...' : ''));" +
+            "     if (window.AndroidVoiceAssist) {" +
+            "       AndroidVoiceAssist.showToast('文本已注入到输入框');" +
+            "     }" +
+            "     return true;" +
+            "   };" +
+            "   " +
+            "   // Debug function to manually test input detection" +
+            "   window.testOpenCodeInputDetection = function() {" +
+            "     console.log('testOpenCodeInputDetection: Testing input detection...');" +
+            "     const input = window.findOpenCodeInput();" +
+            "     if (input) {" +
+            "       console.log('testOpenCodeInputDetection: SUCCESS - Found input: tag=' + input.tagName + ', id=' + input.id + ', class=' + input.className);" +
+            "       return {success: true, tag: input.tagName, id: input.id, className: input.className};" +
+            "     } else {" +
+            "       console.log('testOpenCodeInputDetection: FAILED - No input found');" +
+            "       return {success: false};" +
+            "     }" +
+            "   };" +
+            "   " +
+            "   // Function to simulate user typing (character by character)" +
+            "   window.simulateTyping = function(text, delay = 50) {" +
+            "     const input = window.findOpenCodeInput();" +
+            "     if (!input) return false;" +
+            "     let i = 0;" +
+            "     function typeChar() {" +
+            "       if (i < text.length) {" +
+            "         const char = text.charAt(i);" +
+            "         if (input.tagName === 'DIV' && input.getAttribute('contenteditable') === 'true') {" +
+            "           input.textContent += char;" +
+            "         } else {" +
+            "           input.value += char;" +
+            "         }" +
+            "         input.dispatchEvent(new Event('input', {bubbles: true}));" +
+            "         i++;" +
+            "         setTimeout(typeChar, delay);" +
+            "       } else {" +
+            "         input.dispatchEvent(new Event('change', {bubbles: true}));" +
+            "         input.focus();" +
+            "         console.log('simulateTyping: Completed typing ' + text.length + ' characters');" +
+            "       }" +
+            "     }" +
+            "     typeChar();" +
+            "     return true;" +
+            "   };" +
+            "   " +
+            "   console.log('Android: OpenCode input detection script injected successfully');" +
+            "   if (window.AndroidVoiceAssist) {" +
+            "     AndroidVoiceAssist.logToAndroid('Input detection script ready');" +
+            "   }" +
+            "})();";
+        
+        android.util.Log.d("MainActivity", "Now injecting full input detection script");
+        webView.evaluateJavascript(jsCode, new ValueCallback<String>() {
+            @Override
+            public void onReceiveValue(String value) {
+                android.util.Log.d("MainActivity", "Full input detection script injection result: " + value);
+                // After injection, test if the script works
+                mainHandler.postDelayed(() -> {
+                    android.util.Log.d("MainActivity", "Testing input detection script...");
+                    webView.evaluateJavascript(
+                        "if (typeof window.testOpenCodeInputDetection === 'function') {" +
+                        "  var result = window.testOpenCodeInputDetection();" +
+                        "  console.log('Android: Input detection test result: ' + JSON.stringify(result));" +
+                        "  if (window.AndroidVoiceAssist) {" +
+                        "    AndroidVoiceAssist.logToAndroid('Input detection test: ' + JSON.stringify(result));" +
+                        "  }" +
+                        "  return result;" +
+                        "} else {" +
+                        "  console.log('Android: testOpenCodeInputDetection function not found');" +
+                        "  return 'function-not-found';" +
+                        "}", 
+                        new ValueCallback<String>() {
+                            @Override
+                            public void onReceiveValue(String value) {
+                                android.util.Log.d("MainActivity", "Input detection test result: " + value);
+                            }
+                        }
+                    );
+                }, 1000); // Wait 1 second for script to initialize
+            }
+        });
+    }
+    
+    /**
+     * Inject transcribed text into OpenCode web page input field
+     */
+    private void injectTranscribedText(String text) {
+        android.util.Log.d("MainActivity", "Injecting transcribed text: " + text);
+        
+        // Escape single quotes and newlines for JavaScript string
+        String escapedText = text.replace("'", "\\'").replace("\n", "\\n").replace("\r", "\\r");
+        
+        String jsCode = String.format(
+            "try {" +
+            "  console.log('Android: Starting text injection for: ' + '%s');" +
+            "  if (typeof window.injectTextToOpenCode === 'function') {" +
+            "    console.log('Android: Calling window.injectTextToOpenCode');" +
+            "    window.injectTextToOpenCode('%s');" +
+            "  } else {" +
+            "    console.log('Android: window.injectTextToOpenCode not found, using fallback');" +
+"    // Fallback: direct injection" +
+"    const input = document.querySelector('[data-component=\"prompt-input\"], #input, #query, #message, textarea, input[type=\"text\"], [contenteditable=\"true\"]');" +
+"    if (input) {" +
+"      console.log('Android: Found input element: tag=' + input.tagName + ', id=' + input.id + ', class=' + input.className);" +
+"      // Handle different input types" +
+"      if (input.tagName === 'DIV' && input.getAttribute('contenteditable') === 'true') {" +
+"        // OpenCode contenteditable div" +
+"        input.innerHTML = '';" +
+"        input.appendChild(document.createTextNode('%s'));" +
+"      } else if (input.tagName === 'TEXTAREA' || input.tagName === 'INPUT') {" +
+"        // Traditional input/textarea" +
+"        input.value = '%s';" +
+"      } else {" +
+"        // Fallback" +
+"        input.textContent = '%s';" +
+"      }" +
+"      input.dispatchEvent(new Event('input', {bubbles: true}));" +
+"      input.dispatchEvent(new Event('change', {bubbles: true}));" +
+"      input.focus();" +
+"      console.log('Android: Text injected directly');" +
+"      if (window.AndroidVoiceAssist) {" +
+"        AndroidVoiceAssist.showToast('文本已注入');" +
+"      }" +
+"    } else {" +
+            "      console.error('Android: No input field found for direct injection');" +
+            "      if (window.AndroidVoiceAssist) {" +
+            "        AndroidVoiceAssist.showToast('未找到输入框');" +
+            "      }" +
+            "    }" +
+            "  }" +
+            "} catch (e) {" +
+            "  console.error('Android: JavaScript injection error: ' + e);" +
+            "  if (window.AndroidVoiceAssist) {" +
+            "    AndroidVoiceAssist.logToAndroid('JavaScript error: ' + e);" +
+            "  }" +
+            "}", escapedText, escapedText, escapedText);
+        
+        android.util.Log.d("MainActivity", "Executing JavaScript: " + jsCode.substring(0, Math.min(200, jsCode.length())) + "...");
+        webView.evaluateJavascript(jsCode, new ValueCallback<String>() {
+            @Override
+            public void onReceiveValue(String value) {
+                android.util.Log.d("MainActivity", "JavaScript execution result: " + value);
+            }
+        });
     }
     
     /**
@@ -214,14 +585,21 @@ public class MainActivity extends AppCompatActivity {
                         asrMode = "【本地Whisper】";
                         break;
                 }
-                String testInfo = autoTestEnabled ? "（将自动测试）" : "（已跳过测试）";
+                
+                // Only show test info for local backend
+                String testInfo = "";
+                if (asrBackend.equals(Constants.ASR_BACKEND_LOCAL)) {
+                    testInfo = autoTestEnabled ? "（将自动测试）" : "（已跳过测试）";
+                }
                 Toast.makeText(this, asrMode + "录音功能已启用" + testInfo, Toast.LENGTH_SHORT).show();
                 updateButtonState(ButtonState.DEFAULT);
 
-                // Automatic transcription test to verify performance
-                mainHandler.postDelayed(() -> {
-                    runTranscriptionTest();
-                }, 3000); // Wait 3 seconds for everything to settle
+                // Automatic transcription test to verify performance - only for local backend
+                if (asrBackend.equals(Constants.ASR_BACKEND_LOCAL) && autoTestEnabled) {
+                    mainHandler.postDelayed(() -> {
+                        runTranscriptionTest();
+                    }, 3000); // Wait 3 seconds for everything to settle
+                }
             } else {
                 // Model initialization failed/skipped - disable recording
                 updateButtonState(ButtonState.DISABLED);
@@ -465,15 +843,10 @@ public class MainActivity extends AppCompatActivity {
         String userMessageContent = text + "\n\n[语音长度: " + String.format("%.2f", result.getAudioLengthSeconds()) + "秒, " +
                                    "处理耗时: " + result.getProcessingTimeMs() + "毫秒, " +
                                    "实时因子: " + String.format("%.1f", result.getRealtimeFactor()) + "x]";
-        addMessage(new Message(userMessageContent, Message.TYPE_USER));
+        // addMessage(new Message(userMessageContent, Message.TYPE_USER));
+        injectTranscribedText(text);
         
-        // TODO: Temporarily disabled OpenCode integration
-        // Directly show assistant response instead of calling OpenCode
-        mainHandler.post(() -> {
-            String response = "已收到您的语音输入: \"" + text + "\"\n(OpenCode功能已临时禁用)";
-            addMessage(new Message(response, Message.TYPE_ASSISTANT));
-            updateButtonState(ButtonState.DEFAULT);
-        });
+        updateButtonState(ButtonState.DEFAULT);
         
         /* Original OpenCode integration (disabled)
         // Send to OpenCode
@@ -484,7 +857,7 @@ public class MainActivity extends AppCompatActivity {
                 public void onResponse(String response) {
                     android.util.Log.d("MainActivity", "OpenCode response: " + response);
                     mainHandler.post(() -> {
-                        addMessage(new Message(response, Message.TYPE_ASSISTANT));
+            // addMessage(new Message(response, Message.TYPE_ASSISTANT));
                         updateButtonState(ButtonState.DEFAULT);
                     });
                 }
@@ -502,12 +875,7 @@ public class MainActivity extends AppCompatActivity {
         */
     }
     
-    private void addMessage(Message message) {
-        android.util.Log.d("MainActivity", "Adding message: type=" + message.getType() + ", content=" + message.getContent());
-        messages.add(message);
-        messageAdapter.notifyItemInserted(messages.size() - 1);
-        recyclerMessages.scrollToPosition(messages.size() - 1);
-    }
+
     
     private void updateButtonState(ButtonState state) {
         switch (state) {
@@ -647,6 +1015,11 @@ public class MainActivity extends AppCompatActivity {
             cbAutoTest.setEnabled(isLocal);
             cbAutoTest.setAlpha(isLocal ? 1.0f : 0.5f);
             
+            // Auto-test is only relevant for local backend
+            if (!isLocal) {
+                cbAutoTest.setChecked(false);
+            }
+            
             // Update Cloud ASR config visibility
             int cloudVisibility = isCloudHttp ? View.VISIBLE : View.GONE;
             tvCloudAsrConfigLabel.setVisibility(cloudVisibility);
@@ -753,6 +1126,10 @@ public class MainActivity extends AppCompatActivity {
                     openCodeManager.updateSettings(ip, port);
                 }
                 
+                // Reload WebView with new settings
+                android.util.Log.d("MainActivity", "Loading OpenCode page with new settings");
+                loadOpenCodePage();
+                
                 // Notify user about model change and reinitialize if needed
                 if (modelChanged) {
                     Toast.makeText(this, 
@@ -762,10 +1139,13 @@ public class MainActivity extends AppCompatActivity {
                     // Disable recording while reinitializing
                     updateButtonState(ButtonState.DISABLED);
 
-                    // Set transcription test flag based on auto test preference
-                    // If auto test is enabled, reset flag to allow testing
-                    // If auto test is disabled, set flag to skip testing
-                    transcriptionTested = !autoTestOnChange;
+                    // Set transcription test flag based on auto test preference and backend type
+                    // Auto test is only relevant for local backend
+                    if (newAsrBackend.equals(Constants.ASR_BACKEND_LOCAL)) {
+                        transcriptionTested = !autoTestOnChange;
+                    } else {
+                        transcriptionTested = true; // Skip test for non-local backends
+                    }
                     
                     // Reinitialize Whisper with new model in background thread
                     new Thread(() -> {

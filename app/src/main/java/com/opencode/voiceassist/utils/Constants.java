@@ -38,7 +38,7 @@ public class Constants {
     
     // OpenCode Default Configuration
     // Note: Change this to your computer's IP address on the same network
-    public static final String DEFAULT_OPENCODE_IP = "localhost";
+    public static final String DEFAULT_OPENCODE_IP = "192.168.66.189";
     public static final int DEFAULT_OPENCODE_PORT = 4096;
     
     // Audio Recording Configuration

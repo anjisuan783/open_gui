@@ -2,7 +2,7 @@
 setlocal enabledelayedexpansion
 
 echo ========================================
-echo OpenCode Voice Assistant Build Script
+echo OpenCode Voice Assistant - Full Build
 echo ========================================
 echo.
 
@@ -46,9 +46,9 @@ dir "%ANDROID_SDK_ROOT%\platforms" /b
 echo.
 
 echo [6] Checking local.properties...
-if exist "local.properties" (
+if exist "..\local.properties" (
     echo local.properties exists
-    type local.properties
+    type ..\local.properties
 ) else (
     echo ERROR: local.properties not found
     exit /b 1
@@ -59,7 +59,7 @@ echo [7] Starting Gradle build...
 echo This may take several minutes...
 echo.
 
-call gradlew.bat clean assembleDebug --stacktrace
+call ..\gradlew.bat clean assembleDebug --stacktrace
 
 if %errorlevel% neq 0 (
     echo.
@@ -74,7 +74,7 @@ echo ========================================
 echo BUILD SUCCESSFUL!
 echo ========================================
 echo.
-echo APK location: app\build\outputs\apk\debug\app-debug.apk
+echo APK location: ..\app\build\outputs\apk\debug\app-debug.apk
 echo.
 
 endlocal

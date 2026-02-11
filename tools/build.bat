@@ -1,6 +1,11 @@
 @echo off
 setlocal
 
+echo ========================================
+echo OpenCode Voice Assistant - Quick Build
+echo ========================================
+echo.
+
 echo Checking Java installation...
 
 REM Try common Java locations
@@ -25,7 +30,7 @@ echo JAVA_HOME=%JAVA_HOME%
 echo.
 
 echo Building OpenCode Voice Assistant...
-call gradlew.bat assembleDebug --stacktrace
+call ..\gradlew.bat assembleDebug --stacktrace
 
 if %errorlevel% neq 0 (
     echo Build failed with error code %errorlevel%
@@ -33,6 +38,6 @@ if %errorlevel% neq 0 (
 )
 
 echo Build successful!
-echo APK location: app\build\outputs\apk\debug\app-debug.apk
+echo APK location: ..\app\build\outputs\apk\debug\app-debug.apk
 
 endlocal

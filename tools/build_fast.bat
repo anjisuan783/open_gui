@@ -2,7 +2,7 @@
 setlocal enabledelayedexpansion
 
 echo ========================================
-echo Fast Android Build Script
+echo Fast Android Build with Ali Mirror
 echo ========================================
 echo.
 
@@ -77,13 +77,13 @@ echo distributionUrl=https\://mirrors.aliyun.com/gradle/gradle-8.0-bin.zip
 echo networkTimeout=60000
 echo zipStoreBase=GRADLE_USER_HOME
 echo zipStorePath=wrapper/dists
-) > gradle\wrapper\gradle-wrapper.properties
+) > ..\gradle\wrapper\gradle-wrapper.properties
 
 echo [5] Building project...
 echo This will compile the app. Please wait...
 echo.
 
-call gradlew.bat assembleDebug --stacktrace --console=plain
+call ..\gradlew.bat assembleDebug --stacktrace --console=plain
 
 if %errorlevel% neq 0 (
     echo.
@@ -98,19 +98,19 @@ echo ========================================
 echo BUILD SUCCESSFUL!
 echo ========================================
 echo.
-echo APK location: app\build\outputs\apk\debug\app-debug.apk
+echo APK location: ..\app\build\outputs\apk\debug\app-debug.apk
 echo.
 
-echo [6] Installing to Mate9...
+echo [6] Installing to device...
 where adb >nul 2>&1
 if %errorlevel% equ 0 (
     adb devices | find "device" >nul 2>&1
     if %errorlevel% equ 0 (
         echo Device found. Installing APK...
-        adb install -r app\build\outputs\apk\debug\app-debug.apk
+        adb install -r ..\app\build\outputs\apk\debug\app-debug.apk
         echo Installation complete!
     ) else (
-        echo No Android device found. Connect Mate9 and enable USB debugging.
+        echo No Android device found. Connect device and enable USB debugging.
     )
 ) else (
     echo ADB not found. Skipping installation.

@@ -6,9 +6,9 @@
     android:layout_height="match_parent"
     android:background="@android:color/white">
 
-    <!-- Message List - Full screen from top -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_messages"
+    <!-- OpenCode WebView - Full screen from top -->
+    <WebView
+        android:id="@+id/webview_opencode"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:clipToPadding="false"
