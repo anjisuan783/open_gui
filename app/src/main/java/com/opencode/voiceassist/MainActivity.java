@@ -172,6 +172,33 @@ public class MainActivity extends AppCompatActivity {
                 super.onPageFinished(view, url);
                 // Inject input detection script after page loads
                 injectInputDetectionScript();
+                
+                // Check for login failure
+                checkForLoginFailure();
+            }
+            
+            private void checkForLoginFailure() {
+                // Delay slightly to ensure page content is fully rendered
+                mainHandler.postDelayed(() -> {
+                    String jsCode = "(function() {" +
+                        "var bodyText = document.body ? document.body.innerText : '';" +
+                        "var hasInvalid = bodyText.toLowerCase().indexOf('invalid') !== -1;" +
+                        "var hasUnauthorized = bodyText.toLowerCase().indexOf('unauthorized') !== -1;" +
+                        "var hasLoginFailed = bodyText.toLowerCase().indexOf('登录失败') !== -1 || " +
+                        "                   bodyText.toLowerCase().indexOf('login failed') !== -1 || " +
+                        "                   bodyText.toLowerCase().indexOf('authentication failed') !== -1 || " +
+                        "                   bodyText.toLowerCase().indexOf('认证失败') !== -1;" +
+                        "var hasErrorCode = document.querySelector('[data-error-code]') !== null;" +
+                        "return hasInvalid || hasUnauthorized || hasLoginFailed || hasErrorCode;" +
+                        "})();";
+                    
+                    webView.evaluateJavascript(jsCode, result -> {
+                        if ("true".equals(result)) {
+                            android.util.Log.w("MainActivity", "Login failure detected on page");
+                            showReloginDialog();
+                        }
+                    });
+                }, 500); // 500ms delay to ensure page is fully loaded
             }
             
             @Override
@@ -819,6 +846,77 @@ public class MainActivity extends AppCompatActivity {
     }
     
     /**
+     * Show re-login dialog when login failure is detected
+     */
+    private void showReloginDialog() {
+        mainHandler.post(() -> {
+            // Avoid showing multiple dialogs
+            if (isFinishing() || isDestroyed()) {
+                return;
+            }
+            
+            new AlertDialog.Builder(MainActivity.this)
+                .setTitle("登录失败")
+                .setMessage("检测到登录失败或认证错误。是否清除登录状态并重新登录？")
+                .setPositiveButton("重新登录", (dialog, which) -> {
+                    android.util.Log.d("MainActivity", "Clearing all authentication data and reloading");
+                    
+                    // Step 1: Clear all WebView data
+                    webView.clearCache(true);
+                    webView.clearHistory();
+                    webView.clearFormData();
+                    
+                    // Step 2: Clear localStorage, sessionStorage and cookies via JavaScript
+                    webView.evaluateJavascript(
+                        "(function() {" +
+                        "  try {" +
+                        "    localStorage.clear();" +
+                        "    sessionStorage.clear();" +
+                        "    var cookies = document.cookie.split(';');" +
+                        "    for (var i = 0; i < cookies.length; i++) {" +
+                        "      var cookie = cookies[i];" +
+                        "      var eqPos = cookie.indexOf('=');" +
+                        "      var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;" +
+                        "      document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/';" +
+                        "    }" +
+                        "    return 'cleared';" +
+                        "  } catch(e) {" +
+                        "    return 'error: ' + e.message;" +
+                        "  }" +
+                        "})();",
+                        jsResult -> {
+                            android.util.Log.d("MainActivity", "JS storage cleared: " + jsResult);
+                            
+                            // Step 3: Clear Android CookieManager (including HttpOnly cookies)
+                            CookieManager cookieManager = CookieManager.getInstance();
+                            cookieManager.removeAllCookies(value -> {
+                                android.util.Log.d("MainActivity", "Cookies removed: " + value);
+                                
+                                // Step 4: Clear WebView database (localStorage, etc.)
+                                webView.clearCache(true);
+                                deleteDatabase("webview.db");
+                                deleteDatabase("webviewCache.db");
+                                
+                                // Step 5: Reload with cache bypass
+                                mainHandler.postDelayed(() -> {
+                                    android.util.Log.d("MainActivity", "Reloading page with cache bypass");
+                                    String url = "http://" + Constants.DEFAULT_OPENCODE_IP + ":" + Constants.DEFAULT_OPENCODE_PORT;
+                                    webView.loadUrl(url + "?t=" + System.currentTimeMillis()); // Add timestamp to bypass cache
+                                    Toast.makeText(MainActivity.this, "已清除所有登录状态，请重新登录", Toast.LENGTH_LONG).show();
+                                }, 300);
+                            });
+                        }
+                    );
+                })
+                .setNegativeButton("取消", (dialog, which) -> {
+                    android.util.Log.d("MainActivity", "User cancelled re-login");
+                })
+                .setCancelable(true)
+                .show();
+        });
+    }
+    
+    /**
      * Show popup menu with settings and refresh options
      */
     private void showPopupMenu(View anchorView) {
@@ -834,6 +932,10 @@ public class MainActivity extends AppCompatActivity {
                 android.util.Log.d("MainActivity", "Refreshing WebView page");
                 loadOpenCodePage();
                 Toast.makeText(this, "页面已刷新", Toast.LENGTH_SHORT).show();
+                return true;
+            } else if (itemId == R.id.menu_relogin) {
+                android.util.Log.d("MainActivity", "Manual re-login requested");
+                showReloginDialog();
                 return true;
             }
             return false;

@@ -6,4 +6,7 @@
     <item
         android:id="@+id/menu_refresh"
         android:title="刷新页面" />
+    <item
+        android:id="@+id/menu_relogin"
+        android:title="重新登录" />
 </menu>
