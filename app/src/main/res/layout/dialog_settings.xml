@@ -103,6 +103,39 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="WebView设置"
+        android:textSize="14sp"
+        android:textColor="@android:color/black"
+        android:layout_marginBottom="8dp" />
+
+    <CheckBox
+        android:id="@+id/cb_auto_send"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="语音输入后自动发送"
+        android:checked="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="勾选后，语音识别结果将自动发送到OpenCode"
+        android:textSize="12sp"
+        android:textColor="@android:color/darker_gray"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="8dp" />
+
+    <!-- Separator -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="语音识别后端"
         android:textSize="14sp"
         android:textColor="@android:color/black"
@@ -146,42 +179,12 @@
         android:layout_marginBottom="8dp"
         android:visibility="gone" />
 
-    <TextView
-        android:id="@+id/tv_cloud_asr_ip_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="服务器地址"
-        android:textSize="14sp"
-        android:textColor="@android:color/darker_gray"
-        android:layout_marginBottom="8dp"
-        android:visibility="gone" />
-
     <EditText
-        android:id="@+id/et_cloud_asr_ip"
+        android:id="@+id/et_cloud_asr_url"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="IP地址"
-        android:inputType="text"
-        android:layout_marginBottom="12dp"
-        android:visibility="gone" />
-
-    <TextView
-        android:id="@+id/tv_cloud_asr_port_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="端口号"
-        android:textSize="14sp"
-        android:textColor="@android:color/darker_gray"
-        android:layout_marginBottom="8dp"
-        android:visibility="gone" />
-
-    <EditText
-        android:id="@+id/et_cloud_asr_port"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="端口号"
-        android:inputType="number"
-        android:maxLength="5"
+        android:hint="http://localhost:8080"
+        android:inputType="textUri"
         android:layout_marginBottom="12dp"
         android:visibility="gone" />
 
@@ -196,42 +199,12 @@
         android:layout_marginBottom="8dp"
         android:visibility="gone" />
 
-    <TextView
-        android:id="@+id/tv_funasr_host_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="服务器地址"
-        android:textSize="14sp"
-        android:textColor="@android:color/darker_gray"
-        android:layout_marginBottom="8dp"
-        android:visibility="gone" />
-
     <EditText
-        android:id="@+id/et_funasr_host"
+        android:id="@+id/et_funasr_url"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="主机名或IP地址 (例如: 67.0.0.5)"
-        android:inputType="text"
-        android:layout_marginBottom="12dp"
-        android:visibility="gone" />
-
-    <TextView
-        android:id="@+id/tv_funasr_port_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="端口号"
-        android:textSize="14sp"
-        android:textColor="@android:color/darker_gray"
-        android:layout_marginBottom="8dp"
-        android:visibility="gone" />
-
-    <EditText
-        android:id="@+id/et_funasr_port"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="端口号 (默认: 10095)"
-        android:inputType="number"
-        android:maxLength="5"
+        android:hint="ws://localhost:10095"
+        android:inputType="textUri"
         android:layout_marginBottom="12dp"
         android:visibility="gone" />
 

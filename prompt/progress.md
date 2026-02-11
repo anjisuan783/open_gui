@@ -80,12 +80,21 @@
 ## 最近更新
 
 ### 2026-02-11（当前）
-- 🔧 WebView 交互问题分析与修复（进行中）
-  - 分析 OpenCode 前端架构（SolidJS + contenteditable）
-  - 定位文本注入不稳定原因
-  - 测试多种注入方案（evaluateJavascript、loadUrl、JavaScript Bridge）
+- 🔧 WebView 交互优化开发（进行中）
+  - ✅ 分析 OpenCode 前端架构（SolidJS + contenteditable）
+  - ✅ 定位文本注入不稳定原因
+  - ✅ 创建 `WebViewTextInjector` 工具类
+    - JSON 安全转义（使用 `JSONObject.quote()`）
+    - 页面就绪检测机制
+    - 自动重试机制（最多 3 次）
+    - 完整事件序列触发（beforeinput → input → change）
+    - 光标位置保持
+  - ✅ 更新 `MainActivity.java` 使用新的注入器
+  - ✅ 编译验证通过
+  - 🔄 待测试：在真机上验证注入稳定性
 - ✅ 下载 OpenCode 源代码
 - ✅ 完成前端 UI 组件分析
+- ✅ 创建优化文档 `webview_optimization.md`
 
 ### 2026-02-10
 - ✅ 集成 FunASR WebSocket 远程语音识别

@@ -1,0 +1,24 @@
+02-11 11:54:08.645  7777  7777 D MainActivity: Page finished loading: http://192.168.66.189:4096/L2hvbWUvbGluYXJvL3Byb2plY3QvYXVkaW9fcHJvY2Vzcy9yZWNvcmRlcg/session
+02-11 11:54:08.646  7777  7777 D MainActivity: Injecting input detection script using WebViewTextInjector
+02-11 11:54:08.647  7777  7777 D MainActivity: WebView console: Uncaught SyntaxError: Unexpected end of input at http://192.168.66.189:4096/L2hvbWUvbGluYXJvL3Byb2plY3QvYXVkaW9fcHJvY2Vzcy9yZWNvcmRlcg/session:1
+02-11 11:54:09.150  7777  7777 D MainActivity: WebView console: Uncaught SyntaxError: Unexpected end of input at http://192.168.66.189:4096/L2hvbWUvbGluYXJvL3Byb2plY3QvYXVkaW9fcHJvY2Vzcy9yZWNvcmRlcg/session:1
+02-11 11:54:09.150  7777  7777 W WebViewTextInjector: Page not ready, retrying... (attempt 1/3)
+02-11 11:54:09.453  7777  7777 D MainActivity: WebView injector retry: 1/3
+02-11 11:54:09.458  7777  7777 D MainActivity: WebView console: Uncaught SyntaxError: Unexpected end of input at http://192.168.66.189:4096/L2hvbWUvbGluYXJvL3Byb2plY3QvYXVkaW9fcHJvY2Vzcy9yZWNvcmRlcg/session:1
+02-11 11:54:09.458  7777  7777 W WebViewTextInjector: Page not ready, retrying... (attempt 2/3)
+02-11 11:54:09.759  7777  7777 D MainActivity: WebView injector retry: 2/3
+02-11 11:54:09.764  7777  7777 D MainActivity: WebView console: Uncaught SyntaxError: Unexpected end of input at http://192.168.66.189:4096/L2hvbWUvbGluYXJvL3Byb2plY3QvYXVkaW9fcHJvY2Vzcy9yZWNvcmRlcg/session:1
+02-11 11:54:09.765  7777  7777 W WebViewTextInjector: Page not ready, retrying... (attempt 3/3)
+02-11 11:54:10.065  7777  7777 D MainActivity: WebView injector retry: 3/3
+02-11 11:54:10.069  7777  7777 D MainActivity: WebView console: Uncaught SyntaxError: Unexpected end of input at http://192.168.66.189:4096/L2hvbWUvbGluYXJvL3Byb2plY3QvYXVkaW9fcHJvY2Vzcy9yZWNvcmRlcg/session:1
+02-11 11:54:10.070  7777  7777 E WebViewTextInjector: Page not ready after max retries
+02-11 11:54:10.070  7777  7777 W MainActivity: WebView injector test failed (expected on empty page): 页面未就绪
+02-11 11:55:04.636  2372  3183 I Scene-TopAppSwitch: newBackActivitys : {com.opencode.voiceassist=[com.opencode.voiceassist.MainActivity]}
+02-11 11:55:04.639  6956 16559 I AppSwitchDispatcher: Get activity event:64 pkgname:com.opencode.voiceassist activity=com.opencode.voiceassist.MainActivity reserved=0
+02-11 11:55:04.644  7777  7777 D ActivityThread: ***** performPauseActivity ActivityRecord{2d8591 token=android.os.BinderProxy@bd273b8 {com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}} finished= false paused= false mFinished= false
+02-11 11:55:04.655  1850  1850 D fpc_hal_common: --> set_cancel_image_injection
+02-11 11:55:04.655  1850  1850 D fpc_hal_common: <-- set_cancel_image_injection
+02-11 11:55:04.655  1850  1850 D fpc_hal_common: --> clear_cancel_image_injection
+02-11 11:55:04.655  1850  1850 D fpc_hal_common: <-- clear_cancel_image_injection
+02-11 11:55:04.680  7777  7777 D ActivityThread: ***** handleStopActivity r ActivityRecord{2d8591 token=android.os.BinderProxy@bd273b8 {com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}} stopped= false paused= true
+02-11 11:55:04.714  3779  3779 D Launcher: launcherIconAnimation:receive ZTE_SCREEN_OFF, topActivity: ComponentInfo{com.opencode.voiceassist/com.opencode.voiceassist.MainActivity}, isMiniWindowOpened=false

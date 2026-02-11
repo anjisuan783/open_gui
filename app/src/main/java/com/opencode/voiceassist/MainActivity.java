@@ -35,6 +35,7 @@ import com.opencode.voiceassist.model.Message;
 import com.opencode.voiceassist.model.TranscriptionResult;
 import com.opencode.voiceassist.ui.MessageAdapter;
 import com.opencode.voiceassist.utils.Constants;
+import com.opencode.voiceassist.utils.WebViewTextInjector;
 
 import java.io.File;
 import java.io.InputStream;
@@ -61,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
     private FileManager fileManager;
     private CloudAsrManager cloudAsrManager;
     private FunAsrWebSocketManager funAsrManager;
+    private WebViewTextInjector webViewInjector;
     
     private Handler mainHandler = new Handler(Looper.getMainLooper());
     private boolean transcriptionTested = true; // Default to skip test on first launch
@@ -121,8 +123,8 @@ public class MainActivity extends AppCompatActivity {
         
 
         
-        TextView btnSettings = findViewById(R.id.btn_settings);
-        btnSettings.setOnClickListener(v -> showSettingsDialog());
+        TextView btnMenu = findViewById(R.id.btn_menu);
+        btnMenu.setOnClickListener(v -> showPopupMenu(v));
         
         configureWebView();
         loadOpenCodePage();
@@ -193,6 +195,9 @@ public class MainActivity extends AppCompatActivity {
         // Register JavaScript interface for bidirectional communication
         webView.addJavascriptInterface(new JavaScriptInterface(), "AndroidVoiceAssist");
         
+        // Initialize WebView text injector
+        webViewInjector = new WebViewTextInjector(webView);
+        
         android.util.Log.d("MainActivity", "WebView configuration completed");
     }
     
@@ -226,254 +231,96 @@ public class MainActivity extends AppCompatActivity {
     }
     
     /**
-     * Inject JavaScript to detect input field and provide text injection functions
+     * Inject JavaScript helper functions and prepare for text injection
      */
     private void injectInputDetectionScript() {
-        android.util.Log.d("MainActivity", "Injecting input detection script");
+        android.util.Log.d("MainActivity", "Injecting input detection script using WebViewTextInjector");
         
-        // Simple test script first
-        String simpleTestJs = 
-            "(function() {" +
-            "   console.log('Android: Simple test script injected');" +
-            "   window.simpleTest = function() {" +
-            "     console.log('Android: simpleTest function called');" +
-            "     return 'test ok';" +
-            "   };" +
-            "   console.log('Android: Test script ready');" +
-            "   if (window.AndroidVoiceAssist) {" +
-            "     AndroidVoiceAssist.logToAndroid('Simple test script ready');" +
-            "   }" +
-            "})();";
-        
-        android.util.Log.d("MainActivity", "First injecting simple test script");
-        webView.evaluateJavascript(simpleTestJs, new ValueCallback<String>() {
-            @Override
-            public void onReceiveValue(String value) {
-                android.util.Log.d("MainActivity", "Simple test script injection result: " + value);
-            }
-        });
-        
-        // Now inject the full input detection script
-        String jsCode = 
-            "(function() {" +
-            "   console.log('Android: Starting full input detection script injection');" +
-            "   // OpenCode-specific input field detection" +
-            "   window.findOpenCodeInput = function() {" +
-            "     console.log('findOpenCodeInput: looking for OpenCode prompt input...');" +
-            "     // Primary selector: data-component=\"prompt-input\"" +
-            "     const primarySelector = '[data-component=\"prompt-input\"]';" +
-            "     let elem = document.querySelector(primarySelector);" +
-            "     if (elem) {" +
-            "       console.log('findOpenCodeInput: Found primary element, tag: ' + elem.tagName + ', id: ' + elem.id + ', class: ' + elem.className);" +
-            "       if (elem.offsetWidth > 0 && elem.offsetHeight > 0) {" +
-            "         console.log('findOpenCodeInput: Valid element (visible), returning');" +
-            "         return elem;" +
-            "       } else {" +
-            "         console.log('findOpenCodeInput: Element found but not visible (width: ' + elem.offsetWidth + ', height: ' + elem.offsetHeight + ')');" +
-            "       }" +
-            "     }" +
-            "     " +
-            "     // Fallback selectors" +
-            "     const fallbackSelectors = [" +
-            "       '[contenteditable=\"true\"]'," +
-            "       'textarea'," +
-            "       'input[type=\"text\"]'," +
-            "       '#input', '#query', '#message', '#prompt'" +
-            "     ];" +
-            "     for (const selector of fallbackSelectors) {" +
-            "       elem = document.querySelector(selector);" +
-            "       if (elem) {" +
-            "         console.log('findOpenCodeInput: Found fallback element with selector: ' + selector + ', tag: ' + elem.tagName);" +
-            "         if (elem.offsetWidth > 0 && elem.offsetHeight > 0) {" +
-            "           console.log('findOpenCodeInput: Valid fallback element, returning');" +
-            "           return elem;" +
-            "         }" +
-            "       }" +
-            "     }" +
-            "     " +
-            "     console.log('findOpenCodeInput: No input field found');" +
-            "     return null;" +
-            "   };" +
-            "   " +
-            "   // Text injection function for OpenCode contenteditable div" +
-            "   window.injectTextToOpenCode = function(text) {" +
-            "     console.log('injectTextToOpenCode called with text: ' + text);" +
-            "     const input = window.findOpenCodeInput();" +
-            "     if (!input) {" +
-            "       console.error('injectTextToOpenCode: Cannot inject text: no input field found');" +
-            "       if (window.AndroidVoiceAssist) {" +
-            "         AndroidVoiceAssist.showToast('未找到输入框');" +
-            "       }" +
-            "       return false;" +
-            "     }" +
-            "     " +
-            "     console.log('injectTextToOpenCode: Input found, tag: ' + input.tagName + ', id: ' + input.id + ', class: ' + input.className);" +
-            "     " +
-            "     // Handle different input types" +
-            "     if (input.tagName === 'DIV' && input.getAttribute('contenteditable') === 'true') {" +
-            "       // OpenCode contenteditable div" +
-            "       input.textContent = text;" +
-            "       // Clear any existing children and set text" +
-            "       input.innerHTML = '';" +
-            "       input.appendChild(document.createTextNode(text));" +
-            "     } else if (input.tagName === 'TEXTAREA' || input.tagName === 'INPUT') {" +
-            "       // Traditional input/textarea" +
-            "       input.value = text;" +
-            "     } else {" +
-            "       // Fallback" +
-            "       input.textContent = text;" +
-            "     }" +
-            "     " +
-            "     // Trigger input event (bubbles: true to match OpenCode event listener)" +
-            "     input.dispatchEvent(new Event('input', {bubbles: true}));" +
-            "     input.dispatchEvent(new Event('change', {bubbles: true}));" +
-            "     " +
-            "     // Focus the input" +
-            "     input.focus();" +
-            "     " +
-            "     console.log('injectTextToOpenCode: Text injected successfully: ' + text.substring(0, 50) + (text.length > 50 ? '...' : ''));" +
-            "     if (window.AndroidVoiceAssist) {" +
-            "       AndroidVoiceAssist.showToast('文本已注入到输入框');" +
-            "     }" +
-            "     return true;" +
-            "   };" +
-            "   " +
-            "   // Debug function to manually test input detection" +
-            "   window.testOpenCodeInputDetection = function() {" +
-            "     console.log('testOpenCodeInputDetection: Testing input detection...');" +
-            "     const input = window.findOpenCodeInput();" +
-            "     if (input) {" +
-            "       console.log('testOpenCodeInputDetection: SUCCESS - Found input: tag=' + input.tagName + ', id=' + input.id + ', class=' + input.className);" +
-            "       return {success: true, tag: input.tagName, id: input.id, className: input.className};" +
-            "     } else {" +
-            "       console.log('testOpenCodeInputDetection: FAILED - No input found');" +
-            "       return {success: false};" +
-            "     }" +
-            "   };" +
-            "   " +
-            "   // Function to simulate user typing (character by character)" +
-            "   window.simulateTyping = function(text, delay = 50) {" +
-            "     const input = window.findOpenCodeInput();" +
-            "     if (!input) return false;" +
-            "     let i = 0;" +
-            "     function typeChar() {" +
-            "       if (i < text.length) {" +
-            "         const char = text.charAt(i);" +
-            "         if (input.tagName === 'DIV' && input.getAttribute('contenteditable') === 'true') {" +
-            "           input.textContent += char;" +
-            "         } else {" +
-            "           input.value += char;" +
-            "         }" +
-            "         input.dispatchEvent(new Event('input', {bubbles: true}));" +
-            "         i++;" +
-            "         setTimeout(typeChar, delay);" +
-            "       } else {" +
-            "         input.dispatchEvent(new Event('change', {bubbles: true}));" +
-            "         input.focus();" +
-            "         console.log('simulateTyping: Completed typing ' + text.length + ' characters');" +
-            "       }" +
-            "     }" +
-            "     typeChar();" +
-            "     return true;" +
-            "   };" +
-            "   " +
-            "   console.log('Android: OpenCode input detection script injected successfully');" +
-            "   if (window.AndroidVoiceAssist) {" +
-            "     AndroidVoiceAssist.logToAndroid('Input detection script ready');" +
-            "   }" +
-            "})();";
-        
-        android.util.Log.d("MainActivity", "Now injecting full input detection script");
-        webView.evaluateJavascript(jsCode, new ValueCallback<String>() {
-            @Override
-            public void onReceiveValue(String value) {
-                android.util.Log.d("MainActivity", "Full input detection script injection result: " + value);
-                // After injection, test if the script works
-                mainHandler.postDelayed(() -> {
-                    android.util.Log.d("MainActivity", "Testing input detection script...");
-                    webView.evaluateJavascript(
-                        "if (typeof window.testOpenCodeInputDetection === 'function') {" +
-                        "  var result = window.testOpenCodeInputDetection();" +
-                        "  console.log('Android: Input detection test result: ' + JSON.stringify(result));" +
-                        "  if (window.AndroidVoiceAssist) {" +
-                        "    AndroidVoiceAssist.logToAndroid('Input detection test: ' + JSON.stringify(result));" +
-                        "  }" +
-                        "  return result;" +
-                        "} else {" +
-                        "  console.log('Android: testOpenCodeInputDetection function not found');" +
-                        "  return 'function-not-found';" +
-                        "}", 
-                        new ValueCallback<String>() {
-                            @Override
-                            public void onReceiveValue(String value) {
-                                android.util.Log.d("MainActivity", "Input detection test result: " + value);
-                            }
-                        }
-                    );
-                }, 1000); // Wait 1 second for script to initialize
-            }
-        });
+        if (webViewInjector != null) {
+            // Inject helper functions using the new injector
+            webViewInjector.injectHelperFunctions();
+            
+            // Test if injection is working
+            mainHandler.postDelayed(() -> {
+                webViewInjector.injectText("", new WebViewTextInjector.InjectionCallback() {
+                    @Override
+                    public void onSuccess(String text) {
+                        android.util.Log.d("MainActivity", "WebView injector test passed");
+                    }
+                    
+                    @Override
+                    public void onFailure(String error) {
+                        android.util.Log.w("MainActivity", "WebView injector test failed (expected on empty page): " + error);
+                    }
+                    
+                    @Override
+                    public void onRetry(int attempt, int maxRetries) {
+                        android.util.Log.d("MainActivity", "WebView injector retry: " + attempt + "/" + maxRetries);
+                    }
+                });
+            }, 500);
+        }
     }
     
     /**
      * Inject transcribed text into OpenCode web page input field
+     * Uses WebViewTextInjector for robust injection with retry logic
      */
     private void injectTranscribedText(String text) {
         android.util.Log.d("MainActivity", "Injecting transcribed text: " + text);
         
-        // Escape single quotes and newlines for JavaScript string
-        String escapedText = text.replace("'", "\\'").replace("\n", "\\n").replace("\r", "\\r");
+        if (webViewInjector == null) {
+            android.util.Log.e("MainActivity", "WebViewInjector not initialized");
+            Toast.makeText(this, "注入器未初始化", Toast.LENGTH_SHORT).show();
+            return;
+        }
         
-        String jsCode = String.format(
-            "try {" +
-            "  console.log('Android: Starting text injection for: ' + '%s');" +
-            "  if (typeof window.injectTextToOpenCode === 'function') {" +
-            "    console.log('Android: Calling window.injectTextToOpenCode');" +
-            "    window.injectTextToOpenCode('%s');" +
-            "  } else {" +
-            "    console.log('Android: window.injectTextToOpenCode not found, using fallback');" +
-"    // Fallback: direct injection" +
-"    const input = document.querySelector('[data-component=\"prompt-input\"], #input, #query, #message, textarea, input[type=\"text\"], [contenteditable=\"true\"]');" +
-"    if (input) {" +
-"      console.log('Android: Found input element: tag=' + input.tagName + ', id=' + input.id + ', class=' + input.className);" +
-"      // Handle different input types" +
-"      if (input.tagName === 'DIV' && input.getAttribute('contenteditable') === 'true') {" +
-"        // OpenCode contenteditable div" +
-"        input.innerHTML = '';" +
-"        input.appendChild(document.createTextNode('%s'));" +
-"      } else if (input.tagName === 'TEXTAREA' || input.tagName === 'INPUT') {" +
-"        // Traditional input/textarea" +
-"        input.value = '%s';" +
-"      } else {" +
-"        // Fallback" +
-"        input.textContent = '%s';" +
-"      }" +
-"      input.dispatchEvent(new Event('input', {bubbles: true}));" +
-"      input.dispatchEvent(new Event('change', {bubbles: true}));" +
-"      input.focus();" +
-"      console.log('Android: Text injected directly');" +
-"      if (window.AndroidVoiceAssist) {" +
-"        AndroidVoiceAssist.showToast('文本已注入');" +
-"      }" +
-"    } else {" +
-            "      console.error('Android: No input field found for direct injection');" +
-            "      if (window.AndroidVoiceAssist) {" +
-            "        AndroidVoiceAssist.showToast('未找到输入框');" +
-            "      }" +
-            "    }" +
-            "  }" +
-            "} catch (e) {" +
-            "  console.error('Android: JavaScript injection error: ' + e);" +
-            "  if (window.AndroidVoiceAssist) {" +
-            "    AndroidVoiceAssist.logToAndroid('JavaScript error: ' + e);" +
-            "  }" +
-            "}", escapedText, escapedText, escapedText);
+        // Show processing state
+        updateButtonState(ButtonState.PROCESSING);
         
-        android.util.Log.d("MainActivity", "Executing JavaScript: " + jsCode.substring(0, Math.min(200, jsCode.length())) + "...");
-        webView.evaluateJavascript(jsCode, new ValueCallback<String>() {
+        // Check auto-send setting
+        final boolean autoSend = getSharedPreferences("settings", MODE_PRIVATE)
+                .getBoolean(Constants.KEY_AUTO_SEND, Constants.DEFAULT_AUTO_SEND);
+        
+        // Use the new injector with retry and error handling
+        webViewInjector.injectText(text, new WebViewTextInjector.InjectionCallback() {
             @Override
-            public void onReceiveValue(String value) {
-                android.util.Log.d("MainActivity", "JavaScript execution result: " + value);
+            public void onSuccess(String injectedText) {
+                mainHandler.post(() -> {
+                    android.util.Log.i("MainActivity", "Text injection successful");
+                    
+                    if (autoSend) {
+                        // Auto-send enabled, trigger send after a short delay
+                        mainHandler.postDelayed(() -> {
+                            webViewInjector.triggerSend(success -> {
+                                if (success) {
+                                    android.util.Log.i("MainActivity", "Message sent automatically");
+                                } else {
+                                    android.util.Log.w("MainActivity", "Auto-send failed");
+                                }
+                                updateButtonState(ButtonState.DEFAULT);
+                            });
+                        }, 100); // Small delay to ensure text is properly set
+                    } else {
+                        // Auto-send disabled, just show toast
+                        Toast.makeText(MainActivity.this, "文本已注入", Toast.LENGTH_SHORT).show();
+                        updateButtonState(ButtonState.DEFAULT);
+                    }
+                });
+            }
+            
+            @Override
+            public void onFailure(String error) {
+                mainHandler.post(() -> {
+                    android.util.Log.e("MainActivity", "Text injection failed: " + error);
+                    Toast.makeText(MainActivity.this, "注入失败: " + error, Toast.LENGTH_LONG).show();
+                    updateButtonState(ButtonState.DEFAULT);
+                });
+            }
+            
+            @Override
+            public void onRetry(int attempt, int maxRetries) {
+                android.util.Log.d("MainActivity", "Text injection retrying: " + attempt + "/" + maxRetries);
             }
         });
     }
@@ -530,6 +377,56 @@ public class MainActivity extends AppCompatActivity {
         return "http://" + host + ":" + port;
     }
     
+    /**
+     * Parse ASR URL (http://host:port or ws://host:port) into host and port
+     * Returns array where [0] = host, [1] = port
+     */
+    private static String[] parseAsrUrl(String url, String defaultProtocol) {
+        String host = "localhost";
+        String port = defaultProtocol.equals("http") ? "8080" : "10095";
+        
+        if (url == null || url.trim().isEmpty()) {
+            return new String[]{host, port};
+        }
+        
+        String trimmed = url.trim();
+        
+        // Remove protocol prefix
+        if (trimmed.startsWith("http://")) {
+            trimmed = trimmed.substring(7);
+        } else if (trimmed.startsWith("https://")) {
+            trimmed = trimmed.substring(8);
+        } else if (trimmed.startsWith("ws://")) {
+            trimmed = trimmed.substring(5);
+        } else if (trimmed.startsWith("wss://")) {
+            trimmed = trimmed.substring(6);
+        }
+        
+        // Split host and port
+        int colonIndex = trimmed.indexOf(':');
+        if (colonIndex > 0) {
+            host = trimmed.substring(0, colonIndex);
+            String portStr = trimmed.substring(colonIndex + 1);
+            // Remove path part if any
+            int slashIndex = portStr.indexOf('/');
+            if (slashIndex > 0) {
+                portStr = portStr.substring(0, slashIndex);
+            }
+            if (!portStr.isEmpty()) {
+                port = portStr;
+            }
+        } else {
+            host = trimmed;
+        }
+        
+        // Use defaults if host is empty
+        if (host.isEmpty()) {
+            host = "localhost";
+        }
+        
+        return new String[]{host, port};
+    }
+    
     private void initManagers() {
         fileManager = new FileManager(this);
         whisperManager = new WhisperManager(this, fileManager, this::onWhisperInitialized);
@@ -540,20 +437,18 @@ public class MainActivity extends AppCompatActivity {
         audioRecorder = new AudioRecorder();
         
         // Initialize Cloud ASR manager
-        String cloudAsrIp = getSharedPreferences("settings", MODE_PRIVATE)
-                .getString("cloud_asr_ip", Constants.DEFAULT_CLOUD_ASR_IP);
-        int cloudAsrPort = getSharedPreferences("settings", MODE_PRIVATE)
-                .getInt("cloud_asr_port", Constants.DEFAULT_CLOUD_ASR_PORT);
-        cloudAsrManager = new CloudAsrManager(this, cloudAsrIp, cloudAsrPort);
+        String cloudAsrUrl = getSharedPreferences("settings", MODE_PRIVATE)
+                .getString("cloud_asr_url", Constants.DEFAULT_CLOUD_ASR_URL);
+        String[] cloudAsrParts = parseAsrUrl(cloudAsrUrl, "http");
+        cloudAsrManager = new CloudAsrManager(this, cloudAsrParts[0], Integer.parseInt(cloudAsrParts[1]));
         
         // Initialize FunASR WebSocket manager
-        String funAsrHost = getSharedPreferences("settings", MODE_PRIVATE)
-                .getString("funasr_host", Constants.DEFAULT_FUNASR_HOST);
-        int funAsrPort = getSharedPreferences("settings", MODE_PRIVATE)
-                .getInt("funasr_port", Constants.DEFAULT_FUNASR_PORT);
+        String funAsrUrl = getSharedPreferences("settings", MODE_PRIVATE)
+                .getString("funasr_url", Constants.DEFAULT_FUNASR_URL);
+        String[] funAsrParts = parseAsrUrl(funAsrUrl, "ws");
         String funAsrMode = getSharedPreferences("settings", MODE_PRIVATE)
                 .getString("funasr_mode", Constants.DEFAULT_FUNASR_MODE);
-        funAsrManager = new FunAsrWebSocketManager(this, funAsrHost, funAsrPort, funAsrMode);
+        funAsrManager = new FunAsrWebSocketManager(this, funAsrParts[0], Integer.parseInt(funAsrParts[1]), funAsrMode);
         
         // Initialize Whisper model (will skip download if fails)
         String modelFilename = getSharedPreferences("settings", MODE_PRIVATE)
@@ -923,6 +818,30 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     
+    /**
+     * Show popup menu with settings and refresh options
+     */
+    private void showPopupMenu(View anchorView) {
+        androidx.appcompat.widget.PopupMenu popupMenu = new androidx.appcompat.widget.PopupMenu(this, anchorView);
+        popupMenu.getMenuInflater().inflate(R.menu.menu_main, popupMenu.getMenu());
+        
+        popupMenu.setOnMenuItemClickListener(item -> {
+            int itemId = item.getItemId();
+            if (itemId == R.id.menu_settings) {
+                showSettingsDialog();
+                return true;
+            } else if (itemId == R.id.menu_refresh) {
+                android.util.Log.d("MainActivity", "Refreshing WebView page");
+                loadOpenCodePage();
+                Toast.makeText(this, "页面已刷新", Toast.LENGTH_SHORT).show();
+                return true;
+            }
+            return false;
+        });
+        
+        popupMenu.show();
+    }
+    
     private void showSettingsDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         View view = getLayoutInflater().inflate(R.layout.dialog_settings, null);
@@ -942,40 +861,31 @@ public class MainActivity extends AppCompatActivity {
         
         // Cloud HTTP ASR configuration
         TextView tvCloudAsrConfigLabel = view.findViewById(R.id.tv_cloud_asr_config_label);
-        TextView tvCloudAsrIpLabel = view.findViewById(R.id.tv_cloud_asr_ip_label);
-        EditText etCloudAsrIp = view.findViewById(R.id.et_cloud_asr_ip);
-        TextView tvCloudAsrPortLabel = view.findViewById(R.id.tv_cloud_asr_port_label);
-        EditText etCloudAsrPort = view.findViewById(R.id.et_cloud_asr_port);
+        EditText etCloudAsrUrl = view.findViewById(R.id.et_cloud_asr_url);
         
         // FunASR WebSocket configuration
         TextView tvFunasrConfigLabel = view.findViewById(R.id.tv_funasr_config_label);
-        TextView tvFunasrHostLabel = view.findViewById(R.id.tv_funasr_host_label);
-        EditText etFunasrHost = view.findViewById(R.id.et_funasr_host);
-        TextView tvFunasrPortLabel = view.findViewById(R.id.tv_funasr_port_label);
-        EditText etFunasrPort = view.findViewById(R.id.et_funasr_port);
+        EditText etFunasrUrl = view.findViewById(R.id.et_funasr_url);
         TextView tvFunasrModeLabel = view.findViewById(R.id.tv_funasr_mode_label);
         RadioGroup rgFunasrMode = view.findViewById(R.id.rg_funasr_mode);
         RadioButton rbFunasrModeOffline = view.findViewById(R.id.rb_funasr_mode_offline);
         RadioButton rbFunasrMode2pass = view.findViewById(R.id.rb_funasr_mode_2pass);
 
+        // WebView settings
+        android.widget.CheckBox cbAutoSend = view.findViewById(R.id.cb_auto_send);
+        
         // Load saved settings
         String savedIp = getSharedPreferences("settings", MODE_PRIVATE).getString("opencode_ip", Constants.DEFAULT_OPENCODE_IP);
         int savedPort = getSharedPreferences("settings", MODE_PRIVATE).getInt("opencode_port", Constants.DEFAULT_OPENCODE_PORT);
         String savedModel = getSharedPreferences("settings", MODE_PRIVATE).getString("whisper_model", Constants.DEFAULT_WHISPER_MODEL);
         boolean autoTestEnabled = getSharedPreferences("settings", MODE_PRIVATE).getBoolean("auto_test_on_model_change", true);
+        boolean autoSendEnabled = getSharedPreferences("settings", MODE_PRIVATE).getBoolean(Constants.KEY_AUTO_SEND, Constants.DEFAULT_AUTO_SEND);
         
         // Load ASR backend settings
         String asrBackend = getSharedPreferences("settings", MODE_PRIVATE).getString("asr_backend", Constants.DEFAULT_ASR_BACKEND);
-        String cloudAsrIp = getSharedPreferences("settings", MODE_PRIVATE).getString("cloud_asr_ip", Constants.DEFAULT_CLOUD_ASR_IP);
-        int cloudAsrPort = getSharedPreferences("settings", MODE_PRIVATE).getInt("cloud_asr_port", Constants.DEFAULT_CLOUD_ASR_PORT);
-        String funAsrHost = getSharedPreferences("settings", MODE_PRIVATE).getString("funasr_host", Constants.DEFAULT_FUNASR_HOST);
-        int funAsrPort = getSharedPreferences("settings", MODE_PRIVATE).getInt("funasr_port", Constants.DEFAULT_FUNASR_PORT);
+        String cloudAsrUrl = getSharedPreferences("settings", MODE_PRIVATE).getString("cloud_asr_url", Constants.DEFAULT_CLOUD_ASR_URL);
+        String funAsrUrl = getSharedPreferences("settings", MODE_PRIVATE).getString("funasr_url", Constants.DEFAULT_FUNASR_URL);
         String funAsrMode = getSharedPreferences("settings", MODE_PRIVATE).getString("funasr_mode", Constants.DEFAULT_FUNASR_MODE);
-        
-        // Clean host string: remove port if included (for backward compatibility)
-        if (funAsrHost.contains(":")) {
-            funAsrHost = funAsrHost.split(":")[0];
-        }
         
         etIp.setText(formatServerUrl(savedIp, savedPort));
         
@@ -988,18 +898,19 @@ public class MainActivity extends AppCompatActivity {
             rbAsrLocal.setChecked(true);
         }
         
-        // Set Cloud ASR settings
-        etCloudAsrIp.setText(cloudAsrIp);
-        etCloudAsrPort.setText(String.valueOf(cloudAsrPort));
+        // Set Cloud ASR URL
+        etCloudAsrUrl.setText(cloudAsrUrl);
         
-        // Set FunASR settings
-        etFunasrHost.setText(funAsrHost);
-        etFunasrPort.setText(String.valueOf(funAsrPort));
+        // Set FunASR URL
+        etFunasrUrl.setText(funAsrUrl);
         if (funAsrMode.equals("2pass")) {
             rbFunasrMode2pass.setChecked(true);
         } else {
             rbFunasrModeOffline.setChecked(true);
         }
+        
+        // Set WebView settings
+        cbAutoSend.setChecked(autoSendEnabled);
         
         // Function to update UI visibility based on ASR backend selection
         java.util.function.Consumer<String> updateBackendUI = (backend) -> {
@@ -1023,18 +934,12 @@ public class MainActivity extends AppCompatActivity {
             // Update Cloud ASR config visibility
             int cloudVisibility = isCloudHttp ? View.VISIBLE : View.GONE;
             tvCloudAsrConfigLabel.setVisibility(cloudVisibility);
-            tvCloudAsrIpLabel.setVisibility(cloudVisibility);
-            etCloudAsrIp.setVisibility(cloudVisibility);
-            tvCloudAsrPortLabel.setVisibility(cloudVisibility);
-            etCloudAsrPort.setVisibility(cloudVisibility);
+            etCloudAsrUrl.setVisibility(cloudVisibility);
             
             // Update FunASR config visibility
             int funasrVisibility = isFunasrWs ? View.VISIBLE : View.GONE;
             tvFunasrConfigLabel.setVisibility(funasrVisibility);
-            tvFunasrHostLabel.setVisibility(funasrVisibility);
-            etFunasrHost.setVisibility(funasrVisibility);
-            tvFunasrPortLabel.setVisibility(funasrVisibility);
-            etFunasrPort.setVisibility(funasrVisibility);
+            etFunasrUrl.setVisibility(funasrVisibility);
             tvFunasrModeLabel.setVisibility(funasrVisibility);
             rgFunasrMode.setVisibility(funasrVisibility);
         };
@@ -1080,6 +985,7 @@ public class MainActivity extends AppCompatActivity {
                 String previousModel = getSharedPreferences("settings", MODE_PRIVATE).getString("whisper_model", Constants.DEFAULT_WHISPER_MODEL);
                 boolean modelChanged = !selectedModel.equals(previousModel);
                 boolean autoTestOnChange = cbAutoTest.isChecked();
+                boolean autoSendOn = cbAutoSend.isChecked();
                 
                 // Determine selected ASR backend
                 String newAsrBackend = Constants.ASR_BACKEND_LOCAL;
@@ -1089,18 +995,14 @@ public class MainActivity extends AppCompatActivity {
                     newAsrBackend = Constants.ASR_BACKEND_FUNASR_WS;
                 }
                 
-                // Update cloud ASR settings from current values
-                String newCloudAsrIp = etCloudAsrIp.getText().toString().trim();
-                int newCloudAsrPort = Integer.parseInt(etCloudAsrPort.getText().toString().trim());
-                
-                // Update FunASR settings from current values
-                String newFunAsrHost = etFunasrHost.getText().toString().trim();
-                // Clean host string: remove port if included
-                if (newFunAsrHost.contains(":")) {
-                    newFunAsrHost = newFunAsrHost.split(":")[0];
-                }
-                int newFunAsrPort = Integer.parseInt(etFunasrPort.getText().toString().trim());
+                // Get URLs from input fields
+                String newCloudAsrUrl = etCloudAsrUrl.getText().toString().trim();
+                String newFunAsrUrl = etFunasrUrl.getText().toString().trim();
                 String newFunAsrMode = rbFunasrMode2pass.isChecked() ? "2pass" : "offline";
+                
+                // Parse URLs to get host and port for backward compatibility
+                String[] cloudAsrParts = parseAsrUrl(newCloudAsrUrl, "http");
+                String[] funAsrParts = parseAsrUrl(newFunAsrUrl, "ws");
 
                 // Save all settings
                 getSharedPreferences("settings", MODE_PRIVATE)
@@ -1110,25 +1012,27 @@ public class MainActivity extends AppCompatActivity {
                     .putString("whisper_model", selectedModel)
                     .putBoolean("auto_test_on_model_change", autoTestOnChange)
                     .putString("asr_backend", newAsrBackend)
-                    .putString("cloud_asr_ip", newCloudAsrIp)
-                    .putInt("cloud_asr_port", newCloudAsrPort)
-                    .putString("funasr_host", newFunAsrHost)
-                    .putInt("funasr_port", newFunAsrPort)
+                    .putString("cloud_asr_url", newCloudAsrUrl)
+                    .putString("cloud_asr_ip", cloudAsrParts[0])
+                    .putInt("cloud_asr_port", Integer.parseInt(cloudAsrParts[1]))
+                    .putString("funasr_url", newFunAsrUrl)
+                    .putString("funasr_host", funAsrParts[0])
+                    .putInt("funasr_port", Integer.parseInt(funAsrParts[1]))
                     .putString("funasr_mode", newFunAsrMode)
+                    .putBoolean(Constants.KEY_AUTO_SEND, autoSendOn)
                     .apply();
                 
                 // Update managers with new settings
-                cloudAsrManager.updateSettings(newCloudAsrIp, newCloudAsrPort);
-                funAsrManager.updateSettings(newFunAsrHost, newFunAsrPort, newFunAsrMode);
+                cloudAsrManager.updateSettings(cloudAsrParts[0], Integer.parseInt(cloudAsrParts[1]));
+                funAsrManager.updateSettings(funAsrParts[0], Integer.parseInt(funAsrParts[1]), newFunAsrMode);
                 
                 // Reinitialize OpenCode with new settings (temporarily disabled)
                 if (openCodeManager != null) {
                     openCodeManager.updateSettings(ip, port);
                 }
                 
-                // Reload WebView with new settings
-                android.util.Log.d("MainActivity", "Loading OpenCode page with new settings");
-                loadOpenCodePage();
+                // Note: Page refresh removed - use menu "Refresh Page" option instead
+                Toast.makeText(this, "设置已保存", Toast.LENGTH_SHORT).show();
                 
                 // Notify user about model change and reinitialize if needed
                 if (modelChanged) {

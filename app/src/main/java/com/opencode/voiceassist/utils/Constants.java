@@ -50,10 +50,12 @@ public class Constants {
     public static final long TOAST_DURATION_LONG = 3000;
 
     // Cloud ASR Configuration
+    public static final String DEFAULT_CLOUD_ASR_URL = "http://192.168.1.100:8080";
     public static final String DEFAULT_CLOUD_ASR_IP = "192.168.1.100";
     public static final int DEFAULT_CLOUD_ASR_PORT = 8080;
     
     // FunASR WebSocket Configuration
+    public static final String DEFAULT_FUNASR_URL = "ws://67.0.0.5:10095";
     public static final String DEFAULT_FUNASR_HOST = "67.0.0.5";
     public static final int DEFAULT_FUNASR_PORT = 10095;
     public static final String DEFAULT_FUNASR_MODE = "2pass"; // "offline" or "2pass"
@@ -63,4 +65,8 @@ public class Constants {
     public static final String ASR_BACKEND_CLOUD_HTTP = "cloud_http";
     public static final String ASR_BACKEND_FUNASR_WS = "funasr_ws";
     public static final String DEFAULT_ASR_BACKEND = ASR_BACKEND_LOCAL;
+    
+    // WebView Settings
+    public static final String KEY_AUTO_SEND = "auto_send";
+    public static final boolean DEFAULT_AUTO_SEND = true;
 }
