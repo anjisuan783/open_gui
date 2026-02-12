@@ -90,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
     
     private boolean isRecording = false;
     private boolean isCancelled = false;
+    private boolean isUserStoppedRecording = false; // Flag to distinguish user stop from system interrupt
     private float startY = 0;
     private static final float CANCEL_THRESHOLD_DP = 50;
     
@@ -156,10 +157,13 @@ public class MainActivity extends AppCompatActivity {
                 success + ", filename=" + filename + ", message=" + message);
             
             mainHandler.post(() -> {
-                if (success) {
-                    Toast.makeText(MainActivity.this, "已添加: " + filename, Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(MainActivity.this, "添加失败: " + filename + " - " + message, Toast.LENGTH_SHORT).show();
+                // Don't show toast if recording to avoid interrupting
+                if (!isRecording) {
+                    if (success) {
+                        Toast.makeText(MainActivity.this, "已添加: " + filename, Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(MainActivity.this, "添加失败: " + filename + " - " + message, Toast.LENGTH_SHORT).show();
+                    }
                 }
             });
         }
@@ -716,10 +720,17 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                     
                 case MotionEvent.ACTION_UP:
-                case MotionEvent.ACTION_CANCEL:
+                    // User intentionally released the button
                     if (isRecording) {
+                        isUserStoppedRecording = true; // Mark as user-initiated stop
                         stopRecording();
                     }
+                    return true;
+                    
+                case MotionEvent.ACTION_CANCEL:
+                    // System cancelled (e.g., dialog shown, activity paused)
+                    // Don't stop recording, let user continue
+                    android.util.Log.d("MainActivity", "ACTION_CANCEL received - ignoring to protect recording");
                     return true;
             }
             return false;
@@ -747,7 +758,17 @@ public class MainActivity extends AppCompatActivity {
     
     private void stopRecording() {
         android.util.Log.d("MainActivity", "stopRecording() called");
+        
+        // Check if this is a real user stop or system interrupt
+        if (!isUserStoppedRecording) {
+            android.util.Log.d("MainActivity", "Recording stop blocked - not user initiated");
+            // Reset the flag for next time
+            isUserStoppedRecording = false;
+            return;
+        }
+        
         isRecording = false;
+        isUserStoppedRecording = false; // Reset flag
         
         if (isCancelled) {
             android.util.Log.d("MainActivity", "Recording was cancelled");
@@ -1522,7 +1543,10 @@ public class MainActivity extends AppCompatActivity {
             if (!fileUris.isEmpty()) {
                 processSelectedFiles(fileUris);
             } else {
-                Toast.makeText(this, "未选择文件", Toast.LENGTH_SHORT).show();
+                // Don't show toast if recording to avoid interrupting
+                if (!isRecording) {
+                    Toast.makeText(this, "未选择文件", Toast.LENGTH_SHORT).show();
+                }
             }
         }
         
@@ -1560,9 +1584,8 @@ public class MainActivity extends AppCompatActivity {
         
         if (fileUris.isEmpty()) return;
         
-        // Show processing message
-        Toast.makeText(this, "正在处理 " + fileUris.size() + " 个文件...", 
-            Toast.LENGTH_SHORT).show();
+        // Don't show processing toast to avoid interrupting recording
+        // Toast display can cause ACTION_CANCEL on recording button
         
         // Process files sequentially to avoid overwhelming the system
         new Thread(() -> {
@@ -1577,11 +1600,9 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
             
-            // Show completion message
-            mainHandler.post(() -> {
-                Toast.makeText(MainActivity.this, 
-                    "所有文件已添加", Toast.LENGTH_SHORT).show();
-            });
+            // Don't show completion toast to avoid interrupting recording
+            // Log instead of toast
+            android.util.Log.d("MainActivity", "All files processed successfully");
         }).start();
     }
     

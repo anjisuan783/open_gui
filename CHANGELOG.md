@@ -26,6 +26,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **File Size Handling**: Supports files up to 10MB with appropriate error handling
 - **Permission Management**: Dynamic permission checking for storage access
 
+### Fixed - 2024-02-12
+
+#### Recording Interruption Bug
+**Issue**: When selecting a file and then immediately starting voice recording, the recording would be prematurely stopped and auto-sent before the user finished speaking.
+
+**Root Cause**: 
+- File processing completion triggered Toast notifications
+- Toast display interrupted the recording button's touch event, triggering `ACTION_CANCEL`
+- `ACTION_CANCEL` called `stopRecording()` which processed and sent the incomplete recording
+
+**Solution**:
+- Added `isUserStoppedRecording` flag to distinguish user-initiated stop from system interrupts
+- Modified `ACTION_CANCEL` handling to ignore and protect ongoing recordings
+- Added safety check in `stopRecording()` to only execute when user explicitly stops
+- Removed all Toast notifications that could interrupt recording (file processing, attachment status)
+
+**Result**: ✅ Recording no longer interrupted by file operations, works correctly with simultaneous image upload and voice recording
+
 ### Known Issues
 - Android bottom attachment button uses chunked Base64 transfer which may not work with all web interfaces
 - Recommended to use OpenCode's native file selection button for best compatibility
