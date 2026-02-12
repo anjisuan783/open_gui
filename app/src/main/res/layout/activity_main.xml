@@ -41,13 +41,26 @@
         android:background="@android:color/white"
         android:elevation="8dp"
         android:orientation="horizontal"
-        android:padding="8dp"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="8dp"
         app:layout_constraintBottom_toBottomOf="parent">
 
+        <!-- Attachment button (left) -->
+        <ImageButton
+            android:id="@+id/btn_attachment"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@android:drawable/ic_menu_upload"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:layout_marginEnd="8dp"
+            android:contentDescription="附件"/>
+
+        <!-- Record button (center, flexible width) -->
         <FrameLayout
             android:id="@+id/record_button_container"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:layout_gravity="center">
 
             <View
@@ -76,6 +89,12 @@
                 android:textColor="@android:color/black" />
 
         </FrameLayout>
+
+        <!-- Placeholder for future camera button (right) -->
+        <View
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="8dp"/>
 
     </LinearLayout>
 

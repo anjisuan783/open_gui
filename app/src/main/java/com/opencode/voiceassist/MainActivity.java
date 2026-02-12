@@ -41,7 +41,18 @@ import com.opencode.voiceassist.utils.WebViewTextInjector;
 import java.io.File;
 import java.io.InputStream;
 import java.io.FileOutputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import com.opencode.voiceassist.utils.FileManager;
+
+import android.net.Uri;
+import android.content.Intent;
+import android.database.Cursor;
+import android.os.Build;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.provider.OpenableColumns;
+import android.util.Base64;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,8 +60,13 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     
     private static final int PERMISSION_REQUEST_CODE = 1001;
+    private static final int REQUEST_FILE_PICKER = 1002;
+    private static final int REQUEST_STORAGE_PERMISSION = 1003;
+    private static final int REQUEST_WEBVIEW_FILE_CHOOSER = 1004;
     
     private WebView webView;
+    private ValueCallback<Uri[]> filePathCallback;
+    private WebChromeClient.FileChooserParams fileChooserParams;
     
     private View recordButton;
     private TextView tvRecordHint;
@@ -65,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
     private CloudAsrManager cloudAsrManager;
     private FunAsrWebSocketManager funAsrManager;
     private WebViewTextInjector webViewInjector;
+    private ImageButton btnAttachment;
     
     private Handler mainHandler = new Handler(Looper.getMainLooper());
     private boolean isKeyboardVisible = false;
@@ -119,6 +136,33 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
+        
+        @android.webkit.JavascriptInterface
+        public void injectAttachment(String base64Data, String filename, String mimeType) {
+            android.util.Log.d("MainActivity", "JavaScriptInterface.injectAttachment called: " + 
+                filename + ", mimeType: " + mimeType + ", data length: " + 
+                (base64Data != null ? base64Data.length() : 0));
+            
+            // This method receives data from JavaScript and needs to inject it back
+            // We'll handle this on the UI thread
+            mainHandler.post(() -> {
+                injectImageToWebView(base64Data, filename, mimeType);
+            });
+        }
+        
+        @android.webkit.JavascriptInterface
+        public void onAttachmentReady(boolean success, String filename, String message) {
+            android.util.Log.d("MainActivity", "JavaScriptInterface.onAttachmentReady: success=" + 
+                success + ", filename=" + filename + ", message=" + message);
+            
+            mainHandler.post(() -> {
+                if (success) {
+                    Toast.makeText(MainActivity.this, "已添加: " + filename, Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(MainActivity.this, "添加失败: " + filename + " - " + message, Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 
     @Override
@@ -143,6 +187,10 @@ public class MainActivity extends AppCompatActivity {
         recordButtonContainer = findViewById(R.id.record_button_container);
         recordProgress = findViewById(R.id.record_progress);
         bottomContainer = findViewById(R.id.bottom_container);
+        
+        // Initialize attachment button
+        btnAttachment = findViewById(R.id.btn_attachment);
+        btnAttachment.setOnClickListener(v -> openFilePicker());
 
         TextView btnMenu = findViewById(R.id.btn_menu);
         btnMenu.setOnClickListener(v -> showPopupMenu(v));
@@ -234,12 +282,26 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         
-        // Configure WebChromeClient for console logging
+        // Configure WebChromeClient for console logging and file upload
         webView.setWebChromeClient(new WebChromeClient() {
             @Override
             public boolean onConsoleMessage(ConsoleMessage consoleMessage) {
                 android.util.Log.d("MainActivity", "WebView console: " + consoleMessage.message() + 
                         " at " + consoleMessage.sourceId() + ":" + consoleMessage.lineNumber());
+                return true;
+            }
+            
+            @Override
+            public boolean onShowFileChooser(WebView webView, ValueCallback<Uri[]> filePathCallback, 
+                    FileChooserParams fileChooserParams) {
+                android.util.Log.d("MainActivity", "WebView file chooser requested");
+                
+                // Store the callback
+                MainActivity.this.filePathCallback = filePathCallback;
+                
+                // Launch file picker
+                openFilePickerForWebView(fileChooserParams);
+                
                 return true;
             }
         });
@@ -624,24 +686,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == PERMISSION_REQUEST_CODE) {
-            boolean allGranted = true;
-            for (int result : grantResults) {
-                if (result != PackageManager.PERMISSION_GRANTED) {
-                    allGranted = false;
-                    break;
-                }
-            }
-            
-            if (!allGranted) {
-                Toast.makeText(this, "请开启录音/网络权限后使用", Toast.LENGTH_LONG).show();
-                updateButtonState(ButtonState.DISABLED);
-            }
-        }
-    }
+
     
     private void setupRecordButton() {
         recordButton.setOnTouchListener((v, event) -> {
@@ -1344,6 +1389,776 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }).start();
+    }
+    
+    // =================================================================
+    // Attachment Upload Methods (Phase 1)
+    // =================================================================
+    
+    /**
+     * Open file picker for WebView file chooser
+     */
+    private void openFilePickerForWebView(WebChromeClient.FileChooserParams params) {
+        android.util.Log.d("MainActivity", "Opening file picker for WebView");
+        
+        this.fileChooserParams = params;
+        
+        if (checkStoragePermission()) {
+            Intent intent = params.createIntent();
+            // Fallback if createIntent fails
+            if (intent == null) {
+                intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+                intent.addCategory(Intent.CATEGORY_OPENABLE);
+                String[] mimeTypes = {"image/*", "application/pdf"};
+                intent.setType("*/*");
+                intent.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes);
+            }
+            
+            try {
+                startActivityForResult(intent, REQUEST_WEBVIEW_FILE_CHOOSER);
+            } catch (Exception e) {
+                android.util.Log.e("MainActivity", "Error starting WebView file picker", e);
+                if (filePathCallback != null) {
+                    filePathCallback.onReceiveValue(null);
+                    filePathCallback = null;
+                }
+            }
+        } else {
+            requestStoragePermission();
+            // Cancel the file chooser if no permission
+            if (filePathCallback != null) {
+                filePathCallback.onReceiveValue(null);
+                filePathCallback = null;
+            }
+        }
+    }
+    
+    /**
+     * Open file picker to select images or PDF files
+     */
+    private void openFilePicker() {
+        android.util.Log.d("MainActivity", "Opening file picker");
+        
+        if (checkStoragePermission()) {
+            Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+            intent.addCategory(Intent.CATEGORY_OPENABLE);
+            
+            // Set MIME types accepted by OpenCode
+            String[] mimeTypes = {
+                "image/png", "image/jpeg", "image/gif", 
+                "image/webp", "application/pdf"
+            };
+            intent.setType("*/*");
+            intent.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes);
+            
+            // Allow multiple selection
+            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+            
+            startActivityForResult(intent, REQUEST_FILE_PICKER);
+        } else {
+            requestStoragePermission();
+        }
+    }
+    
+    /**
+     * Check storage permission based on Android version
+     */
+    private boolean checkStoragePermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            // Android 13+ requires READ_MEDIA_IMAGES permission
+            return ContextCompat.checkSelfPermission(this, 
+                Manifest.permission.READ_MEDIA_IMAGES) == PackageManager.PERMISSION_GRANTED;
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            // Android 11-12 requires READ_EXTERNAL_STORAGE permission
+            return ContextCompat.checkSelfPermission(this,
+                Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
+        } else {
+            // Android 10 and below
+            return ContextCompat.checkSelfPermission(this,
+                Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
+        }
+    }
+    
+    /**
+     * Request storage permission
+     */
+    private void requestStoragePermission() {
+        String[] permissions;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            permissions = new String[]{Manifest.permission.READ_MEDIA_IMAGES};
+        } else {
+            permissions = new String[]{Manifest.permission.READ_EXTERNAL_STORAGE};
+        }
+        
+        ActivityCompat.requestPermissions(this, permissions, REQUEST_STORAGE_PERMISSION);
+    }
+    
+    /**
+     * Handle file picker result
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        
+        if (requestCode == REQUEST_FILE_PICKER && resultCode == RESULT_OK) {
+            if (data == null) return;
+            
+            List<Uri> fileUris = new ArrayList<>();
+            
+            // Check if multiple files were selected
+            if (data.getClipData() != null) {
+                android.util.Log.d("MainActivity", "Multiple files selected");
+                int count = data.getClipData().getItemCount();
+                for (int i = 0; i < count; i++) {
+                    Uri fileUri = data.getClipData().getItemAt(i).getUri();
+                    fileUris.add(fileUri);
+                }
+            } else if (data.getData() != null) {
+                // Single file selected
+                android.util.Log.d("MainActivity", "Single file selected");
+                fileUris.add(data.getData());
+            }
+            
+            if (!fileUris.isEmpty()) {
+                processSelectedFiles(fileUris);
+            } else {
+                Toast.makeText(this, "未选择文件", Toast.LENGTH_SHORT).show();
+            }
+        }
+        
+        // Handle WebView file chooser result
+        if (requestCode == REQUEST_WEBVIEW_FILE_CHOOSER) {
+            if (filePathCallback != null) {
+                Uri[] results = null;
+                if (resultCode == RESULT_OK && data != null) {
+                    if (data.getClipData() != null) {
+                        // Multiple files
+                        int count = data.getClipData().getItemCount();
+                        results = new Uri[count];
+                        for (int i = 0; i < count; i++) {
+                            results[i] = data.getClipData().getItemAt(i).getUri();
+                        }
+                    } else if (data.getData() != null) {
+                        // Single file
+                        results = new Uri[]{data.getData()};
+                    }
+                }
+                
+                android.util.Log.d("MainActivity", "WebView file chooser result: " + 
+                    (results != null ? results.length + " files" : "cancelled"));
+                filePathCallback.onReceiveValue(results);
+                filePathCallback = null;
+            }
+        }
+    }
+    
+    /**
+     * Process selected files and inject them to WebView
+     */
+    private void processSelectedFiles(List<Uri> fileUris) {
+        android.util.Log.d("MainActivity", "Processing " + fileUris.size() + " files");
+        
+        if (fileUris.isEmpty()) return;
+        
+        // Show processing message
+        Toast.makeText(this, "正在处理 " + fileUris.size() + " 个文件...", 
+            Toast.LENGTH_SHORT).show();
+        
+        // Process files sequentially to avoid overwhelming the system
+        new Thread(() -> {
+            for (Uri fileUri : fileUris) {
+                processSingleFile(fileUri);
+                
+                // Small delay between files to avoid UI lag
+                try {
+                    Thread.sleep(200);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            
+            // Show completion message
+            mainHandler.post(() -> {
+                Toast.makeText(MainActivity.this, 
+                    "所有文件已添加", Toast.LENGTH_SHORT).show();
+            });
+        }).start();
+    }
+    
+    /**
+     * Process a single file: read, convert to Base64, inject to WebView
+     */
+    private void processSingleFile(Uri fileUri) {
+        android.util.Log.d("MainActivity", "Processing file: " + fileUri);
+        
+        try {
+            // Get file name and MIME type
+            String fileName = getFileNameFromUri(fileUri);
+            String mimeType = getContentResolver().getType(fileUri);
+            
+            if (fileName == null || mimeType == null) {
+                android.util.Log.e("MainActivity", "Failed to get file info for URI: " + fileUri);
+                return;
+            }
+            
+            // Check if file type is supported by OpenCode
+            String[] acceptedTypes = {"image/png", "image/jpeg", "image/gif", "image/webp", "application/pdf"};
+            boolean isAccepted = false;
+            for (String acceptedType : acceptedTypes) {
+                if (acceptedType.equals(mimeType)) {
+                    isAccepted = true;
+                    break;
+                }
+            }
+            
+            if (!isAccepted) {
+                android.util.Log.w("MainActivity", "Unsupported file type: " + mimeType);
+                mainHandler.post(() -> {
+                    Toast.makeText(MainActivity.this, 
+                        "不支持的文件类型: " + mimeType, Toast.LENGTH_SHORT).show();
+                });
+                return;
+            }
+            
+            // Convert file to Base64
+            String base64Data = fileToBase64(fileUri);
+            if (base64Data == null) {
+                android.util.Log.e("MainActivity", "Failed to convert file to Base64: " + fileName);
+                return;
+            }
+            
+            // Inject to WebView on main thread
+            final String finalFileName = fileName;
+            final String finalMimeType = mimeType;
+            final String finalBase64Data = base64Data;
+            
+            mainHandler.post(() -> {
+                injectImageToWebView(finalBase64Data, finalFileName, finalMimeType);
+            });
+            
+        } catch (Exception e) {
+            android.util.Log.e("MainActivity", "Error processing file: " + fileUri, e);
+        }
+    }
+    
+    /**
+     * Convert file to Base64 string
+     */
+    private String fileToBase64(Uri fileUri) {
+        try {
+            // No file size limit - we use chunked transfer for large files
+            InputStream inputStream = getContentResolver().openInputStream(fileUri);
+            if (inputStream == null) {
+                android.util.Log.e("MainActivity", "Failed to open input stream for URI: " + fileUri);
+                return null;
+            }
+            
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            byte[] buffer = new byte[8192];
+            int bytesRead;
+            long totalBytes = 0;
+            
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                byteArrayOutputStream.write(buffer, 0, bytesRead);
+                totalBytes += bytesRead;
+                
+                // Check file size limit (10MB)
+                if (totalBytes > 10 * 1024 * 1024) {
+                    android.util.Log.w("MainActivity", "File too large, skipping: " + totalBytes + " bytes");
+                    inputStream.close();
+                    byteArrayOutputStream.close();
+                    
+                    mainHandler.post(() -> {
+                        Toast.makeText(this, "文件过大（超过10MB），已跳过", Toast.LENGTH_SHORT).show();
+                    });
+                    return null;
+                }
+            }
+            
+            inputStream.close();
+            byte[] fileBytes = byteArrayOutputStream.toByteArray();
+            byteArrayOutputStream.close();
+            
+            android.util.Log.d("MainActivity", "File size: " + totalBytes + " bytes");
+            String base64 = Base64.encodeToString(fileBytes, Base64.NO_WRAP);
+            // Log first 100 chars of base64 for debugging
+            if (base64 != null && base64.length() > 0) {
+                int previewLength = Math.min(100, base64.length());
+                android.util.Log.d("MainActivity", "Base64 preview (first " + previewLength + " chars): " + 
+                    base64.substring(0, previewLength));
+                android.util.Log.d("MainActivity", "Base64 total length: " + base64.length() + " chars");
+            }
+            return base64;
+            
+        } catch (IOException e) {
+            android.util.Log.e("MainActivity", "Error reading file", e);
+            return null;
+        }
+    }
+    
+    /**
+     * Get file size from URI
+     */
+    private long getFileSize(Uri uri) {
+        long size = 0;
+        if ("content".equals(uri.getScheme())) {
+            Cursor cursor = getContentResolver().query(uri, null, null, null, null);
+            if (cursor != null && cursor.moveToFirst()) {
+                int sizeIndex = cursor.getColumnIndex(OpenableColumns.SIZE);
+                if (sizeIndex != -1) {
+                    size = cursor.getLong(sizeIndex);
+                }
+                cursor.close();
+            }
+        }
+        return size;
+    }
+    
+    /**
+     * Get file name from URI
+     */
+    private String getFileNameFromUri(Uri uri) {
+        String fileName = null;
+        
+        if ("content".equals(uri.getScheme())) {
+            Cursor cursor = getContentResolver().query(uri, null, null, null, null);
+            if (cursor != null && cursor.moveToFirst()) {
+                int nameIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
+                fileName = cursor.getString(nameIndex);
+                cursor.close();
+            }
+        }
+        
+        if (fileName == null) {
+            fileName = uri.getPath();
+            int cut = fileName.lastIndexOf('/');
+            if (cut != -1) {
+                fileName = fileName.substring(cut + 1);
+            }
+        }
+        
+        return fileName;
+    }
+    
+    /**
+     * Inject image to WebView by simulating paste event using chunked transfer
+     * This method splits large Base64 data into smaller chunks to avoid WebView limitations
+     */
+    private void injectImageToWebView(String base64Data, String filename, String mimeType) {
+        if (webView == null) {
+            android.util.Log.e("MainActivity", "WebView is null");
+            return;
+        }
+        
+        android.util.Log.d("MainActivity", "Starting chunked injection for: " + filename);
+        android.util.Log.d("MainActivity", "Total Base64 length: " + (base64Data != null ? base64Data.length() : 0) + " chars");
+        
+        // Step 1: Inject the receiver JavaScript that will handle chunked data
+        injectChunkedReceiver(base64Data, filename, mimeType);
+    }
+    
+    /**
+     * Inject JavaScript receiver that can handle chunked Base64 data
+     */
+    private void injectChunkedReceiver(String base64Data, String filename, String mimeType) {
+        final int totalLength = base64Data != null ? base64Data.length() : 0;
+        final String jsFilename = escapeForJavaScript(filename);
+        final String jsMimeType = escapeForJavaScript(mimeType);
+        
+        android.util.Log.d("MainActivity", "Step 1: Injecting simple receiver object...");
+        
+        // Step 1: Create minimal receiver object (very short JS)
+        String step1Js = "if(!window.AndroidAttachmentReceiver){" +
+            "window.AndroidAttachmentReceiver={chunks:[],receivedLength:0,addChunk:function(c){" +
+            "this.chunks.push(c);this.receivedLength+=c.length;return this.receivedLength;}," +
+            "getFullData:function(){return this.chunks.join('');}," +
+            "isComplete:function(){return this.receivedLength>=this.totalLength;}," +
+            "reset:function(){this.chunks=[];this.receivedLength=0;}" +
+            "};'created'}else{'exists'}";
+        
+        webView.evaluateJavascript(step1Js, result1 -> {
+            android.util.Log.d("MainActivity", "Step 1 result: " + result1);
+            
+            if (result1 == null || (!result1.contains("created") && !result1.contains("exists"))) {
+                android.util.Log.e("MainActivity", "Failed to create receiver object: " + result1);
+                Toast.makeText(MainActivity.this, "添加失败：无法创建接收器", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            
+            // Step 2: Set metadata
+            android.util.Log.d("MainActivity", "Step 2: Setting metadata...");
+            String step2Js = "window.AndroidAttachmentReceiver.filename='" + jsFilename + "';" +
+                "window.AndroidAttachmentReceiver.mimeType='" + jsMimeType + "';" +
+                "window.AndroidAttachmentReceiver.totalLength=" + totalLength + ";" +
+                "window.AndroidAttachmentReceiver.reset();'metadata-set'";
+            
+            webView.evaluateJavascript(step2Js, result2 -> {
+                android.util.Log.d("MainActivity", "Step 2 result: " + result2);
+                
+                // Step 3: Inject processAttachment function separately
+                android.util.Log.d("MainActivity", "Step 3: Injecting processAttachment function...");
+                injectProcessAttachmentFunction(jsFilename, jsMimeType, () -> {
+                    // Step 4: Start sending chunks
+                    android.util.Log.d("MainActivity", "Step 4: Starting to send chunks...");
+                    sendBase64Chunks(base64Data, filename, mimeType);
+                });
+            });
+        });
+    }
+    
+    /**
+     * Inject the processAttachment function - simplified version
+     */
+    private void injectProcessAttachmentFunction(String jsFilename, String jsMimeType, Runnable onComplete) {
+        // Simplified function - just the core logic
+        String funcJs = "window.AndroidAttachmentReceiver.processAttachment=function(){" +
+            "try{var d=this.getFullData();" +
+            "var u='data:'+this.mimeType+';base64,'+d;" +
+            "var a=u.split(',');" +
+            "var m=a[0].match(/:(.*?);/)[1];" +
+            "var b=atob(a[1]);" +
+            "var n=b.length;" +
+            "var x=new Uint8Array(n);" +
+            "while(n--){x[n]=b.charCodeAt(n);}" +
+            "var blob=new Blob([x],{type:m});" +
+            "var file=new File([blob],this.filename,{type:this.mimeType});" +
+            "var dt=new DataTransfer();" +
+            "dt.items.add(file);" +
+            "var input=document.querySelector('[data-component=prompt-input]');" +
+            "if(input){input.focus();input.dispatchEvent(new ClipboardEvent('paste',{clipboardData:dt,bubbles:true}));}" +
+            "if(window.AndroidVoiceAssist){window.AndroidVoiceAssist.onAttachmentReady(true,this.filename,'ok');}" +
+            "return true;}catch(e){" +
+            "if(window.AndroidVoiceAssist){window.AndroidVoiceAssist.onAttachmentReady(false,this.filename,e.message);}" +
+            "return false;}};'done'";
+        
+        webView.evaluateJavascript(funcJs, result -> {
+            android.util.Log.d("MainActivity", "Function injection result: " + result);
+            if (onComplete != null) {
+                onComplete.run();
+            }
+        });
+    }
+
+    /**
+     * Send Base64 data in chunks
+     */
+    private void sendBase64Chunks(String base64Data, String filename, String mimeType) {
+        if (base64Data == null || base64Data.isEmpty()) {
+            android.util.Log.e("MainActivity", "Base64 data is empty");
+            return;
+        }
+        
+        // Chunk size: 30000 characters (leaving room for JavaScript overhead)
+        final int CHUNK_SIZE = 30000;
+        final int totalLength = base64Data.length();
+        final int totalChunks = (int) Math.ceil((double) totalLength / CHUNK_SIZE);
+        
+        android.util.Log.d("MainActivity", "Sending " + totalChunks + " chunks, total size: " + totalLength);
+        
+        // Send chunks sequentially using recursion to avoid overwhelming WebView
+        sendChunkRecursive(base64Data, filename, mimeType, 0, CHUNK_SIZE, totalChunks);
+    }
+    
+    /**
+     * Recursively send chunks with delay to avoid overwhelming WebView
+     */
+    private void sendChunkRecursive(String base64Data, String filename, String mimeType, 
+                                    int chunkIndex, int chunkSize, int totalChunks) {
+        if (chunkIndex >= totalChunks) {
+            // All chunks sent, trigger processing
+            android.util.Log.d("MainActivity", "All chunks sent, triggering processing");
+            triggerChunkedProcessing(filename);
+            return;
+        }
+        
+        int start = chunkIndex * chunkSize;
+        int end = Math.min(start + chunkSize, base64Data.length());
+        String chunk = base64Data.substring(start, end);
+        
+        // Escape the chunk for JavaScript
+        String escapedChunk = chunk.replace("\\", "\\\\")
+                                   .replace("'", "\\'")
+                                   .replace("\"", "\\\"");
+        
+        String chunkJs = "(function() {" +
+            "  try {" +
+            "    if (window.AndroidAttachmentReceiver) {" +
+            "      var received = window.AndroidAttachmentReceiver.addChunk('" + escapedChunk + "');" +
+            "      return 'chunk-added:' + received;" +
+            "    } else {" +
+            "      return 'receiver-not-found';" +
+            "    }" +
+            "  } catch(e) {" +
+            "    return 'error: ' + e.message;" +
+            "  }" +
+            "})();";
+        
+        webView.evaluateJavascript(chunkJs, result -> {
+            android.util.Log.d("MainActivity", "Chunk " + (chunkIndex + 1) + "/" + totalChunks + " result: " + result);
+            
+            // Small delay before next chunk to allow WebView to process
+            mainHandler.postDelayed(() -> {
+                sendChunkRecursive(base64Data, filename, mimeType, chunkIndex + 1, chunkSize, totalChunks);
+            }, 10); // 10ms delay between chunks
+        });
+    }
+    
+    /**
+     * Trigger processing of all received chunks
+     */
+    private void triggerChunkedProcessing(String filename) {
+        String processJs = "(function() {" +
+            "  try {" +
+            "    if (window.AndroidAttachmentReceiver) {" +
+            "      if (window.AndroidAttachmentReceiver.isComplete()) {" +
+            "        var result = window.AndroidAttachmentReceiver.processAttachment();" +
+            "        return 'processing-result:' + result;" +
+            "      } else {" +
+            "        return 'incomplete-data';" +
+            "      }" +
+            "    } else {" +
+            "      return 'receiver-not-found';" +
+            "    }" +
+            "  } catch(e) {" +
+            "    console.error('[OpenCode] Processing error: ' + e.message);" +
+            "    return 'error: ' + e.message;" +
+            "  }" +
+            "})();";
+        
+        webView.evaluateJavascript(processJs, result -> {
+            android.util.Log.d("MainActivity", "Processing result: " + result);
+        });
+    }
+    
+    /**
+     * Build JavaScript code to simulate paste event with image data
+     */
+    private String buildImageInjectionJs(String base64Data, String filename, String mimeType) {
+        // Escape strings for JavaScript string literals
+        String jsFilename = escapeForJavaScript(filename);
+        String jsMimeType = escapeForJavaScript(mimeType);
+        String jsBase64 = escapeForJavaScript(base64Data);
+        
+        // Debug: Log JavaScript code information
+        android.util.Log.d("MainActivity", "buildImageInjectionJs called");
+        android.util.Log.d("MainActivity", "Filename: " + filename + " -> js: " + 
+            (jsFilename.length() > 50 ? jsFilename.substring(0, 50) + "..." : jsFilename));
+        android.util.Log.d("MainActivity", "MIME type: " + mimeType + " -> js: " + jsMimeType);
+        android.util.Log.d("MainActivity", "Base64 length: " + base64Data.length() + 
+            " -> js length: " + jsBase64.length());
+        if (jsBase64.length() > 0) {
+            int previewLength = Math.min(100, jsBase64.length());
+            android.util.Log.d("MainActivity", "Base64 preview (first " + previewLength + " chars): " + 
+                jsBase64.substring(0, previewLength));
+            if (jsBase64.length() > 100) {
+                android.util.Log.d("MainActivity", "Base64 preview (last 100 chars): " + 
+                    jsBase64.substring(jsBase64.length() - 100));
+            }
+        }
+        
+        return "(function() {" +
+            "  console.log('[OpenCode] Starting image injection for: ' + '" + jsFilename + "');" +
+            "  const result = { success: false, error: null, step: 'start' };" +
+            "  " +
+            "  try {" +
+            "    // Step 1: Check if page is loaded" +
+            "    if (!document.body || document.body.children.length === 0) {" +
+            "      result.error = 'Document not fully loaded';" +
+            "      result.step = 'document-check';" +
+            "      console.error('[OpenCode] ' + result.error);" +
+            "      return JSON.stringify(result);" +
+            "    }" +
+            "    " +
+            "    // Step 2: Create Data URL" +
+            "    result.step = 'creating-data-url';" +
+            "    const dataUrl = 'data:' + '" + jsMimeType + ";base64,' + '" + jsBase64 + "';" +
+            "    console.log('[OpenCode] Data URL created');" +
+            "    " +
+            "    // Step 3: Convert Data URL to Blob" +
+            "    result.step = 'converting-to-blob';" +
+            "    function dataURLtoBlob(dataurl) {" +
+            "      const arr = dataurl.split(',');" +
+            "      const mime = arr[0].match(/:(.*?);/)[1];" +
+            "      const bstr = atob(arr[1]);" +
+            "      let n = bstr.length;" +
+            "      const u8arr = new Uint8Array(n);" +
+            "      while (n--) {" +
+            "        u8arr[n] = bstr.charCodeAt(n);" +
+            "      }" +
+            "      return new Blob([u8arr], { type: mime });" +
+            "    }" +
+            "    " +
+            "    const blob = dataURLtoBlob(dataUrl);" +
+            "    console.log('[OpenCode] Blob created, size: ' + blob.size + ' bytes');" +
+            "    " +
+            "    // Step 4: Create File object" +
+            "    result.step = 'creating-file-object';" +
+            "    const file = new File([blob], '" + jsFilename + "', { type: '" + jsMimeType + "' });" +
+            "    console.log('[OpenCode] File created: ' + file.name);" +
+            "    " +
+            "    // Step 5: Create DataTransfer" +
+            "    result.step = 'creating-datatransfer';" +
+            "    const dataTransfer = new DataTransfer();" +
+            "    dataTransfer.items.add(file);" +
+            "    console.log('[OpenCode] DataTransfer created with file');" +
+            "    " +
+            "    // Step 6: Create paste event" +
+            "    result.step = 'creating-paste-event';" +
+            "    const pasteEvent = new ClipboardEvent('paste', {" +
+            "      clipboardData: dataTransfer," +
+            "      bubbles: true," +
+            "      cancelable: true" +
+            "    });" +
+            "    console.log('[OpenCode] Paste event created');" +
+            "    " +
+            "    // Step 7: Find OpenCode input field" +
+            "    result.step = 'finding-input-field';" +
+            "    let promptInput = document.querySelector('[data-component=\"prompt-input\"]');" +
+            "    if (!promptInput) {" +
+            "      // Try alternative selectors" +
+            "      const alternativeSelectors = [" +
+            "        'textarea'," +
+            "        'input[type=\"text\"]'," +
+            "        '.prompt-input'," +
+            "        '[role=\"textbox\"]'," +
+            "        '.ProseMirror'," +
+            "        '.chat-input'," +
+            "        '.input-area'," +
+            "        'div[contenteditable=\"true\"]'" +
+            "      ];" +
+            "      " +
+            "      for (const selector of alternativeSelectors) {" +
+            "        const element = document.querySelector(selector);" +
+            "        if (element) {" +
+            "          promptInput = element;" +
+            "          console.log('[OpenCode] Found input using alternative selector: ' + selector);" +
+            "          break;" +
+            "        }" +
+            "      }" +
+            "    }" +
+            "    " +
+            "    if (!promptInput) {" +
+            "      result.error = 'OpenCode input field not found. Please focus the input field first.';" +
+            "      result.step = 'input-not-found';" +
+            "      console.error('[OpenCode] ' + result.error);" +
+            "      return JSON.stringify(result);" +
+            "    }" +
+            "    " +
+            "    console.log('[OpenCode] Found input field');" +
+            "    " +
+            "    // Step 8: Focus input field first (important for paste to work)" +
+            "    result.step = 'focusing-input';" +
+            "    promptInput.focus();" +
+            "    console.log('[OpenCode] Input field focused');" +
+            "    " +
+            "    // Step 9: Trigger paste event" +
+            "    result.step = 'triggering-paste-event';" +
+            "    promptInput.dispatchEvent(pasteEvent);" +
+            "    console.log('[OpenCode] Paste event dispatched');" +
+            "    " +
+            "    result.success = true;" +
+            "    result.step = 'completed';" +
+            "    console.log('[OpenCode] Image injection successful');" +
+            "    return JSON.stringify(result);" +
+            "    " +
+            "  } catch (error) {" +
+            "    result.error = 'Exception: ' + error.toString() + '\\nStack: ' + (error.stack || 'no stack');" +
+            "    result.step = 'exception';" +
+            "    console.error('[OpenCode] Image injection failed:', error);" +
+            "    return JSON.stringify(result);" +
+            "  }" +
+            "})();";
+    }
+    
+    /**
+     * Escape string for use in JavaScript string literal
+     */
+    private String escapeForJavaScript(String input) {
+        if (input == null) return "";
+        
+        // Debug: log input characteristics
+        if (input.length() > 1000) {
+            android.util.Log.d("MainActivity", "escapeForJavaScript: input length=" + input.length());
+            android.util.Log.d("MainActivity", "escapeForJavaScript: first 50 chars=" + 
+                input.substring(0, Math.min(50, input.length())));
+            android.util.Log.d("MainActivity", "escapeForJavaScript: last 50 chars=" + 
+                input.substring(Math.max(0, input.length() - 50)));
+            
+            // Check for problematic characters
+            int backslashCount = 0, singleQuoteCount = 0, doubleQuoteCount = 0, newlineCount = 0;
+            for (int i = 0; i < Math.min(1000, input.length()); i++) {
+                char c = input.charAt(i);
+                if (c == '\\') backslashCount++;
+                else if (c == '\'') singleQuoteCount++;
+                else if (c == '"') doubleQuoteCount++;
+                else if (c == '\n') newlineCount++;
+            }
+            android.util.Log.d("MainActivity", "escapeForJavaScript: problematic chars in first 1000: " +
+                "\\=" + backslashCount + ", '=" + singleQuoteCount + ", \"=" + doubleQuoteCount + 
+                ", \\n=" + newlineCount);
+        }
+        
+        String result = input
+            .replace("\\", "\\\\")
+            .replace("'", "\\'")
+            .replace("\"", "\\\"")
+            .replace("\n", "\\n")
+            .replace("\r", "\\r")
+            .replace("\t", "\\t");
+            
+        // Debug: log result characteristics
+        if (input.length() > 1000) {
+            android.util.Log.d("MainActivity", "escapeForJavaScript: result length=" + result.length());
+            android.util.Log.d("MainActivity", "escapeForJavaScript: length increased by " + 
+                (result.length() - input.length()));
+        }
+        
+        return result;
+    }
+    
+    /**
+     * Handle permission request results
+     */
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, 
+                                           @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        
+        if (requestCode == PERMISSION_REQUEST_CODE) {
+            boolean allGranted = true;
+            for (int result : grantResults) {
+                if (result != PackageManager.PERMISSION_GRANTED) {
+                    allGranted = false;
+                    break;
+                }
+            }
+            
+            if (!allGranted) {
+                Toast.makeText(this, "请开启录音/网络权限后使用", Toast.LENGTH_LONG).show();
+                updateButtonState(ButtonState.DISABLED);
+            }
+        } else if (requestCode == REQUEST_STORAGE_PERMISSION) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Permission granted, open file picker
+                openFilePicker();
+            } else {
+                if (permissions.length > 0) {
+                    String deniedPermission = permissions[0];
+                    // Check if user permanently denied the permission
+                    boolean shouldShowRationale = ActivityCompat.shouldShowRequestPermissionRationale(
+                        this, deniedPermission);
+                    
+                    if (!shouldShowRationale && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        // Permission permanently denied, guide user to settings
+                        Toast.makeText(this, "存储权限被永久拒绝，请在设置中启用", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(this, "需要存储权限才能选择文件", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(this, "需要存储权限才能选择文件", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
     }
     
     @Override
