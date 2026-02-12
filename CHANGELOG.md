@@ -44,6 +44,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 **Result**: ✅ Recording no longer interrupted by file operations, works correctly with simultaneous image upload and voice recording
 
+#### Continuous Recording ASR Timeout Bug
+**Issue**: First recording succeeded, but immediately starting a second recording would result in ASR timeout. Waiting longer between recordings would work.
+
+**Root Cause**:
+- FunASR WebSocket connection remained open after first transcription
+- Second transcription attempted to reuse the old connection
+- FunASR server expects a new connection for each session
+- Old connection became unresponsive, causing 30-second timeout
+
+**Solution**:
+- Added `disconnect()` call in `resetState()` to close WebSocket after each transcription
+- Ensures fresh connection for every ASR session
+
+**Result**: ✅ Can now record continuously without delays between recordings
+
 ### Known Issues
 - Android bottom attachment button uses chunked Base64 transfer which may not work with all web interfaces
 - Recommended to use OpenCode's native file selection button for best compatibility

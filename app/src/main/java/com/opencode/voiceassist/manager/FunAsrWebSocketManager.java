@@ -344,5 +344,9 @@ public class FunAsrWebSocketManager {
         isProcessing.set(false);
         currentCallback = null;
         currentAudioFile = null;
+        // Disconnect WebSocket to ensure fresh connection for next transcription
+        // FunASR server expects new connection for each session
+        disconnect();
+        Log.d(TAG, "State reset and WebSocket disconnected");
     }
 }
