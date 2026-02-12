@@ -52,17 +52,23 @@ import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.provider.OpenableColumns;
-import android.util.Base64;
+
 
 import java.util.ArrayList;
 import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
+import androidx.core.content.FileProvider;
 
 public class MainActivity extends AppCompatActivity {
     
     private static final int PERMISSION_REQUEST_CODE = 1001;
-    private static final int REQUEST_FILE_PICKER = 1002;
+
     private static final int REQUEST_STORAGE_PERMISSION = 1003;
     private static final int REQUEST_WEBVIEW_FILE_CHOOSER = 1004;
+    private static final int REQUEST_CAMERA = 1005;
     
     private WebView webView;
     private ValueCallback<Uri[]> filePathCallback;
@@ -81,7 +87,12 @@ public class MainActivity extends AppCompatActivity {
     private CloudAsrManager cloudAsrManager;
     private FunAsrWebSocketManager funAsrManager;
     private WebViewTextInjector webViewInjector;
-    private ImageButton btnAttachment;
+
+    private ImageButton btnCamera;
+    private Uri cameraPhotoUri;
+    private boolean isCameraCapturePending = false;
+    private boolean isCameraUploadPending = false;
+    private Uri cameraUploadUri = null;
     
     private Handler mainHandler = new Handler(Looper.getMainLooper());
     private boolean isKeyboardVisible = false;
@@ -140,14 +151,13 @@ public class MainActivity extends AppCompatActivity {
         
         @android.webkit.JavascriptInterface
         public void injectAttachment(String base64Data, String filename, String mimeType) {
-            android.util.Log.d("MainActivity", "JavaScriptInterface.injectAttachment called: " + 
+            android.util.Log.d("MainActivity", "JavaScriptInterface.injectAttachment called (Base64 method disabled): " + 
                 filename + ", mimeType: " + mimeType + ", data length: " + 
                 (base64Data != null ? base64Data.length() : 0));
             
-            // This method receives data from JavaScript and needs to inject it back
-            // We'll handle this on the UI thread
+            // Base64 injection method disabled - use camera photo upload instead
             mainHandler.post(() -> {
-                injectImageToWebView(base64Data, filename, mimeType);
+                Toast.makeText(MainActivity.this, "Base64附件上传已禁用，请使用相机拍照上传", Toast.LENGTH_SHORT).show();
             });
         }
         
@@ -192,9 +202,11 @@ public class MainActivity extends AppCompatActivity {
         recordProgress = findViewById(R.id.record_progress);
         bottomContainer = findViewById(R.id.bottom_container);
         
-        // Initialize attachment button
-        btnAttachment = findViewById(R.id.btn_attachment);
-        btnAttachment.setOnClickListener(v -> openFilePicker());
+
+
+        // Initialize camera button
+        btnCamera = findViewById(R.id.btn_camera);
+        btnCamera.setOnClickListener(v -> openCamera());
 
         TextView btnMenu = findViewById(R.id.btn_menu);
         btnMenu.setOnClickListener(v -> showPopupMenu(v));
@@ -302,6 +314,19 @@ public class MainActivity extends AppCompatActivity {
                 
                 // Store the callback
                 MainActivity.this.filePathCallback = filePathCallback;
+                
+                // Check if this is a camera upload request
+                if (isCameraUploadPending && cameraUploadUri != null) {
+                    android.util.Log.d("MainActivity", "Camera upload pending, returning photo URI: " + cameraUploadUri);
+                    Uri photoUri = cameraUploadUri; // Save reference
+                    filePathCallback.onReceiveValue(new Uri[]{photoUri});
+                    isCameraUploadPending = false;
+                    cameraUploadUri = null;
+                    
+                    // Schedule cleanup of temporary file after WebView processes it
+                    cleanupTempCameraFile(photoUri);
+                    return true;
+                }
                 
                 // Launch file picker
                 openFilePickerForWebView(fileChooserParams);
@@ -1454,30 +1479,143 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     
+
+
     /**
-     * Open file picker to select images or PDF files
+     * Open camera to take photo
      */
-    private void openFilePicker() {
-        android.util.Log.d("MainActivity", "Opening file picker");
+    private void openCamera() {
+        android.util.Log.d("MainActivity", "Opening camera");
         
-        if (checkStoragePermission()) {
-            Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-            intent.addCategory(Intent.CATEGORY_OPENABLE);
-            
-            // Set MIME types accepted by OpenCode
-            String[] mimeTypes = {
-                "image/png", "image/jpeg", "image/gif", 
-                "image/webp", "application/pdf"
-            };
-            intent.setType("*/*");
-            intent.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes);
-            
-            // Allow multiple selection
-            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-            
-            startActivityForResult(intent, REQUEST_FILE_PICKER);
+        // Prevent camera during recording to avoid interruption
+        if (isRecording) {
+            android.util.Log.d("MainActivity", "Camera blocked - recording in progress");
+            Toast.makeText(this, "录音进行中，无法拍照", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        
+        if (checkCameraPermission()) {
+            launchCamera();
         } else {
-            requestStoragePermission();
+            requestCameraPermission();
+        }
+    }
+
+    /**
+     * Check camera permission
+     */
+    private boolean checkCameraPermission() {
+        return ContextCompat.checkSelfPermission(this, 
+            Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED;
+    }
+
+    /**
+     * Request camera permission
+     */
+    private void requestCameraPermission() {
+        ActivityCompat.requestPermissions(this, 
+            new String[]{Manifest.permission.CAMERA}, REQUEST_CAMERA);
+    }
+
+    /**
+     * Launch system camera with FileProvider
+     */
+    private void launchCamera() {
+        try {
+            Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            
+            // Ensure there's a camera activity to handle the intent
+            if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+                // Create the File where the photo should go
+                File photoFile = createImageFile();
+                if (photoFile != null) {
+                    cameraPhotoUri = FileProvider.getUriForFile(this,
+                        getApplicationContext().getPackageName() + ".fileprovider",
+                        photoFile);
+                    
+                    // Grant temporary read permission to the camera app
+                    takePictureIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, cameraPhotoUri);
+                    
+                    // Start the camera activity
+                    startActivityForResult(takePictureIntent, REQUEST_CAMERA);
+                    isCameraCapturePending = true;
+                } else {
+                    Toast.makeText(this, "无法创建照片文件", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(this, "未找到相机应用", Toast.LENGTH_SHORT).show();
+            }
+        } catch (Exception e) {
+            android.util.Log.e("MainActivity", "Error launching camera", e);
+            Toast.makeText(this, "启动相机失败: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    /**
+     * Create a temporary image file for camera capture
+     */
+    private File createImageFile() {
+        try {
+            // Create an image file name
+            String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
+            String imageFileName = "JPEG_" + timeStamp + "_";
+            
+            // Use cache directory for temporary storage
+            File storageDir = getExternalCacheDir();
+            if (storageDir == null) {
+                storageDir = getCacheDir(); // Fallback to internal cache
+            }
+            
+            File imageFile = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+            );
+            
+            return imageFile;
+        } catch (IOException e) {
+            android.util.Log.e("MainActivity", "Error creating image file", e);
+            return null;
+        }
+    }
+
+    /**
+     * Trigger file upload from camera - sets pending flag for WebView file chooser
+     */
+    private void triggerFileUploadFromCamera(Uri photoUri) {
+        android.util.Log.d("MainActivity", "Triggering file upload from camera: " + photoUri);
+        
+        // Set upload pending flag and URI
+        isCameraUploadPending = true;
+        cameraUploadUri = photoUri;
+        
+        // User must manually click the attachment button in WebView
+        // WebView's onShowFileChooser will handle the pending upload
+        Toast.makeText(this, "拍照完成，请在网页中点击附件按钮上传照片", Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * Clean up temporary camera file after processing
+     */
+    private void cleanupTempCameraFile(Uri fileUri) {
+        if (fileUri == null) return;
+        
+        // Check if this is a camera temp file (from cache directory)
+        String uriPath = fileUri.toString();
+        if (uriPath.contains("cache") || uriPath.contains("temp")) {
+            mainHandler.postDelayed(() -> {
+                try {
+                    File file = new File(fileUri.getPath());
+                    if (file.exists()) {
+                        boolean deleted = file.delete();
+                        android.util.Log.d("MainActivity", "Cleaned up temp camera file: " + 
+                            file.getAbsolutePath() + " deleted=" + deleted);
+                    }
+                } catch (Exception e) {
+                    android.util.Log.w("MainActivity", "Failed to cleanup temp camera file", e);
+                }
+            }, 30000); // Delay 30 seconds to allow WebView to process
         }
     }
     
@@ -1521,31 +1659,40 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         
-        if (requestCode == REQUEST_FILE_PICKER && resultCode == RESULT_OK) {
-            if (data == null) return;
+
+        
+        // Handle camera photo result
+        if (requestCode == REQUEST_CAMERA) {
+            android.util.Log.d("MainActivity", "Camera result received, resultCode: " + resultCode);
+            isCameraCapturePending = false;
             
-            List<Uri> fileUris = new ArrayList<>();
-            
-            // Check if multiple files were selected
-            if (data.getClipData() != null) {
-                android.util.Log.d("MainActivity", "Multiple files selected");
-                int count = data.getClipData().getItemCount();
-                for (int i = 0; i < count; i++) {
-                    Uri fileUri = data.getClipData().getItemAt(i).getUri();
-                    fileUris.add(fileUri);
+            if (resultCode == RESULT_OK) {
+                if (cameraPhotoUri != null) {
+                    android.util.Log.d("MainActivity", "Processing captured photo: " + cameraPhotoUri);
+                    
+                    // Trigger WebView file upload with URI
+                    triggerFileUploadFromCamera(cameraPhotoUri);
+                    
+                    // Clear the URI after passing to upload handler
+                    cameraPhotoUri = null;
+                } else {
+                    android.util.Log.w("MainActivity", "Camera photo URI is null");
+                    Toast.makeText(this, "拍照失败，未获取到照片", Toast.LENGTH_SHORT).show();
                 }
-            } else if (data.getData() != null) {
-                // Single file selected
-                android.util.Log.d("MainActivity", "Single file selected");
-                fileUris.add(data.getData());
-            }
-            
-            if (!fileUris.isEmpty()) {
-                processSelectedFiles(fileUris);
             } else {
-                // Don't show toast if recording to avoid interrupting
-                if (!isRecording) {
-                    Toast.makeText(this, "未选择文件", Toast.LENGTH_SHORT).show();
+                android.util.Log.d("MainActivity", "Camera cancelled or failed");
+                // User cancelled or camera failed
+                if (cameraPhotoUri != null) {
+                    // Try to delete the temporary file
+                    try {
+                        File photoFile = new File(cameraPhotoUri.getPath());
+                        if (photoFile.exists()) {
+                            photoFile.delete();
+                        }
+                    } catch (Exception e) {
+                        android.util.Log.w("MainActivity", "Failed to delete temp photo file", e);
+                    }
+                    cameraPhotoUri = null;
                 }
             }
         }
@@ -1576,146 +1723,17 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     
-    /**
-     * Process selected files and inject them to WebView
-     */
-    private void processSelectedFiles(List<Uri> fileUris) {
-        android.util.Log.d("MainActivity", "Processing " + fileUris.size() + " files");
-        
-        if (fileUris.isEmpty()) return;
-        
-        // Don't show processing toast to avoid interrupting recording
-        // Toast display can cause ACTION_CANCEL on recording button
-        
-        // Process files sequentially to avoid overwhelming the system
-        new Thread(() -> {
-            for (Uri fileUri : fileUris) {
-                processSingleFile(fileUri);
-                
-                // Small delay between files to avoid UI lag
-                try {
-                    Thread.sleep(200);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-            
-            // Don't show completion toast to avoid interrupting recording
-            // Log instead of toast
-            android.util.Log.d("MainActivity", "All files processed successfully");
-        }).start();
-    }
+
     
     /**
      * Process a single file: read, convert to Base64, inject to WebView
      */
-    private void processSingleFile(Uri fileUri) {
-        android.util.Log.d("MainActivity", "Processing file: " + fileUri);
-        
-        try {
-            // Get file name and MIME type
-            String fileName = getFileNameFromUri(fileUri);
-            String mimeType = getContentResolver().getType(fileUri);
-            
-            if (fileName == null || mimeType == null) {
-                android.util.Log.e("MainActivity", "Failed to get file info for URI: " + fileUri);
-                return;
-            }
-            
-            // Check if file type is supported by OpenCode
-            String[] acceptedTypes = {"image/png", "image/jpeg", "image/gif", "image/webp", "application/pdf"};
-            boolean isAccepted = false;
-            for (String acceptedType : acceptedTypes) {
-                if (acceptedType.equals(mimeType)) {
-                    isAccepted = true;
-                    break;
-                }
-            }
-            
-            if (!isAccepted) {
-                android.util.Log.w("MainActivity", "Unsupported file type: " + mimeType);
-                mainHandler.post(() -> {
-                    Toast.makeText(MainActivity.this, 
-                        "不支持的文件类型: " + mimeType, Toast.LENGTH_SHORT).show();
-                });
-                return;
-            }
-            
-            // Convert file to Base64
-            String base64Data = fileToBase64(fileUri);
-            if (base64Data == null) {
-                android.util.Log.e("MainActivity", "Failed to convert file to Base64: " + fileName);
-                return;
-            }
-            
-            // Inject to WebView on main thread
-            final String finalFileName = fileName;
-            final String finalMimeType = mimeType;
-            final String finalBase64Data = base64Data;
-            
-            mainHandler.post(() -> {
-                injectImageToWebView(finalBase64Data, finalFileName, finalMimeType);
-            });
-            
-        } catch (Exception e) {
-            android.util.Log.e("MainActivity", "Error processing file: " + fileUri, e);
-        }
-    }
+
     
     /**
      * Convert file to Base64 string
      */
-    private String fileToBase64(Uri fileUri) {
-        try {
-            // No file size limit - we use chunked transfer for large files
-            InputStream inputStream = getContentResolver().openInputStream(fileUri);
-            if (inputStream == null) {
-                android.util.Log.e("MainActivity", "Failed to open input stream for URI: " + fileUri);
-                return null;
-            }
-            
-            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            byte[] buffer = new byte[8192];
-            int bytesRead;
-            long totalBytes = 0;
-            
-            while ((bytesRead = inputStream.read(buffer)) != -1) {
-                byteArrayOutputStream.write(buffer, 0, bytesRead);
-                totalBytes += bytesRead;
-                
-                // Check file size limit (10MB)
-                if (totalBytes > 10 * 1024 * 1024) {
-                    android.util.Log.w("MainActivity", "File too large, skipping: " + totalBytes + " bytes");
-                    inputStream.close();
-                    byteArrayOutputStream.close();
-                    
-                    mainHandler.post(() -> {
-                        Toast.makeText(this, "文件过大（超过10MB），已跳过", Toast.LENGTH_SHORT).show();
-                    });
-                    return null;
-                }
-            }
-            
-            inputStream.close();
-            byte[] fileBytes = byteArrayOutputStream.toByteArray();
-            byteArrayOutputStream.close();
-            
-            android.util.Log.d("MainActivity", "File size: " + totalBytes + " bytes");
-            String base64 = Base64.encodeToString(fileBytes, Base64.NO_WRAP);
-            // Log first 100 chars of base64 for debugging
-            if (base64 != null && base64.length() > 0) {
-                int previewLength = Math.min(100, base64.length());
-                android.util.Log.d("MainActivity", "Base64 preview (first " + previewLength + " chars): " + 
-                    base64.substring(0, previewLength));
-                android.util.Log.d("MainActivity", "Base64 total length: " + base64.length() + " chars");
-            }
-            return base64;
-            
-        } catch (IOException e) {
-            android.util.Log.e("MainActivity", "Error reading file", e);
-            return null;
-        }
-    }
+
     
     /**
      * Get file size from URI
@@ -1765,67 +1783,12 @@ public class MainActivity extends AppCompatActivity {
      * Inject image to WebView by simulating paste event using chunked transfer
      * This method splits large Base64 data into smaller chunks to avoid WebView limitations
      */
-    private void injectImageToWebView(String base64Data, String filename, String mimeType) {
-        if (webView == null) {
-            android.util.Log.e("MainActivity", "WebView is null");
-            return;
-        }
-        
-        android.util.Log.d("MainActivity", "Starting chunked injection for: " + filename);
-        android.util.Log.d("MainActivity", "Total Base64 length: " + (base64Data != null ? base64Data.length() : 0) + " chars");
-        
-        // Step 1: Inject the receiver JavaScript that will handle chunked data
-        injectChunkedReceiver(base64Data, filename, mimeType);
-    }
+
     
     /**
      * Inject JavaScript receiver that can handle chunked Base64 data
      */
-    private void injectChunkedReceiver(String base64Data, String filename, String mimeType) {
-        final int totalLength = base64Data != null ? base64Data.length() : 0;
-        final String jsFilename = escapeForJavaScript(filename);
-        final String jsMimeType = escapeForJavaScript(mimeType);
-        
-        android.util.Log.d("MainActivity", "Step 1: Injecting simple receiver object...");
-        
-        // Step 1: Create minimal receiver object (very short JS)
-        String step1Js = "if(!window.AndroidAttachmentReceiver){" +
-            "window.AndroidAttachmentReceiver={chunks:[],receivedLength:0,addChunk:function(c){" +
-            "this.chunks.push(c);this.receivedLength+=c.length;return this.receivedLength;}," +
-            "getFullData:function(){return this.chunks.join('');}," +
-            "isComplete:function(){return this.receivedLength>=this.totalLength;}," +
-            "reset:function(){this.chunks=[];this.receivedLength=0;}" +
-            "};'created'}else{'exists'}";
-        
-        webView.evaluateJavascript(step1Js, result1 -> {
-            android.util.Log.d("MainActivity", "Step 1 result: " + result1);
-            
-            if (result1 == null || (!result1.contains("created") && !result1.contains("exists"))) {
-                android.util.Log.e("MainActivity", "Failed to create receiver object: " + result1);
-                Toast.makeText(MainActivity.this, "添加失败：无法创建接收器", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            
-            // Step 2: Set metadata
-            android.util.Log.d("MainActivity", "Step 2: Setting metadata...");
-            String step2Js = "window.AndroidAttachmentReceiver.filename='" + jsFilename + "';" +
-                "window.AndroidAttachmentReceiver.mimeType='" + jsMimeType + "';" +
-                "window.AndroidAttachmentReceiver.totalLength=" + totalLength + ";" +
-                "window.AndroidAttachmentReceiver.reset();'metadata-set'";
-            
-            webView.evaluateJavascript(step2Js, result2 -> {
-                android.util.Log.d("MainActivity", "Step 2 result: " + result2);
-                
-                // Step 3: Inject processAttachment function separately
-                android.util.Log.d("MainActivity", "Step 3: Injecting processAttachment function...");
-                injectProcessAttachmentFunction(jsFilename, jsMimeType, () -> {
-                    // Step 4: Start sending chunks
-                    android.util.Log.d("MainActivity", "Step 4: Starting to send chunks...");
-                    sendBase64Chunks(base64Data, filename, mimeType);
-                });
-            });
-        });
-    }
+
     
     /**
      * Inject the processAttachment function - simplified version
@@ -2160,8 +2123,12 @@ public class MainActivity extends AppCompatActivity {
             }
         } else if (requestCode == REQUEST_STORAGE_PERMISSION) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // Permission granted, open file picker
-                openFilePicker();
+                // Permission granted, check if there's a pending WebView file chooser request
+                if (filePathCallback != null && fileChooserParams != null) {
+                    // Reopen file picker for WebView
+                    openFilePickerForWebView(fileChooserParams);
+                }
+                // If no pending WebView request, do nothing (file picker functionality removed)
             } else {
                 if (permissions.length > 0) {
                     String deniedPermission = permissions[0];
@@ -2178,6 +2145,14 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     Toast.makeText(this, "需要存储权限才能选择文件", Toast.LENGTH_SHORT).show();
                 }
+            }
+        } else if (requestCode == REQUEST_CAMERA) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Permission granted, launch camera
+                launchCamera();
+            } else {
+                // Permission denied
+                Toast.makeText(this, "需要相机权限才能拍照", Toast.LENGTH_SHORT).show();
             }
         }
     }

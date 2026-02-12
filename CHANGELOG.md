@@ -20,6 +20,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Bottom Layout Redesign**: Reorganized bottom interaction area with attachment button on the left
 - **Toast Notifications**: Added user feedback for file processing status
 
+### Added - 2025-02-12
+
+#### Camera Photo Upload (Scheme A)
+- **Camera Integration**: Added system camera photo capture with FileProvider for secure file sharing
+- **Camera Permissions**: Added `CAMERA` permission and feature declaration in AndroidManifest.xml
+- **Camera Button**: Added camera button (📷) in the bottom UI layout, positioned on the left side
+- **Photo Processing**: Captured photos are processed through the same upload pipeline as file selections
+- **Anti-trigger Protection**: Added checks to prevent camera/file picker activation during voice recording
+- **Temporary File Management**: Photos are stored in cache directory and cleaned up after processing
+
+#### Technical Implementation
+- **FileProvider Configuration**: Added FileProvider with cache and external storage paths
+- **Permission Handling**: Dynamic camera permission request with fallback handling
+- **Intent Launch**: Uses `MediaStore.ACTION_IMAGE_CAPTURE` with output URI
+- **Result Processing**: Camera result handled in `onActivityResult` and integrated with existing file upload flow
+- **Error Handling**: Comprehensive error handling for camera unavailable, permission denied, and file creation failures
+
 #### Technical Implementation
 - **WebChromeClient.onShowFileChooser**: Handles file picker requests from WebView
 - **JavaScriptInterface Extension**: Added `onAttachmentReady` callback for attachment status
