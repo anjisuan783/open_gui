@@ -76,8 +76,9 @@ public class MainActivity extends AppCompatActivity {
     private static final int REQUEST_CAMERA = 1005;
     
     private WebView webView;
-    private ValueCallback<Uri[]> filePathCallback;
-    private WebChromeClient.FileChooserParams fileChooserParams;
+    // Removed - managed by WebViewManager
+    // private ValueCallback<Uri[]> filePathCallback;
+    // private WebChromeClient.FileChooserParams fileChooserParams;
     
     private View recordButton;
     private TextView tvRecordHint;
@@ -135,6 +136,24 @@ public class MainActivity extends AppCompatActivity {
         initManagers();
         checkPermissions();
         
+        // Configure WebView and set bottom container reference
+        if (webViewManager != null) {
+            webViewManager.setBottomContainer(bottomContainer);
+            webViewManager.configureWebView();
+            webViewManager.loadOpenCodePage();
+        }
+        
+        // Set up record button with manager
+        if (recordingManager != null) {
+            recordingManager.setUiReferences(recordButton, recordProgress);
+            recordingManager.setupRecordButton();
+        }
+        
+        // Initialize keyboard visibility detection
+        rootView = getWindow().getDecorView().findViewById(android.R.id.content);
+        rootView.getViewTreeObserver().addOnGlobalLayoutListener(this::checkKeyboardVisibility);
+        updateButtonState(RecordingManager.ButtonState.DEFAULT);
+        
         // Set recording flag for WebViewManager
         if (webViewManager != null && recordingManager != null) {
             webViewManager.setRecording(recordingManager.isRecording());
@@ -153,7 +172,8 @@ public class MainActivity extends AppCompatActivity {
         btnCamera = findViewById(R.id.btn_camera);
         btnCamera.setOnClickListener(v -> {
             if (cameraPermissionManager != null) {
-                cameraPermissionManager.openCamera(isRecording);
+                boolean recordingInProgress = recordingManager != null && recordingManager.isRecording();
+                cameraPermissionManager.openCamera(recordingInProgress);
             }
         });
 
@@ -163,24 +183,6 @@ public class MainActivity extends AppCompatActivity {
                 settingsManager.showPopupMenu(v);
             }
         });
-        
-        // Configure WebView and set bottom container reference
-        if (webViewManager != null) {
-            webViewManager.setBottomContainer(bottomContainer);
-            webViewManager.configureWebView();
-            webViewManager.loadOpenCodePage();
-        }
-        
-        // Set up record button with manager
-        if (recordingManager != null) {
-            recordingManager.setUiReferences(recordButton, recordProgress);
-            recordingManager.setupRecordButton();
-        }
-        
-        // Initialize keyboard visibility detection
-        rootView = getWindow().getDecorView().findViewById(android.R.id.content);
-        rootView.getViewTreeObserver().addOnGlobalLayoutListener(this::checkKeyboardVisibility);
-        updateButtonState(RecordingManager.ButtonState.DEFAULT);
     }
     
     /**
@@ -271,7 +273,12 @@ public class MainActivity extends AppCompatActivity {
                 neededPermissions.add(permission);
             }
         }
-    
+        
+        if (!neededPermissions.isEmpty()) {
+            ActivityCompat.requestPermissions(this, 
+                neededPermissions.toArray(new String[0]), 
+                PERMISSION_REQUEST_CODE);
+        }
     }
     
     // =================================================================
@@ -282,9 +289,7 @@ public class MainActivity extends AppCompatActivity {
     private final WebViewManager.WebViewCallback webViewCallback = new WebViewManager.WebViewCallback() {
         @Override
         public void onLoginFailureDetected() {
-            if (settingsManager != null) {
-                settingsManager.showReloginDialog();
-            }
+            showReloginDialog();
         }
         
         @Override
@@ -303,9 +308,7 @@ public class MainActivity extends AppCompatActivity {
         
         @Override
         public void onShowReloginDialog() {
-            if (settingsManager != null) {
-                settingsManager.showReloginDialog();
-            }
+            showReloginDialog();
         }
         
         @Override
@@ -423,9 +426,7 @@ public class MainActivity extends AppCompatActivity {
         
         @Override
         public void onShowReloginDialog() {
-            if (settingsManager != null) {
-                settingsManager.showReloginDialog();
-            }
+            showReloginDialog();
         }
         
         @Override
@@ -476,6 +477,39 @@ public class MainActivity extends AppCompatActivity {
 
     
 
+    
+    private void showReloginDialog() {
+        mainHandler.post(() -> {
+            // Avoid showing multiple dialogs
+            if (isFinishing() || isDestroyed()) {
+                return;
+            }
+            
+            new AlertDialog.Builder(MainActivity.this)
+                .setTitle("登录失败")
+                .setMessage("检测到登录失败或认证错误。是否清除登录状态并重新登录？")
+                .setPositiveButton("重新登录", (dialog, which) -> {
+                    android.util.Log.d("MainActivity", "Clearing all authentication data and reloading");
+                    
+                    if (webViewManager != null) {
+                        webViewManager.clearWebViewData(() -> {
+                            mainHandler.postDelayed(() -> {
+                                android.util.Log.d("MainActivity", "Reloading page with cache bypass");
+                                if (webViewManager != null) {
+                                    webViewManager.reloadPage();
+                                }
+                                Toast.makeText(MainActivity.this, "已清除所有登录状态，请重新登录", Toast.LENGTH_LONG).show();
+                            }, 300);
+                        });
+                    }
+                })
+                .setNegativeButton("取消", (dialog, which) -> {
+                    android.util.Log.d("MainActivity", "User cancelled re-login");
+                })
+                .setCancelable(true)
+                .show();
+        });
+    }
     
     private void updateButtonState(RecordingManager.ButtonState state) {
         switch (state) {
@@ -586,8 +620,6 @@ public class MainActivity extends AppCompatActivity {
     private void openFilePickerForWebView(WebChromeClient.FileChooserParams params) {
         android.util.Log.d("MainActivity", "Opening file picker for WebView");
         
-        this.fileChooserParams = params;
-        
         if (cameraPermissionManager != null && cameraPermissionManager.checkStoragePermission()) {
             Intent intent = params.createIntent();
             // Fallback if createIntent fails
@@ -603,9 +635,9 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intent, REQUEST_WEBVIEW_FILE_CHOOSER);
             } catch (Exception e) {
                 android.util.Log.e("MainActivity", "Error starting WebView file picker", e);
-                if (filePathCallback != null) {
-                    filePathCallback.onReceiveValue(null);
-                    filePathCallback = null;
+                // Cancel the file chooser on error
+                if (webViewManager != null) {
+                    webViewManager.handleFileChooserResult(null);
                 }
             }
         } else {
@@ -613,9 +645,8 @@ public class MainActivity extends AppCompatActivity {
                 cameraPermissionManager.requestStoragePermission();
             }
             // Cancel the file chooser if no permission
-            if (filePathCallback != null) {
-                filePathCallback.onReceiveValue(null);
-                filePathCallback = null;
+            if (webViewManager != null) {
+                webViewManager.handleFileChooserResult(null);
             }
         }
     }

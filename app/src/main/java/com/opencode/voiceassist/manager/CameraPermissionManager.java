@@ -54,7 +54,7 @@ public class CameraPermissionManager {
     }
     
     public void openCamera(boolean isRecording) {
-        Log.d(TAG, "Opening camera");
+        Log.d(TAG, "openCamera called, isRecording=" + isRecording + ", isCameraCapturePending=" + isCameraCapturePending);
         
         // Prevent camera during recording to avoid interruption
         if (isRecording) {
@@ -63,9 +63,16 @@ public class CameraPermissionManager {
             return;
         }
         
+        // Prevent multiple camera launches
+        if (isCameraCapturePending) {
+            Log.w(TAG, "Camera capture already pending, ignoring request");
+            return;
+        }
+        
         if (checkCameraPermission()) {
             launchCamera();
         } else {
+            Log.d(TAG, "Requesting camera permission");
             requestCameraPermission();
         }
     }
@@ -81,29 +88,44 @@ public class CameraPermissionManager {
     }
     
     public void launchCamera() {
+        Log.d(TAG, "launchCamera called, isCameraCapturePending=" + isCameraCapturePending);
         try {
             Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            Log.d(TAG, "Created ACTION_IMAGE_CAPTURE intent");
             
             // Ensure there's a camera activity to handle the intent
             if (takePictureIntent.resolveActivity(activity.getPackageManager()) != null) {
+                Log.d(TAG, "Camera activity available");
                 // Create the File where the photo should go
                 File photoFile = createImageFile();
                 if (photoFile != null) {
+                    Log.d(TAG, "Created image file: " + photoFile.getAbsolutePath());
                     cameraPhotoUri = FileProvider.getUriForFile(activity,
                         activity.getApplicationContext().getPackageName() + ".fileprovider",
                         photoFile);
+                    Log.d(TAG, "Created cameraPhotoUri: " + cameraPhotoUri);
                     
                     // Grant temporary read permission to the camera app
                     takePictureIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                     takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, cameraPhotoUri);
+                    // Try to make camera finish after taking one photo (some camera apps respect this)
+                    takePictureIntent.putExtra("android.intent.extras.CAMERA_FACING", 0); // Rear camera
+                    // Some camera apps respect this flag to finish after capture
+                    takePictureIntent.putExtra("finishOnCompletion", true);
+                    // Try to prevent camera from staying open for multiple shots
+                    takePictureIntent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                     
+                    Log.d(TAG, "Starting camera activity with flags: " + takePictureIntent.getFlags());
                     // Start the camera activity
                     activity.startActivityForResult(takePictureIntent, REQUEST_CAMERA);
                     isCameraCapturePending = true;
+                    Log.d(TAG, "Camera activity started, isCameraCapturePending=true");
                 } else {
+                    Log.e(TAG, "Failed to create image file");
                     mainHandler.post(() -> Toast.makeText(activity, "无法创建照片文件", Toast.LENGTH_SHORT).show());
                 }
             } else {
+                Log.e(TAG, "No camera activity found");
                 mainHandler.post(() -> Toast.makeText(activity, "未找到相机应用", Toast.LENGTH_SHORT).show());
             }
         } catch (Exception e) {
@@ -147,10 +169,14 @@ public class CameraPermissionManager {
      * Trigger file upload from camera - sets pending flag for WebView file chooser
      */
     public void triggerFileUploadFromCamera(Uri photoUri) {
-        Log.d(TAG, "Triggering file upload from camera: " + photoUri);
+        Log.d(TAG, "triggerFileUploadFromCamera called: " + photoUri + 
+            " (callback: " + (callback != null ? "not null" : "NULL") + ")");
         
         if (callback != null) {
+            Log.d(TAG, "Calling callback.onCameraPhotoCaptured");
             callback.onCameraPhotoCaptured(photoUri);
+        } else {
+            Log.e(TAG, "Callback is null! Cannot notify about captured photo");
         }
         
         // User must manually click the attachment button in WebView
@@ -261,39 +287,57 @@ public class CameraPermissionManager {
     }
     
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.d(TAG, "onActivityResult: requestCode=" + requestCode + ", resultCode=" + resultCode + 
+            ", data=" + data + ", isCameraCapturePending=" + isCameraCapturePending + 
+            ", cameraPhotoUri=" + cameraPhotoUri);
+        
         if (requestCode == REQUEST_CAMERA) {
-            Log.d(TAG, "Camera result received, resultCode: " + resultCode);
+            Log.d(TAG, "Camera result received, resultCode: " + resultCode + 
+                " (RESULT_OK=" + Activity.RESULT_OK + ")");
             isCameraCapturePending = false;
             
             if (resultCode == Activity.RESULT_OK) {
-                if (cameraPhotoUri != null) {
-                    Log.d(TAG, "Processing captured photo: " + cameraPhotoUri);
+                // Check if we have a photo URI from EXTRA_OUTPUT
+                Uri photoUri = cameraPhotoUri;
+                if (photoUri == null && data != null && data.getData() != null) {
+                    // Some camera apps return the URI in the data intent
+                    photoUri = data.getData();
+                    Log.d(TAG, "Using photo URI from data intent: " + photoUri);
+                }
+                
+                if (photoUri != null) {
+                    Log.d(TAG, "Processing captured photo: " + photoUri);
                     
                     // Trigger WebView file upload with URI
-                    triggerFileUploadFromCamera(cameraPhotoUri);
+                    triggerFileUploadFromCamera(photoUri);
                     
                     // Clear the URI after passing to upload handler
                     cameraPhotoUri = null;
+                    Log.d(TAG, "Cleared cameraPhotoUri after triggering upload");
                 } else {
-                    Log.w(TAG, "Camera photo URI is null");
+                    Log.w(TAG, "Camera photo URI is null, data intent: " + data);
                     mainHandler.post(() -> Toast.makeText(activity, "拍照失败，未获取到照片", Toast.LENGTH_SHORT).show());
                 }
             } else {
-                Log.d(TAG, "Camera cancelled or failed");
+                Log.d(TAG, "Camera cancelled or failed (resultCode: " + resultCode + ")");
                 // User cancelled or camera failed
                 if (cameraPhotoUri != null) {
                     // Try to delete the temporary file
                     try {
                         File photoFile = new File(cameraPhotoUri.getPath());
                         if (photoFile.exists()) {
-                            photoFile.delete();
+                            boolean deleted = photoFile.delete();
+                            Log.d(TAG, "Deleted temp photo file: " + deleted + ", path: " + photoFile.getAbsolutePath());
                         }
                     } catch (Exception e) {
                         Log.w(TAG, "Failed to delete temp photo file", e);
                     }
                     cameraPhotoUri = null;
+                    Log.d(TAG, "Cleared cameraPhotoUri after cancellation");
                 }
             }
+        } else {
+            Log.d(TAG, "Not a camera request, ignoring");
         }
     }
     

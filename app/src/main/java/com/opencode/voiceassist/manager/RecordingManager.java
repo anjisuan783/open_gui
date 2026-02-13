@@ -17,6 +17,8 @@ import com.opencode.voiceassist.utils.UrlUtils;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.util.Locale;
+
 
 public class RecordingManager {
     private static final String TAG = "RecordingManager";
@@ -182,13 +184,16 @@ public class RecordingManager {
         updateButtonState(ButtonState.PROCESSING);
         Log.d(TAG, "Stopping audio recorder...");
         audioRecorder.stopRecording();
-        
+
         // Wait a bit for recorder to finish writing file
         try {
             Thread.sleep(100);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
+        // Release recording resources immediately
+        releaseRecordingResources();
         
         File wavFile = fileManager.getTempWavFile();
         Log.d(TAG, "Checking WAV file: " + wavFile.getAbsolutePath());
@@ -300,9 +305,9 @@ public class RecordingManager {
         Log.d(TAG, "Processing transcribed text: " + text);
         
         // Create user message with performance data
-        String userMessageContent = text + "\n\n[语音长度: " + String.format("%.2f", result.getAudioLengthSeconds()) + "秒, " +
+        String userMessageContent = text + "\n\n[语音长度: " + String.format(Locale.US, "%.2f", result.getAudioLengthSeconds()) + "秒, " +
                                    "处理耗时: " + result.getProcessingTimeMs() + "毫秒, " +
-                                   "实时因子: " + String.format("%.1f", result.getRealtimeFactor()) + "x]";
+                                    "实时因子: " + String.format(Locale.US, "%.1f", result.getRealtimeFactor()) + "x]";
         
         updateButtonState(ButtonState.DEFAULT);
         
@@ -426,16 +431,16 @@ public class RecordingManager {
                 if (result != null && result.getText() != null && !result.getText().trim().isEmpty()) {
                     Log.d(TAG, "✓ Transcription test PASSED!");
                     Log.d(TAG, "Test transcription result: " + result.getText());
-                    Log.d(TAG, "Performance: audio=" + String.format("%.2f", result.getAudioLengthSeconds()) + "s, " +
-                          "processing=" + result.getProcessingTimeMs() + "ms, " +
-                          "realtime factor=" + String.format("%.1f", result.getRealtimeFactor()) + "x");
+                    Log.d(TAG, "Performance: audio=" + String.format(Locale.US, "%.2f", result.getAudioLengthSeconds()) + "s, " +
+                           "processing=" + result.getProcessingTimeMs() + "ms, " +
+                           "realtime factor=" + String.format(Locale.US, "%.1f", result.getRealtimeFactor()) + "x");
                     
                     // Show a brief toast (optional)
                     mainHandler.post(() -> {
                         String toastText = "测试通过: " + result.getText().substring(0, Math.min(30, result.getText().length())) + "...\n" +
-                                         "音频: " + String.format("%.2f", result.getAudioLengthSeconds()) + "s, " +
+                                          "音频: " + String.format(Locale.US, "%.2f", result.getAudioLengthSeconds()) + "s, " +
                                          "处理: " + result.getProcessingTimeMs() + "ms, " +
-                                         "RTF: " + String.format("%.1f", result.getRealtimeFactor()) + "x";
+                                          "RTF: " + String.format(Locale.US, "%.1f", result.getRealtimeFactor()) + "x";
                         Toast.makeText(activity, toastText, Toast.LENGTH_LONG).show();
                     });
                 } else {
@@ -457,6 +462,40 @@ public class RecordingManager {
         }).start();
     }
     
+    /**
+     * Release recording resources immediately after recording stops.
+     * This ensures microphone and WebSocket connections are freed quickly
+     * for the next recording.
+     */
+    private void releaseRecordingResources() {
+        Log.d(TAG, "Releasing recording resources...");
+
+        // Release AudioRecorder resources immediately
+        if (audioRecorder != null) {
+            // AudioRecorder releases resources in its thread's finally block
+            // We just need to wait for it to complete
+            int waitCount = 0;
+            while (audioRecorder.isRecording() && waitCount < 50) {
+                try {
+                    Thread.sleep(10);
+                    waitCount++;
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    break;
+                }
+            }
+            Log.d(TAG, "AudioRecorder released after " + waitCount + " waits");
+        }
+
+        // Disconnect FunASR WebSocket immediately
+        if (funAsrManager != null) {
+            funAsrManager.disconnect();
+            Log.d(TAG, "FunASR WebSocket disconnected");
+        }
+
+        Log.d(TAG, "Recording resources released");
+    }
+
     public void release() {
         if (audioRecorder != null) {
             audioRecorder.release();

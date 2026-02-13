@@ -77,6 +77,8 @@ public class WebViewManager {
     }
     
     public void setCameraUploadPending(boolean pending, Uri uri) {
+        Log.d(TAG, "setCameraUploadPending: " + pending + ", uri: " + uri + 
+            " (current: " + isCameraUploadPending + ", " + cameraUploadUri + ")");
         this.isCameraUploadPending = pending;
         this.cameraUploadUri = uri;
     }
@@ -171,7 +173,8 @@ public class WebViewManager {
             @Override
             public boolean onShowFileChooser(WebView webView, ValueCallback<Uri[]> filePathCallback, 
                     FileChooserParams fileChooserParams) {
-                Log.d(TAG, "WebView file chooser requested");
+                Log.d(TAG, "WebView file chooser requested, callback: " + (callback != null ? "not null" : "NULL"));
+                Log.d(TAG, "Camera upload pending: " + isCameraUploadPending + ", cameraUploadUri: " + cameraUploadUri);
                 
                 // Store the callback
                 WebViewManager.this.filePathCallback = filePathCallback;
@@ -192,7 +195,10 @@ public class WebViewManager {
                 
                 // Notify MainActivity to handle file picker
                 if (callback != null) {
+                    Log.d(TAG, "Notifying MainActivity to handle file picker");
                     callback.onFileUploadRequested(fileChooserParams);
+                } else {
+                    Log.e(TAG, "Callback is null! Cannot handle file picker");
                 }
                 
                 return true;
@@ -285,7 +291,11 @@ public class WebViewManager {
     }
     
     public void loadOpenCodePage() {
-        Log.d(TAG, "Loading OpenCode page...");
+        loadOpenCodePage(false);
+    }
+    
+    public void loadOpenCodePage(boolean bypassCache) {
+        Log.d(TAG, "Loading OpenCode page..." + (bypassCache ? " (with cache bypass)" : ""));
         
         String defaultIp = Constants.DEFAULT_OPENCODE_IP;
         int defaultPort = Constants.DEFAULT_OPENCODE_PORT;
@@ -305,6 +315,9 @@ public class WebViewManager {
         
         Log.d(TAG, "Retrieved IP: " + ip + ", Retrieved port: " + port);
         String url = "http://" + ip + ":" + port;
+        if (bypassCache) {
+            url = url + "?t=" + System.currentTimeMillis();
+        }
         Log.d(TAG, "Loading URL: " + url);
         
         webView.loadUrl(url);
@@ -440,16 +453,27 @@ public class WebViewManager {
     }
     
     public void handleFileChooserResult(Uri[] results) {
+        Log.d(TAG, "handleFileChooserResult called, filePathCallback: " + 
+            (filePathCallback != null ? "not null" : "NULL") + ", results: " + 
+            (results != null ? results.length + " files" : "null"));
+        
         if (filePathCallback != null) {
-            Log.d(TAG, "WebView file chooser result: " + 
-                (results != null ? results.length + " files" : "cancelled"));
+            Log.d(TAG, "Calling filePathCallback.onReceiveValue with " + 
+                (results != null ? results.length + " files" : "null result"));
             filePathCallback.onReceiveValue(results);
             filePathCallback = null;
             fileChooserParams = null;
+            Log.d(TAG, "Cleared filePathCallback and fileChooserParams");
+        } else {
+            Log.e(TAG, "filePathCallback is null! Cannot deliver file chooser result");
         }
     }
     
     public void clearWebViewData() {
+        clearWebViewData(null);
+    }
+    
+    public void clearWebViewData(Runnable onComplete) {
         Log.d(TAG, "Clearing all WebView data");
         
         // Clear cache
@@ -457,21 +481,49 @@ public class WebViewManager {
         webView.clearHistory();
         webView.clearFormData();
         
-        // Clear cookies
-        CookieManager cookieManager = CookieManager.getInstance();
-        cookieManager.removeAllCookies(value -> {
-            Log.d(TAG, "Cookies removed: " + value);
-            
-            // Clear WebView database
-            webView.clearCache(true);
-            activity.deleteDatabase("webview.db");
-            activity.deleteDatabase("webviewCache.db");
-        });
+        // Clear JavaScript storage (localStorage, sessionStorage, cookies via JS)
+        webView.evaluateJavascript(
+            "(function() {" +
+            "  try {" +
+            "    localStorage.clear();" +
+            "    sessionStorage.clear();" +
+            "    var cookies = document.cookie.split(';');" +
+            "    for (var i = 0; i < cookies.length; i++) {" +
+            "      var cookie = cookies[i];" +
+            "      var eqPos = cookie.indexOf('=');" +
+            "      var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;" +
+            "      document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/';" +
+            "    }" +
+            "    return 'cleared';" +
+            "  } catch(e) {" +
+            "    return 'error: ' + e.message;" +
+            "  }" +
+            "})();",
+            jsResult -> {
+                Log.d(TAG, "JS storage cleared: " + jsResult);
+                
+                // Clear cookies via CookieManager (including HttpOnly cookies)
+                CookieManager cookieManager = CookieManager.getInstance();
+                cookieManager.removeAllCookies(value -> {
+                    Log.d(TAG, "Cookies removed: " + value);
+                    
+                    // Clear WebView database
+                    webView.clearCache(true);
+                    activity.deleteDatabase("webview.db");
+                    activity.deleteDatabase("webviewCache.db");
+                    
+                    // Call completion callback
+                    if (onComplete != null) {
+                        onComplete.run();
+                    }
+                });
+            }
+        );
     }
     
     public void reloadPage() {
         Log.d(TAG, "Reloading WebView page");
-        loadOpenCodePage();
+        loadOpenCodePage(true);
     }
     
     private void cleanupTempCameraFile(Uri fileUri) {
@@ -669,7 +721,7 @@ public class WebViewManager {
             "    }" +
             "    " +
             "    const blob = dataURLtoBlob(dataUrl);" +
-            "    console.log('[OpenCode] Blob created, size: " + blob.size + " bytes');" +
+            "    console.log('[OpenCode] Blob created, size: ' + blob.size + ' bytes');" +
             "    " +
             "    // Step 4: Create File object" +
             "    result.step = 'creating-file-object';" +
