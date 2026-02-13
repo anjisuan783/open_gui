@@ -40,6 +40,8 @@ public class Constants {
     // Note: Change this to your computer's IP address on the same network
     public static final String DEFAULT_OPENCODE_IP = "192.168.66.189";
     public static final int DEFAULT_OPENCODE_PORT = 4096;
+    public static final String DEFAULT_OPENCODE_USERNAME = "abc";
+    public static final String DEFAULT_OPENCODE_PASSWORD = "123";
     
     // Audio Recording Configuration
     public static final int AUDIO_SAMPLE_RATE = 16000;

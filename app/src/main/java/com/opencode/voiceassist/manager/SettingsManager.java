@@ -7,6 +7,7 @@ import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -44,6 +45,8 @@ public class SettingsManager {
     public static class SettingsData {
         public String opencodeIp;
         public int opencodePort;
+        public String opencodeUsername;
+        public String opencodePassword;
         public String whisperModel;
         public boolean autoTestOnModelChange;
         public boolean autoSend;
@@ -119,6 +122,9 @@ public class SettingsManager {
             View view = activity.getLayoutInflater().inflate(R.layout.dialog_settings, null);
             
             EditText etIp = view.findViewById(R.id.et_ip);
+            EditText etUsername = view.findViewById(R.id.et_username);
+            EditText etPassword = view.findViewById(R.id.et_password);
+            ImageView ivPasswordToggle = view.findViewById(R.id.iv_password_toggle);
             RadioGroup rgModel = view.findViewById(R.id.rg_model);
             RadioButton rbModelOriginal = view.findViewById(R.id.rb_model_original);
             RadioButton rbModelInt8 = view.findViewById(R.id.rb_model_int8);
@@ -150,6 +156,8 @@ public class SettingsManager {
             SharedPreferences prefs = activity.getSharedPreferences("settings", Activity.MODE_PRIVATE);
             String savedIp = prefs.getString("opencode_ip", Constants.DEFAULT_OPENCODE_IP);
             int savedPort = prefs.getInt("opencode_port", Constants.DEFAULT_OPENCODE_PORT);
+            String savedUsername = prefs.getString("opencode_username", Constants.DEFAULT_OPENCODE_USERNAME);
+            String savedPassword = prefs.getString("opencode_password", Constants.DEFAULT_OPENCODE_PASSWORD);
             String savedModel = prefs.getString("whisper_model", Constants.DEFAULT_WHISPER_MODEL);
             boolean autoTestEnabled = prefs.getBoolean("auto_test_on_model_change", true);
             boolean autoSendEnabled = prefs.getBoolean(Constants.KEY_AUTO_SEND, Constants.DEFAULT_AUTO_SEND);
@@ -161,6 +169,23 @@ public class SettingsManager {
             String funAsrMode = prefs.getString("funasr_mode", Constants.DEFAULT_FUNASR_MODE);
             
             etIp.setText(UrlUtils.formatServerUrl(savedIp, savedPort));
+            etUsername.setText(savedUsername);
+            etPassword.setText(savedPassword);
+            
+            // Setup password visibility toggle
+            ivPasswordToggle.setOnTouchListener((v, event) -> {
+                int action = event.getAction();
+                if (action == android.view.MotionEvent.ACTION_DOWN) {
+                    // Show password
+                    etPassword.setInputType(android.text.InputType.TYPE_CLASS_TEXT | android.text.InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                } else if (action == android.view.MotionEvent.ACTION_UP || action == android.view.MotionEvent.ACTION_CANCEL) {
+                    // Hide password
+                    etPassword.setInputType(android.text.InputType.TYPE_CLASS_TEXT | android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                }
+                // Move cursor to end
+                etPassword.setSelection(etPassword.getText().length());
+                return true;
+            });
             
             // Set ASR backend radio button
             if (asrBackend.equals(Constants.ASR_BACKEND_CLOUD_HTTP)) {
@@ -277,14 +302,20 @@ public class SettingsManager {
                     String[] cloudAsrParts = UrlUtils.parseAsrUrl(newCloudAsrUrl, "http");
                     String[] funAsrParts = UrlUtils.parseAsrUrl(newFunAsrUrl, "ws");
 
-                    // Create settings data
-                    SettingsData settings = new SettingsData();
-                    settings.opencodeIp = ip;
-                    settings.opencodePort = port;
-                    settings.whisperModel = selectedModel;
-                    settings.autoTestOnModelChange = autoTestOnChange;
-                    settings.autoSend = autoSendOn;
-                    settings.asrBackend = newAsrBackend;
+                     // Get username and password
+                     String username = etUsername.getText().toString().trim();
+                     String password = etPassword.getText().toString().trim();
+                     
+                     // Create settings data
+                     SettingsData settings = new SettingsData();
+                     settings.opencodeIp = ip;
+                     settings.opencodePort = port;
+                     settings.opencodeUsername = username;
+                     settings.opencodePassword = password;
+                     settings.whisperModel = selectedModel;
+                     settings.autoTestOnModelChange = autoTestOnChange;
+                     settings.autoSend = autoSendOn;
+                     settings.asrBackend = newAsrBackend;
                     settings.cloudAsrUrl = newCloudAsrUrl;
                     settings.funAsrUrl = newFunAsrUrl;
                     settings.funAsrMode = newFunAsrMode;
@@ -339,6 +370,8 @@ public class SettingsManager {
         SharedPreferences.Editor editor = activity.getSharedPreferences("settings", Activity.MODE_PRIVATE).edit();
         editor.putString("opencode_ip", settings.opencodeIp);
         editor.putInt("opencode_port", settings.opencodePort);
+        editor.putString("opencode_username", settings.opencodeUsername);
+        editor.putString("opencode_password", settings.opencodePassword);
         editor.putString("whisper_model", settings.whisperModel);
         editor.putBoolean("auto_test_on_model_change", settings.autoTestOnModelChange);
         editor.putString("asr_backend", settings.asrBackend);

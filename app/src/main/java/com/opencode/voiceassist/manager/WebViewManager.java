@@ -58,6 +58,7 @@ public class WebViewManager {
         void onShowReloginDialog();
         void onInputFocusChanged(boolean hasFocus);
         void onPageLoadError(String description);
+        void onPageLoadComplete();
         void onAttachmentReady(boolean success, String filename, String message);
     }
     
@@ -104,8 +105,12 @@ public class WebViewManager {
             public void onReceivedHttpAuthRequest(WebView view,
                     HttpAuthHandler handler, String host, String realm) {
                 Log.d(TAG, "HTTP authentication requested for: " + host + ", realm: " + realm);
-                // Use hardcoded credentials for now
-                handler.proceed("opencode_linaro_dev", "abcd@1234");
+                // Get credentials from settings
+                android.content.SharedPreferences prefs = activity.getSharedPreferences("settings", android.content.Context.MODE_PRIVATE);
+                String username = prefs.getString("opencode_username", com.opencode.voiceassist.utils.Constants.DEFAULT_OPENCODE_USERNAME);
+                String password = prefs.getString("opencode_password", com.opencode.voiceassist.utils.Constants.DEFAULT_OPENCODE_PASSWORD);
+                Log.d(TAG, "Using credentials - username: " + username + ", password: " + (password.isEmpty() ? "[empty]" : "[set]"));
+                handler.proceed(username, password);
             }
             
             @Override
@@ -120,6 +125,11 @@ public class WebViewManager {
                 super.onPageFinished(view, url);
                 // Inject input detection script after page loads
                 injectInputDetectionScript();
+                
+                // Notify page load complete
+                if (callback != null) {
+                    callback.onPageLoadComplete();
+                }
                 
                 // Check for login failure
                 checkForLoginFailure();

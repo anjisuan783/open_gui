@@ -110,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean isKeyboardVisible = false;
     private View rootView;
     private boolean transcriptionTested = true; // Default to skip test on first launch
+    private Runnable currentReloginTimeoutRunnable = null;
     
     private boolean isRecording = false;
     private boolean isCancelled = false;
@@ -322,6 +323,12 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onPageLoadError(String description) {
             Toast.makeText(MainActivity.this, "页面加载失败: " + description, Toast.LENGTH_SHORT).show();
+            cancelReloginTimeout();
+        }
+        
+        @Override
+        public void onPageLoadComplete() {
+            cancelReloginTimeout();
         }
         
         @Override
@@ -476,7 +483,12 @@ public class MainActivity extends AppCompatActivity {
     
 
     
-
+    private void cancelReloginTimeout() {
+        if (currentReloginTimeoutRunnable != null) {
+            mainHandler.removeCallbacks(currentReloginTimeoutRunnable);
+            currentReloginTimeoutRunnable = null;
+        }
+    }
     
     private void showReloginDialog() {
         mainHandler.post(() -> {
@@ -486,19 +498,39 @@ public class MainActivity extends AppCompatActivity {
             }
             
             new AlertDialog.Builder(MainActivity.this)
-                .setTitle("登录失败")
-                .setMessage("检测到登录失败或认证错误。是否清除登录状态并重新登录？")
+                .setTitle("重新登录")
+                .setMessage("是否清除所有登录状态并使用当前设置重新连接？")
                 .setPositiveButton("重新登录", (dialog, which) -> {
-                    android.util.Log.d("MainActivity", "Clearing all authentication data and reloading");
+                     android.util.Log.d("MainActivity", "Clearing all authentication data and reloading");
+                    // Cancel any existing timeout
+                    cancelReloginTimeout();
                     
                     if (webViewManager != null) {
+                        // Show loading message
+                        Toast.makeText(MainActivity.this, "正在重新登录...", Toast.LENGTH_SHORT).show();
+                        
                         webViewManager.clearWebViewData(() -> {
                             mainHandler.postDelayed(() -> {
                                 android.util.Log.d("MainActivity", "Reloading page with cache bypass");
                                 if (webViewManager != null) {
+                                    // Set a timeout for page loading
+                                    currentReloginTimeoutRunnable = new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            mainHandler.post(() -> {
+                                                Toast.makeText(MainActivity.this, "连接超时，请检查服务器地址和网络连接", Toast.LENGTH_LONG).show();
+                                                currentReloginTimeoutRunnable = null;
+                                            });
+                                        }
+                                    };
+                                    
+                                    // Schedule timeout after 5 seconds
+                                    mainHandler.postDelayed(currentReloginTimeoutRunnable, 5000);
+                                    
+                                    // Load page with current settings
                                     webViewManager.reloadPage();
                                 }
-                                Toast.makeText(MainActivity.this, "已清除所有登录状态，请重新登录", Toast.LENGTH_LONG).show();
+                                Toast.makeText(MainActivity.this, "已清除所有登录状态，正在重新连接...", Toast.LENGTH_LONG).show();
                             }, 300);
                         });
                     }

@@ -30,6 +30,8 @@ public class OpenCodeManager {
     private OkHttpClient client;
     private String sessionId;
     private String baseUrl;
+    private String username;
+    private String password;
     private InitializationCallback initCallback;
     
     public interface ResponseCallback {
@@ -44,8 +46,8 @@ public class OpenCodeManager {
     public OpenCodeManager(Context context) {
         this.context = context;
         this.client = new OkHttpClient.Builder()
-            .connectTimeout(30, TimeUnit.SECONDS)
-            .readTimeout(60, TimeUnit.SECONDS)
+            .connectTimeout(5, TimeUnit.SECONDS)
+            .readTimeout(10, TimeUnit.SECONDS)
             .build();
         
         updateBaseUrl();
@@ -71,7 +73,20 @@ public class OpenCodeManager {
         SharedPreferences prefs = context.getSharedPreferences("settings", Context.MODE_PRIVATE);
         String ip = prefs.getString("opencode_ip", Constants.DEFAULT_OPENCODE_IP);
         int port = prefs.getInt("opencode_port", Constants.DEFAULT_OPENCODE_PORT);
+        username = prefs.getString("opencode_username", Constants.DEFAULT_OPENCODE_USERNAME);
+        password = prefs.getString("opencode_password", Constants.DEFAULT_OPENCODE_PASSWORD);
         baseUrl = "http://" + ip + ":" + port;
+    }
+    
+    private void addAuthHeaders(Request.Builder builder) {
+        if (username != null && !username.isEmpty() && password != null) {
+            String credentials = username + ":" + password;
+            String encoded = android.util.Base64.encodeToString(credentials.getBytes(), android.util.Base64.NO_WRAP);
+            builder.header("Authorization", "Basic " + encoded);
+            Log.d(TAG, "Added Basic authentication header for user: " + username);
+        } else {
+            Log.d(TAG, "No credentials available, skipping authentication header");
+        }
     }
     
     public void initializeSession() {
@@ -87,10 +102,11 @@ public class OpenCodeManager {
             e.printStackTrace();
         }
         
-        Request request = new Request.Builder()
+        Request.Builder requestBuilder = new Request.Builder()
             .url(baseUrl + "/api/sessions")
-            .post(RequestBody.create(requestBody.toString(), JSON))
-            .build();
+            .post(RequestBody.create(requestBody.toString(), JSON));
+        addAuthHeaders(requestBuilder);
+        Request request = requestBuilder.build();
         
         client.newCall(request).enqueue(new Callback() {
             @Override
@@ -148,10 +164,11 @@ public class OpenCodeManager {
             e.printStackTrace();
         }
         
-        Request request = new Request.Builder()
+        Request.Builder requestBuilder = new Request.Builder()
             .url(baseUrl + "/api/messages")
-            .post(RequestBody.create(requestBody.toString(), JSON))
-            .build();
+            .post(RequestBody.create(requestBody.toString(), JSON));
+        addAuthHeaders(requestBuilder);
+        Request request = requestBuilder.build();
         
         client.newCall(request).enqueue(new Callback() {
             @Override
