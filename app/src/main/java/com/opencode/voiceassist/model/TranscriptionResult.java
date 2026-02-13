@@ -1,5 +1,7 @@
 package com.opencode.voiceassist.model;
 
+import java.util.Locale;
+
 public class TranscriptionResult {
     private String text;
     private double audioLengthSeconds;
@@ -47,7 +49,7 @@ public class TranscriptionResult {
     
     @Override
     public String toString() {
-        return String.format("Text: %s (Audio: %.2fs, Process: %dms, RTF: %.1fx)", 
+        return String.format(Locale.US, "Text: %s (Audio: %.2fs, Process: %dms, RTF: %.1fx)", 
             text, audioLengthSeconds, processingTimeMs, realtimeFactor);
     }
 }

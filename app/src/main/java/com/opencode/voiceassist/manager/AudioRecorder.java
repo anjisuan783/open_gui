@@ -1,8 +1,10 @@
 package com.opencode.voiceassist.manager;
 
+import android.annotation.SuppressLint;
 import android.media.AudioFormat;
 import android.media.AudioRecord;
 import android.media.MediaRecorder;
+import android.util.Log;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -11,40 +13,83 @@ import java.io.RandomAccessFile;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+@SuppressLint("MissingPermission")
 public class AudioRecorder {
-    
+
+    private static final String TAG = "AudioRecorder";
+
     private static final int SAMPLE_RATE = 16000;
     private static final int CHANNEL_CONFIG = AudioFormat.CHANNEL_IN_MONO;
     private static final int AUDIO_FORMAT = AudioFormat.ENCODING_PCM_16BIT;
     private static final int BUFFER_SIZE = AudioRecord.getMinBufferSize(SAMPLE_RATE, CHANNEL_CONFIG, AUDIO_FORMAT);
-    
+
     private AudioRecord audioRecord;
     private ExecutorService executor;
-    private boolean isRecording = false;
+    private volatile boolean isRecording = false;
+    private volatile boolean isReady = true;  // Track if ready for next recording
     private File currentWavFile;
     
     public AudioRecorder() {
         this.executor = Executors.newSingleThreadExecutor();
     }
     
+    @SuppressLint("MissingPermission")
     public void startRecording(File wavFile) {
-        if (isRecording) {
+        if (isRecording || !isReady) {
+            Log.w(TAG, "Cannot start recording - isRecording=" + isRecording + ", isReady=" + isReady);
             return;
         }
-        
+
         this.currentWavFile = wavFile;
         this.isRecording = true;
-        
+        this.isReady = false;
+
         executor.execute(() -> {
+            int retryCount = 0;
+            final int maxRetries = 3;
+            final long retryDelayMs = 100;
+
             try {
-                audioRecord = new AudioRecord(
-                    MediaRecorder.AudioSource.MIC,
-                    SAMPLE_RATE,
-                    CHANNEL_CONFIG,
-                    AUDIO_FORMAT,
-                    BUFFER_SIZE
-                );
-                
+                // Retry AudioRecord initialization
+                while (retryCount < maxRetries) {
+                    audioRecord = new AudioRecord(
+                        MediaRecorder.AudioSource.MIC,
+                        SAMPLE_RATE,
+                        CHANNEL_CONFIG,
+                        AUDIO_FORMAT,
+                        BUFFER_SIZE
+                    );
+
+                    // Check if AudioRecord was properly initialized
+                    if (audioRecord.getState() == AudioRecord.STATE_INITIALIZED) {
+                        Log.d(TAG, "AudioRecord initialized successfully on attempt " + (retryCount + 1));
+                        break;
+                    }
+
+                    // Initialization failed, release and retry
+                    Log.w(TAG, "AudioRecord initialization failed on attempt " + (retryCount + 1) + ", retrying...");
+                    audioRecord.release();
+                    audioRecord = null;
+                    retryCount++;
+
+                    if (retryCount < maxRetries) {
+                        try {
+                            Thread.sleep(retryDelayMs);
+                        } catch (InterruptedException e) {
+                            Thread.currentThread().interrupt();
+                            break;
+                        }
+                    }
+                }
+
+                // Check if we successfully initialized after retries
+                if (audioRecord == null || audioRecord.getState() != AudioRecord.STATE_INITIALIZED) {
+                    Log.e(TAG, "AudioRecord initialization failed after " + maxRetries + " attempts");
+                    isRecording = false;
+                    isReady = true;
+                    return;
+                }
+
                 audioRecord.startRecording();
                 
                 FileOutputStream fos = new FileOutputStream(wavFile);
@@ -72,10 +117,25 @@ public class AudioRecorder {
                 e.printStackTrace();
             } finally {
                 if (audioRecord != null) {
-                    audioRecord.stop();
-                    audioRecord.release();
-                    audioRecord = null;
+                    try {
+                        if (audioRecord.getState() == AudioRecord.STATE_INITIALIZED) {
+                            if (audioRecord.getRecordingState() == AudioRecord.RECORDSTATE_RECORDING) {
+                                audioRecord.stop();
+                            }
+                        }
+                    } catch (Exception e) {
+                        Log.e(TAG, "Error stopping AudioRecord", e);
+                    } finally {
+                        try {
+                            audioRecord.release();
+                        } catch (Exception e) {
+                            Log.e(TAG, "Error releasing AudioRecord", e);
+                        }
+                        audioRecord = null;
+                    }
                 }
+                isReady = true;
+                Log.d(TAG, "Recording thread completed, isReady set to true");
             }
         });
     }
@@ -142,5 +202,9 @@ public class AudioRecorder {
     
     public boolean isRecording() {
         return isRecording;
+    }
+
+    public boolean isReady() {
+        return isReady;
     }
 }
