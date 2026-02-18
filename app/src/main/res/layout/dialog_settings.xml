@@ -81,64 +81,6 @@
         android:background="@android:color/darker_gray"
         android:layout_marginBottom="12dp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Whisper语音识别模型"
-        android:textSize="14sp"
-        android:textColor="@android:color/black"
-        android:layout_marginBottom="8dp" />
-
-    <RadioGroup
-        android:id="@+id/rg_model"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <RadioButton
-            android:id="@+id/rb_model_original"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="原始模型 (77MB, 精度最高, RTF~2.5x)" />
-
-        <RadioButton
-            android:id="@+id/rb_model_int8"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="INT8量化模型 (42MB, 推荐⭐ RTF~1.9x)" />
-
-        <RadioButton
-            android:id="@+id/rb_model_q5_1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Q5_1量化模型 (32MB, RTF~2.2x)" />
-
-    </RadioGroup>
-
-    <!-- Separator -->
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@android:color/darker_gray"
-        android:layout_marginTop="12dp"
-        android:layout_marginBottom="12dp" />
-
-    <CheckBox
-        android:id="@+id/cb_auto_test"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="更换模型后自动测试"
-        android:checked="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="勾选后，每次更换模型将自动使用JFK测试音频验证性能"
-        android:textSize="12sp"
-        android:textColor="@android:color/darker_gray"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="4dp" />
-
     <!-- Separator -->
     <View
         android:layout_width="match_parent"
@@ -196,16 +138,10 @@
         android:layout_marginBottom="12dp">
 
         <RadioButton
-            android:id="@+id/rb_asr_local"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="本地Whisper (推荐⭐ 设备端加速，无需网络)" />
-
-        <RadioButton
             android:id="@+id/rb_asr_cloud_http"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="云端ASR HTTP (HTTP API，兼容性好)" />
+            android:text="云端ASR HTTP (推荐⭐ HTTP API，兼容性好)" />
 
         <RadioButton
             android:id="@+id/rb_asr_funasr_ws"

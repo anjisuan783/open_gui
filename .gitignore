@@ -111,8 +111,12 @@ __pycache__/
 temp_java/
 
 # Ignore app assets (large binary files)
-app/src/main/assets/whisper/ggml-tiny.en.bin
+# Note: Model files are now managed by Git LFS
+# app/src/main/assets/whisper/ggml-tiny.en.bin
 app/build/intermediates/assets/debug/whisper/
+
+# Allow model files in assets (managed by Git LFS)
+!app/src/main/assets/whisper/*.bin
 
 # Native libraries (should be built, not committed)
 app/src/main/jniLibs/

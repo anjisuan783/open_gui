@@ -88,13 +88,12 @@ public class FunAsrWebSocketManager {
         
         disconnect();
         
-        // According to Python script, connect with "binary" subprotocol
+        // Connect to whisper.cpp WebSocket service
         String wsUrl = "ws://" + serverHost + ":" + serverPort;
-        Log.d(TAG, "Attempting to connect to FunASR WebSocket: " + wsUrl + " with binary subprotocol");
+        Log.d(TAG, "Connecting to Whisper WebSocket: " + wsUrl);
         
         Request request = new Request.Builder()
                 .url(wsUrl)
-                .addHeader("Sec-WebSocket-Protocol", "binary")
                 .build();
         
         webSocket = httpClient.newWebSocket(request, new WebSocketListener() {
@@ -180,10 +179,10 @@ public class FunAsrWebSocketManager {
                 }
                 
                 // Send initial JSON message (matching Python script)
-                // Try offline mode first for testing
-                String testMode = "offline"; // Temporarily use offline mode
+                String testMode = "offline";
                 JSONObject initJson = new JSONObject();
                 try {
+                    initJson.put("reqid", "app_" + System.currentTimeMillis());
                     initJson.put("mode", testMode);
                     initJson.put("wav_name", audioFile.getName());
                     initJson.put("is_speaking", true);
@@ -193,6 +192,7 @@ public class FunAsrWebSocketManager {
                 
                 webSocket.send(initJson.toString());
                 Log.d(TAG, "Sent initial JSON (offline mode): " + initJson.toString());
+                Log.d(TAG, "JSON bytes: " + initJson.toString().getBytes().length);
                 
                 // Extract and send PCM audio data
                 byte[] pcmData = extractPcmFromWav(audioFile);
@@ -257,7 +257,7 @@ public class FunAsrWebSocketManager {
             boolean shouldTreatAsFinal = isFinal || 
                 (responseMode.equals("offline") && !transcribedText.isEmpty());
             
-            if (shouldTreatAsFinal && !transcribedText.isEmpty()) {
+            if (shouldTreatAsFinal) {
                 // Calculate performance metrics
                 long processingTime = System.currentTimeMillis() - startTime;
                 
@@ -269,11 +269,17 @@ public class FunAsrWebSocketManager {
                 
                 double realtimeFactor = processingTime / 1000.0 / audioLengthSeconds;
                 
-                Log.d(TAG, "Treating as final result: " + transcribedText + 
+                // If text is empty or whitespace only, show placeholder
+                String displayText = transcribedText;
+                if (transcribedText == null || transcribedText.trim().isEmpty()) {
+                    displayText = "..."; // Placeholder to indicate server responded
+                }
+                
+                Log.d(TAG, "Treating as final result: " + displayText + 
                       ", mode=" + responseMode + ", is_final=" + isFinal);
                 
                 TranscriptionResult result = new TranscriptionResult(
-                        transcribedText, audioLengthSeconds, processingTime, realtimeFactor);
+                        displayText, audioLengthSeconds, processingTime, realtimeFactor);
                 
                 currentCallback.onSuccess(result);
                 resetState();

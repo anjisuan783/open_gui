@@ -579,10 +579,13 @@ public class MainActivity extends AppCompatActivity {
                 recordButton.setBackgroundResource(R.drawable.bg_record_disabled);
                 recordProgress.setVisibility(View.GONE);
                 tvRecordHint.setVisibility(View.VISIBLE);
-                if (whisperManager != null && !whisperManager.isModelLoaded()) {
+                String asrBackend = getSharedPreferences("settings", MODE_PRIVATE)
+                        .getString("asr_backend", "cloud_http");
+                boolean isLocalBackend = asrBackend.equals("local");
+                if (isLocalBackend && whisperManager != null && !whisperManager.isModelLoaded()) {
                     tvRecordHint.setText("模型未部署，请手动放置后重启");
                 } else {
-                    tvRecordHint.setText("OpenCode连接失败，请检查配置");
+                    tvRecordHint.setText("请检查服务器配置");
                 }
                 tvRecordHint.setTextColor(getResources().getColor(android.R.color.darker_gray));
                 recordButton.setEnabled(false);

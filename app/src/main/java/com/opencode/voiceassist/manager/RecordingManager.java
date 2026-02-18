@@ -96,8 +96,13 @@ public class RecordingManager {
         }
         
         recordButton.setOnTouchListener((v, event) -> {
-            if (whisperManager == null || !whisperManager.isModelLoaded()) {
-                return false; // Button is disabled
+            // Check if recording is allowed based on ASR backend
+            String asrBackend = activity.getSharedPreferences("settings", Activity.MODE_PRIVATE)
+                    .getString("asr_backend", Constants.DEFAULT_ASR_BACKEND);
+            boolean requiresLocalWhisper = asrBackend.equals(Constants.ASR_BACKEND_LOCAL);
+            
+            if (requiresLocalWhisper && (whisperManager == null || !whisperManager.isModelLoaded())) {
+                return false; // Button is disabled for local Whisper without model
             }
             
             switch (event.getAction()) {
@@ -363,9 +368,17 @@ public class RecordingManager {
                     }, 3000); // Wait 3 seconds for everything to settle
                 }
             } else {
-                // Model initialization failed/skipped - disable recording
-                updateButtonState(ButtonState.DISABLED);
-                Toast.makeText(activity, message, Toast.LENGTH_LONG).show();
+                // Only disable recording if using local Whisper backend
+                String asrBackend = activity.getSharedPreferences("settings", Activity.MODE_PRIVATE)
+                        .getString("asr_backend", Constants.DEFAULT_ASR_BACKEND);
+                if (asrBackend.equals(Constants.ASR_BACKEND_LOCAL)) {
+                    updateButtonState(ButtonState.DISABLED);
+                    Toast.makeText(activity, message, Toast.LENGTH_LONG).show();
+                } else {
+                    // Cloud ASR or FunASR - enable recording anyway
+                    Toast.makeText(activity, "录音功能已启用（" + asrBackend + "）", Toast.LENGTH_SHORT).show();
+                    updateButtonState(ButtonState.DEFAULT);
+                }
             }
             
             if (callback != null) {

@@ -163,8 +163,139 @@ Key dependencies (from `app/build.gradle`):
 - Java compatibility: Java 8 (VERSION_1_8)
 - Uses whisper.cpp for local ASR
 - Supports multiple ASR backends: Local Whisper, Cloud HTTP, FunASR WebSocket
-- Model files should be placed in assets or downloaded at runtime
+- Model files are bundled in APK via Git LFS (see below)
 - Requires RECORD_AUDIO and INTERNET permissions
+
+## Git LFS (Large File Storage)
+
+This project uses Git LFS to manage the Whisper model files:
+
+### Setup for New Clones
+
+```bash
+# Install Git LFS (if not already installed)
+git lfs install
+
+# Clone the repository (LFS files will be downloaded automatically)
+git clone <repository-url>
+
+# If LFS files are missing after clone, pull them manually
+git lfs pull
+```
+
+### Model Files
+
+The following model is bundled in the APK:
+- `app/src/main/assets/whisper/ggml-tiny.en-q8_0.bin` (42MB)
+  - INT8 quantized model
+  - Downloaded from: https://hf-mirror.com/ggerganov/whisper.cpp/
+  - Recommended: Best balance of speed and accuracy
+
+### Adding New Models
+
+If you need to add a different model version:
+
+```bash
+# Download the model (e.g., from HuggingFace mirror)
+curl -L -o app/src/main/assets/whisper/ggml-tiny.en.bin \
+  "https://hf-mirror.com/ggerganov/whisper.cpp/resolve/main/ggml-tiny.en.bin"
+
+# Git LFS will automatically track *.bin files
+git add app/src/main/assets/whisper/ggml-tiny.en.bin
+git commit -m "Add original Whisper model (77MB)"
+```
+
+### Native Libraries (whisper.cpp)
+
+**⚠️ IMPORTANT: Native libraries (.so files) are currently MISSING from this repository!**
+
+The project requires whisper.cpp native libraries to enable local speech recognition:
+- `libwhisper.so` (base library)
+- `libwhisper_v8fp16_va.so` (ARM64 with FP16 optimization)
+- `libwhisper_vfpv4.so` (ARM32 with VFPv4 optimization)
+
+### Expected Location
+
+```
+app/src/main/jniLibs/
+├── arm64-v8a/
+│   ├── libwhisper.so
+│   ├── libwhisper_v8fp16_va.so
+│   └── libwhisper_vfpv4.so
+├── armeabi-v7a/
+│   ├── libwhisper.so
+│   └── libwhisper_vfpv4.so
+├── x86/
+│   └── libwhisper.so
+└── x86_64/
+    └── libwhisper.so
+```
+
+### How to Obtain Native Libraries
+
+#### Option 1: Download Pre-compiled Binaries (Recommended)
+
+Pre-compiled binaries may be available from:
+- https://github.com/ggerganov/whisper.cpp/releases
+- https://hf-mirror.com/ggerganov/whisper.cpp (China mirror)
+
+Place downloaded .so files in the appropriate `jniLibs/<abi>/` directories.
+
+#### Option 2: Build from Source
+
+If you have the whisper.cpp source:
+
+```bash
+# Clone whisper.cpp
+git clone https://github.com/ggerganov/whisper.cpp.git
+cd whisper.cpp
+
+# Build for Android (requires Android NDK)
+mkdir build-android && cd build-android
+
+cmake -DCMAKE_TOOLCHAIN_FILE=$ANDROID_NDK/build/cmake/android.toolchain.cmake \
+      -DANDROID_ABI=arm64-v8a \
+      -DANDROID_PLATFORM=android-24 \
+      -DCMAKE_BUILD_TYPE=Release \
+      -DBUILD_SHARED_LIBS=ON \
+      ..
+
+make
+
+# Copy the built libraries to jniLibs
+cp libwhisper.so ../app/src/main/jniLibs/arm64-v8a/
+```
+
+#### Option 3: Use Alternative Backends
+
+If you cannot obtain the native libraries, configure the app to use alternative ASR backends:
+
+**Settings → ASR Backend → Select "云端HTTP" or "FunASR WebSocket"**
+
+This bypasses the local Whisper library requirement.
+
+## Troubleshooting
+
+**Issue: "Whisper 原生库加载失败，录音禁用" (Native library load failed)**
+- **Cause**: Missing `libwhisper.so` native libraries in APK
+- **Solution**: 
+  1. Add native libraries to `app/src/main/jniLibs/`
+  2. Or switch to cloud ASR backend in app settings
+  3. Rebuild APK: `./gradlew clean assembleDebug`
+
+**Issue: Model file shows as text pointer instead of binary**
+```bash
+# Pull the actual LFS files
+git lfs pull
+
+# Or re-clone with LFS
+GIT_LFS_SKIP_SMUDGE=0 git clone <repository-url>
+```
+
+**Issue: "模型未放置" error on device**
+- The APK may not have been built with the model included
+- Rebuild: `./gradlew clean assembleDebug`
+- Verify APK contents: `unzip -l app-debug.apk | grep whisper`
 
 ## Before Committing
 

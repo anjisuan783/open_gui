@@ -125,15 +125,9 @@ public class SettingsManager {
             EditText etUsername = view.findViewById(R.id.et_username);
             EditText etPassword = view.findViewById(R.id.et_password);
             ImageView ivPasswordToggle = view.findViewById(R.id.iv_password_toggle);
-            RadioGroup rgModel = view.findViewById(R.id.rg_model);
-            RadioButton rbModelOriginal = view.findViewById(R.id.rb_model_original);
-            RadioButton rbModelInt8 = view.findViewById(R.id.rb_model_int8);
-            RadioButton rbModelQ5_1 = view.findViewById(R.id.rb_model_q5_1);
-            android.widget.CheckBox cbAutoTest = view.findViewById(R.id.cb_auto_test);
             
             // ASR Backend controls
             RadioGroup rgAsrBackend = view.findViewById(R.id.rg_asr_backend);
-            RadioButton rbAsrLocal = view.findViewById(R.id.rb_asr_local);
             RadioButton rbAsrCloudHttp = view.findViewById(R.id.rb_asr_cloud_http);
             RadioButton rbAsrFunasrWs = view.findViewById(R.id.rb_asr_funasr_ws);
             
@@ -158,7 +152,6 @@ public class SettingsManager {
             int savedPort = prefs.getInt("opencode_port", Constants.DEFAULT_OPENCODE_PORT);
             String savedUsername = prefs.getString("opencode_username", Constants.DEFAULT_OPENCODE_USERNAME);
             String savedPassword = prefs.getString("opencode_password", Constants.DEFAULT_OPENCODE_PASSWORD);
-            String savedModel = prefs.getString("whisper_model", Constants.DEFAULT_WHISPER_MODEL);
             boolean autoTestEnabled = prefs.getBoolean("auto_test_on_model_change", true);
             boolean autoSendEnabled = prefs.getBoolean(Constants.KEY_AUTO_SEND, Constants.DEFAULT_AUTO_SEND);
             
@@ -193,7 +186,8 @@ public class SettingsManager {
             } else if (asrBackend.equals(Constants.ASR_BACKEND_FUNASR_WS)) {
                 rbAsrFunasrWs.setChecked(true);
             } else {
-                rbAsrLocal.setChecked(true);
+                // Default to cloud HTTP
+                rbAsrCloudHttp.setChecked(true);
             }
             
             // Set Cloud ASR URL
@@ -215,19 +209,6 @@ public class SettingsManager {
                 boolean isLocal = backend.equals(Constants.ASR_BACKEND_LOCAL);
                 boolean isCloudHttp = backend.equals(Constants.ASR_BACKEND_CLOUD_HTTP);
                 boolean isFunasrWs = backend.equals(Constants.ASR_BACKEND_FUNASR_WS);
-                
-                // Update local model options visibility and state
-                rbModelOriginal.setEnabled(isLocal);
-                rbModelInt8.setEnabled(isLocal);
-                rbModelQ5_1.setEnabled(isLocal);
-                rgModel.setAlpha(isLocal ? 1.0f : 0.5f);
-                cbAutoTest.setEnabled(isLocal);
-                cbAutoTest.setAlpha(isLocal ? 1.0f : 0.5f);
-                
-                // Auto-test is only relevant for local backend
-                if (!isLocal) {
-                    cbAutoTest.setChecked(false);
-                }
                 
                 // Update Cloud ASR config visibility
                 int cloudVisibility = isCloudHttp ? View.VISIBLE : View.GONE;
@@ -269,22 +250,6 @@ public class SettingsManager {
                          port = Constants.DEFAULT_OPENCODE_PORT;
                      }
                     
-                    // Determine selected model
-                    String selectedModel;
-                    if (rbModelOriginal.isChecked()) {
-                        selectedModel = "ggml-tiny.en.bin";
-                    } else if (rbModelInt8.isChecked()) {
-                        selectedModel = "ggml-tiny.en-q8_0.bin";
-                    } else {
-                        selectedModel = "ggml-tiny.en-q5_1.bin";
-                    }
-                    
-                    // Get previous model to check if it changed
-                    String previousModel = prefs.getString("whisper_model", Constants.DEFAULT_WHISPER_MODEL);
-                    boolean modelChanged = !selectedModel.equals(previousModel);
-                    boolean autoTestOnChange = cbAutoTest.isChecked();
-                    boolean autoSendOn = cbAutoSend.isChecked();
-                    
                     // Determine selected ASR backend
                     String newAsrBackend = Constants.ASR_BACKEND_LOCAL;
                     if (rbAsrCloudHttp.isChecked()) {
@@ -305,6 +270,7 @@ public class SettingsManager {
                      // Get username and password
                      String username = etUsername.getText().toString().trim();
                      String password = etPassword.getText().toString().trim();
+                     boolean autoSendOn = cbAutoSend.isChecked();
                      
                      // Create settings data
                      SettingsData settings = new SettingsData();
@@ -312,8 +278,8 @@ public class SettingsManager {
                      settings.opencodePort = port;
                      settings.opencodeUsername = username;
                      settings.opencodePassword = password;
-                     settings.whisperModel = selectedModel;
-                     settings.autoTestOnModelChange = autoTestOnChange;
+                     settings.whisperModel = Constants.DEFAULT_WHISPER_MODEL;
+                     settings.autoTestOnModelChange = false;
                      settings.autoSend = autoSendOn;
                      settings.asrBackend = newAsrBackend;
                     settings.cloudAsrUrl = newCloudAsrUrl;
@@ -331,35 +297,6 @@ public class SettingsManager {
                     
                     // Show toast
                     mainHandler.post(() -> Toast.makeText(activity, "设置已保存", Toast.LENGTH_SHORT).show());
-                    
-                    // Notify user about model change and reinitialize if needed
-                    if (modelChanged) {
-                        mainHandler.post(() -> Toast.makeText(activity, 
-                            "模型已更改为: " + selectedModel + "\n正在重新初始化...", 
-                            Toast.LENGTH_LONG).show());
-                        
-                        // Disable recording while reinitializing
-                        if (callback != null) {
-                            callback.onUpdateButtonState(RecordingManager.ButtonState.DISABLED);
-                        }
-
-                        // Set transcription test flag based on auto test preference and backend type
-                        // Auto test is only relevant for local backend
-                        if (newAsrBackend.equals(Constants.ASR_BACKEND_LOCAL)) {
-                            if (recordingManager != null) {
-                                recordingManager.setTranscriptionTested(!autoTestOnChange);
-                            }
-                        } else {
-                            if (recordingManager != null) {
-                                recordingManager.setTranscriptionTested(true); // Skip test for non-local backends
-                            }
-                        }
-                        
-                        // Reinitialize Whisper with new model
-                        if (callback != null) {
-                            callback.onReinitializeWhisper(selectedModel);
-                        }
-                    }
                 })
                 .setNegativeButton("取消", null)
                 .show();
@@ -372,7 +309,6 @@ public class SettingsManager {
         editor.putInt("opencode_port", settings.opencodePort);
         editor.putString("opencode_username", settings.opencodeUsername);
         editor.putString("opencode_password", settings.opencodePassword);
-        editor.putString("whisper_model", settings.whisperModel);
         editor.putBoolean("auto_test_on_model_change", settings.autoTestOnModelChange);
         editor.putString("asr_backend", settings.asrBackend);
         editor.putString("cloud_asr_url", settings.cloudAsrUrl);
