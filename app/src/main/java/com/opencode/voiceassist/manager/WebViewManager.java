@@ -98,6 +98,7 @@ public class WebViewManager {
         settings.setBuiltInZoomControls(true);
         settings.setDisplayZoomControls(false);
         settings.setSupportZoom(true);
+        settings.setMediaPlaybackRequiresUserGesture(false);
         
         // Configure WebViewClient for authentication
         webView.setWebViewClient(new WebViewClient() {
@@ -123,6 +124,7 @@ public class WebViewManager {
             public void onPageFinished(WebView view, String url) {
                 Log.d(TAG, "Page finished loading: " + url);
                 super.onPageFinished(view, url);
+                
                 // Inject input detection script after page loads
                 injectInputDetectionScript();
                 
@@ -175,8 +177,13 @@ public class WebViewManager {
         webView.setWebChromeClient(new WebChromeClient() {
             @Override
             public boolean onConsoleMessage(ConsoleMessage consoleMessage) {
-                Log.d(TAG, "WebView console: " + consoleMessage.message() + 
-                        " at " + consoleMessage.sourceId() + ":" + consoleMessage.lineNumber());
+                if (consoleMessage.messageLevel() == ConsoleMessage.MessageLevel.ERROR) {
+                    Log.e(TAG, "WebView console ERROR: " + consoleMessage.message() + 
+                            " at " + consoleMessage.sourceId() + ":" + consoleMessage.lineNumber());
+                } else {
+                    Log.d(TAG, "WebView console: " + consoleMessage.message() + 
+                            " at " + consoleMessage.sourceId() + ":" + consoleMessage.lineNumber());
+                }
                 return true;
             }
             
@@ -217,6 +224,7 @@ public class WebViewManager {
         
         // Register JavaScript interface for bidirectional communication
         webView.addJavascriptInterface(new JavaScriptInterface(), "AndroidVoiceAssist");
+        webView.addJavascriptInterface(new ClipboardInterface(), "AndroidClipboard");
         
         // Initialize WebView text injector
         webViewInjector = new WebViewTextInjector(webView);
@@ -298,6 +306,57 @@ public class WebViewManager {
                 }
             });
         }
+        
+        @android.webkit.JavascriptInterface
+        public String getServerPassword() {
+            android.content.SharedPreferences prefs = activity.getSharedPreferences("settings", Activity.MODE_PRIVATE);
+            String password = prefs.getString("opencode_password", Constants.DEFAULT_OPENCODE_PASSWORD);
+            Log.d(TAG, "getServerPassword called, returning password");
+            return password;
+        }
+        
+        @android.webkit.JavascriptInterface
+        public String getServerUsername() {
+            android.content.SharedPreferences prefs = activity.getSharedPreferences("settings", Activity.MODE_PRIVATE);
+            String username = prefs.getString("opencode_username", Constants.DEFAULT_OPENCODE_USERNAME);
+            Log.d(TAG, "getServerUsername called, returning username: " + username);
+            return username;
+        }
+        
+        @android.webkit.JavascriptInterface
+        public String getServerUrl() {
+            android.content.SharedPreferences prefs = activity.getSharedPreferences("settings", Activity.MODE_PRIVATE);
+            String ip = prefs.getString("opencode_ip", Constants.DEFAULT_OPENCODE_IP);
+            int port = prefs.getInt("opencode_port", Constants.DEFAULT_OPENCODE_PORT);
+            String url = "http://" + ip + ":" + port;
+            Log.d(TAG, "getServerUrl called, returning: " + url);
+            return url;
+        }
+    }
+    
+    /**
+     * JavaScript interface for clipboard operations
+     */
+    public class ClipboardInterface {
+        @android.webkit.JavascriptInterface
+        public void copy(String text) {
+            Log.d(TAG, "Clipboard copy: " + text);
+            android.content.ClipboardManager clipboard = (android.content.ClipboardManager) activity.getSystemService(android.content.Context.CLIPBOARD_SERVICE);
+            android.content.ClipData clip = android.content.ClipData.newPlainText("text", text);
+            clipboard.setPrimaryClip(clip);
+        }
+        
+        @android.webkit.JavascriptInterface
+        public String paste() {
+            android.content.ClipboardManager clipboard = (android.content.ClipboardManager) activity.getSystemService(android.content.Context.CLIPBOARD_SERVICE);
+            if (clipboard.hasPrimaryClip()) {
+                android.content.ClipData clip = clipboard.getPrimaryClip();
+                if (clip != null && clip.getItemCount() > 0) {
+                    return clip.getItemAt(0).getText().toString();
+                }
+            }
+            return "";
+        }
     }
     
     public void loadOpenCodePage() {
@@ -325,12 +384,29 @@ public class WebViewManager {
         
         Log.d(TAG, "Retrieved IP: " + ip + ", Retrieved port: " + port);
         String url = "http://" + ip + ":" + port;
+        
         if (bypassCache) {
             url = url + "?t=" + System.currentTimeMillis();
         }
         Log.d(TAG, "Loading URL: " + url);
         
         webView.loadUrl(url);
+        
+        // Clear localStorage and sessionStorage after page loads
+        mainHandler.postDelayed(() -> {
+            webView.evaluateJavascript(
+                "(function() {" +
+                "  try {" +
+                "    localStorage.clear();" +
+                "    sessionStorage.clear();" +
+                "    console.log('Storage cleared');" +
+                "  } catch(e) {" +
+                "    console.log('Storage clear error: ' + e.message);" +
+                "  }" +
+                "})();",
+                null
+            );
+        }, 1000);
     }
     
     /**

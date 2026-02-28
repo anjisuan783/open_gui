@@ -38,10 +38,10 @@ public class Constants {
     
     // OpenCode Default Configuration
     // Note: Change this to your computer's IP address on the same network
-    public static final String DEFAULT_OPENCODE_IP = "192.168.66.189";
-    public static final int DEFAULT_OPENCODE_PORT = 4096;
-    public static final String DEFAULT_OPENCODE_USERNAME = "abc";
-    public static final String DEFAULT_OPENCODE_PASSWORD = "123";
+    public static final String DEFAULT_OPENCODE_IP = "192.168.66.79";
+    public static final int DEFAULT_OPENCODE_PORT = 3000;
+    public static final String DEFAULT_OPENCODE_USERNAME = "opencode_linaro_dev";
+    public static final String DEFAULT_OPENCODE_PASSWORD = "abcd@1234";
     
     // Audio Recording Configuration
     public static final int AUDIO_SAMPLE_RATE = 16000;
@@ -66,7 +66,7 @@ public class Constants {
     public static final String ASR_BACKEND_LOCAL = "local";
     public static final String ASR_BACKEND_CLOUD_HTTP = "cloud_http";
     public static final String ASR_BACKEND_FUNASR_WS = "funasr_ws";
-    public static final String DEFAULT_ASR_BACKEND = ASR_BACKEND_LOCAL;
+    public static final String DEFAULT_ASR_BACKEND = ASR_BACKEND_CLOUD_HTTP;
     
     // WebView Settings
     public static final String KEY_AUTO_SEND = "auto_send";
