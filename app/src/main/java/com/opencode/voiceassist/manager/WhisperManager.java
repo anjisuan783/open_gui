@@ -80,49 +80,10 @@ public class WhisperManager {
     }
     
     public void initialize(String modelFilename) {
-        // Debug: Check native library directory
-        try {
-            File nativeLibDir = new File(context.getApplicationInfo().nativeLibraryDir);
-            Log.d("WhisperManager", "Native library dir: " + nativeLibDir.getAbsolutePath());
-            if (nativeLibDir.exists()) {
-                String[] files = nativeLibDir.list();
-                if (files != null) {
-                    Log.d("WhisperManager", "Native lib files: " + java.util.Arrays.toString(files));
-                } else {
-                    Log.d("WhisperManager", "Native lib dir is empty or not accessible");
-                }
-            } else {
-                Log.d("WhisperManager", "Native lib dir does not exist");
-            }
-        } catch (Exception e) {
-            Log.e("WhisperManager", "Error checking native lib dir", e);
-        }
-        
-        File modelFile = fileManager.getModelFile(modelFilename);
-        
-        if (modelFile.exists()) {
-            // Verify file integrity
-            if (verifyModelIntegrity(modelFile)) {
-                loadModel(modelFile);
-            } else {
-                // Delete corrupted file and copy from assets
-                modelFile.delete();
-                if (copyModelFromAssets(modelFilename)) {
-                    loadModel(modelFile);
-                } else {
-                    // Model should be bundled in APK, show error
-                    showAssetModelError();
-                }
-            }
-        } else {
-            // Copy model from assets (bundled in APK)
-            if (copyModelFromAssets(modelFilename)) {
-                loadModel(modelFile);
-            } else {
-                // Model should be bundled in APK, show error
-                showAssetModelError();
-            }
-        }
+        // Local Whisper inference is deprecated, skip silently
+        Log.d("WhisperManager", "Local Whisper deprecated, skipping");
+        modelLoaded = false;
+        return;
     }
     
     /**

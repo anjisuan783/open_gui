@@ -94,6 +94,7 @@ public class FunAsrWebSocketManager {
         
         Request request = new Request.Builder()
                 .url(wsUrl)
+                .addHeader("Sec-WebSocket-Protocol", "binary")
                 .build();
         
         webSocket = httpClient.newWebSocket(request, new WebSocketListener() {
@@ -120,6 +121,9 @@ public class FunAsrWebSocketManager {
                 Log.e(TAG, "WebSocket connection failed", t);
                 if (response != null) {
                     Log.d(TAG, "Response code: " + response.code() + ", message: " + response.message());
+                    Log.d(TAG, "Response headers: " + response.headers().toString());
+                } else {
+                    Log.d(TAG, "Response is null, failure due to: " + t.getMessage());
                 }
                 isConnected.set(false);
                 if (currentCallback != null && isProcessing.get()) {

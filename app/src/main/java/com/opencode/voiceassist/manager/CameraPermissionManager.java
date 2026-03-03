@@ -105,8 +105,9 @@ public class CameraPermissionManager {
                         photoFile);
                     Log.d(TAG, "Created cameraPhotoUri: " + cameraPhotoUri);
                     
-                    // Grant temporary read permission to the camera app
+                    // Grant temporary read and write permissions to the camera app
                     takePictureIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    takePictureIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
                     takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, cameraPhotoUri);
                     // Try to make camera finish after taking one photo (some camera apps respect this)
                     takePictureIntent.putExtra("android.intent.extras.CAMERA_FACING", 0); // Rear camera
@@ -166,7 +167,7 @@ public class CameraPermissionManager {
     }
     
     /**
-     * Trigger file upload from camera - sets pending flag for WebView file chooser
+     * Trigger file upload from camera - directly injects image to WebView
      */
     public void triggerFileUploadFromCamera(Uri photoUri) {
         Log.d(TAG, "triggerFileUploadFromCamera called: " + photoUri + 
@@ -179,9 +180,8 @@ public class CameraPermissionManager {
             Log.e(TAG, "Callback is null! Cannot notify about captured photo");
         }
         
-        // User must manually click the attachment button in WebView
-        // WebView's onShowFileChooser will handle the pending upload
-        mainHandler.post(() -> Toast.makeText(activity, "拍照完成，请在网页中点击附件按钮上传照片", Toast.LENGTH_SHORT).show());
+        // Photo is automatically added to the input field
+        mainHandler.post(() -> Toast.makeText(activity, "照片已自动添加到输入框", Toast.LENGTH_SHORT).show());
     }
     
     /**
@@ -298,11 +298,31 @@ public class CameraPermissionManager {
             
             if (resultCode == Activity.RESULT_OK) {
                 // Check if we have a photo URI from EXTRA_OUTPUT
+                // The photo should have been saved to the URI specified in EXTRA_OUTPUT
                 Uri photoUri = cameraPhotoUri;
-                if (photoUri == null && data != null && data.getData() != null) {
-                    // Some camera apps return the URI in the data intent
-                    photoUri = data.getData();
-                    Log.d(TAG, "Using photo URI from data intent: " + photoUri);
+                Log.d(TAG, "Initial photoUri from cameraPhotoUri: " + photoUri);
+                
+                if (photoUri == null) {
+                    // Fallback: try to get URI from data (though this is unusual for EXTRA_OUTPUT)
+                    if (data != null && data.getData() != null) {
+                        photoUri = data.getData();
+                        Log.d(TAG, "Using photo URI from data intent: " + photoUri);
+                    }
+                }
+                
+                // If still null, check if we can access the file that was specified in EXTRA_OUTPUT
+                if (photoUri == null && cameraPhotoUri != null) {
+                    // Verify if the file exists at the expected location
+                    String path = cameraPhotoUri.getPath();
+                    if (path != null) {
+                        File file = new File(path);
+                        if (file.exists()) {
+                            Log.d(TAG, "File exists at: " + path + ", using original cameraPhotoUri: " + cameraPhotoUri);
+                            photoUri = cameraPhotoUri;
+                        } else {
+                            Log.e(TAG, "Expected file does not exist at: " + path);
+                        }
+                    }
                 }
                 
                 if (photoUri != null) {
@@ -315,7 +335,8 @@ public class CameraPermissionManager {
                     cameraPhotoUri = null;
                     Log.d(TAG, "Cleared cameraPhotoUri after triggering upload");
                 } else {
-                    Log.w(TAG, "Camera photo URI is null, data intent: " + data);
+                    Log.e(TAG, "Camera photo URI is null after all attempts, cameraPhotoUri was: " + cameraPhotoUri);
+                    Log.e(TAG, "Intent data was: " + data);
                     mainHandler.post(() -> Toast.makeText(activity, "拍照失败，未获取到照片", Toast.LENGTH_SHORT).show());
                 }
             } else {

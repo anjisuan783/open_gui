@@ -403,9 +403,9 @@ public class MainActivity extends AppCompatActivity {
         
         @Override
         public void onCameraPhotoCaptured(Uri photoUri) {
-            // Notify WebViewManager about camera photo
+            // Directly inject the captured photo to the WebView prompt input
             if (webViewManager != null) {
-                webViewManager.setCameraUploadPending(true, photoUri);
+                webViewManager.injectImageFromUri(photoUri);
             }
         }
         

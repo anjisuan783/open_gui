@@ -38,8 +38,8 @@ public class Constants {
     
     // OpenCode Default Configuration
     // Note: Change this to your computer's IP address on the same network
-    public static final String DEFAULT_OPENCODE_IP = "192.168.66.79";
-    public static final int DEFAULT_OPENCODE_PORT = 3000;
+    public static final String DEFAULT_OPENCODE_IP = "127.0.0.1";
+    public static final int DEFAULT_OPENCODE_PORT = 4096; // Backend service port
     public static final String DEFAULT_OPENCODE_USERNAME = "opencode_linaro_dev";
     public static final String DEFAULT_OPENCODE_PASSWORD = "abcd@1234";
     

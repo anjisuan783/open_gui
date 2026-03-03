@@ -971,4 +971,73 @@ public class WebViewManager {
         
         return fileName;
     }
+    
+    /**
+     * Inject image from URI directly using Base64 data and paste event simulation
+     */
+    public void injectImageFromUri(Uri imageUri) {
+        if (imageUri == null) {
+            Log.e(TAG, "injectImageFromUri: imageUri is null");
+            return;
+        }
+        
+        Log.d(TAG, "injectImageFromUri called: " + imageUri);
+        
+        // Get file name and MIME type from URI
+        String fileName = getFileNameFromUri(imageUri);
+        String mimeType = activity.getContentResolver().getType(imageUri);
+        if (mimeType == null) mimeType = "image/jpeg"; // Default to JPEG
+        
+        Log.d(TAG, "Processing image: " + fileName + ", mime: " + mimeType);
+        
+        // Convert to Base64 in background thread to avoid blocking UI
+        final String finalFileName = fileName;  // Make final for lambda access
+        final String finalMimeType = mimeType;  // Make final for lambda access
+        
+        new Thread(() -> {
+            try {
+                // Read file content
+                byte[] fileBytes;
+                try (java.io.InputStream inputStream = activity.getContentResolver().openInputStream(imageUri)) {
+                    if (inputStream == null) {
+                        Log.e(TAG, "Could not open input stream for URI: " + imageUri);
+                        return;
+                    }
+                    java.io.ByteArrayOutputStream buffer = new java.io.ByteArrayOutputStream();
+                    int nRead;
+                    byte[] data = new byte[1024];
+                    while ((nRead = inputStream.read(data, 0, data.length)) != -1) {
+                        buffer.write(data, 0, nRead);
+                    }
+                    fileBytes = buffer.toByteArray();
+                }
+                
+                // Convert to Base64
+                String base64Data = android.util.Base64.encodeToString(fileBytes, android.util.Base64.NO_WRAP);
+                Log.d(TAG, "Base64 conversion completed, length: " + base64Data.length());
+                
+                // Build JavaScript injection code that simulates paste with file data
+                String jsCode = buildImageInjectionJs(base64Data, finalFileName, finalMimeType);
+                
+                // Execute on main thread
+                mainHandler.post(() -> {
+                    Log.d(TAG, "Executing image injection JavaScript");
+                    webView.evaluateJavascript(jsCode, result -> {
+                        Log.d(TAG, "Image injection JS result: " + result);
+                        if (WebViewManager.this.callback != null) {
+                            boolean success = result != null && !result.equals("null") && !result.contains("false");
+                            WebViewManager.this.callback.onAttachmentReady(success, finalFileName, success ? "照片已添加到输入框" : "无法找到输入框");
+                        }
+                    });
+                });
+            } catch (Exception e) {
+                Log.e(TAG, "Error processing image", e);
+                mainHandler.post(() -> {
+                    if (WebViewManager.this.callback != null) {
+                        WebViewManager.this.callback.onAttachmentReady(false, finalFileName, e.getMessage());
+                    }
+                });
+            }
+        });
+    }
 }
