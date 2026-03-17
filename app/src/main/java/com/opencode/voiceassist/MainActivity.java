@@ -401,11 +401,12 @@ public class MainActivity extends AppCompatActivity {
             // Already handled in CameraPermissionManager with toast
         }
         
-        @Override
+@Override
         public void onCameraPhotoCaptured(Uri photoUri) {
-            // Directly inject the captured photo to the WebView prompt input
+            // Use the official WebView file upload mechanism
+            // This will trigger onShowFileChooser in WebViewManager
             if (webViewManager != null) {
-                webViewManager.injectImageFromUri(photoUri);
+                webViewManager.setCameraUploadPending(true, photoUri);
             }
         }
         

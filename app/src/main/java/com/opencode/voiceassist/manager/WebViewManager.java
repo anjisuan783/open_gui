@@ -82,6 +82,97 @@ public class WebViewManager {
             " (current: " + isCameraUploadPending + ", " + cameraUploadUri + ")");
         this.isCameraUploadPending = pending;
         this.cameraUploadUri = uri;
+        
+        // If setting pending to true, directly inject the image via JavaScript
+        if (pending && uri != null) {
+            addImageAttachmentFromUri(uri);
+        }
+    }
+    
+    /**
+     * Add image attachment directly via JavaScript call to OpenCode frontend
+     * This bypasses the file chooser dialog security restriction
+     */
+    private void addImageAttachmentFromUri(Uri imageUri) {
+        Log.d(TAG, "addImageAttachmentFromUri: " + imageUri);
+        
+        new Thread(() -> {
+            try {
+                // Read image data
+                byte[] imageData;
+                if ("file".equals(imageUri.getScheme())) {
+                    java.io.File file = new java.io.File(imageUri.getPath());
+                    try (java.io.FileInputStream fis = new java.io.FileInputStream(file)) {
+                        java.io.ByteArrayOutputStream buffer = new java.io.ByteArrayOutputStream();
+                        int nRead;
+                        byte[] data = new byte[1024];
+                        while ((nRead = fis.read(data, 0, data.length)) != -1) {
+                            buffer.write(data, 0, nRead);
+                        }
+                        imageData = buffer.toByteArray();
+                    }
+                } else {
+                    try (java.io.InputStream inputStream = activity.getContentResolver().openInputStream(imageUri)) {
+                        if (inputStream == null) {
+                            Log.e(TAG, "Could not open input stream for URI: " + imageUri);
+                            return;
+                        }
+                        java.io.ByteArrayOutputStream buffer = new java.io.ByteArrayOutputStream();
+                        int nRead;
+                        byte[] data = new byte[1024];
+                        while ((nRead = inputStream.read(data, 0, data.length)) != -1) {
+                            buffer.write(data, 0, nRead);
+                        }
+                        imageData = buffer.toByteArray();
+                    }
+                }
+                
+                // Convert to Base64
+                String base64Data = android.util.Base64.encodeToString(imageData, android.util.Base64.NO_WRAP);
+                
+                // Get filename and mimeType
+                String filename = getFileNameFromUri(imageUri);
+                String mimeType = activity.getContentResolver().getType(imageUri);
+                if (mimeType == null) {
+                    mimeType = "image/jpeg";
+                }
+                if (filename == null) {
+                    filename = "photo_" + System.currentTimeMillis() + "." + mimeType.replace("image/", "");
+                }
+                
+                Log.d(TAG, "Image converted to Base64, length: " + base64Data.length());
+                
+                // Call JavaScript function to add attachment
+                String jsFilename = escapeForJavaScript(filename);
+                String jsMimeType = escapeForJavaScript(mimeType);
+                
+                String js = "if (window.addImageAttachmentFromAndroid) {" +
+                    "  window.addImageAttachmentFromAndroid('" + base64Data + "', '" + jsFilename + "', '" + jsMimeType + "');" +
+                    "} else {" +
+                    "  console.log('[OpenCode] addImageAttachmentFromAndroid not available');" +
+                    "}";
+                
+                mainHandler.post(() -> {
+                    webView.evaluateJavascript(js, result -> {
+                        Log.d(TAG, "addImageAttachmentFromAndroid result: " + result);
+                        // Reset pending state
+                        isCameraUploadPending = false;
+                        cameraUploadUri = null;
+                        
+                        // Show success toast
+                        mainHandler.post(() -> {
+                            Toast.makeText(activity, "照片已添加到输入框", Toast.LENGTH_SHORT).show();
+                        });
+                    });
+                });
+                
+            } catch (Exception e) {
+                Log.e(TAG, "Error adding image attachment", e);
+                mainHandler.post(() -> {
+                    Toast.makeText(activity, "添加照片失败: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                });
+            }
+        }).start();
     }
     
     public void configureWebView() {
@@ -829,37 +920,108 @@ public class WebViewManager {
             "    });" +
             "    console.log('[OpenCode] Paste event created');" +
             "    " +
-            "    // Step 7: Find OpenCode input field" +
+            "    // Step 7: Find OpenCode input field with more comprehensive selectors" +
             "    result.step = 'finding-input-field';" +
             "    let promptInput = document.querySelector('[data-component=\"prompt-input\"]');" +
             "    if (!promptInput) {" +
-            "      // Try alternative selectors" +
-            "      const alternativeSelectors = [" +
+            "      // Try OpenCode-specific selectors" +
+            "      const openCodeSelectors = [" +
+            "        '.prompt-input textarea'," +
+            "        '.prompt-input [contenteditable=\"true\"]'," +
+            "        '[data-testid=\"prompt-input\"]'," +
+            "        '[data-id=\"prompt-box\"]'," +
+            "        '.chat-input-box textarea'," +
+            "        '.chat-input textarea'," +
+            "        '.text-input textarea'," +
+            "        '.input-box textarea'," +
+            "        '.input-form textarea'," +
+            "        '.message-input textarea'," +
+            "        '.prompt-form textarea'," +
+            "        '.chat-prompt textarea'," +
+            "        '.prompt-textarea'," +
+            "        '.input-textarea'," +
+            "        '.chat textarea'," +
+            "        '.prompt-box [contenteditable=\"true\"]'," +
+            "        '.chat-input-box [contenteditable=\"true\"]'," +
+            "        '.input-box [contenteditable=\"true\"]'," +
+            "        'textarea[id*=\"prompt\"]'," +
+            "        'textarea[name*=\"prompt\"]'," +
+            "        'textarea[id*=\"input\"]'," +
+            "        'textarea[name*=\"input\"]'," +
+            "        'div[role=\"textbox\"]'," +
+            "        'div[contenteditable=\"true\"]'," +
             "        'textarea'," +
             "        'input[type=\"text\"]'," +
             "        '.prompt-input'," +
             "        '[role=\"textbox\"]'," +
             "        '.ProseMirror'," +
             "        '.chat-input'," +
-            "        '.input-area'," +
-            "        'div[contenteditable=\"true\"]'" +
-            "      ];" +
+            "        '.input-area'" +
+            "      ]; " +
             "      " +
-            "      for (const selector of alternativeSelectors) {" +
-            "        const element = document.querySelector(selector);" +
-            "        if (element) {" +
-            "          promptInput = element;" +
-            "          console.log('[OpenCode] Found input using alternative selector: ' + selector);" +
-            "          break;" +
+            "      for (const selector of openCodeSelectors) {" +
+            "        try {" +
+            "          const element = document.querySelector(selector);" +
+            "          if (element && (element.tagName === 'TEXTAREA' || element.tagName === 'INPUT' || element.contentEditable === 'true')) {" +
+            "            promptInput = element;" +
+            "            console.log('[OpenCode] Found input using selector: ' + selector);" +
+            "            break;" +
+            "          }" +
+            "        } catch (e) {" +
+            "          console.log('[OpenCode] Selector failed: ' + selector + ', error: ' + e.message);" +
             "        }" +
             "      }" +
             "    }" +
             "    " +
             "    if (!promptInput) {" +
-            "      result.error = 'OpenCode input field not found. Please focus the input field first.';" +
-            "      result.step = 'input-not-found';" +
-            "      console.error('[OpenCode] ' + result.error);" +
-            "      return JSON.stringify(result);" +
+            "      // If input still not found, wait a bit and try again (in case page is still loading dynamic content)" +
+            "      result.error = 'OpenCode input field not found. Will try again after a short delay.';" +
+            "      result.step = 'input-not-found-initial';" +
+            "      console.warn('[OpenCode] ' + result.error);" +
+            "      " +
+            "      // Create a promise to handle the delayed attempt" +
+            "      return new Promise((resolve) => {" +
+            "        setTimeout(() => {" +
+            "          let retryPromptInput = null;" +
+            "          const selectors = ['.prompt-input textarea', '.chat-input textarea', 'textarea', 'div[contenteditable=\"true\"]', '[role=\"textbox\"]'];" +
+            "          for (const sel of selectors) {" +
+            "            const el = document.querySelector(sel);" +
+            "            if (el && (el.tagName === 'TEXTAREA' || el.tagName === 'INPUT' || el.contentEditable === 'true')) {" +
+            "              retryPromptInput = el;" +
+            "              console.log('[OpenCode] Found input after delay using: ' + sel);" +
+            "              break;" +
+            "            }" +
+            "          }" +
+            "          " +
+            "          if (retryPromptInput) {" +
+            "            // Now try to inject the file into this found input" +
+            "            result.step = 'focusing-input-after-delay';" +
+            "            retryPromptInput.focus();" +
+            "            " +
+            "            const dataTransfer = new DataTransfer();" +
+            "            const blob = dataURLtoBlob(dataUrl);" +
+            "            const file = new File([blob], '" + jsFilename + "', { type: '" + jsMimeType + "' });" +
+            "            dataTransfer.items.add(file);" +
+            "            " +
+            "            const pasteEvent = new ClipboardEvent('paste', {" +
+            "              clipboardData: dataTransfer," +
+            "              bubbles: true," +
+            "              cancelable: true" +
+            "            });" +
+            "            " +
+            "            retryPromptInput.dispatchEvent(pasteEvent);" +
+            "            " +
+            "            result.success = true;" +
+            "            result.step = 'completed-after-delay';" +
+            "            console.log('[OpenCode] Image injection successful after delay');" +
+            "          } else {" +
+            "            result.error = 'OpenCode input field still not found after delay.';" +
+            "            result.step = 'input-not-found-after-delay';" +
+            "            console.error('[OpenCode] ' + result.error);" +
+            "          }" +
+            "          resolve(JSON.stringify(result));" +
+            "        }, 1000);" +
+            "      }).then(res => res).catch(err => JSON.stringify({success: false, error: err.message, step: 'promise-error'}));" +
             "    }" +
             "    " +
             "    console.log('[OpenCode] Found input field');" +
@@ -869,14 +1031,95 @@ public class WebViewManager {
             "    promptInput.focus();" +
             "    console.log('[OpenCode] Input field focused');" +
             "    " +
-            "    // Step 9: Trigger paste event" +
-            "    result.step = 'triggering-paste-event';" +
+            "    // Step 9: Try multiple approaches to inject the file" +
+            "    result.step = 'injecting-via-paste';" +
+            "    " +
+            "    // Approach 1: Trigger paste event (for rich text editors and chat interfaces)" +
             "    promptInput.dispatchEvent(pasteEvent);" +
             "    console.log('[OpenCode] Paste event dispatched');" +
             "    " +
+            "    // Approach 2: Try to find and use a hidden file input (common pattern in web apps)" +
+            "    const fileInput = document.querySelector('input[type=\"file\"][accept*=\"image\" i], input[type=\"file\"].hidden, input[type=\"file\"].visually-hidden, input[type=\"file\"].file-input, input[type=\"file\"][id*=\"upload\" i], input[type=\"file\"][name*=\"upload\" i], input[type=\"file\"].attachment-input');" +
+            "    if (fileInput) {" +
+            "      result.step = 'injecting-via-file-input';" +
+            "      console.log('[OpenCode] Found file input, attempting direct injection');" +
+            "      " +
+            "      // Create a DataTransfer object to hold the file" +
+            "      const dataTransfer = new DataTransfer();" +
+            "      const blob = dataURLtoBlob(dataUrl);" +
+            "      const file = new File([blob], '" + jsFilename + "', { type: '" + jsMimeType + "' });" +
+            "      dataTransfer.items.add(file);" +
+            "      " +
+            "      // Set the files property and dispatch change event" +
+            "      fileInput.files = dataTransfer.files;" +
+            "      const changeEvent = new Event('change', { bubbles: true });" +
+            "      fileInput.dispatchEvent(changeEvent);" +
+            "      console.log('[OpenCode] File input change event dispatched');" +
+            "      " +
+            "      // Also try input and click events for better compatibility" +
+            "      const inputEvent = new Event('input', { bubbles: true });" +
+            "      fileInput.dispatchEvent(inputEvent);" +
+            "      " +
+            "      const clickEvent = new Event('click', { bubbles: true });" +
+            "      fileInput.dispatchEvent(clickEvent);" +
+            "    } else {" +
+            "      console.log('[OpenCode] No file input found, relying on other methods');" +
+            "    }" +
+            "    " +
+            "    // Approach 3: Look for drag and drop areas" +
+            "    const dropZone = document.querySelector('[data-testid*=\"drop\"], .drop-zone, .file-drop, .upload-area, [class*=\"drag\" i], [class*=\"drop\" i], [class*=\"upload\" i], [class*=\"attachment\" i], [class*=\"image-upload\" i], [id*=\"upload\" i], [id*=\"drop\" i], [id*=\"attachment\" i]);" +
+            "    if (dropZone) {" +
+            "      result.step = 'injecting-via-dropzone';" +
+            "      console.log('[OpenCode] Found potential drop zone, attempting to trigger file drop');" +
+            "      " +
+            "      const blob = dataURLtoBlob(dataUrl);" +
+            "      const file = new File([blob], '" + jsFilename + "', { type: '" + jsMimeType + "' });" +
+            "      " +
+            "      // Create a fake drag and drop event" +
+            "      const dataTransfer = new DataTransfer();" +
+            "      dataTransfer.items.add(file);" +
+            "      " +
+            "      const dragEvent = new DragEvent('drop', { dataTransfer: dataTransfer, bubbles: true });" +
+            "      dropZone.dispatchEvent(dragEvent);" +
+            "      console.log('[OpenCode] Drop event dispatched to potential drop zone');" +
+            "      " +
+            "      // Also try a regular click event on the drop zone" +
+            "      const clickEvent = new Event('click', { bubbles: true });" +
+            "      dropZone.dispatchEvent(clickEvent);" +
+            "    } else {" +
+            "      console.log('[OpenCode] No drop zone found');" +
+            "    }" +
+            "    " +
+            "    // Approach 4: Look for specific OpenCode-like upload buttons" +
+            "    const uploadButton = document.querySelector('button[data-testid*=\"upload\" i], button[aria-label*=\"upload\" i], button[data-upload*=\"image\" i], .upload-btn, .attachment-btn, .image-upload-btn, [class*=\"upload\" i], [id*=\"upload\" i], .attachment-button');" +
+            "    if (uploadButton) {" +
+            "      result.step = 'injecting-via-upload-button';" +
+            "      console.log('[OpenCode] Found potential upload button, attempting to click');" +
+            "      " +
+            "      // Click the upload button to activate file input" +
+            "      uploadButton.click();" +
+            "      " +
+            "      // After clicking, wait a bit and try file input again" +
+            "      setTimeout(() => {" +
+            "        const newFileInput = document.querySelector('input[type=\"file\"][accept*=\"image\" i]');" +
+            "        if (newFileInput) {" +
+            "          const dataTransfer = new DataTransfer();" +
+            "          const blob = dataURLtoBlob(dataUrl);" +
+            "          const file = new File([blob], '" + jsFilename + "', { type: '" + jsMimeType + "' });" +
+            "          dataTransfer.items.add(file);" +
+            "          newFileInput.files = dataTransfer.files;" +
+            "          const changeEvent = new Event('change', { bubbles: true });" +
+            "          newFileInput.dispatchEvent(changeEvent);" +
+            "          console.log('[OpenCode] File input found after button click, dispatched change event');" +
+            "        }" +
+            "      }, 500);" +
+            "    } else {" +
+            "      console.log('[OpenCode] No upload button found');" +
+            "    }" +
+            "    " +
             "    result.success = true;" +
             "    result.step = 'completed';" +
-            "    console.log('[OpenCode] Image injection successful');" +
+            "    console.log('[OpenCode] Image injection completed using multiple approaches');" +
             "    return JSON.stringify(result);" +
             "    " +
             "  } catch (error) {" +
@@ -985,8 +1228,37 @@ public class WebViewManager {
         
         // Get file name and MIME type from URI
         String fileName = getFileNameFromUri(imageUri);
+        Log.d(TAG, "Retrieved fileName: " + fileName);
+        
         String mimeType = activity.getContentResolver().getType(imageUri);
-        if (mimeType == null) mimeType = "image/jpeg"; // Default to JPEG
+        Log.d(TAG, "Retrieved mimeType: " + mimeType);
+        
+        if (mimeType == null) {
+            // Try to determine MIME type from file extension
+            if (fileName != null) {
+                if (fileName.toLowerCase().endsWith(".jpg") || fileName.toLowerCase().endsWith(".jpeg")) {
+                    mimeType = "image/jpeg";
+                } else if (fileName.toLowerCase().endsWith(".png")) {
+                    mimeType = "image/png";
+                } else if (fileName.toLowerCase().endsWith(".gif")) {
+                    mimeType = "image/gif";
+                } else if (fileName.toLowerCase().endsWith(".webp")) {
+                    mimeType = "image/webp";
+                } else {
+                    mimeType = "image/jpeg"; // Default to JPEG
+                }
+            } else {
+                mimeType = "image/jpeg"; // Default to JPEG
+            }
+            Log.d(TAG, "Set default mimeType: " + mimeType);
+        }
+        
+        // Ensure filename is not null
+        if (fileName == null) {
+            fileName = "photo_" + System.currentTimeMillis() + "." + 
+                mimeType.replace("image/", "");
+            Log.d(TAG, "Generated default fileName: " + fileName);
+        }
         
         Log.d(TAG, "Processing image: " + fileName + ", mime: " + mimeType);
         
@@ -996,20 +1268,44 @@ public class WebViewManager {
         
         new Thread(() -> {
             try {
-                // Read file content
+                // Read file content - handle both content:// and file:// URIs
                 byte[] fileBytes;
-                try (java.io.InputStream inputStream = activity.getContentResolver().openInputStream(imageUri)) {
-                    if (inputStream == null) {
-                        Log.e(TAG, "Could not open input stream for URI: " + imageUri);
+                if ("file".equals(imageUri.getScheme())) {
+                    // Direct file access
+                    File file = new File(imageUri.getPath());
+                    if (!file.exists()) {
+                        Log.e(TAG, "File does not exist: " + file.getAbsolutePath());
+                        mainHandler.post(() -> {
+                            if (WebViewManager.this.callback != null) {
+                                WebViewManager.this.callback.onAttachmentReady(false, finalFileName, "File does not exist");
+                            }
+                        });
                         return;
                     }
-                    java.io.ByteArrayOutputStream buffer = new java.io.ByteArrayOutputStream();
-                    int nRead;
-                    byte[] data = new byte[1024];
-                    while ((nRead = inputStream.read(data, 0, data.length)) != -1) {
-                        buffer.write(data, 0, nRead);
+                    try (java.io.FileInputStream fis = new java.io.FileInputStream(file)) {
+                        java.io.ByteArrayOutputStream buffer = new java.io.ByteArrayOutputStream();
+                        int nRead;
+                        byte[] data = new byte[1024];
+                        while ((nRead = fis.read(data, 0, data.length)) != -1) {
+                            buffer.write(data, 0, nRead);
+                        }
+                        fileBytes = buffer.toByteArray();
                     }
-                    fileBytes = buffer.toByteArray();
+                } else {
+                    // Content URI access (for FileProvider)
+                    try (java.io.InputStream inputStream = activity.getContentResolver().openInputStream(imageUri)) {
+                        if (inputStream == null) {
+                            Log.e(TAG, "Could not open input stream for URI: " + imageUri);
+                            return;
+                        }
+                        java.io.ByteArrayOutputStream buffer = new java.io.ByteArrayOutputStream();
+                        int nRead;
+                        byte[] data = new byte[1024];
+                        while ((nRead = inputStream.read(data, 0, data.length)) != -1) {
+                            buffer.write(data, 0, nRead);
+                        }
+                        fileBytes = buffer.toByteArray();
+                    }
                 }
                 
                 // Convert to Base64
@@ -1019,17 +1315,44 @@ public class WebViewManager {
                 // Build JavaScript injection code that simulates paste with file data
                 String jsCode = buildImageInjectionJs(base64Data, finalFileName, finalMimeType);
                 
-                // Execute on main thread
-                mainHandler.post(() -> {
+                // Execute on main thread with a small delay to ensure WebView is ready
+                mainHandler.postDelayed(() -> {
                     Log.d(TAG, "Executing image injection JavaScript");
+                    // Check if WebView is still loading
+                    if (webView.getProgress() < 100) {
+                        Log.w(TAG, "WebView still loading (" + webView.getProgress() + "%), injecting anyway");
+                    }
+                    
                     webView.evaluateJavascript(jsCode, result -> {
                         Log.d(TAG, "Image injection JS result: " + result);
                         if (WebViewManager.this.callback != null) {
                             boolean success = result != null && !result.equals("null") && !result.contains("false");
-                            WebViewManager.this.callback.onAttachmentReady(success, finalFileName, success ? "照片已添加到输入框" : "无法找到输入框");
+                            String message = success ? "照片已添加到输入框" : "无法找到输入框或注入失败";
+                            
+                            // Parse the result to get more detailed information
+                            if (result != null && result.contains("success")) {
+                                try {
+                                    // Extract success status from the returned JSON
+                                    org.json.JSONObject jsonResult = new org.json.JSONObject(result.replace("null", "").trim());
+                                    boolean jsonSuccess = jsonResult.optBoolean("success", false);
+                                    String step = jsonResult.optString("step", "unknown");
+                                    String error = jsonResult.optString("error", "");
+                                    
+                                    if (!jsonSuccess) {
+                                        message = "注入失败，步骤: " + step + ", 错误: " + error;
+                                        Log.e(TAG, "Image injection failed at step: " + step + ", error: " + error);
+                                    } else {
+                                        Log.d(TAG, "Image injection successful at step: " + step);
+                                    }
+                                } catch (Exception e) {
+                                    Log.e(TAG, "Error parsing injection result JSON", e);
+                                }
+                            }
+                            
+                            WebViewManager.this.callback.onAttachmentReady(success, finalFileName, message);
                         }
                     });
-                });
+                }, 500); // Small delay to ensure WebView is ready
             } catch (Exception e) {
                 Log.e(TAG, "Error processing image", e);
                 mainHandler.post(() -> {

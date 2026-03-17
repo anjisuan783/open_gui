@@ -89,6 +89,27 @@ public class RecordingManager {
         return isRecording;
     }
     
+    /**
+     * Cancel any ongoing transcription tasks across all ASR backends
+     */
+    public void cancelOngoingTasks() {
+        Log.d(TAG, "Cancelling ongoing transcription tasks");
+        
+        // Cancel FunASR WebSocket transcription if in progress
+        if (funAsrManager != null) {
+            funAsrManager.cancelTranscription();
+        }
+        
+        // Cancel Cloud ASR request if in progress
+        if (cloudAsrManager != null) {
+            cloudAsrManager.cancelTranscription();
+        }
+        
+        // For Whisper, we can't directly cancel ongoing transcriptions
+        // but we can make sure the state is clean
+        Log.d(TAG, "Ongoing transcription tasks cancelled");
+    }
+    
     public void setupRecordButton() {
         if (recordButton == null) {
             Log.e(TAG, "Record button not set");
@@ -108,6 +129,8 @@ public class RecordingManager {
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
                     startY = event.getY();
+                    // Cancel any ongoing transcription tasks before starting new recording
+                    cancelOngoingTasks();
                     startRecording();
                     return true;
                     
@@ -146,6 +169,10 @@ public class RecordingManager {
     
     private void startRecording() {
         Log.d(TAG, "startRecording() called");
+        
+        // Cancel any ongoing transcription tasks before starting new recording
+        cancelOngoingTasks();
+        
         isRecording = true;
         isCancelled = false;
         updateButtonState(ButtonState.RECORDING);

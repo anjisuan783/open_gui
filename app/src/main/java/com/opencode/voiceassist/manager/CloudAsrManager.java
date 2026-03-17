@@ -27,6 +27,9 @@ public class CloudAsrManager {
     private int serverPort;
     private final OkHttpClient httpClient;
     
+    // Track ongoing transcription call for cancellation
+    private okhttp3.Call currentCall;
+    
     public interface TranscriptionCallback {
         void onSuccess(TranscriptionResult result);
         void onError(String error);
@@ -70,15 +73,30 @@ public class CloudAsrManager {
         
         long startTime = System.currentTimeMillis();
         
-        httpClient.newCall(request).enqueue(new Callback() {
+        // Store the call reference for potential cancellation
+        currentCall = httpClient.newCall(request);
+        
+        currentCall.enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
+                // Check if the call was cancelled
+                if (call.isCanceled()) {
+                    Log.d(TAG, "Cloud ASR request was cancelled");
+                    return;
+                }
+                
                 Log.e(TAG, "Cloud ASR request failed", e);
                 callback.onError("云端ASR请求失败: " + e.getMessage());
             }
             
             @Override
             public void onResponse(Call call, Response response) throws IOException {
+                // Check if the call was cancelled
+                if (call.isCanceled()) {
+                    Log.d(TAG, "Cloud ASR response ignored - call was cancelled");
+                    return;
+                }
+                
                 long processingTime = System.currentTimeMillis() - startTime;
                 
                 if (!response.isSuccessful()) {
@@ -105,6 +123,17 @@ public class CloudAsrManager {
                 }
             }
         });
+    }
+    
+    /**
+     * Cancel current transcription if one is in progress
+     */
+    public void cancelTranscription() {
+        if (currentCall != null && !currentCall.isCanceled()) {
+            Log.d(TAG, "Cancelling current Cloud ASR request");
+            currentCall.cancel();
+            currentCall = null;
+        }
     }
     
     private String parseTranscriptionResponse(String json) {

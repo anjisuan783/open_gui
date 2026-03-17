@@ -177,8 +177,10 @@ public class FunAsrWebSocketManager {
                 }
                 
                 if (!isConnected.get()) {
-                    callback.onError("WebSocket连接失败，请检查服务器地址和端口");
-                    resetState();
+                    if (isProcessing.get()) { // Only report error if still processing
+                        callback.onError("WebSocket连接失败，请检查服务器地址和端口");
+                        resetState();
+                    }
                     return;
                 }
                 
@@ -201,8 +203,10 @@ public class FunAsrWebSocketManager {
                 // Extract and send PCM audio data
                 byte[] pcmData = extractPcmFromWav(audioFile);
                 if (pcmData == null || pcmData.length == 0) {
-                    callback.onError("无法从WAV文件中提取PCM数据");
-                    resetState();
+                    if (isProcessing.get()) { // Only report error if still processing
+                        callback.onError("无法从WAV文件中提取PCM数据");
+                        resetState();
+                    }
                     return;
                 }
                 
@@ -235,10 +239,36 @@ public class FunAsrWebSocketManager {
                 
             } catch (Exception e) {
                 Log.e(TAG, "Transcription failed", e);
-                callback.onError("转录失败: " + e.getMessage());
-                resetState();
+                if (isProcessing.get()) { // Only report error if still processing
+                    callback.onError("转录失败: " + e.getMessage());
+                    resetState();
+                }
             }
         }).start();
+    }
+    
+    /**
+     * Cancel current transcription if one is in progress
+     */
+    public void cancelTranscription() {
+        if (isProcessing.get()) {
+            Log.d(TAG, "Cancelling current transcription");
+            // Close the WebSocket to cancel the ongoing transcription
+            if (webSocket != null) {
+                webSocket.close(1000, "Transcription cancelled by user");
+                webSocket = null;
+            }
+            isConnected.set(false);
+            
+            // Call error callback if available
+            if (currentCallback != null) {
+                TranscriptionCallback callback = currentCallback;
+                currentCallback = null; // Clear the callback to prevent further calls
+                callback.onError("转录被取消");
+            }
+            
+            resetState();
+        }
     }
     
     private void handleTextMessage(String text) {
