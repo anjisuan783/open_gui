@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.media.AudioFormat;
 import android.media.AudioRecord;
 import android.media.MediaRecorder;
+import android.media.audiofx.NoiseSuppressor;
 import android.util.Log;
 
 import java.io.File;
@@ -31,12 +32,20 @@ public class AudioRecorder {
     
     private AudioProcessor audioProcessor;
     
+    private NoiseSuppressor noiseSuppressor;
+    
+    private boolean enableNoiseSuppression = true;
+    
     public AudioRecorder() {
         this.executor = Executors.newSingleThreadExecutor();
     }
     
     public void setAudioProcessor(AudioProcessor processor) {
         this.audioProcessor = processor;
+    }
+    
+    public void setEnableNoiseSuppression(boolean enable) {
+        this.enableNoiseSuppression = enable;
     }
     
     @SuppressLint("MissingPermission")
@@ -58,7 +67,7 @@ public class AudioRecorder {
             try {
                 while (retryCount < maxRetries) {
                     audioRecord = new AudioRecord(
-                        MediaRecorder.AudioSource.MIC,
+                        MediaRecorder.AudioSource.VOICE_RECOGNITION,
                         SAMPLE_RATE,
                         CHANNEL_CONFIG,
                         AUDIO_FORMAT,
@@ -66,7 +75,19 @@ public class AudioRecorder {
                     );
 
                     if (audioRecord.getState() == AudioRecord.STATE_INITIALIZED) {
-                        Log.d(TAG, "AudioRecord initialized successfully on attempt " + (retryCount + 1));
+                        Log.i(TAG, "AudioRecord initialized successfully on attempt " + (retryCount + 1));
+                        int sessionId = audioRecord.getAudioSessionId();
+                        
+                        if (enableNoiseSuppression && NoiseSuppressor.isAvailable()) {
+                            noiseSuppressor = NoiseSuppressor.create(sessionId);
+                            if (noiseSuppressor != null) {
+                                noiseSuppressor.setEnabled(true);
+                                Log.i(TAG, "NoiseSuppressor enabled, sessionId=" + sessionId);
+                            }
+                        } else {
+                            Log.i(TAG, "NoiseSuppressor not available or disabled (enableNS=" + enableNoiseSuppression + ", available=" + NoiseSuppressor.isAvailable() + ")");
+                        }
+                        
                         break;
                     }
 
@@ -126,27 +147,28 @@ public class AudioRecorder {
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
-                if (audioRecord != null) {
-                    try {
-                        if (audioRecord.getState() == AudioRecord.STATE_INITIALIZED) {
-                            if (audioRecord.getRecordingState() == AudioRecord.RECORDSTATE_RECORDING) {
-                                audioRecord.stop();
-                            }
-                        }
-                    } catch (Exception e) {
-                        Log.e(TAG, "Error stopping AudioRecord", e);
-                    } finally {
+                    releaseAudioEffects();
+                    if (audioRecord != null) {
                         try {
-                            audioRecord.release();
+                            if (audioRecord.getState() == AudioRecord.STATE_INITIALIZED) {
+                                if (audioRecord.getRecordingState() == AudioRecord.RECORDSTATE_RECORDING) {
+                                    audioRecord.stop();
+                                }
+                            }
                         } catch (Exception e) {
-                            Log.e(TAG, "Error releasing AudioRecord", e);
+                            Log.e(TAG, "Error stopping AudioRecord", e);
+                        } finally {
+                            try {
+                                audioRecord.release();
+                            } catch (Exception e) {
+                                Log.e(TAG, "Error releasing AudioRecord", e);
+                            }
+                            audioRecord = null;
                         }
-                        audioRecord = null;
                     }
+                    isReady = true;
+                    Log.d(TAG, "Recording thread completed, isReady set to true");
                 }
-                isReady = true;
-                Log.d(TAG, "Recording thread completed, isReady set to true");
-            }
         });
     }
     
@@ -202,8 +224,21 @@ public class AudioRecorder {
         raf.close();
     }
     
+    private void releaseAudioEffects() {
+        if (noiseSuppressor != null) {
+            try {
+                noiseSuppressor.release();
+                Log.d(TAG, "NoiseSuppressor released");
+            } catch (Exception e) {
+                Log.e(TAG, "Error releasing NoiseSuppressor", e);
+            }
+            noiseSuppressor = null;
+        }
+    }
+    
     public void release() {
         stopRecording();
+        releaseAudioEffects();
         if (audioProcessor != null) {
             audioProcessor.release();
         }

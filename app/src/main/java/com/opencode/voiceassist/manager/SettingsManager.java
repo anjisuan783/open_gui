@@ -50,6 +50,7 @@ public class SettingsManager {
         public String funAsrUrl;
         public String funAsrMode;
         public String audioProcessor;
+        public boolean hardwareNS;
         
         public String cloudAsrHost;
         public int cloudAsrPort;
@@ -139,6 +140,8 @@ public class SettingsManager {
             RadioButton rbProcessorDirect = view.findViewById(R.id.rb_processor_direct);
             RadioButton rbProcessorNoiseReduction = view.findViewById(R.id.rb_processor_noise_reduction);
             
+            android.widget.CheckBox cbNoiseSuppression = view.findViewById(R.id.cb_noise_suppression);
+            
             SharedPreferences prefs = activity.getSharedPreferences("settings", Activity.MODE_PRIVATE);
             String savedIp = prefs.getString("opencode_ip", Constants.DEFAULT_OPENCODE_IP);
             int savedPort = prefs.getInt("opencode_port", Constants.DEFAULT_OPENCODE_PORT);
@@ -151,6 +154,8 @@ public class SettingsManager {
             String funAsrUrl = prefs.getString("funasr_url", Constants.DEFAULT_FUNASR_URL);
             String funAsrMode = prefs.getString("funasr_mode", Constants.DEFAULT_FUNASR_MODE);
             String audioProcessor = prefs.getString("audio_processor", Constants.DEFAULT_AUDIO_PROCESSOR);
+            
+            boolean hardwareNS = prefs.getBoolean(Constants.KEY_HARDWARE_NS, Constants.DEFAULT_HARDWARE_NS);
             
             etIp.setText(UrlUtils.formatServerUrl(savedIp, savedPort));
             etUsername.setText(savedUsername);
@@ -191,6 +196,8 @@ public class SettingsManager {
             } else {
                 rbProcessorDirect.setChecked(true);
             }
+            
+            cbNoiseSuppression.setChecked(hardwareNS);
             
             java.util.function.Consumer<String> updateBackendUI = (backend) -> {
                 boolean isCloudHttp = backend.equals(Constants.ASR_BACKEND_CLOUD_HTTP);
@@ -243,10 +250,12 @@ public class SettingsManager {
                     String newFunAsrUrl = etFunasrUrl.getText().toString().trim();
                     String newFunAsrMode = rbFunasrMode2pass.isChecked() ? "2pass" : "offline";
                     
-                    String newAudioProcessor = Constants.AUDIO_PROCESSOR_DIRECT;
+String newAudioProcessor = Constants.AUDIO_PROCESSOR_DIRECT;
                     if (rbProcessorNoiseReduction.isChecked()) {
                         newAudioProcessor = Constants.AUDIO_PROCESSOR_NOISE_REDUCTION;
                     }
+                    
+boolean newHardwareNS = cbNoiseSuppression.isChecked();
                     
                     String[] cloudAsrParts = UrlUtils.parseAsrUrl(newCloudAsrUrl, "http");
                     String[] funAsrParts = UrlUtils.parseAsrUrl(newFunAsrUrl, "ws");
@@ -266,6 +275,7 @@ public class SettingsManager {
                     settings.funAsrUrl = newFunAsrUrl;
 settings.funAsrMode = newFunAsrMode;
                     settings.audioProcessor = newAudioProcessor;
+                    settings.hardwareNS = newHardwareNS;
                     settings.cloudAsrHost = cloudAsrParts[0];
                     settings.cloudAsrPort = Integer.parseInt(cloudAsrParts[1]);
                     settings.funAsrHost = funAsrParts[0];
@@ -298,6 +308,7 @@ settings.funAsrMode = newFunAsrMode;
         editor.putString("funasr_mode", settings.funAsrMode);
         editor.putString("audio_processor", settings.audioProcessor);
         editor.putBoolean(Constants.KEY_AUTO_SEND, settings.autoSend);
+        editor.putBoolean(Constants.KEY_HARDWARE_NS, settings.hardwareNS);
         editor.apply();
         
         if (cloudAsrManager != null) {

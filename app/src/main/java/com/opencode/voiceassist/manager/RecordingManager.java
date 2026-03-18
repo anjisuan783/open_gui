@@ -34,6 +34,8 @@ public class RecordingManager implements AudioProcessorCallback {
     private float startY = 0;
     private static final float CANCEL_THRESHOLD_DP = 50;
     
+    private boolean hardwareNoiseSuppressionEnabled = true;
+    
     private View recordButton;
     private View recordProgress;
     
@@ -68,6 +70,10 @@ public class RecordingManager implements AudioProcessorCallback {
         if (audioProcessor != null) {
             audioProcessor.setCallback(this);
         }
+    }
+    
+    public void setHardwareNoiseSuppressionEnabled(boolean enabled) {
+        this.hardwareNoiseSuppressionEnabled = enabled;
     }
     
     public void setUiReferences(View recordButton, View recordProgress) {
@@ -235,6 +241,11 @@ public class RecordingManager implements AudioProcessorCallback {
         currentAsrEngine.transcribe(wavFile, new AsrEngine.AsrCallback() {
             @Override
             public void onSuccess(TranscriptionResult result) {
+                File savedFile = fileManager.saveRecordingCopy(hardwareNoiseSuppressionEnabled);
+                if (savedFile != null) {
+                    Log.d(TAG, "Recording saved to: " + savedFile.getAbsolutePath());
+                    mainHandler.post(() -> Toast.makeText(activity, "录音已保存: " + savedFile.getName(), Toast.LENGTH_SHORT).show());
+                }
                 fileManager.deleteTempWavFile();
                 Log.d(TAG, "ASR result: " + result.getText());
                 mainHandler.post(() -> processTranscribedText(result));
@@ -242,6 +253,10 @@ public class RecordingManager implements AudioProcessorCallback {
             
             @Override
             public void onError(String error) {
+                File savedFile = fileManager.saveRecordingCopy(hardwareNoiseSuppressionEnabled);
+                if (savedFile != null) {
+                    Log.d(TAG, "Recording saved to: " + savedFile.getAbsolutePath());
+                }
                 fileManager.deleteTempWavFile();
                 Log.e(TAG, "ASR error: " + error);
                 mainHandler.post(() -> {

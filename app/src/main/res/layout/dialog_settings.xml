@@ -270,5 +270,38 @@
         android:layout_marginTop="4dp"
         android:layout_marginBottom="8dp" />
 
+    <!-- Separator -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="硬件降噪"
+        android:textSize="14sp"
+        android:textColor="@android:color/black"
+        android:layout_marginBottom="8dp" />
+
+    <CheckBox
+        android:id="@+id/cb_noise_suppression"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="噪声抑制 (NS)"
+        android:checked="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="过滤背景噪音，提升语音清晰度"
+        android:textSize="12sp"
+        android:textColor="@android:color/darker_gray"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="8dp" />
+
     </LinearLayout>
 </ScrollView>

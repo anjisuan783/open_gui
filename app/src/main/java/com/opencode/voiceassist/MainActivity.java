@@ -181,6 +181,9 @@ public class MainActivity extends AppCompatActivity {
         
         android.content.SharedPreferences prefs = getSharedPreferences("settings", MODE_PRIVATE);
         
+        boolean hardwareNS = prefs.getBoolean(Constants.KEY_HARDWARE_NS, Constants.DEFAULT_HARDWARE_NS);
+        audioRecorder.setEnableNoiseSuppression(hardwareNS);
+        
         String cloudAsrHost = prefs.getString("cloud_asr_ip", Constants.DEFAULT_CLOUD_ASR_IP);
         int cloudAsrPort = prefs.getInt("cloud_asr_port", Constants.DEFAULT_CLOUD_ASR_PORT);
         
@@ -231,6 +234,7 @@ public class MainActivity extends AppCompatActivity {
         recordingManager.setManagers(audioRecorder, fileManager);
         recordingManager.setAsrEngine(currentAsrEngine);
         recordingManager.setAudioProcessor(audioProcessor);
+        recordingManager.setHardwareNoiseSuppressionEnabled(hardwareNS);
         
         settingsManager.setManagers(cloudAsrManager, funAsrManager, recordingManager);
     }
@@ -394,6 +398,14 @@ public class MainActivity extends AppCompatActivity {
             }
             if (recordingManager != null) {
                 recordingManager.setAudioProcessor(audioProcessor);
+            }
+            
+            if (audioRecorder != null) {
+                audioRecorder.setEnableNoiseSuppression(settings.hardwareNS);
+                android.util.Log.d("MainActivity", "Hardware NS updated: " + settings.hardwareNS);
+            }
+            if (recordingManager != null) {
+                recordingManager.setHardwareNoiseSuppressionEnabled(settings.hardwareNS);
             }
         }
         

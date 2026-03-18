@@ -1,0 +1,24 @@
+# File List - OpenVoice Voice Assistant
+
+## Created Files
+
+| File Path | Date | Description |
+|-----------|------|-------------|
+| tools/analyze_snr.py | 2026-03-18 | SNR analysis tool for comparing WAV recordings |
+
+## Modified Files (2026-03-18)
+
+| File Path | Description |
+|-----------|-------------|
+| app/src/main/java/com/opencode/voiceassist/manager/AudioRecorder.java | Added NoiseSuppressor support, removed AEC/AGC |
+| app/src/main/java/com/opencode/voiceassist/manager/SettingsManager.java | Added hardware NS setting, removed AEC/AGC settings |
+| app/src/main/java/com/opencode/voiceassist/manager/RecordingManager.java | Added recording file save with NS status |
+| app/src/main/java/com/opencode/voiceassist/utils/FileManager.java | Added saveRecordingCopy() method |
+| app/src/main/java/com/opencode/voiceassist/utils/Constants.java | Added KEY_HARDWARE_NS constant |
+| app/src/main/java/com/opencode/voiceassist/MainActivity.java | Added NS setting integration |
+| app/src/main/res/layout/dialog_settings.xml | Added NS checkbox, removed AEC/AGC checkboxes |
+
+## Recording Output
+
+- Location: `/storage/emulated/0/Android/data/com.opencode.voiceassist/files/Music/recordings/`
+- Format: `recording_YYYYMMDD_HHMMSS_NS_on.wav` or `recording_YYYYMMDD_HHMMSS_NS_off.wav`

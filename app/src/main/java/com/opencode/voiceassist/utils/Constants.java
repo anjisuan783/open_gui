@@ -40,4 +40,8 @@ public class Constants {
     // WebView Settings
     public static final String KEY_AUTO_SEND = "auto_send";
     public static final boolean DEFAULT_AUTO_SEND = true;
+    
+    // Hardware Noise Suppression
+    public static final String KEY_HARDWARE_NS = "hardware_ns";
+    public static final boolean DEFAULT_HARDWARE_NS = true;
 }

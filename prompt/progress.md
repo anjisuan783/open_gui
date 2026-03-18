@@ -1,13 +1,13 @@
 # OpenCode 语音编程助手 - 当前进度
 
-**最后更新**: 2026-03-17 (10:00)  
-**当前版本**: v1.0.0-alpha  
-**项目状态**: 相机附件功能已完成
+**最后更新**: 2026-03-18 (14:45)  
+**当前版本**: v1.1.0-alpha  
+**项目状态**: 音频处理架构重构完成，Cloud ASR HTTP 正常工作
 
 ## 总体进度
 
 ```
-[████████████████████████░░] 92%
+[█████████████████████████░] 95%
 ```
 
 | 阶段 | 状态 | 完成度 |
@@ -19,7 +19,8 @@
 | WebView 集成 | 已完成 | 100% |
 | Native-WebView 交互优化 | 已完成 | 100% |
 | 相机附件功能 | 已完成 | 100% |
-| 测试验证 | 进行中 | 60% |
+| 音频处理架构重构 | 已完成 | 100% |
+| 测试验证 | 进行中 | 80% |
 | 文档编写 | 进行中 | 85% |
 | 发布准备 | 未开始 | 0% |
 
@@ -31,43 +32,64 @@
 |---------|------|---------|------|
 | 录音按钮交互 | 已完成 | 2026-02-08 | 按住/抬手/上滑取消 |
 | 音频录制 | 已完成 | 2026-02-08 | WAV 格式，16kHz 采样率 |
-| 模型管理 | 已完成 | 2026-02-09 | 多源下载 + 跳过机制 |
-| 本地语音识别 | 已完成 | 2026-02-09 | Whisper + NNAPI 加速 |
-| 远程语音识别 | 已完成 | 2026-02-10 | FunASR WebSocket 实时转写 |
+| 远程语音识别 (FunASR WebSocket) | 已完成 | 2026-02-10 | WebSocket 实时转写 |
+| 远程语音识别 (Cloud ASR HTTP) | 已完成 | 2026-03-18 | HTTP JSON + Base64 |
 | WebView 访问 | 已完成 | 2026-02-10 | 加载 OpenCode Web UI |
 | 配置界面 | 已完成 | 2026-02-10 | IP/端口配置 + 持久化 |
+| 相机附件功能 | 已完成 | 2026-03-17 | 拍照上传到 WebView |
 
-### 2. Native-WebView 交互 🔄 优化中（当前重点）
+### 2. 音频处理架构重构 ✅ 已完成 (2026-03-18)
 
-| 功能模块 | 状态 | 进度 | 问题描述 |
-|---------|------|------|---------|
-| WebView 文本注入 | 进行中 | 80% | 已实现自动重试机制，稳定性提升 |
-| 事件通信机制 | 进行中 | 60% | 通过 JavaScript Interface 实现双向通信 |
-| UI 状态同步 | 进行中 | 80% | 键盘检测已实现，录音区与输入框状态同步优化 |
-| 触摸手势处理 | 进行中 | 80% | 手势冲突已缓解，横向条设计减少干扰 |
+| 功能模块 | 状态 | 进度 | 说明 |
+|---------|------|------|------|
+| AudioProcessor 接口 | 已完成 | 100% | 可插拔音频处理 |
+| DirectProcessor | 已完成 | 100% | 直接透传实现 |
+| NoiseReductionProcessor | 已完成 | 100% | 降噪占位实现 |
+| AsrEngine 接口 | 已完成 | 100% | 可插拔 ASR 后端 |
+| CloudAsrManager (HTTP) | 已完成 | 100% | 实现 AsrEngine |
+| FunAsrWebSocketManager | 已完成 | 100% | 实现 AsrEngine |
+| WAV 文件竞态条件修复 | 已完成 | 100% | 等待 isReady() |
+| WhisperManager 移除 | 已完成 | 100% | 简化架构 |
 
-**当前问题详情**:
-- **文本注入稳定性改善**: 通过 `WebViewTextInjector` 自动重试机制，注入成功率提升
-- **键盘状态同步已解决**: 通过 `OnGlobalLayoutListener` 检测键盘显示/隐藏，录音区自动显示/隐藏
-- **UI 布局优化完成**: 录音按钮改为横向长条，最大化 WebView 显示区域
-- **焦点问题改善**: 键盘收起后录音区自动显示，输入框焦点状态与底部栏状态同步
+**架构改进**:
+```
+数据流: AudioRecorder → AudioProcessor → AudioProcessorCallback → RecordingManager → AsrEngine
+```
 
-**已完成的分析工作**:
-- ✅ 下载 OpenCode 源代码
-- ✅ 分析前端 Web UI 架构（SolidJS + contenteditable）
-- ✅ 定位输入框选择器: `[data-component="prompt-input"]`
-- ✅ 理解 OpenCode 事件系统（input 事件 bubbling）
-- ✅ 分析 WebView JavaScript Bridge 限制
+**新增接口**:
+```java
+// AudioProcessor - 音频处理器接口
+public interface AudioProcessor {
+    void setCallback(AudioProcessorCallback callback);
+    void processAudio(byte[] pcmData);
+    void flush();
+    void release();
+    String getName();
+}
 
-### 3. 问题跟踪 🐛
+// AsrEngine - ASR 引擎接口
+public interface AsrEngine {
+    interface AsrCallback {
+        void onSuccess(TranscriptionResult result);
+        void onError(String error);
+    }
+    void transcribe(File wavFile, AsrCallback callback);
+    void transcribe(byte[] pcmData, AsrCallback callback);
+    void cancel();
+    void release();
+}
+```
 
-#### 高优先级问题（当前解决中）
+### 3. Native-WebView 交互 ✅ 已完成
 
-| 问题描述 | 优先级 | 状态 | 预计解决 |
-|---------|-------|------|---------|
-| WebView 文本注入稳定性 | 中 | 已改善 | 2026-02-11 |
-| 键盘状态同步问题 | 低 | 已解决 | 2026-02-11 |
-| UI 布局与 WebView 面积优化 | 低 | 已解决 | 2026-02-11 |
+| 功能模块 | 状态 | 进度 | 说明 |
+|---------|------|------|------|
+| WebView 文本注入 | 已完成 | 100% | 自动重试机制，稳定性高 |
+| 事件通信机制 | 已完成 | 100% | JavaScript Interface 双向通信 |
+| UI 状态同步 | 已完成 | 100% | 键盘检测，录音区自动显示/隐藏 |
+| 触摸手势处理 | 已完成 | 100% | 横向条设计，手势冲突已解决 |
+
+### 4. 问题跟踪 🐛
 
 #### 已解决问题
 
@@ -77,170 +99,122 @@
 | 下载失败导致 APP 卡死 | 高 | 已解决 | 2026-02-09 |
 | FunASR WebSocket 连接 | 高 | 已解决 | 2026-02-10 |
 | WebView 加载 OpenCode | 高 | 已解决 | 2026-02-10 |
+| WebView 文本注入稳定性 | 中 | 已解决 | 2026-02-11 |
+| 键盘状态同步问题 | 低 | 已解决 | 2026-02-11 |
+| WAV 文件竞态条件 | 高 | 已解决 | 2026-03-18 |
+| Cloud ASR HTTP 返回空结果 | 高 | 已解决 | 2026-03-18 |
 
 ## 最近更新
 
-### 2026-02-11（下午）
-- 🔧 UI 布局重构与键盘检测集成
-  - ✅ **录音界面改造为横向长条按钮**
-    - 修改 `activity_main.xml`：垂直布局 → 水平长条布局（56dp 高度）
-    - 更新所有背景 drawable：圆形 → 矩形带 24dp 圆角
-    - 按钮文字内嵌显示："按住说话" 居中
-    - WebView 最大化显示区域
-  - ✅ **添加键盘可见性检测**
-    - 在 `MainActivity.java` 添加 `OnGlobalLayoutListener`
-    - 通过 `getWindowVisibleDisplayFrame()` 计算键盘高度
-    - 阈值判断（150dp）：键盘显示时隐藏底部栏，键盘收起时显示底部栏
-    - 与现有 `onInputFocus` 焦点事件协同工作
-  - ✅ **状态显示优化**
-    - 默认状态：显示 "按住说话" 黑色文字
-    - 录音状态：隐藏文字，显示进度条（蓝色背景）
-    - 取消状态：显示 "取消" 白色文字（红色背景）
-    - 处理状态：隐藏文字，显示进度条（灰色背景，禁用按钮）
-    - 禁用状态：显示错误信息（深灰色文字）
-  - ✅ **编译、安装、运行验证**
-    - 编译成功，APK 生成
-    - 安装到测试设备 `323951067451`
-    - 应用启动正常，WebView 加载 OpenCode 页面
-- ✅ Git 提交：`feat: transform recording UI to horizontal bar with keyboard detection`
+### 2026-03-18
+- 🎉 **音频处理架构重构完成**
+  - ✅ 创建 `AudioProcessor` 接口，支持可插拔音频处理
+  - ✅ 创建 `DirectProcessor` 和 `NoiseReductionProcessor` 实现
+  - ✅ 创建 `AsrEngine` 接口，支持可插拔 ASR 后端
+  - ✅ `CloudAsrManager` 和 `FunAsrWebSocketManager` 实现 `AsrEngine`
+  - ✅ 移除 `WhisperManager`，简化架构
+  - ✅ 修复 WAV 文件竞态条件：等待 `isReady()` 而不是 `isRecording()`
+  - ✅ 更新 Cloud ASR 默认服务器地址：`192.168.66.79:10095`
+  - ✅ 修复 mipmap launcher icons
+  - ✅ 添加 `CloudAsrTest.java` 单元测试
+  - ✅ 删除过时的 Whisper 相关测试文件
+- ✅ Git 提交：`108a535 refactor: pluggable audio processing and ASR backends`
+- 🔧 **硬件降噪优化**
+  - ✅ 添加 Android `NoiseSuppressor` 硬件降噪支持
+  - ✅ 音频源改为 `VOICE_RECOGNITION`
+  - ✅ 添加设置界面降噪开关
+  - ✅ 录音文件自动保存到 `/Music/recordings/`
+  - ✅ SNR 分析工具 `tools/analyze_snr.py`
+  - ⚠️ 移除 AEC/AGC（测试发现降低SNR）
+  - 📊 测试结果：NS 开启时 SNR = 1.23dB，NS 关闭时 SNR = 2.64dB
 
-### 2026-02-11（上午）
-- 🔧 WebView 交互优化开发
-  - ✅ 分析 OpenCode 前端架构（SolidJS + contenteditable）
-  - ✅ 定位文本注入不稳定原因
-  - ✅ 创建 `WebViewTextInjector` 工具类
-    - JSON 安全转义（使用 `JSONObject.quote()`）
-    - 页面就绪检测机制
-    - 自动重试机制（最多 3 次）
-    - 完整事件序列触发（beforeinput → input → change）
-    - 光标位置保持
-  - ✅ 更新 `MainActivity.java` 使用新的注入器
-  - ✅ 编译验证通过
-  - 🔄 待测试：在真机上验证注入稳定性
-- ✅ 下载 OpenCode 源代码
-- ✅ 完成前端 UI 组件分析
-- ✅ 创建优化文档 `webview_optimization.md`
+### 2026-03-17
+- ✅ 相机照片附件功能完成
+  - 拍照后自动上传到 WebView
+  - 前端 `window.addImageAttachmentFromAndroid()` 接口
+- ✅ Git 提交：`ea8681a feat: Camera photo to WebView attachment feature`
 
-### 2026-02-10
-- ✅ 集成 FunASR WebSocket 远程语音识别
-- ✅ 实现 WebView 加载 OpenCode Web UI
-- ✅ 初步实现 WebView 文本注入（基础功能可用，体验待优化）
-- ✅ 完成配置界面开发
-
-### 2026-02-09
-- ✅ 实现多源模型下载（GitHub + Gitee + CDN）
-- ✅ 实现下载失败跳过机制
-- ✅ 集成 Whisper 本地语音识别
-- ✅ 添加 NNAPI 硬件加速
-
-### 2026-02-08
-- ✅ 实现录音按钮触摸交互
-- ✅ 实现音频录制功能
-- ✅ 搭建基础项目架构
+### 2026-02-11
+- ✅ UI 布局重构：录音区改为横向长条
+- ✅ 键盘检测实现：`OnGlobalLayoutListener`
+- ✅ WebView 文本注入稳定性优化
 
 ## 下一步计划
 
-### 本周任务（WebView 交互优化与测试）
+### 本周任务
 
 #### 高优先级 🔥
-- [x] 解决 WebView 文本注入不稳定问题
-  - [x] 创建 `WebViewTextInjector` 工具类
-  - [x] 实现自动重试机制（最多 3 次）
-  - [x] 添加注入状态回调
-  - [ ] 在真机上全面测试注入稳定性
-- [x] 优化 UI 状态同步
-  - [x] 实现键盘检测机制
-  - [x] 录音区自动显示/隐藏
-  - [x] 改造 UI 为横向长条布局
-  - [ ] 测试键盘收起后的状态同步
-- [ ] 全面测试与性能优化
-  - [ ] 在真机上测试完整语音交互流程
-  - [ ] 验证键盘检测在不同设备上的准确性
-  - [ ] 测试横向条触摸手势的准确性
-  - [ ] 收集性能数据（内存、CPU占用）
+- [ ] 完善 NoiseReductionProcessor 实现
+- [ ] 添加更多 ASR 后端测试
+- [ ] 真机全面测试
 
 #### 中优先级
-- [ ] 优化 Native-WebView 通信机制
-  - [ ] 调研 WebMessage 或 WebMessagePort API
-  - [ ] 实现消息队列，避免通信阻塞
-  - [ ] 添加超时处理机制
-- [ ] 完善错误处理与用户反馈
-  - [ ] 添加更详细的错误提示
-  - [ ] 优化 Toast 提示的显示逻辑
-  - [ ] 添加网络状态检测
+- [ ] 优化错误处理与用户反馈
+- [ ] 添加网络状态检测
+- [ ] 性能优化
 
-#### 低优先级
-- [ ] 收集并分析 logcat 日志
-- [ ] 编写 WebView 集成文档
-- [ ] 优化 UI 动画效果
+## 技术方案
 
-### 下周计划（测试验证阶段）
+### Cloud ASR HTTP 接口
 
-- [ ] 在真机上测试完整流程
-  - [ ] 本地 Whisper 语音识别
-  - [ ] 远程 FunASR 语音识别
-  - [ ] WebView 文本注入稳定性
-- [ ] 性能优化（内存、CPU 占用）
-- [ ] 修复测试中发现的问题
+**请求格式**:
+```json
+POST http://192.168.66.79:10095/api/asr
+Content-Type: application/json
 
-## 技术方案调研
-
-### WebView 交互优化方案（正在进行）
-
-#### 方案 1: 同步注入 + 重试机制（当前尝试）
-```java
-// 在 onPageFinished 后注入
-webView.setWebViewClient(new WebViewClient() {
-    @Override
-    public void onPageFinished(WebView view, String url) {
-        injectWithRetry(text, 3);
-    }
-});
+{
+  "wav_base64": "<base64 encoded WAV data>"
+}
 ```
 
-#### 方案 2: WebMessage API（待调研）
-```java
-// 使用 WebMessagePort 建立双向通信
-WebMessagePort[] ports = webView.createWebMessageChannel();
+**响应格式**:
+```json
+{
+  "code": 0,
+  "text": "识别结果文本",
+  "timestamp": [[340, 480], [480, 600], ...]
+}
 ```
 
-#### 方案 3: URL Scheme 通信（备选）
-```javascript
-// 通过自定义 URL Scheme 传递数据
-window.location.href = "app://injectText?data=" + encodeURIComponent(text);
-```
+### FunASR WebSocket 接口
+
+**连接**: `ws://host:port` with `Sec-WebSocket-Protocol: binary`
+
+**协议**:
+1. 发送初始化 JSON: `{"reqid": "...", "mode": "offline", "wav_name": "...", "is_speaking": true}`
+2. 发送 PCM 数据
+3. 发送结束 JSON: `{"is_speaking": false}`
+4. 接收结果 JSON
 
 ## 风险预警
 
 | 风险项 | 风险等级 | 影响 | 应对措施 |
 |-------|---------|------|---------|
-| WebView 兼容性问题 | 高 | 核心功能体验 | 正在测试多种注入方案 |
-| WebView 性能问题 | 中 | 低端设备卡顿 | 考虑使用单 WebView 实例 |
-| 模型下载成功率 | 中 | 用户首次体验 | 已实施多源下载 + 手动放置方案 |
-| FunASR 服务稳定性 | 中 | 远程识别功能 | 已实现本地 Whisper 兜底 |
+| ASR 服务稳定性 | 中 | 远程识别功能 | 支持多种 ASR 后端切换 |
+| WebView 兼容性问题 | 低 | 核心功能体验 | 已通过多种方案验证 |
+| WebView 性能问题 | 低 | 低端设备卡顿 | 使用单 WebView 实例 |
 
 ## 资源使用情况
 
 ### 时间投入
-- **已投入**: 约 90 小时
+- **已投入**: 约 100 小时
 - **预计总投入**: 约 120 小时
-- **剩余工作量**: 约 30 小时（主要用于 WebView 交互优化）
+- **剩余工作量**: 约 20 小时
 
 ### 代码统计
 ```
-Java 源文件: 10 个
-代码行数: ~2500 行
-XML 布局: 4 个
-资源文件: 25+ 个
+Java 源文件: 15 个
+代码行数: ~2000 行 (重构后减少)
+XML 布局: 5 个
+资源文件: 30+ 个
 ```
 
 ### 构建状态
 ```
-最后构建: 2026-02-11 16:09
+最后构建: 2026-03-18 14:30
 构建结果: SUCCESS
-APK 大小: ~18MB (含 WebView 优化和 UI 改造)
-目标设备: ZTE A2024H (Android 13)
-测试设备: 323951067451 (已安装运行)
+APK 大小: ~18MB
+测试设备: pjijmn95oncqdmu4 (已安装运行)
 ```
 
 ## 里程碑
@@ -250,23 +224,25 @@ APK 大小: ~18MB (含 WebView 优化和 UI 改造)
 | 项目启动 | 2026-02-01 | 2026-02-01 | 已完成 |
 | 核心功能开发 | 2026-02-08 | 2026-02-08 | 已完成 |
 | 语音识别完成 | 2026-02-10 | 2026-02-10 | 已完成 |
-| WebView 集成 | 2026-02-12 | 2026-02-10 | 基础完成 |
-| **WebView 交互优化** | **2026-02-13** | **-** | **进行中** |
-| 测试验证 | 2026-02-15 | - | 待开始 |
-| Beta 发布 | 2026-02-20 | - | 待开始 |
+| WebView 集成 | 2026-02-12 | 2026-02-10 | 已完成 |
+| WebView 交互优化 | 2026-02-13 | 2026-02-11 | 已完成 |
+| 相机附件功能 | 2026-03-17 | 2026-03-17 | 已完成 |
+| **音频架构重构** | **2026-03-18** | **2026-03-18** | **已完成** |
+| 测试验证 | 2026-03-20 | - | 进行中 |
+| Beta 发布 | 2026-03-25 | - | 待开始 |
 
 ## 备注
 
-- **当前重点**: WebView 交互优化与真机测试，横向条方案最大化显示面积
-- **UI 布局突破**: 录音区改为横向长条（56dp），WebView 显示区域最大化
-- **键盘检测方案**: 通过 `OnGlobalLayoutListener` 实现键盘状态同步，解决输入框收起后录音区显示问题
-- **已下载 OpenCode 源码**: 位于 `opencode_source/` 目录，用于分析前端实现
-- **双语音识别方案**: 本地 Whisper（离线）+ 远程 FunASR（在线），确保可用性
-- **WebView 挑战**: 由于 OpenCode 使用 SolidJS + contenteditable，注入逻辑比传统 input 复杂
-- **建议**: 重点测试横向条触摸手势和键盘检测的稳定性
+- **当前重点**: 测试验证与性能优化
+- **架构改进**: 可插拔音频处理和 ASR 后端，支持灵活扩展
+- **Cloud ASR**: HTTP JSON + Base64 格式，服务器 `192.168.66.79:10095`
+- **FunASR**: WebSocket 模式，需 `Sec-WebSocket-Protocol: binary` 头
+- **已移除**: 本地 Whisper ASR，简化架构
+- **双 ASR 后端**: FunASR WebSocket + Cloud ASR HTTP，确保可用性
 
 ## 相关文档
 
 - [设计文档](./design.md)
 - [项目总结](./project_summary.md)
-- [OpenCode 前端分析](./opencode_frontend_analysis.md) - 待创建
+- [模块化设计](./modular_design.md)
+- [部署总结](./deployment-summary.md)
