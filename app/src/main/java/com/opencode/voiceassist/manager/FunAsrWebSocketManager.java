@@ -8,11 +8,10 @@ import com.opencode.voiceassist.model.TranscriptionResult;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -23,30 +22,26 @@ import okhttp3.WebSocket;
 import okhttp3.WebSocketListener;
 import okio.ByteString;
 
-public class FunAsrWebSocketManager {
+public class FunAsrWebSocketManager implements AsrEngine {
     private static final String TAG = "FunAsrWebSocketManager";
     
     private final Context context;
     private String serverHost;
     private int serverPort;
-    private String mode; // "offline" or "2pass"
+    private String mode;
     private final OkHttpClient httpClient;
     
     private WebSocket webSocket;
-    private TranscriptionCallback currentCallback;
+    private AsrCallback currentCallback;
     private File currentAudioFile;
     private long startTime;
     private final AtomicBoolean isConnected = new AtomicBoolean(false);
     private final AtomicBoolean isProcessing = new AtomicBoolean(false);
     
-    public interface TranscriptionCallback {
-        void onSuccess(TranscriptionResult result);
-        void onError(String error);
-    }
+    private ByteArrayOutputStream streamingBuffer;
     
     public FunAsrWebSocketManager(Context context, String host, int port, String mode) {
         this.context = context;
-        // Clean host string: remove port if included
         if (host != null && host.contains(":")) {
             this.serverHost = host.split(":")[0];
         } else {
@@ -62,7 +57,6 @@ public class FunAsrWebSocketManager {
     }
     
     public void updateSettings(String host, int port, String mode) {
-        // Clean host string: remove port if included
         if (host != null && host.contains(":")) {
             this.serverHost = host.split(":")[0];
         } else {
@@ -81,16 +75,15 @@ public class FunAsrWebSocketManager {
         isConnected.set(false);
     }
     
-    private void connectIfNeeded(TranscriptionCallback callback) {
+    private void connectIfNeeded(AsrCallback callback) {
         if (webSocket != null && isConnected.get()) {
             return;
         }
         
         disconnect();
         
-        // Connect to whisper.cpp WebSocket service
         String wsUrl = "ws://" + serverHost + ":" + serverPort;
-        Log.d(TAG, "Connecting to Whisper WebSocket: " + wsUrl);
+        Log.d(TAG, "Connecting to FunASR WebSocket: " + wsUrl);
         
         Request request = new Request.Builder()
                 .url(wsUrl)
@@ -113,7 +106,6 @@ public class FunAsrWebSocketManager {
             @Override
             public void onMessage(WebSocket webSocket, ByteString bytes) {
                 Log.d(TAG, "Received binary message: " + bytes.size() + " bytes");
-                // FunASR typically sends text messages, not binary
             }
             
             @Override
@@ -121,9 +113,6 @@ public class FunAsrWebSocketManager {
                 Log.e(TAG, "WebSocket connection failed", t);
                 if (response != null) {
                     Log.d(TAG, "Response code: " + response.code() + ", message: " + response.message());
-                    Log.d(TAG, "Response headers: " + response.headers().toString());
-                } else {
-                    Log.d(TAG, "Response is null, failure due to: " + t.getMessage());
                 }
                 isConnected.set(false);
                 if (currentCallback != null && isProcessing.get()) {
@@ -139,7 +128,6 @@ public class FunAsrWebSocketManager {
             }
         });
         
-        // Wait briefly for connection
         try {
             Thread.sleep(500);
         } catch (InterruptedException e) {
@@ -147,7 +135,8 @@ public class FunAsrWebSocketManager {
         }
     }
     
-    public void transcribe(File audioFile, TranscriptionCallback callback) {
+    @Override
+    public void transcribe(File audioFile, AsrCallback callback) {
         if (audioFile == null || !audioFile.exists()) {
             callback.onError("音频文件不存在");
             return;
@@ -165,26 +154,21 @@ public class FunAsrWebSocketManager {
         
         new Thread(() -> {
             try {
-                // Connect if needed
                 connectIfNeeded(callback);
                 
-                // Give a moment for connection
                 for (int i = 0; i < 10; i++) {
-                    if (isConnected.get()) {
-                        break;
-                    }
+                    if (isConnected.get()) break;
                     Thread.sleep(100);
                 }
                 
                 if (!isConnected.get()) {
-                    if (isProcessing.get()) { // Only report error if still processing
+                    if (isProcessing.get()) {
                         callback.onError("WebSocket连接失败，请检查服务器地址和端口");
                         resetState();
                     }
                     return;
                 }
                 
-                // Send initial JSON message (matching Python script)
                 String testMode = "offline";
                 JSONObject initJson = new JSONObject();
                 try {
@@ -198,23 +182,19 @@ public class FunAsrWebSocketManager {
                 
                 webSocket.send(initJson.toString());
                 Log.d(TAG, "Sent initial JSON (offline mode): " + initJson.toString());
-                Log.d(TAG, "JSON bytes: " + initJson.toString().getBytes().length);
                 
-                // Extract and send PCM audio data
                 byte[] pcmData = extractPcmFromWav(audioFile);
                 if (pcmData == null || pcmData.length == 0) {
-                    if (isProcessing.get()) { // Only report error if still processing
+                    if (isProcessing.get()) {
                         callback.onError("无法从WAV文件中提取PCM数据");
                         resetState();
                     }
                     return;
                 }
                 
-                // Send entire PCM data as binary message (matching Python script)
                 webSocket.send(ByteString.of(pcmData));
                 Log.d(TAG, "Sent audio data: " + pcmData.length + " bytes");
                 
-                // Send end marker
                 JSONObject endJson = new JSONObject();
                 try {
                     endJson.put("is_speaking", false);
@@ -224,11 +204,9 @@ public class FunAsrWebSocketManager {
                 webSocket.send(endJson.toString());
                 Log.d(TAG, "Sent end JSON: " + endJson.toString());
                 
-                // Wait for final response with timeout
-                int timeoutMs = 30000; // 30 second timeout
+                int timeoutMs = 30000;
                 long waitStart = System.currentTimeMillis();
-                while (isProcessing.get() && 
-                       System.currentTimeMillis() - waitStart < timeoutMs) {
+                while (isProcessing.get() && System.currentTimeMillis() - waitStart < timeoutMs) {
                     Thread.sleep(100);
                 }
                 
@@ -239,7 +217,7 @@ public class FunAsrWebSocketManager {
                 
             } catch (Exception e) {
                 Log.e(TAG, "Transcription failed", e);
-                if (isProcessing.get()) { // Only report error if still processing
+                if (isProcessing.get()) {
                     callback.onError("转录失败: " + e.getMessage());
                     resetState();
                 }
@@ -247,28 +225,111 @@ public class FunAsrWebSocketManager {
         }).start();
     }
     
-    /**
-     * Cancel current transcription if one is in progress
-     */
-    public void cancelTranscription() {
+    @Override
+    public void transcribe(byte[] pcmData, AsrCallback callback) {
+        if (pcmData == null || pcmData.length == 0) {
+            callback.onError("音频数据为空");
+            return;
+        }
+        
+        if (isProcessing.get()) {
+            callback.onError("已有转录正在进行");
+            return;
+        }
+        
+        this.currentCallback = callback;
+        this.startTime = System.currentTimeMillis();
+        isProcessing.set(true);
+        
+        new Thread(() -> {
+            try {
+                connectIfNeeded(callback);
+                
+                for (int i = 0; i < 10; i++) {
+                    if (isConnected.get()) break;
+                    Thread.sleep(100);
+                }
+                
+                if (!isConnected.get()) {
+                    if (isProcessing.get()) {
+                        callback.onError("WebSocket连接失败");
+                        resetState();
+                    }
+                    return;
+                }
+                
+                String testMode = "offline";
+                JSONObject initJson = new JSONObject();
+                try {
+                    initJson.put("reqid", "app_" + System.currentTimeMillis());
+                    initJson.put("mode", testMode);
+                    initJson.put("wav_name", "streaming.pcm");
+                    initJson.put("is_speaking", true);
+                } catch (JSONException e) {
+                    Log.e(TAG, "Failed to create initial JSON", e);
+                }
+                
+                webSocket.send(initJson.toString());
+                Log.d(TAG, "Sent initial JSON for streaming");
+                
+                webSocket.send(ByteString.of(pcmData));
+                Log.d(TAG, "Sent PCM data: " + pcmData.length + " bytes");
+                
+                JSONObject endJson = new JSONObject();
+                try {
+                    endJson.put("is_speaking", false);
+                } catch (JSONException e) {
+                    Log.e(TAG, "Failed to create end JSON", e);
+                }
+                webSocket.send(endJson.toString());
+                Log.d(TAG, "Sent end JSON");
+                
+                int timeoutMs = 30000;
+                long waitStart = System.currentTimeMillis();
+                while (isProcessing.get() && System.currentTimeMillis() - waitStart < timeoutMs) {
+                    Thread.sleep(100);
+                }
+                
+                if (isProcessing.get()) {
+                    callback.onError("转录超时");
+                    resetState();
+                }
+                
+            } catch (Exception e) {
+                Log.e(TAG, "Transcription failed", e);
+                if (isProcessing.get()) {
+                    callback.onError("转录失败: " + e.getMessage());
+                    resetState();
+                }
+            }
+        }).start();
+    }
+    
+    @Override
+    public void cancel() {
         if (isProcessing.get()) {
             Log.d(TAG, "Cancelling current transcription");
-            // Close the WebSocket to cancel the ongoing transcription
             if (webSocket != null) {
                 webSocket.close(1000, "Transcription cancelled by user");
                 webSocket = null;
             }
             isConnected.set(false);
             
-            // Call error callback if available
             if (currentCallback != null) {
-                TranscriptionCallback callback = currentCallback;
-                currentCallback = null; // Clear the callback to prevent further calls
+                AsrCallback callback = currentCallback;
+                currentCallback = null;
                 callback.onError("转录被取消");
             }
             
             resetState();
         }
+    }
+    
+    @Override
+    public void release() {
+        cancel();
+        disconnect();
+        streamingBuffer = null;
     }
     
     private void handleTextMessage(String text) {
@@ -284,33 +345,25 @@ public class FunAsrWebSocketManager {
             String responseMode = json.optString("mode", "");
             
             Log.d(TAG, "Received FunASR response: is_final=" + isFinal + 
-                  ", mode=" + responseMode + ", text=" + transcribedText);
+                    ", mode=" + responseMode + ", text=" + transcribedText);
             
-            // For offline mode, treat any non-empty text as final result
-            // For 2pass mode, wait for is_final=true
             boolean shouldTreatAsFinal = isFinal || 
-                (responseMode.equals("offline") && !transcribedText.isEmpty());
+                    (responseMode.equals("offline") && !transcribedText.isEmpty());
             
             if (shouldTreatAsFinal) {
-                // Calculate performance metrics
                 long processingTime = System.currentTimeMillis() - startTime;
                 
-                // Estimate audio length from file size (16kHz, 16-bit mono)
-                // WAV file has 44-byte header, then PCM data
-                long fileSize = currentAudioFile.length();
-                double audioLengthSeconds = (fileSize > 44) ? 
-                    (fileSize - 44) / 32000.0 : 1.0; // Default 1 second if unknown
+                double audioLengthSeconds = 1.0;
+                if (currentAudioFile != null && currentAudioFile.length() > 44) {
+                    audioLengthSeconds = (currentAudioFile.length() - 44) / 32000.0;
+                }
                 
                 double realtimeFactor = processingTime / 1000.0 / audioLengthSeconds;
                 
-                // If text is empty or whitespace only, show placeholder
                 String displayText = transcribedText;
                 if (transcribedText == null || transcribedText.trim().isEmpty()) {
-                    displayText = "..."; // Placeholder to indicate server responded
+                    displayText = "...";
                 }
-                
-                Log.d(TAG, "Treating as final result: " + displayText + 
-                      ", mode=" + responseMode + ", is_final=" + isFinal);
                 
                 TranscriptionResult result = new TranscriptionResult(
                         displayText, audioLengthSeconds, processingTime, realtimeFactor);
@@ -318,17 +371,13 @@ public class FunAsrWebSocketManager {
                 currentCallback.onSuccess(result);
                 resetState();
             } else if (!transcribedText.isEmpty()) {
-                // Intermediate result - could be used for real-time display
-                Log.d(TAG, "Intermediate result: " + transcribedText + 
-                      ", mode=" + responseMode + ", is_final=" + isFinal);
+                Log.d(TAG, "Intermediate result: " + transcribedText);
             }
         } catch (JSONException e) {
             Log.e(TAG, "Failed to parse FunASR JSON response", e);
-            // If not JSON, maybe it's plain text result
             if (!text.trim().isEmpty() && !text.startsWith("{") && !text.startsWith("[")) {
-                // Might be direct text response
                 long processingTime = System.currentTimeMillis() - startTime;
-                double audioLengthSeconds = currentAudioFile.length() / 32000.0;
+                double audioLengthSeconds = 1.0;
                 double realtimeFactor = processingTime / 1000.0 / audioLengthSeconds;
                 
                 TranscriptionResult result = new TranscriptionResult(
@@ -342,7 +391,6 @@ public class FunAsrWebSocketManager {
     
     private byte[] extractPcmFromWav(File wavFile) {
         try (FileInputStream fis = new FileInputStream(wavFile)) {
-            // Skip WAV header (44 bytes for standard PCM WAV)
             byte[] header = new byte[44];
             int bytesRead = fis.read(header);
             if (bytesRead < 44) {
@@ -350,12 +398,10 @@ public class FunAsrWebSocketManager {
                 return null;
             }
             
-            // Verify it's a valid WAV file (optional)
             if (header[0] != 'R' || header[1] != 'I' || header[2] != 'F' || header[3] != 'F') {
                 Log.e(TAG, "Not a valid WAV file (missing RIFF header)");
             }
             
-            // Read the rest as PCM data
             long pcmSize = wavFile.length() - 44;
             if (pcmSize > Integer.MAX_VALUE) {
                 Log.e(TAG, "WAV file too large");
@@ -366,9 +412,7 @@ public class FunAsrWebSocketManager {
             int totalRead = 0;
             while (totalRead < pcmData.length) {
                 int read = fis.read(pcmData, totalRead, pcmData.length - totalRead);
-                if (read == -1) {
-                    break;
-                }
+                if (read == -1) break;
                 totalRead += read;
             }
             
@@ -384,8 +428,6 @@ public class FunAsrWebSocketManager {
         isProcessing.set(false);
         currentCallback = null;
         currentAudioFile = null;
-        // Disconnect WebSocket to ensure fresh connection for next transcription
-        // FunASR server expects new connection for each session
         disconnect();
         Log.d(TAG, "State reset and WebSocket disconnected");
     }

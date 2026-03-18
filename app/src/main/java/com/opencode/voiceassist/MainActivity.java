@@ -27,15 +27,18 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.opencode.voiceassist.manager.AudioProcessor;
 import com.opencode.voiceassist.manager.AudioRecorder;
+import com.opencode.voiceassist.manager.AsrEngine;
 import com.opencode.voiceassist.manager.CameraPermissionManager;
 import com.opencode.voiceassist.manager.CloudAsrManager;
+import com.opencode.voiceassist.manager.DirectProcessor;
 import com.opencode.voiceassist.manager.FunAsrWebSocketManager;
+import com.opencode.voiceassist.manager.NoiseReductionProcessor;
 import com.opencode.voiceassist.manager.OpenCodeManager;
 import com.opencode.voiceassist.manager.RecordingManager;
 import com.opencode.voiceassist.manager.SettingsManager;
 import com.opencode.voiceassist.manager.WebViewManager;
-import com.opencode.voiceassist.manager.WhisperManager;
 import com.opencode.voiceassist.model.Message;
 import com.opencode.voiceassist.model.TranscriptionResult;
 import com.opencode.voiceassist.ui.MessageAdapter;
@@ -58,7 +61,6 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.provider.OpenableColumns;
 
-
 import java.util.ArrayList;
 import java.util.List;
 import java.text.SimpleDateFormat;
@@ -76,9 +78,6 @@ public class MainActivity extends AppCompatActivity {
     private static final int REQUEST_CAMERA = 1005;
     
     private WebView webView;
-    // Removed - managed by WebViewManager
-    // private ValueCallback<Uri[]> filePathCallback;
-    // private WebChromeClient.FileChooserParams fileChooserParams;
     
     private View recordButton;
     private TextView tvRecordHint;
@@ -86,7 +85,6 @@ public class MainActivity extends AppCompatActivity {
     private View recordProgress;
     private View bottomContainer;
     
-    private WhisperManager whisperManager;
     private OpenCodeManager openCodeManager;
     private AudioRecorder audioRecorder;
     private FileManager fileManager;
@@ -94,11 +92,12 @@ public class MainActivity extends AppCompatActivity {
     private FunAsrWebSocketManager funAsrManager;
     private WebViewTextInjector webViewInjector;
     
-    // New modular managers
     private WebViewManager webViewManager;
     private RecordingManager recordingManager;
     private CameraPermissionManager cameraPermissionManager;
     private SettingsManager settingsManager;
+    
+    private AudioProcessor audioProcessor;
 
     private ImageButton btnCamera;
     private Uri cameraPhotoUri;
@@ -109,26 +108,20 @@ public class MainActivity extends AppCompatActivity {
     private Handler mainHandler = new Handler(Looper.getMainLooper());
     private boolean isKeyboardVisible = false;
     private View rootView;
-    private boolean transcriptionTested = true; // Default to skip test on first launch
+    private boolean transcriptionTested = true;
     private Runnable currentReloginTimeoutRunnable = null;
     
     private boolean isRecording = false;
     private boolean isCancelled = false;
-    private boolean isUserStoppedRecording = false; // Flag to distinguish user stop from system interrupt
+    private boolean isUserStoppedRecording = false;
     private float startY = 0;
     private static final float CANCEL_THRESHOLD_DP = 50;
-    
-    // ButtonState enum moved to RecordingManager
-    // Use RecordingManager.ButtonState instead
-    
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         
-        // Hide ActionBar to maximize screen space
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
         }
@@ -137,25 +130,21 @@ public class MainActivity extends AppCompatActivity {
         initManagers();
         checkPermissions();
         
-        // Configure WebView and set bottom container reference
         if (webViewManager != null) {
             webViewManager.setBottomContainer(bottomContainer);
             webViewManager.configureWebView();
             webViewManager.loadOpenCodePage();
         }
         
-        // Set up record button with manager
         if (recordingManager != null) {
             recordingManager.setUiReferences(recordButton, recordProgress);
             recordingManager.setupRecordButton();
         }
         
-        // Initialize keyboard visibility detection
         rootView = getWindow().getDecorView().findViewById(android.R.id.content);
         rootView.getViewTreeObserver().addOnGlobalLayoutListener(this::checkKeyboardVisibility);
         updateButtonState(RecordingManager.ButtonState.DEFAULT);
         
-        // Set recording flag for WebViewManager
         if (webViewManager != null && recordingManager != null) {
             webViewManager.setRecording(recordingManager.isRecording());
         }
@@ -169,7 +158,6 @@ public class MainActivity extends AppCompatActivity {
         recordProgress = findViewById(R.id.record_progress);
         bottomContainer = findViewById(R.id.bottom_container);
         
-        // Initialize camera button
         btnCamera = findViewById(R.id.btn_camera);
         btnCamera.setOnClickListener(v -> {
             if (cameraPermissionManager != null) {
@@ -186,80 +174,66 @@ public class MainActivity extends AppCompatActivity {
         });
     }
     
-    /**
-     * Configure WebView settings and authentication
-     */
-
-    
-    /**
-     * Load OpenCode web page using configured server address
-     */
-
-    
-    /**
-     * Inject JavaScript helper functions and prepare for text injection
-     */
-
-    
-    /**
-     * Inject JavaScript to listen for input focus/blur events
-     */
-
-    
-
-    
-    /**
-     * Parse server URL string into host and port
-     * Supports formats: "http://host:port", "https://host:port", "host:port", "host"
-     * Returns array where [0] = host, [1] = port string
-     */
-
-    
     private void initManagers() {
         fileManager = new FileManager(this);
-        whisperManager = new WhisperManager(this, fileManager, (success, message) -> {
-            // Forward to recording manager
-            if (recordingManager != null) {
-                recordingManager.onWhisperInitialized(success, message);
-            }
-        });
-        // TODO: Temporarily disabled OpenCode integration
-        openCodeManager = null; // Set to null to avoid NPE
+        openCodeManager = null;
         audioRecorder = new AudioRecorder();
         
-        // Initialize Cloud ASR manager
-        String cloudAsrUrl = getSharedPreferences("settings", MODE_PRIVATE)
-                .getString("cloud_asr_url", Constants.DEFAULT_CLOUD_ASR_URL);
-        String[] cloudAsrParts = UrlUtils.parseAsrUrl(cloudAsrUrl, "http");
-        cloudAsrManager = new CloudAsrManager(this, cloudAsrParts[0], Integer.parseInt(cloudAsrParts[1]));
+        android.content.SharedPreferences prefs = getSharedPreferences("settings", MODE_PRIVATE);
         
-        // Initialize FunASR WebSocket manager
-        String funAsrUrl = getSharedPreferences("settings", MODE_PRIVATE)
-                .getString("funasr_url", Constants.DEFAULT_FUNASR_URL);
-        String[] funAsrParts = UrlUtils.parseAsrUrl(funAsrUrl, "ws");
-        String funAsrMode = getSharedPreferences("settings", MODE_PRIVATE)
-                .getString("funasr_mode", Constants.DEFAULT_FUNASR_MODE);
-        funAsrManager = new FunAsrWebSocketManager(this, funAsrParts[0], Integer.parseInt(funAsrParts[1]), funAsrMode);
+        String cloudAsrHost = prefs.getString("cloud_asr_ip", Constants.DEFAULT_CLOUD_ASR_IP);
+        int cloudAsrPort = prefs.getInt("cloud_asr_port", Constants.DEFAULT_CLOUD_ASR_PORT);
         
-        // Create modular managers
+        if (cloudAsrHost.equals(Constants.DEFAULT_CLOUD_ASR_IP) && cloudAsrPort == Constants.DEFAULT_CLOUD_ASR_PORT) {
+            String cloudAsrUrl = prefs.getString("cloud_asr_url", Constants.DEFAULT_CLOUD_ASR_URL);
+            String[] cloudAsrParts = UrlUtils.parseAsrUrl(cloudAsrUrl, "http");
+            cloudAsrHost = cloudAsrParts[0];
+            cloudAsrPort = Integer.parseInt(cloudAsrParts[1]);
+        }
+        android.util.Log.d("MainActivity", "Cloud ASR: " + cloudAsrHost + ":" + cloudAsrPort);
+        cloudAsrManager = new CloudAsrManager(this, cloudAsrHost, cloudAsrPort);
+        
+        String funAsrHost = prefs.getString("funasr_host", Constants.DEFAULT_FUNASR_HOST);
+        int funAsrPort = prefs.getInt("funasr_port", Constants.DEFAULT_FUNASR_PORT);
+        
+        if (funAsrHost.equals(Constants.DEFAULT_FUNASR_HOST) && funAsrPort == Constants.DEFAULT_FUNASR_PORT) {
+            String funAsrUrl = prefs.getString("funasr_url", Constants.DEFAULT_FUNASR_URL);
+            String[] funAsrParts = UrlUtils.parseAsrUrl(funAsrUrl, "ws");
+            funAsrHost = funAsrParts[0];
+            funAsrPort = Integer.parseInt(funAsrParts[1]);
+        }
+        String funAsrMode = prefs.getString("funasr_mode", Constants.DEFAULT_FUNASR_MODE);
+        android.util.Log.d("MainActivity", "FunASR: " + funAsrHost + ":" + funAsrPort + " mode=" + funAsrMode);
+        funAsrManager = new FunAsrWebSocketManager(this, funAsrHost, funAsrPort, funAsrMode);
+        
         webViewManager = new WebViewManager(this, webView, webViewCallback);
         recordingManager = new RecordingManager(this, recordingCallback);
         cameraPermissionManager = new CameraPermissionManager(this, cameraCallback);
         settingsManager = new SettingsManager(this, settingsCallback);
         
-        // Set up manager dependencies
-        recordingManager.setManagers(whisperManager, audioRecorder, cloudAsrManager, funAsrManager, fileManager);
-        settingsManager.setManagers(cloudAsrManager, funAsrManager, whisperManager, recordingManager);
+        String audioProcessorType = getSharedPreferences("settings", MODE_PRIVATE)
+                .getString("audio_processor", Constants.DEFAULT_AUDIO_PROCESSOR);
+        if (Constants.AUDIO_PROCESSOR_NOISE_REDUCTION.equals(audioProcessorType)) {
+            audioProcessor = new NoiseReductionProcessor();
+        } else {
+            audioProcessor = new DirectProcessor();
+        }
         
-        // Initialize Whisper model (will skip download if fails)
-        String modelFilename = getSharedPreferences("settings", MODE_PRIVATE)
-                .getString("whisper_model", Constants.DEFAULT_WHISPER_MODEL);
-        new Thread(() -> whisperManager.initialize(modelFilename)).start();
+        String asrBackend = getSharedPreferences("settings", MODE_PRIVATE)
+                .getString("asr_backend", Constants.DEFAULT_ASR_BACKEND);
+        AsrEngine currentAsrEngine;
+        if (Constants.ASR_BACKEND_CLOUD_HTTP.equals(asrBackend)) {
+            currentAsrEngine = cloudAsrManager;
+        } else {
+            currentAsrEngine = funAsrManager;
+        }
+        
+        recordingManager.setManagers(audioRecorder, fileManager);
+        recordingManager.setAsrEngine(currentAsrEngine);
+        recordingManager.setAudioProcessor(audioProcessor);
+        
+        settingsManager.setManagers(cloudAsrManager, funAsrManager, recordingManager);
     }
-    
-
-    
-
     
     private void checkPermissions() {
         String[] permissions = {
@@ -282,11 +256,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     
-    // =================================================================
-    // Callback implementations for modular managers
-    // =================================================================
-    
-    // WebViewManager callbacks
     private final WebViewManager.WebViewCallback webViewCallback = new WebViewManager.WebViewCallback() {
         @Override
         public void onLoginFailureDetected() {
@@ -300,8 +269,6 @@ public class MainActivity extends AppCompatActivity {
         
         @Override
         public void onCameraUploadPending(Uri photoUri) {
-            // This is called when camera photo is ready for upload
-            // Set camera upload pending flag for WebViewManager
             if (webViewManager != null) {
                 webViewManager.setCameraUploadPending(true, photoUri);
             }
@@ -314,7 +281,6 @@ public class MainActivity extends AppCompatActivity {
         
         @Override
         public void onInputFocusChanged(boolean hasFocus) {
-            // Update bottom container visibility
             if (bottomContainer != null) {
                 bottomContainer.setVisibility(hasFocus ? View.GONE : View.VISIBLE);
             }
@@ -333,7 +299,6 @@ public class MainActivity extends AppCompatActivity {
         
         @Override
         public void onAttachmentReady(boolean success, String filename, String message) {
-            // Don't show toast if recording to avoid interrupting
             if (!isRecording) {
                 if (success) {
                     Toast.makeText(MainActivity.this, "已添加: " + filename, Toast.LENGTH_SHORT).show();
@@ -344,7 +309,6 @@ public class MainActivity extends AppCompatActivity {
         }
     };
     
-    // RecordingManager callbacks
     private final RecordingManager.RecordingCallback recordingCallback = new RecordingManager.RecordingCallback() {
         @Override
         public void onRecordingStateChanged(RecordingManager.ButtonState state) {
@@ -353,7 +317,6 @@ public class MainActivity extends AppCompatActivity {
         
         @Override
         public void onTranscriptionComplete(TranscriptionResult result) {
-            // Inject transcribed text into WebView
             if (webViewManager != null) {
                 webViewManager.injectTranscribedText(result.getText());
             }
@@ -361,25 +324,16 @@ public class MainActivity extends AppCompatActivity {
         
         @Override
         public void onTranscriptionError(String error) {
-            // Already handled in RecordingManager with toast
-        }
-        
-        @Override
-        public void onWhisperInitialized(boolean success, String message) {
-            // Already handled in RecordingManager with toast
         }
         
         @Override
         public void onOpenCodeInitialized(boolean success, String message) {
-            // Already handled in RecordingManager with toast
         }
     };
     
-    // CameraPermissionManager callbacks
     private final CameraPermissionManager.CameraCallback cameraCallback = new CameraPermissionManager.CameraCallback() {
         @Override
         public void onCameraPermissionGranted() {
-            // Permission granted, launch camera
             if (cameraPermissionManager != null) {
                 cameraPermissionManager.launchCamera();
             }
@@ -392,19 +346,14 @@ public class MainActivity extends AppCompatActivity {
         
         @Override
         public void onStoragePermissionGranted() {
-            // Storage permission granted, handle pending file picker if any
-            // This will be handled in onRequestPermissionsResult
         }
         
         @Override
         public void onStoragePermissionDenied() {
-            // Already handled in CameraPermissionManager with toast
         }
         
-@Override
+        @Override
         public void onCameraPhotoCaptured(Uri photoUri) {
-            // Use the official WebView file upload mechanism
-            // This will trigger onShowFileChooser in WebViewManager
             if (webViewManager != null) {
                 webViewManager.setCameraUploadPending(true, photoUri);
             }
@@ -416,19 +365,35 @@ public class MainActivity extends AppCompatActivity {
         }
     };
     
-    // SettingsManager callbacks
     private final SettingsManager.SettingsCallback settingsCallback = new SettingsManager.SettingsCallback() {
         @Override
         public void onSettingsSaved(SettingsManager.SettingsData settings) {
-            // Save settings to SharedPreferences
             settingsManager.saveSettings(settings);
             
-            // Update managers with new settings
             if (cloudAsrManager != null) {
                 cloudAsrManager.updateSettings(settings.cloudAsrHost, settings.cloudAsrPort);
             }
             if (funAsrManager != null) {
                 funAsrManager.updateSettings(settings.funAsrHost, settings.funAsrPort, settings.funAsrMode);
+            }
+            
+            AsrEngine currentAsrEngine;
+            if (Constants.ASR_BACKEND_CLOUD_HTTP.equals(settings.asrBackend)) {
+                currentAsrEngine = cloudAsrManager;
+            } else {
+                currentAsrEngine = funAsrManager;
+            }
+            if (recordingManager != null) {
+                recordingManager.setAsrEngine(currentAsrEngine);
+            }
+            
+            if (Constants.AUDIO_PROCESSOR_NOISE_REDUCTION.equals(settings.audioProcessor)) {
+                audioProcessor = new NoiseReductionProcessor();
+            } else {
+                audioProcessor = new DirectProcessor();
+            }
+            if (recordingManager != null) {
+                recordingManager.setAudioProcessor(audioProcessor);
             }
         }
         
@@ -450,39 +415,10 @@ public class MainActivity extends AppCompatActivity {
         }
         
         @Override
-        public void onReinitializeWhisper(String model) {
-            if (whisperManager != null) {
-                new Thread(() -> {
-                    try {
-                        whisperManager.reinitialize(model);
-                    } catch (Exception e) {
-                        android.util.Log.e("MainActivity", "Failed to reinitialize model", e);
-                        mainHandler.post(() -> {
-                            Toast.makeText(MainActivity.this, 
-                                "模型重新初始化失败，请重启应用", 
-                                Toast.LENGTH_LONG).show();
-                        });
-                    }
-                }).start();
-            }
-        }
-        
-        @Override
         public void onShowToast(String message, int duration) {
             Toast.makeText(MainActivity.this, message, duration).show();
         }
     };
-
-    
-
-    
-
-    
-
-    
-
-    
-
     
     private void cancelReloginTimeout() {
         if (currentReloginTimeoutRunnable != null) {
@@ -493,7 +429,6 @@ public class MainActivity extends AppCompatActivity {
     
     private void showReloginDialog() {
         mainHandler.post(() -> {
-            // Avoid showing multiple dialogs
             if (isFinishing() || isDestroyed()) {
                 return;
             }
@@ -502,19 +437,16 @@ public class MainActivity extends AppCompatActivity {
                 .setTitle("重新登录")
                 .setMessage("是否清除所有登录状态并使用当前设置重新连接？")
                 .setPositiveButton("重新登录", (dialog, which) -> {
-                     android.util.Log.d("MainActivity", "Clearing all authentication data and reloading");
-                    // Cancel any existing timeout
+                    android.util.Log.d("MainActivity", "Clearing all authentication data and reloading");
                     cancelReloginTimeout();
                     
                     if (webViewManager != null) {
-                        // Show loading message
                         Toast.makeText(MainActivity.this, "正在重新登录...", Toast.LENGTH_SHORT).show();
                         
                         webViewManager.clearWebViewData(() -> {
                             mainHandler.postDelayed(() -> {
                                 android.util.Log.d("MainActivity", "Reloading page with cache bypass");
                                 if (webViewManager != null) {
-                                    // Set a timeout for page loading
                                     currentReloginTimeoutRunnable = new Runnable() {
                                         @Override
                                         public void run() {
@@ -525,10 +457,7 @@ public class MainActivity extends AppCompatActivity {
                                         }
                                     };
                                     
-                                    // Schedule timeout after 5 seconds
                                     mainHandler.postDelayed(currentReloginTimeoutRunnable, 5000);
-                                    
-                                    // Load page with current settings
                                     webViewManager.reloadPage();
                                 }
                                 Toast.makeText(MainActivity.this, "已清除所有登录状态，正在重新连接...", Toast.LENGTH_LONG).show();
@@ -580,23 +509,13 @@ public class MainActivity extends AppCompatActivity {
                 recordButton.setBackgroundResource(R.drawable.bg_record_disabled);
                 recordProgress.setVisibility(View.GONE);
                 tvRecordHint.setVisibility(View.VISIBLE);
-                String asrBackend = getSharedPreferences("settings", MODE_PRIVATE)
-                        .getString("asr_backend", "cloud_http");
-                boolean isLocalBackend = asrBackend.equals("local");
-                if (isLocalBackend && whisperManager != null && !whisperManager.isModelLoaded()) {
-                    tvRecordHint.setText("模型未部署，请手动放置后重启");
-                } else {
-                    tvRecordHint.setText("请检查服务器配置");
-                }
+                tvRecordHint.setText("请检查服务器配置");
                 tvRecordHint.setTextColor(getResources().getColor(android.R.color.darker_gray));
                 recordButton.setEnabled(false);
                 break;
         }
     }
     
-    /**
-     * Check keyboard visibility and show/hide bottom container accordingly
-     */
     private void checkKeyboardVisibility() {
         if (rootView == null) return;
         
@@ -605,7 +524,6 @@ public class MainActivity extends AppCompatActivity {
         int screenHeight = rootView.getRootView().getHeight();
         int keypadHeight = screenHeight - r.height();
         
-        // Threshold for keyboard visibility (150dp)
         int threshold = (int) (150 * getResources().getDisplayMetrics().density);
         
         boolean keyboardVisible = keypadHeight > threshold;
@@ -614,51 +532,22 @@ public class MainActivity extends AppCompatActivity {
             android.util.Log.d("MainActivity", "Keyboard visibility changed: " + keyboardVisible);
             
             if (keyboardVisible) {
-                // Keyboard shown - hide bottom container if input is focused
-                // The onInputFocus method will handle this, but we ensure it's hidden
                 bottomContainer.setVisibility(View.GONE);
             } else {
-                // Keyboard hidden - show bottom container
                 bottomContainer.setVisibility(View.VISIBLE);
             }
         }
     }
     
-    /**
-     * Show re-login dialog when login failure is detected
-     */
-
-    
-    /**
-     * Show popup menu with settings and refresh options
-     */
-
-    
-
-    
     private float dpToPx(float dp) {
         return dp * getResources().getDisplayMetrics().density;
     }
     
-    /**
-     * Run a test transcription using the sample JFK WAV file
-     * This helps verify that Whisper is working correctly
-     */
-
-    
-    // =================================================================
-    // Attachment Upload Methods (Phase 1)
-    // =================================================================
-    
-    /**
-     * Open file picker for WebView file chooser
-     */
     private void openFilePickerForWebView(WebChromeClient.FileChooserParams params) {
         android.util.Log.d("MainActivity", "Opening file picker for WebView");
         
         if (cameraPermissionManager != null && cameraPermissionManager.checkStoragePermission()) {
             Intent intent = params.createIntent();
-            // Fallback if createIntent fails
             if (intent == null) {
                 intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
                 intent.addCategory(Intent.CATEGORY_OPENABLE);
@@ -671,7 +560,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intent, REQUEST_WEBVIEW_FILE_CHOOSER);
             } catch (Exception e) {
                 android.util.Log.e("MainActivity", "Error starting WebView file picker", e);
-                // Cancel the file chooser on error
                 if (webViewManager != null) {
                     webViewManager.handleFileChooserResult(null);
                 }
@@ -680,87 +568,32 @@ public class MainActivity extends AppCompatActivity {
             if (cameraPermissionManager != null) {
                 cameraPermissionManager.requestStoragePermission();
             }
-            // Cancel the file chooser if no permission
             if (webViewManager != null) {
                 webViewManager.handleFileChooserResult(null);
             }
         }
     }
     
-
-
-    /**
-     * Open camera to take photo
-     */
-
-
-    /**
-     * Check camera permission
-     */
-
-
-    /**
-     * Request camera permission
-     */
-
-
-    /**
-     * Launch system camera with FileProvider
-     */
-
-
-    /**
-     * Create a temporary image file for camera capture
-     */
-
-
-    /**
-     * Trigger file upload from camera - sets pending flag for WebView file chooser
-     */
-
-
-    /**
-     * Clean up temporary camera file after processing
-     */
-
-    
-    /**
-     * Check storage permission based on Android version
-     */
-
-    
-    /**
-     * Request storage permission
-     */
-
-    
-    /**
-     * Handle file picker result
-     */
     @Override
-     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         
-        // Delegate to CameraPermissionManager
         if (requestCode == CameraPermissionManager.REQUEST_CAMERA) {
             if (cameraPermissionManager != null) {
                 cameraPermissionManager.onActivityResult(requestCode, resultCode, data);
             }
         }
         
-        // Handle WebView file chooser result
         if (requestCode == REQUEST_WEBVIEW_FILE_CHOOSER) {
             Uri[] results = null;
             if (resultCode == RESULT_OK && data != null) {
                 if (data.getClipData() != null) {
-                    // Multiple files
                     int count = data.getClipData().getItemCount();
                     results = new Uri[count];
                     for (int i = 0; i < count; i++) {
                         results[i] = data.getClipData().getItemAt(i).getUri();
                     }
                 } else if (data.getData() != null) {
-                    // Single file
                     results = new Uri[]{data.getData()};
                 }
             }
@@ -768,59 +601,14 @@ public class MainActivity extends AppCompatActivity {
             android.util.Log.d("MainActivity", "WebView file chooser result: " + 
                 (results != null ? results.length + " files" : "cancelled"));
             
-            // Pass result to WebViewManager
             if (webViewManager != null) {
                 webViewManager.handleFileChooserResult(results);
             }
         }
     }
     
-
-    
-    /**
-     * Process a single file: read, convert to Base64, inject to WebView
-     */
-
-    
-    /**
-     * Convert file to Base64 string
-     */
-
-
-    
-
-    
-    /**
-     * Inject image to WebView by simulating paste event using chunked transfer
-     * This method splits large Base64 data into smaller chunks to avoid WebView limitations
-     */
-
-    
-    /**
-     * Inject JavaScript receiver that can handle chunked Base64 data
-     */
-
-    
-    /**
-     * Inject the processAttachment function - simplified version
-     */
-
-
-
-    
-
-    
-
-    
-
-    
-
-    
-    /**
-     * Handle permission request results
-     */
     @Override
-     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, 
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, 
                                             @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         
@@ -839,7 +627,6 @@ public class MainActivity extends AppCompatActivity {
             }
         } else if (requestCode == CameraPermissionManager.REQUEST_STORAGE_PERMISSION || 
                    requestCode == CameraPermissionManager.REQUEST_CAMERA) {
-            // Delegate to CameraPermissionManager
             if (cameraPermissionManager != null) {
                 cameraPermissionManager.onRequestPermissionsResult(requestCode, permissions, grantResults);
             }
@@ -851,9 +638,6 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
         if (audioRecorder != null) {
             audioRecorder.release();
-        }
-        if (whisperManager != null) {
-            whisperManager.release();
         }
         if (recordingManager != null) {
             recordingManager.release();

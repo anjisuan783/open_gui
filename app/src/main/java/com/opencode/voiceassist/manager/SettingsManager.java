@@ -27,10 +27,8 @@ public class SettingsManager {
     private final Handler mainHandler;
     private final SettingsCallback callback;
     
-    // References to other managers (for updating settings)
     private CloudAsrManager cloudAsrManager;
     private FunAsrWebSocketManager funAsrManager;
-    private WhisperManager whisperManager;
     private RecordingManager recordingManager;
     
     public interface SettingsCallback {
@@ -38,7 +36,6 @@ public class SettingsManager {
         void onShowReloginDialog();
         void onRefreshPage();
         void onUpdateButtonState(RecordingManager.ButtonState state);
-        void onReinitializeWhisper(String model);
         void onShowToast(String message, int duration);
     }
     
@@ -47,15 +44,13 @@ public class SettingsManager {
         public int opencodePort;
         public String opencodeUsername;
         public String opencodePassword;
-        public String whisperModel;
-        public boolean autoTestOnModelChange;
         public boolean autoSend;
         public String asrBackend;
         public String cloudAsrUrl;
         public String funAsrUrl;
         public String funAsrMode;
+        public String audioProcessor;
         
-        // Derived fields
         public String cloudAsrHost;
         public int cloudAsrPort;
         public String funAsrHost;
@@ -69,10 +64,9 @@ public class SettingsManager {
     }
     
     public void setManagers(CloudAsrManager cloudAsrManager, FunAsrWebSocketManager funAsrManager,
-                           WhisperManager whisperManager, RecordingManager recordingManager) {
+                            RecordingManager recordingManager) {
         this.cloudAsrManager = cloudAsrManager;
         this.funAsrManager = funAsrManager;
-        this.whisperManager = whisperManager;
         this.recordingManager = recordingManager;
     }
     
@@ -105,7 +99,6 @@ public class SettingsManager {
     
     public void showReloginDialog() {
         mainHandler.post(() -> {
-            // Avoid showing multiple dialogs
             if (activity.isFinishing() || activity.isDestroyed()) {
                 return;
             }
@@ -126,16 +119,13 @@ public class SettingsManager {
             EditText etPassword = view.findViewById(R.id.et_password);
             ImageView ivPasswordToggle = view.findViewById(R.id.iv_password_toggle);
             
-            // ASR Backend controls
             RadioGroup rgAsrBackend = view.findViewById(R.id.rg_asr_backend);
             RadioButton rbAsrCloudHttp = view.findViewById(R.id.rb_asr_cloud_http);
             RadioButton rbAsrFunasrWs = view.findViewById(R.id.rb_asr_funasr_ws);
             
-            // Cloud HTTP ASR configuration
             TextView tvCloudAsrConfigLabel = view.findViewById(R.id.tv_cloud_asr_config_label);
             EditText etCloudAsrUrl = view.findViewById(R.id.et_cloud_asr_url);
             
-            // FunASR WebSocket configuration
             TextView tvFunasrConfigLabel = view.findViewById(R.id.tv_funasr_config_label);
             EditText etFunasrUrl = view.findViewById(R.id.et_funasr_url);
             TextView tvFunasrModeLabel = view.findViewById(R.id.tv_funasr_mode_label);
@@ -143,57 +133,50 @@ public class SettingsManager {
             RadioButton rbFunasrModeOffline = view.findViewById(R.id.rb_funasr_mode_offline);
             RadioButton rbFunasrMode2pass = view.findViewById(R.id.rb_funasr_mode_2pass);
 
-            // WebView settings
             android.widget.CheckBox cbAutoSend = view.findViewById(R.id.cb_auto_send);
             
-            // Load saved settings
+            RadioGroup rgAudioProcessor = view.findViewById(R.id.rg_audio_processor);
+            RadioButton rbProcessorDirect = view.findViewById(R.id.rb_processor_direct);
+            RadioButton rbProcessorNoiseReduction = view.findViewById(R.id.rb_processor_noise_reduction);
+            
             SharedPreferences prefs = activity.getSharedPreferences("settings", Activity.MODE_PRIVATE);
             String savedIp = prefs.getString("opencode_ip", Constants.DEFAULT_OPENCODE_IP);
             int savedPort = prefs.getInt("opencode_port", Constants.DEFAULT_OPENCODE_PORT);
             String savedUsername = prefs.getString("opencode_username", Constants.DEFAULT_OPENCODE_USERNAME);
             String savedPassword = prefs.getString("opencode_password", Constants.DEFAULT_OPENCODE_PASSWORD);
-            boolean autoTestEnabled = prefs.getBoolean("auto_test_on_model_change", true);
             boolean autoSendEnabled = prefs.getBoolean(Constants.KEY_AUTO_SEND, Constants.DEFAULT_AUTO_SEND);
             
-            // Load ASR backend settings
             String asrBackend = prefs.getString("asr_backend", Constants.DEFAULT_ASR_BACKEND);
             String cloudAsrUrl = prefs.getString("cloud_asr_url", Constants.DEFAULT_CLOUD_ASR_URL);
             String funAsrUrl = prefs.getString("funasr_url", Constants.DEFAULT_FUNASR_URL);
             String funAsrMode = prefs.getString("funasr_mode", Constants.DEFAULT_FUNASR_MODE);
+            String audioProcessor = prefs.getString("audio_processor", Constants.DEFAULT_AUDIO_PROCESSOR);
             
             etIp.setText(UrlUtils.formatServerUrl(savedIp, savedPort));
             etUsername.setText(savedUsername);
             etPassword.setText(savedPassword);
             
-            // Setup password visibility toggle
             ivPasswordToggle.setOnTouchListener((v, event) -> {
                 int action = event.getAction();
                 if (action == android.view.MotionEvent.ACTION_DOWN) {
-                    // Show password
                     etPassword.setInputType(android.text.InputType.TYPE_CLASS_TEXT | android.text.InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
                 } else if (action == android.view.MotionEvent.ACTION_UP || action == android.view.MotionEvent.ACTION_CANCEL) {
-                    // Hide password
                     etPassword.setInputType(android.text.InputType.TYPE_CLASS_TEXT | android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD);
                 }
-                // Move cursor to end
                 etPassword.setSelection(etPassword.getText().length());
                 return true;
             });
             
-            // Set ASR backend radio button
             if (asrBackend.equals(Constants.ASR_BACKEND_CLOUD_HTTP)) {
                 rbAsrCloudHttp.setChecked(true);
             } else if (asrBackend.equals(Constants.ASR_BACKEND_FUNASR_WS)) {
                 rbAsrFunasrWs.setChecked(true);
             } else {
-                // Default to cloud HTTP
-                rbAsrCloudHttp.setChecked(true);
+                rbAsrFunasrWs.setChecked(true);
             }
             
-            // Set Cloud ASR URL
             etCloudAsrUrl.setText(cloudAsrUrl);
             
-            // Set FunASR URL
             etFunasrUrl.setText(funAsrUrl);
             if (funAsrMode.equals("2pass")) {
                 rbFunasrMode2pass.setChecked(true);
@@ -201,21 +184,22 @@ public class SettingsManager {
                 rbFunasrModeOffline.setChecked(true);
             }
             
-            // Set WebView settings
             cbAutoSend.setChecked(autoSendEnabled);
             
-            // Function to update UI visibility based on ASR backend selection
+            if (Constants.AUDIO_PROCESSOR_NOISE_REDUCTION.equals(audioProcessor)) {
+                rbProcessorNoiseReduction.setChecked(true);
+            } else {
+                rbProcessorDirect.setChecked(true);
+            }
+            
             java.util.function.Consumer<String> updateBackendUI = (backend) -> {
-                boolean isLocal = backend.equals(Constants.ASR_BACKEND_LOCAL);
                 boolean isCloudHttp = backend.equals(Constants.ASR_BACKEND_CLOUD_HTTP);
                 boolean isFunasrWs = backend.equals(Constants.ASR_BACKEND_FUNASR_WS);
                 
-                // Update Cloud ASR config visibility
                 int cloudVisibility = isCloudHttp ? View.VISIBLE : View.GONE;
                 tvCloudAsrConfigLabel.setVisibility(cloudVisibility);
                 etCloudAsrUrl.setVisibility(cloudVisibility);
                 
-                // Update FunASR config visibility
                 int funasrVisibility = isFunasrWs ? View.VISIBLE : View.GONE;
                 tvFunasrConfigLabel.setVisibility(funasrVisibility);
                 etFunasrUrl.setVisibility(funasrVisibility);
@@ -223,12 +207,10 @@ public class SettingsManager {
                 rgFunasrMode.setVisibility(funasrVisibility);
             };
             
-            // Apply initial state
             updateBackendUI.accept(asrBackend);
             
-            // Listen for ASR backend changes
             rgAsrBackend.setOnCheckedChangeListener((group, checkedId) -> {
-                String backend = Constants.ASR_BACKEND_LOCAL;
+                String backend = Constants.ASR_BACKEND_FUNASR_WS;
                 if (checkedId == R.id.rb_asr_cloud_http) {
                     backend = Constants.ASR_BACKEND_CLOUD_HTTP;
                 } else if (checkedId == R.id.rb_asr_funasr_ws) {
@@ -250,52 +232,49 @@ public class SettingsManager {
                          port = Constants.DEFAULT_OPENCODE_PORT;
                      }
                     
-                    // Determine selected ASR backend
-                    String newAsrBackend = Constants.ASR_BACKEND_LOCAL;
+                    String newAsrBackend = Constants.ASR_BACKEND_FUNASR_WS;
                     if (rbAsrCloudHttp.isChecked()) {
                         newAsrBackend = Constants.ASR_BACKEND_CLOUD_HTTP;
                     } else if (rbAsrFunasrWs.isChecked()) {
                         newAsrBackend = Constants.ASR_BACKEND_FUNASR_WS;
                     }
                     
-                    // Get URLs from input fields
                     String newCloudAsrUrl = etCloudAsrUrl.getText().toString().trim();
                     String newFunAsrUrl = etFunasrUrl.getText().toString().trim();
                     String newFunAsrMode = rbFunasrMode2pass.isChecked() ? "2pass" : "offline";
                     
-                    // Parse URLs to get host and port for backward compatibility
+                    String newAudioProcessor = Constants.AUDIO_PROCESSOR_DIRECT;
+                    if (rbProcessorNoiseReduction.isChecked()) {
+                        newAudioProcessor = Constants.AUDIO_PROCESSOR_NOISE_REDUCTION;
+                    }
+                    
                     String[] cloudAsrParts = UrlUtils.parseAsrUrl(newCloudAsrUrl, "http");
                     String[] funAsrParts = UrlUtils.parseAsrUrl(newFunAsrUrl, "ws");
 
-                     // Get username and password
                      String username = etUsername.getText().toString().trim();
                      String password = etPassword.getText().toString().trim();
                      boolean autoSendOn = cbAutoSend.isChecked();
                      
-                     // Create settings data
                      SettingsData settings = new SettingsData();
                      settings.opencodeIp = ip;
                      settings.opencodePort = port;
                      settings.opencodeUsername = username;
                      settings.opencodePassword = password;
-                     settings.whisperModel = Constants.DEFAULT_WHISPER_MODEL;
-                     settings.autoTestOnModelChange = false;
                      settings.autoSend = autoSendOn;
                      settings.asrBackend = newAsrBackend;
                     settings.cloudAsrUrl = newCloudAsrUrl;
                     settings.funAsrUrl = newFunAsrUrl;
-                    settings.funAsrMode = newFunAsrMode;
+settings.funAsrMode = newFunAsrMode;
+                    settings.audioProcessor = newAudioProcessor;
                     settings.cloudAsrHost = cloudAsrParts[0];
                     settings.cloudAsrPort = Integer.parseInt(cloudAsrParts[1]);
                     settings.funAsrHost = funAsrParts[0];
                     settings.funAsrPort = Integer.parseInt(funAsrParts[1]);
                     
-                    // Save settings via callback
                     if (callback != null) {
                         callback.onSettingsSaved(settings);
                     }
                     
-                    // Show toast
                     mainHandler.post(() -> Toast.makeText(activity, "设置已保存", Toast.LENGTH_SHORT).show());
                 })
                 .setNegativeButton("取消", null)
@@ -309,7 +288,6 @@ public class SettingsManager {
         editor.putInt("opencode_port", settings.opencodePort);
         editor.putString("opencode_username", settings.opencodeUsername);
         editor.putString("opencode_password", settings.opencodePassword);
-        editor.putBoolean("auto_test_on_model_change", settings.autoTestOnModelChange);
         editor.putString("asr_backend", settings.asrBackend);
         editor.putString("cloud_asr_url", settings.cloudAsrUrl);
         editor.putString("cloud_asr_ip", settings.cloudAsrHost);
@@ -318,10 +296,10 @@ public class SettingsManager {
         editor.putString("funasr_host", settings.funAsrHost);
         editor.putInt("funasr_port", settings.funAsrPort);
         editor.putString("funasr_mode", settings.funAsrMode);
+        editor.putString("audio_processor", settings.audioProcessor);
         editor.putBoolean(Constants.KEY_AUTO_SEND, settings.autoSend);
         editor.apply();
         
-        // Update managers with new settings
         if (cloudAsrManager != null) {
             cloudAsrManager.updateSettings(settings.cloudAsrHost, settings.cloudAsrPort);
         }

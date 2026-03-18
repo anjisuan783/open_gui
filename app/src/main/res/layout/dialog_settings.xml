@@ -223,5 +223,52 @@
 
     </RadioGroup>
 
+    <!-- Separator -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="录音处理模式"
+        android:textSize="14sp"
+        android:textColor="@android:color/black"
+        android:layout_marginBottom="8dp" />
+
+    <RadioGroup
+        android:id="@+id/rg_audio_processor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="8dp">
+
+        <RadioButton
+            android:id="@+id/rb_processor_direct"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="直录模式 (推荐⭐ 无处理，速度快)" />
+
+        <RadioButton
+            android:id="@+id/rb_processor_noise_reduction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="降噪模式 (去除背景噪音)" />
+
+    </RadioGroup>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="降噪模式可提升嘈杂环境下的识别准确率"
+        android:textSize="12sp"
+        android:textColor="@android:color/darker_gray"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="8dp" />
+
     </LinearLayout>
 </ScrollView>

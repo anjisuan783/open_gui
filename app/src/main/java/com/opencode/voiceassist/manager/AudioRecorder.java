@@ -26,11 +26,17 @@ public class AudioRecorder {
     private AudioRecord audioRecord;
     private ExecutorService executor;
     private volatile boolean isRecording = false;
-    private volatile boolean isReady = true;  // Track if ready for next recording
+    private volatile boolean isReady = true;
     private File currentWavFile;
+    
+    private AudioProcessor audioProcessor;
     
     public AudioRecorder() {
         this.executor = Executors.newSingleThreadExecutor();
+    }
+    
+    public void setAudioProcessor(AudioProcessor processor) {
+        this.audioProcessor = processor;
     }
     
     @SuppressLint("MissingPermission")
@@ -50,7 +56,6 @@ public class AudioRecorder {
             final long retryDelayMs = 100;
 
             try {
-                // Retry AudioRecord initialization
                 while (retryCount < maxRetries) {
                     audioRecord = new AudioRecord(
                         MediaRecorder.AudioSource.MIC,
@@ -60,13 +65,11 @@ public class AudioRecorder {
                         BUFFER_SIZE
                     );
 
-                    // Check if AudioRecord was properly initialized
                     if (audioRecord.getState() == AudioRecord.STATE_INITIALIZED) {
                         Log.d(TAG, "AudioRecord initialized successfully on attempt " + (retryCount + 1));
                         break;
                     }
 
-                    // Initialization failed, release and retry
                     Log.w(TAG, "AudioRecord initialization failed on attempt " + (retryCount + 1) + ", retrying...");
                     audioRecord.release();
                     audioRecord = null;
@@ -82,7 +85,6 @@ public class AudioRecorder {
                     }
                 }
 
-                // Check if we successfully initialized after retries
                 if (audioRecord == null || audioRecord.getState() != AudioRecord.STATE_INITIALIZED) {
                     Log.e(TAG, "AudioRecord initialization failed after " + maxRetries + " attempts");
                     isRecording = false;
@@ -95,7 +97,6 @@ public class AudioRecorder {
                 FileOutputStream fos = new FileOutputStream(wavFile);
                 byte[] buffer = new byte[BUFFER_SIZE];
                 
-                // Write WAV header placeholder
                 writeWavHeader(fos, 0);
                 
                 int totalAudioLen = 0;
@@ -105,13 +106,22 @@ public class AudioRecorder {
                     if (read > 0) {
                         fos.write(buffer, 0, read);
                         totalAudioLen += read;
+                        
+                        if (audioProcessor != null) {
+                            byte[] chunk = new byte[read];
+                            System.arraycopy(buffer, 0, chunk, 0, read);
+                            audioProcessor.processAudio(chunk);
+                        }
                     }
                 }
                 
                 fos.close();
                 
-                // Update WAV header with actual data size
                 updateWavHeader(wavFile, totalAudioLen);
+                
+                if (audioProcessor != null) {
+                    audioProcessor.flush();
+                }
                 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -152,7 +162,6 @@ public class AudioRecorder {
         
         byte[] header = new byte[44];
         
-        // RIFF/WAVE header
         header[0] = 'R'; header[1] = 'I'; header[2] = 'F'; header[3] = 'F';
         header[4] = (byte) (totalDataLen & 0xff);
         header[5] = (byte) ((totalDataLen >> 8) & 0xff);
@@ -160,10 +169,9 @@ public class AudioRecorder {
         header[7] = (byte) ((totalDataLen >> 24) & 0xff);
         header[8] = 'W'; header[9] = 'A'; header[10] = 'V'; header[11] = 'E';
         
-        // 'fmt ' chunk
         header[12] = 'f'; header[13] = 'm'; header[14] = 't'; header[15] = ' ';
         header[16] = 16; header[17] = 0; header[18] = 0; header[19] = 0;
-        header[20] = 1; header[21] = 0; // PCM
+        header[20] = 1; header[21] = 0;
         header[22] = (byte) channels; header[23] = 0;
         header[24] = (byte) (longSampleRate & 0xff);
         header[25] = (byte) ((longSampleRate >> 8) & 0xff);
@@ -176,7 +184,6 @@ public class AudioRecorder {
         header[32] = (byte) (2 * 16 / 8); header[33] = 0;
         header[34] = 16; header[35] = 0;
         
-        // data chunk
         header[36] = 'd'; header[37] = 'a'; header[38] = 't'; header[39] = 'a';
         header[40] = (byte) (totalAudioLen & 0xff);
         header[41] = (byte) ((totalAudioLen >> 8) & 0xff);
@@ -197,6 +204,9 @@ public class AudioRecorder {
     
     public void release() {
         stopRecording();
+        if (audioProcessor != null) {
+            audioProcessor.release();
+        }
         executor.shutdown();
     }
     

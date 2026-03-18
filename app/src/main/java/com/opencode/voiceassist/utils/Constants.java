@@ -2,44 +2,9 @@ package com.opencode.voiceassist.utils;
 
 public class Constants {
     
-    // Whisper Model Configuration - Available models for selection
-    public static final String[] WHISPER_MODEL_FILENAMES = {
-        "ggml-tiny.en.bin",           // Original model (77MB, best accuracy)
-        "ggml-tiny.en-q8_0.bin",      // INT8 quantized (42MB, faster, good accuracy)
-        "ggml-tiny.en-q5_1.bin"       // Q5_1 quantized (31MB, fastest, good balance)
-    };
-    
-    public static final String[] WHISPER_MODEL_NAMES = {
-        "原始模型 (77MB, 精度最高, RTF~2.5x)",
-        "INT8量化模型 (42MB, 推荐⭐ RTF~1.9x)",
-        "Q5_1量化模型 (32MB, RTF~2.2x)"
-    };
-
-    // Default model (Q8_0 for best performance on Snapdragon 8+ Gen 1)
-    public static final String DEFAULT_WHISPER_MODEL = "ggml-tiny.en-q8_0.bin";
-    
-    // Model Multi-Source Download URLs (No VPN required, prioritized)
-    // Priority 1: HuggingFace China mirror (hf-mirror.com) - reliable in China
-    public static final String WHISPER_MODEL_URL1 = "https://hf-mirror.com/ggerganov/whisper.cpp/resolve/main/ggml-tiny.en.bin";
-    // Priority 2: whisper.cpp GitHub official repo (may be inaccessible in China)
-    public static final String WHISPER_MODEL_URL2 = "https://raw.githubusercontent.com/ggerganov/whisper.cpp/master/models/ggml-tiny.en.bin";
-    // Priority 3: Open source CDN mirror (may be inaccessible)
-    public static final String WHISPER_MODEL_URL3 = "https://cdn.jsdelivr.net/gh/ggerganov/whisper.cpp@master/models/ggml-tiny.en.bin";
-    
-    // Multi-source download configuration (no VPN adaptation)
-    public static final int MODEL_SINGLE_TIMEOUT = 15; // Single source timeout (s), short timeout to avoid waiting
-    public static final String[] WHISPER_MODEL_URLS = {WHISPER_MODEL_URL1, WHISPER_MODEL_URL2, WHISPER_MODEL_URL3};
-    
-    // Skip download prompt
-    public static final String TOAST_MODEL_DOWNLOAD_SKIP = "模型下载失败，已跳过！请手动放置模型后重启APP";
-    
-    // Asset model error
-    public static final String TOAST_ASSET_MODEL_ERROR = "APK中模型文件缺失，请重新安装应用或手动放置模型文件";
-    
     // OpenCode Default Configuration
-    // Note: Change this to your computer's IP address on the same network
     public static final String DEFAULT_OPENCODE_IP = "127.0.0.1";
-    public static final int DEFAULT_OPENCODE_PORT = 4096; // Backend service port
+    public static final int DEFAULT_OPENCODE_PORT = 4096;
     public static final String DEFAULT_OPENCODE_USERNAME = "opencode_linaro_dev";
     public static final String DEFAULT_OPENCODE_PASSWORD = "abcd@1234";
     
@@ -52,21 +17,25 @@ public class Constants {
     public static final long TOAST_DURATION_LONG = 3000;
 
     // Cloud ASR Configuration
-    public static final String DEFAULT_CLOUD_ASR_URL = "http://192.168.1.100:8080";
-    public static final String DEFAULT_CLOUD_ASR_IP = "192.168.1.100";
-    public static final int DEFAULT_CLOUD_ASR_PORT = 8080;
+    public static final String DEFAULT_CLOUD_ASR_URL = "http://192.168.66.79:10095";
+    public static final String DEFAULT_CLOUD_ASR_IP = "192.168.66.79";
+    public static final int DEFAULT_CLOUD_ASR_PORT = 10095;
     
     // FunASR WebSocket Configuration
     public static final String DEFAULT_FUNASR_URL = "ws://67.0.0.5:10095";
     public static final String DEFAULT_FUNASR_HOST = "67.0.0.5";
     public static final int DEFAULT_FUNASR_PORT = 10095;
-    public static final String DEFAULT_FUNASR_MODE = "2pass"; // "offline" or "2pass"
+    public static final String DEFAULT_FUNASR_MODE = "2pass";
     
     // ASR Backend Types
-    public static final String ASR_BACKEND_LOCAL = "local";
     public static final String ASR_BACKEND_CLOUD_HTTP = "cloud_http";
     public static final String ASR_BACKEND_FUNASR_WS = "funasr_ws";
-    public static final String DEFAULT_ASR_BACKEND = ASR_BACKEND_CLOUD_HTTP;
+    public static final String DEFAULT_ASR_BACKEND = ASR_BACKEND_FUNASR_WS;
+    
+    // Audio Processor Types
+    public static final String AUDIO_PROCESSOR_DIRECT = "direct";
+    public static final String AUDIO_PROCESSOR_NOISE_REDUCTION = "noise_reduction";
+    public static final String DEFAULT_AUDIO_PROCESSOR = AUDIO_PROCESSOR_DIRECT;
     
     // WebView Settings
     public static final String KEY_AUTO_SEND = "auto_send";
